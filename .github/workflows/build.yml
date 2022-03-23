@@ -98,6 +98,6 @@ jobs:
       - name: Unit Test
         shell: bash
         run: |
-          export PHASE_DIR="$(pwd)/../../phase_install/install"
+          export PHASE_DIR="$(pwd)/phase_install/install"
           cd build/lib
           python -m pytest ../../test/src/
