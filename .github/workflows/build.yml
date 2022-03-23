@@ -1,0 +1,91 @@
+name: Build
+
+on:
+  # push:
+  #   branches: [ main ]
+  # Allow manual triggering
+  workflow_dispatch:
+
+env:
+  PHASE_VERSION: v0.0.20
+  PHASE_REPO: i3drobotics/phase
+
+jobs:
+  # Build / test
+  build-ubuntu:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
+
+    steps:
+      - uses: actions/checkout@v2
+      # Setup python
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      # Install Phase library
+      - name: Download Phase
+        uses: robinraju/release-downloader@v1.3
+        with:
+          repository: ${{ env.PHASE_REPO }}
+          tag: ${{ env.PHASE_VERSION }}
+          fileName: phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
+      - name: Install Phase
+        shell: bash
+        run: |
+          sudo apt install -y -f ./phase-v0.0.20-ubuntu-20.04-x86_64.deb
+      # Build
+      - name: Build
+        shell: bash
+        run: |
+          mkdir -p build && cd build
+          sudo apt-get update && cmake -DPhase_DIR="/opt/i3dr/phase/lib/cmake" ..
+          make -j$(nproc)
+      # Unit Test
+      - name: Unit Test
+        shell: bash
+        run: |
+          cd build/lib
+          python3 -m pytest ../../test/src/
+
+# Build / test
+  build-windows:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-2019]
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
+
+    steps:
+      - uses: actions/checkout@v2
+      # Setup python
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Download Phase
+        uses: robinraju/release-downloader@v1.3
+        with:
+          repository: ${{ env.PHASE_REPO }}
+          tag: ${{ env.PHASE_VERSION }}
+          fileName: phase-${{ env.PHASE_VERSION }}-windows-x86_64.exe
+      - name: Install Phase
+        shell: bash
+        run: |
+          ./phase-v0.0.20-windows-x86_64.exe /VERYSILENT
+      # Build
+      - name: Build
+        shell: bash
+        run: |
+          mkdir -p build && cd build
+          cmake -G "Visual Studio 16 2019" -A x64 -DPhase_DIR="C:\Program Files\i3DR\Phase\lib\cmake" ..
+          cmake --build . --config Release
+      # Unit Test
+      - name: Unit Test
+        shell: bash
+        run: |
+          cd build/lib
+          python3 -m pytest ../../test/src/

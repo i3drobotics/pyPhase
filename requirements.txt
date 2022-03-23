@@ -1,0 +1,10 @@
+numpy
+opencv-python
+sphinx
+sphinx-rtd-theme
+setuptools
+wheel
+twine
+flake8
+pytest
+pybind11-stubgen
