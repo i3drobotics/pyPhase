@@ -36,7 +36,7 @@ jobs:
       - name: Install Phase
         shell: bash
         run: |
-          sudo apt install -y -f ./phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
+          sudo apt update && sudo apt install -y -f ./phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
       # Build
       - name: Build
         shell: bash
