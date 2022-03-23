@@ -1,8 +1,8 @@
 name: Build
 
 on:
-  # push:
-  #   branches: [ main ]
+  push:
+    branches: [ main ]
   # Allow manual triggering
   workflow_dispatch:
 
@@ -36,7 +36,7 @@ jobs:
       - name: Install Phase
         shell: bash
         run: |
-          sudo apt install -y -f ./phase-v0.0.20-ubuntu-20.04-x86_64.deb
+          sudo apt install -y -f ./phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
       # Build
       - name: Build
         shell: bash
@@ -75,7 +75,7 @@ jobs:
       - name: Install Phase
         shell: bash
         run: |
-          ./phase-v0.0.20-windows-x86_64.exe /VERYSILENT
+          ./phase-${{ env.PHASE_VERSION }}-windows-x86_64.exe /VERYSILENT
       # Build
       - name: Build
         shell: bash
