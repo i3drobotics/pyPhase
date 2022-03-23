@@ -45,7 +45,6 @@ def find_phase():
                 os.add_dll_directory(p)
             else:
                 os.environ['PATH'] = p + os.pathsep + os.environ['PATH']
-                # sys.path.insert(1, p)
     if sys.platform == "linux" or sys.platform == "linux2":
         pass
 
