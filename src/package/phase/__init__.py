@@ -44,7 +44,8 @@ def find_phase():
             if (sys.version_info.major == 3 and sys.version_info.minor >= 8):
                 os.add_dll_directory(p)
             else:
-                sys.path.insert(1, p)
+                os.environ['PATH'] = p + os.pathsep + os.environ['PATH']
+                # sys.path.insert(1, p)
     if sys.platform == "linux" or sys.platform == "linux2":
         pass
 
