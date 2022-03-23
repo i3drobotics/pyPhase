@@ -10,6 +10,8 @@
 """
 
 import os
+import cv2
+import numpy as np
 from phase.pyphase.stereocamera import UVCStereoCamera
 from phase.pyphase.types import CameraDeviceInfo
 from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
@@ -35,20 +37,25 @@ def test_UVCStereoCamera():
 
 
 def test_UVCStereoCamera_connect_virtual_onInit():
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    test_folder = os.path.join(script_path, "..", "..", ".phase_test")
+    left_image_file = os.path.join(test_folder, "left.png")
+    right_image_file = os.path.join(test_folder, "right.png")
+
+    if not os.path.exists(test_folder):
+        os.makedirs(test_folder)
+
+    np_left_image = np.zeros((2048, 2448), dtype=np.uint8)
+    np_right_image = np.zeros((2048, 2448), dtype=np.uint8)
+    cv2.imwrite(left_image_file, np_left_image)
+    cv2.imwrite(right_image_file, np_right_image)
+
     device_info = CameraDeviceInfo(
         "0", "0", "virtualuvc",
         CameraDeviceType.DEVICE_TYPE_GENERIC_UVC,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = UVCStereoCamera(device_info)
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    python_wrapper_proj_path = os.path.join(script_path, "../../../")
-    phase_proj_path = os.path.join(python_wrapper_proj_path, "../../")
-    resource_folder = os.path.join(phase_proj_path, "resources")
-    left_image_file = os.path.join(
-        resource_folder, "test/stereotheatresim/left.png")
-    right_image_file = os.path.join(
-        resource_folder, "test/stereotheatresim/right.png")
     cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
     if connected:

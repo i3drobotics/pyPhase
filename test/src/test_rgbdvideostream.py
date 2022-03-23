@@ -20,26 +20,70 @@ from phase.pyphase.stereomatcher import StereoParams
 
 def test_RGBDVideoStream():
     script_path = os.path.dirname(os.path.realpath(__file__))
-    python_wrapper_proj_path = os.path.join(script_path, "../../")
-    phase_proj_path = os.path.join(python_wrapper_proj_path, "../../")
-    resource_folder = os.path.join(phase_proj_path, "resources")
-    out_folder = os.path.join(python_wrapper_proj_path, "out")
-    camera_name = "stereotheatresim"
-    cal_type = "ros"
-    cam_folder = os.path.join(resource_folder, "test", camera_name)
-    left_yaml = os.path.join(cam_folder, cal_type, "left.yaml")
-    right_yaml = os.path.join(cam_folder, cal_type, "right.yaml")
-    left_image_file = os.path.join(cam_folder, "left.png")
-    right_image_file = os.path.join(cam_folder, "right.png")
-    out_rgb_video = os.path.join(out_folder, "rgb.mp4")
-    out_depth_video = os.path.join(out_folder, "depth.avi")
+    test_folder = os.path.join(script_path, "..", ".phase_test")
+    left_yaml = os.path.join(test_folder, "left.yaml")
+    right_yaml = os.path.join(test_folder, "right.yaml")
+    out_rgb_video = os.path.join(test_folder, "rgb.mp4")
+    out_depth_video = os.path.join(test_folder, "depth.avi")
+
+    if not os.path.exists(test_folder):
+        os.makedirs(test_folder)
+
+    print("Generating test data...")
+    # Create calibration files
+    left_yaml_data = \
+        "image_width: 2448\n" \
+        "image_height: 2048\n" \
+        "camera_name: leftCamera\n" \
+        "camera_matrix:\n" \
+        "   rows: 3\n" \
+        "   cols: 3\n" \
+        "   data: [ 3.4782608695652175e+03, 0., 1224., 0., 3.4782608695652175e+03, 1024., 0., 0., 1. ]\n" \
+        "distortion_model: plumb_bob\n" \
+        "distortion_coefficients:\n" \
+        "   rows: 1\n" \
+        "   cols: 5\n" \
+        "   data: [ 0., 0., 0., 0., 0. ]\n" \
+        "rectification_matrix:\n" \
+        "   rows: 3\n" \
+        "   cols: 3\n" \
+        "   data: [1., 0., 0., 0., 1., 0., 0., 0., 1.]\n" \
+        "projection_matrix:\n" \
+        "   rows: 3\n" \
+        "   cols: 4\n" \
+        "   data: [ 3.4782608695652175e+03, 0., 1224., 0., 0., 3.4782608695652175e+03, 1024., 0., 0., 0., 1., 0. ]\n"
+    right_yaml_data = \
+        "image_width: 2448\n" \
+        "image_height: 2048\n" \
+        "camera_name: rightCamera\n" \
+        "camera_matrix:\n" \
+        "   rows: 3\n" \
+        "   cols: 3\n" \
+        "   data: [ 3.4782608695652175e+03, 0., 1224., 0., 3.4782608695652175e+03, 1024., 0., 0., 1. ]\n" \
+        "distortion_model: plumb_bob\n" \
+        "distortion_coefficients:\n" \
+        "   rows: 1\n" \
+        "   cols: 5\n" \
+        "   data: [ 0., 0., 0., 0., 0. ]\n" \
+        "rectification_matrix:\n" \
+        "   rows: 3\n" \
+        "   cols: 3\n" \
+        "   data: [1., 0., 0., 0., 1., 0., 0., 0., 1.]\n" \
+        "projection_matrix:\n" \
+        "   rows: 3\n" \
+        "   cols: 4\n" \
+        "   data: [ 3.4782608695652175e+03, 0., 1224., -3.4782608695652175e+02, 0., 3.4782608695652175e+03, 1024., 0., 0., 0., 1., 0. ]\n"
+
+    with open(left_yaml, "w+") as f:
+        f.writelines(left_yaml_data)
+    with open(right_yaml, "w+") as f:
+        f.writelines(right_yaml_data)
+
+    # Create stereo image pair
+    np_left_image = np.zeros((2048, 2448, 3), dtype=np.uint8)
+    np_right_image = np.zeros((2048, 2448, 3), dtype=np.uint8)
+
     num_of_frames = 1
-
-    if not os.path.exists(out_folder):
-        os.makedirs(out_folder)
-
-    np_left_image = cv2.imread(left_image_file, cv2.IMREAD_UNCHANGED)
-    np_right_image = cv2.imread(right_image_file, cv2.IMREAD_UNCHANGED)
 
     calibration = StereoCameraCalibration.calibrationFromYAML(
         left_yaml, right_yaml)

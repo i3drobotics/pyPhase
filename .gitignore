@@ -1,1 +1,7 @@
 *__pycache__*
+.pytest_cache
+.vscode
+build
+version.txt
+phase_install
+test/.phase_test

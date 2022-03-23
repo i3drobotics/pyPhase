@@ -79,9 +79,9 @@ jobs:
           tag: ${{ env.PHASE_VERSION }}
           fileName: phase-${{ env.PHASE_VERSION }}-windows-x86_64.zip
       - name: Install Phase
-        shell: bash
+        shell: powershell
         run: |
-          mkdir phase_install && unzip -d phase_install phase-${{ env.PHASE_VERSION }}-windows-x86_64.zip
+          Expand-Archive -Path phase-${{ env.PHASE_VERSION }}-windows-x86_64.zip -DestinationPath phase_install
       # Install python packages
       - name: Python requirements
         shell: bash
@@ -92,11 +92,12 @@ jobs:
         shell: bash
         run: |
           mkdir -p build && cd build
-          cmake -G "Visual Studio 16 2019" -A x64 -DPhase_DIR="phase_install/lib/cmake" ..
+          cmake -G "Visual Studio 16 2019" -A x64 -DPhase_DIR="./phase_install/install/lib/cmake" ..
           cmake --build . --config Release
       # Unit Test
       - name: Unit Test
         shell: bash
         run: |
+          export PHASE_DIR="$(pwd)/../../phase_install/install"
           cd build/lib
-          python3 -m pytest ../../test/src/
+          python -m pytest ../../test/src/

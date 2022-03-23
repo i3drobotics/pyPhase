@@ -6,12 +6,12 @@ endif ()
 
 # Create temporary version file if it does not exist
 # Automatic versioning is handelled by GitHub workflow so 0.0.0 is used when running locally
-if(NOT EXISTS "${PROJECT_SOURCE_DIR}/version.txt")
-    file(WRITE "${PROJECT_SOURCE_DIR}/version.txt" "0.0.0")
+if(NOT EXISTS "${CMAKE_SOURCE_DIR}/version.txt")
+    file(WRITE "${CMAKE_SOURCE_DIR}/version.txt" "0.0.0")
 endif()
 
 # Read version from file
-file(READ "${PROJECT_SOURCE_DIR}/version.txt" ver)
+file(READ "${CMAKE_SOURCE_DIR}/version.txt" ver)
 string(REGEX REPLACE "(\r?\n)+" "" ver ${ver}) # remove newlines
 message("version: ${ver}")
 
