@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examples &mdash; pyPhase 0.0.1
+ documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Module" href="autocode.html" />
+    <link rel="prev" title="Install" href="installing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> pyPhase
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">pyPhase</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Install</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#read-and-process-stereo-camera-data">Read and process stereo camera data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#read-and-process-stereo-data-from-file">Read and process stereo data from file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#convert-between-mat-and-numpy">Convert between Mat and numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#save-load-rgbd-video">Save / Load RGBD Video</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="autocode.html">Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyPhase</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Examples</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/examples.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline"></a></h1>
+<section id="read-and-process-stereo-camera-data">
+<h2>Read and process stereo camera data<a class="headerlink" href="#read-and-process-stereo-camera-data" title="Permalink to this headline"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">from</span> <span class="nn">phase.pyphase</span> <span class="kn">import</span> <span class="n">StereoVision</span>
+<span class="kn">from</span> <span class="nn">phase.pyphase.types</span> <span class="kn">import</span> <span class="n">CameraDeviceType</span><span class="p">,</span> <span class="n">CameraInterfaceType</span>
+<span class="kn">from</span> <span class="nn">phase.pyphase.types</span> <span class="kn">import</span> <span class="n">CameraDeviceInfo</span><span class="p">,</span> <span class="n">StereoMatcherType</span>
+<span class="kn">from</span> <span class="nn">phase.pyphase.stereomatcher</span> <span class="kn">import</span> <span class="n">StereoI3DRSGM</span>
+<span class="kn">from</span> <span class="nn">phase.pyphase</span> <span class="kn">import</span> <span class="n">scaleImage</span><span class="p">,</span> <span class="n">normaliseDisparity</span>
+
+<span class="n">i3drsgm</span> <span class="o">=</span> <span class="n">StereoI3DRSGM</span><span class="p">()</span>
+<span class="n">license_valid</span> <span class="o">=</span> <span class="n">i3drsgm</span><span class="o">.</span><span class="n">isLicenseValid</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">license_valid</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;I3DRSGM license accepted&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Missing or invalid I3DRSGM license&quot;</span><span class="p">)</span>
+
+<span class="c1"># Define camera info</span>
+<span class="n">camera_name</span> <span class="o">=</span> <span class="s2">&quot;titania&quot;</span>
+<span class="n">left_serial</span> <span class="o">=</span> <span class="s2">&quot;40091829&quot;</span>
+<span class="n">right_serial</span> <span class="o">=</span> <span class="s2">&quot;40098273&quot;</span>
+<span class="n">device_type</span> <span class="o">=</span> <span class="n">CameraDeviceType</span><span class="o">.</span><span class="n">DEVICE_TYPE_TITANIA</span>
+<span class="n">interface_type</span> <span class="o">=</span> <span class="n">CameraInterfaceType</span><span class="o">.</span><span class="n">INTERFACE_TYPE_USB</span>
+
+<span class="c1"># Define calibration files</span>
+<span class="n">left_yaml</span> <span class="o">=</span> <span class="s2">&quot;left.yaml&quot;</span>
+<span class="n">right_yaml</span> <span class="o">=</span> <span class="s2">&quot;right.yaml&quot;</span>
+
+<span class="n">downsample_factor</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">display_downsample</span> <span class="o">=</span> <span class="mf">0.25</span>
+<span class="n">capture_count</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="n">device_info</span> <span class="o">=</span> <span class="n">CameraDeviceInfo</span><span class="p">(</span>
+    <span class="n">left_serial</span><span class="p">,</span> <span class="n">right_serial</span><span class="p">,</span> <span class="n">camera_name</span><span class="p">,</span>
+    <span class="n">device_type</span><span class="p">,</span>
+    <span class="n">interface_type</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="n">license_valid</span><span class="p">:</span>
+    <span class="n">matcher_type</span> <span class="o">=</span> <span class="n">StereoMatcherType</span><span class="o">.</span><span class="n">STEREO_MATCHER_I3DRSGM</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">matcher_type</span> <span class="o">=</span> <span class="n">StereoMatcherType</span><span class="o">.</span><span class="n">STEREO_MATCHER_BM</span>
+
+<span class="n">sv</span> <span class="o">=</span> <span class="n">StereoVision</span><span class="p">(</span>
+    <span class="n">device_info</span><span class="p">,</span> <span class="n">matcher_type</span><span class="p">,</span> <span class="n">left_yaml</span><span class="p">,</span> <span class="n">right_yaml</span>
+<span class="p">)</span>
+<span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">sv</span><span class="o">.</span><span class="n">getCalibration</span><span class="p">()</span><span class="o">.</span><span class="n">isValid</span><span class="p">()):</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Failed to load calibration&quot;</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;StereoVision instance created&quot;</span><span class="p">)</span>
+
+<span class="n">sv</span><span class="o">.</span><span class="n">setDownsampleFactor</span><span class="p">(</span><span class="n">downsample_factor</span><span class="p">)</span>
+<span class="n">matcher</span> <span class="o">=</span> <span class="n">sv</span><span class="o">.</span><span class="n">getMatcher</span><span class="p">()</span>
+<span class="n">matcher</span><span class="o">.</span><span class="n">setWindowSize</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">matcher_type</span> <span class="o">==</span> <span class="n">StereoMatcherType</span><span class="o">.</span><span class="n">STEREO_MATCHER_I3DRSGM</span><span class="p">:</span>
+    <span class="c1"># matcher.setMinDisparity(0)</span>
+    <span class="n">matcher</span><span class="o">.</span><span class="n">setNumDisparities</span><span class="p">(</span><span class="mi">49</span><span class="p">)</span>
+    <span class="n">matcher</span><span class="o">.</span><span class="n">setSpeckleMaxSize</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="n">matcher</span><span class="o">.</span><span class="n">setSpeckleMaxDiff</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1"># matcher.enableInterpolation(True)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Connecting to camera...&quot;</span><span class="p">)</span>
+<span class="n">ret</span> <span class="o">=</span> <span class="n">sv</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Camera connected: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ret</span><span class="p">))</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">ret</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Running non-threaded camera capture...&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">capture_count</span><span class="p">):</span>
+        <span class="n">read_result</span> <span class="o">=</span> <span class="n">sv</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">read_result</span><span class="o">.</span><span class="n">valid</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Stereo result received&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Framerate: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sv</span><span class="o">.</span><span class="n">getCamera</span><span class="p">()</span><span class="o">.</span><span class="n">getFrameRate</span><span class="p">()))</span>
+            <span class="k">if</span> <span class="n">display_downsample</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span>
+                <span class="n">img_left</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span>
+                    <span class="n">read_result</span><span class="o">.</span><span class="n">left_image</span><span class="p">,</span> <span class="n">display_downsample</span><span class="p">)</span>
+                <span class="n">img_right</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span>
+                    <span class="n">read_result</span><span class="o">.</span><span class="n">right_image</span><span class="p">,</span> <span class="n">display_downsample</span><span class="p">)</span>
+                <span class="n">img_disp</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span>
+                    <span class="n">normaliseDisparity</span><span class="p">(</span>
+                        <span class="n">read_result</span><span class="o">.</span><span class="n">disparity</span><span class="p">),</span> <span class="n">display_downsample</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">img_left</span> <span class="o">=</span> <span class="n">read_result</span><span class="o">.</span><span class="n">left_image</span>
+                <span class="n">img_right</span> <span class="o">=</span> <span class="n">read_result</span><span class="o">.</span><span class="n">right_image</span>
+                <span class="n">img_disp</span> <span class="o">=</span> <span class="n">normaliseDisparity</span><span class="p">(</span><span class="n">read_result</span><span class="o">.</span><span class="n">disparity</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">img_left</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">img_right</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;disparity&quot;</span><span class="p">,</span> <span class="n">img_disp</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sv</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Failed to read stereo result&quot;</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Running split threaded camera capture...&quot;</span><span class="p">)</span>
+    <span class="n">cam</span> <span class="o">=</span> <span class="n">sv</span><span class="o">.</span><span class="n">getCamera</span><span class="p">()</span>
+    <span class="n">matcher</span> <span class="o">=</span> <span class="n">sv</span><span class="o">.</span><span class="n">getMatcher</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">capture_count</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Starting read thread...&quot;</span><span class="p">)</span>
+        <span class="n">cam</span><span class="o">.</span><span class="n">startReadThread</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Waiting for result...&quot;</span><span class="p">)</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">cam</span><span class="o">.</span><span class="n">isReadThreadRunning</span><span class="p">()):</span>
+            <span class="k">pass</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Processing read result...&quot;</span><span class="p">)</span>
+        <span class="n">cam_result</span> <span class="o">=</span> <span class="n">cam</span><span class="o">.</span><span class="n">getReadThreadResult</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">cam_result</span><span class="o">.</span><span class="n">valid</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Read result received&quot;</span><span class="p">)</span>
+            <span class="n">image_pair</span> <span class="o">=</span> <span class="n">sv</span><span class="o">.</span><span class="n">getCalibration</span><span class="p">()</span><span class="o">.</span><span class="n">rectify</span><span class="p">(</span>
+                <span class="n">cam_result</span><span class="o">.</span><span class="n">left_image</span><span class="p">,</span>
+                <span class="n">cam_result</span><span class="o">.</span><span class="n">right_image</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Starting compute thread...&quot;</span><span class="p">)</span>
+            <span class="n">matcher</span><span class="o">.</span><span class="n">startComputeThread</span><span class="p">(</span>
+                <span class="n">image_pair</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">image_pair</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Framerate: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cam</span><span class="o">.</span><span class="n">getFrameRate</span><span class="p">()))</span>
+            <span class="k">if</span> <span class="n">display_downsample</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span>
+                <span class="n">img_left</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span><span class="n">image_pair</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">display_downsample</span><span class="p">)</span>
+                <span class="n">img_right</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span><span class="n">image_pair</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">display_downsample</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">img_left</span> <span class="o">=</span> <span class="n">image_pair</span><span class="o">.</span><span class="n">left</span>
+                <span class="n">img_right</span> <span class="o">=</span> <span class="n">image_pair</span><span class="o">.</span><span class="n">right</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">img_left</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">img_right</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Waiting for compute result...&quot;</span><span class="p">)</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">matcher</span><span class="o">.</span><span class="n">isComputeThreadRunning</span><span class="p">()):</span>
+                <span class="c1"># continue camera capture while waiting for compute result</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Starting read thread...&quot;</span><span class="p">)</span>
+                <span class="n">cam</span><span class="o">.</span><span class="n">startReadThread</span><span class="p">()</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Waiting for read result...&quot;</span><span class="p">)</span>
+                <span class="k">while</span><span class="p">(</span><span class="n">cam</span><span class="o">.</span><span class="n">isReadThreadRunning</span><span class="p">()):</span>
+                    <span class="k">pass</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Processing read result...&quot;</span><span class="p">)</span>
+                <span class="n">cam_result</span> <span class="o">=</span> <span class="n">cam</span><span class="o">.</span><span class="n">getReadThreadResult</span><span class="p">()</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">cam_result</span><span class="o">.</span><span class="n">valid</span><span class="p">):</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Rectifing read result...&quot;</span><span class="p">)</span>
+                    <span class="n">image_pair</span> <span class="o">=</span> <span class="n">sv</span><span class="o">.</span><span class="n">getCalibration</span><span class="p">()</span><span class="o">.</span><span class="n">rectify</span><span class="p">(</span>
+                        <span class="n">cam_result</span><span class="o">.</span><span class="n">left_image</span><span class="p">,</span>
+                        <span class="n">cam_result</span><span class="o">.</span><span class="n">right_image</span><span class="p">)</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Displaying read result...&quot;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">display_downsample</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span>
+                        <span class="n">img_left</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span>
+                            <span class="n">image_pair</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">display_downsample</span><span class="p">)</span>
+                        <span class="n">img_right</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span>
+                            <span class="n">image_pair</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">display_downsample</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">img_left</span> <span class="o">=</span> <span class="n">image_pair</span><span class="o">.</span><span class="n">left</span>
+                        <span class="n">img_right</span> <span class="o">=</span> <span class="n">image_pair</span><span class="o">.</span><span class="n">right</span>
+                    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">img_left</span><span class="p">)</span>
+                    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">img_right</span><span class="p">)</span>
+                    <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">matcher_result</span> <span class="o">=</span> <span class="n">matcher</span><span class="o">.</span><span class="n">getComputeThreadResult</span><span class="p">()</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">matcher_result</span><span class="o">.</span><span class="n">valid</span><span class="p">):</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Compute result received&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">display_downsample</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span>
+                    <span class="n">img_disp</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span>
+                        <span class="n">normaliseDisparity</span><span class="p">(</span>
+                            <span class="n">matcher_result</span><span class="o">.</span><span class="n">disparity</span><span class="p">),</span> <span class="n">display_downsample</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">img_disp</span> <span class="o">=</span> <span class="n">normaliseDisparity</span><span class="p">(</span><span class="n">matcher_result</span><span class="o">.</span><span class="n">disparity</span><span class="p">)</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;disparity&quot;</span><span class="p">,</span> <span class="n">img_disp</span><span class="p">)</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sv</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Failed to read stereo result&quot;</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Running threaded camera capture...&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">capture_count</span><span class="p">):</span>
+        <span class="n">sv</span><span class="o">.</span><span class="n">startReadThread</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Waiting for result...&quot;</span><span class="p">)</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">sv</span><span class="o">.</span><span class="n">isReadThreadRunning</span><span class="p">()):</span>
+            <span class="k">pass</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">sv</span><span class="o">.</span><span class="n">getReadThreadResult</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">valid</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Stereo result received&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Framerate: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sv</span><span class="o">.</span><span class="n">getCamera</span><span class="p">()</span><span class="o">.</span><span class="n">getFrameRate</span><span class="p">()))</span>
+            <span class="k">if</span> <span class="n">display_downsample</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span>
+                <span class="n">img_left</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">left_image</span><span class="p">,</span> <span class="n">display_downsample</span><span class="p">)</span>
+                <span class="n">img_right</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">right_image</span><span class="p">,</span> <span class="n">display_downsample</span><span class="p">)</span>
+                <span class="n">img_disp</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span>
+                    <span class="n">normaliseDisparity</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">disparity</span><span class="p">),</span> <span class="n">display_downsample</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">img_left</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">left_image</span>
+                <span class="n">img_right</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">right_image</span>
+                <span class="n">img_disp</span> <span class="o">=</span> <span class="n">normaliseDisparity</span><span class="p">(</span><span class="n">matcher_result</span><span class="o">.</span><span class="n">disparity</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">img_left</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">img_right</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;disparity&quot;</span><span class="p">,</span> <span class="n">img_disp</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sv</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Failed to read stereo result&quot;</span><span class="p">)</span>
+    <span class="n">sv</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Camera disconnected&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="read-and-process-stereo-data-from-file">
+<h2>Read and process stereo data from file<a class="headerlink" href="#read-and-process-stereo-data-from-file" title="Permalink to this headline"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">phase.pyphase.types</span> <span class="kn">import</span> <span class="n">CameraDeviceType</span><span class="p">,</span> <span class="n">CameraInterfaceType</span>
+<span class="kn">from</span> <span class="nn">phase.pyphase.types</span> <span class="kn">import</span> <span class="n">StereoMatcherType</span><span class="p">,</span> <span class="n">MatrixUInt8</span>
+<span class="kn">from</span> <span class="nn">phase.pyphase.stereomatcher</span> <span class="kn">import</span> <span class="n">StereoI3DRSGM</span><span class="p">,</span> <span class="n">StereoParams</span>
+<span class="kn">from</span> <span class="nn">phase.pyphase.calib</span> <span class="kn">import</span> <span class="n">StereoCameraCalibration</span>
+<span class="kn">from</span> <span class="nn">phase.pyphase</span> <span class="kn">import</span> <span class="n">processStereo</span><span class="p">,</span> <span class="n">disparity2depth</span>
+
+<span class="n">license_valid</span> <span class="o">=</span> <span class="n">StereoI3DRSGM</span><span class="p">()</span><span class="o">.</span><span class="n">isLicenseValid</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">license_valid</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;I3DRSGM license accepted&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Missing or invalid I3DRSGM license&quot;</span><span class="p">)</span>
+
+<span class="c1"># Define calibration files</span>
+<span class="n">left_yaml</span> <span class="o">=</span> <span class="s2">&quot;left.yaml&quot;</span>
+<span class="n">right_yaml</span> <span class="o">=</span> <span class="s2">&quot;right.yaml&quot;</span>
+
+<span class="c1"># Define stereo image pair</span>
+<span class="n">left_image_file</span> <span class="o">=</span> <span class="s2">&quot;left.png&quot;</span>
+<span class="n">right_image_file</span> <span class="o">=</span> <span class="s2">&quot;right.png&quot;</span>
+
+<span class="c1"># Check for I3DRSGM license</span>
+<span class="k">if</span> <span class="n">license_valid</span><span class="p">:</span>
+    <span class="n">stereo_params</span> <span class="o">=</span> <span class="n">StereoParams</span><span class="p">(</span>
+        <span class="n">StereoMatcherType</span><span class="o">.</span><span class="n">STEREO_MATCHER_I3DRSGM</span><span class="p">,</span>
+        <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="bp">False</span>
+    <span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">stereo_params</span> <span class="o">=</span> <span class="n">StereoParams</span><span class="p">(</span>
+        <span class="n">StereoMatcherType</span><span class="o">.</span><span class="n">STEREO_MATCHER_BM</span><span class="p">,</span>
+        <span class="mi">11</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="bp">False</span>
+    <span class="p">)</span>
+
+<span class="c1"># Read stereo image pair</span>
+<span class="n">np_left_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">left_image_file</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">IMREAD_UNCHANGED</span><span class="p">)</span>
+<span class="n">np_right_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">right_image_file</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">IMREAD_UNCHANGED</span><span class="p">)</span>
+
+<span class="c1"># Convert numpy to Mat images</span>
+<span class="n">left_image</span> <span class="o">=</span> <span class="n">MatrixUInt8</span><span class="p">(</span><span class="n">np_left_image</span><span class="p">)</span>
+<span class="n">right_image</span> <span class="o">=</span> <span class="n">MatrixUInt8</span><span class="p">(</span><span class="n">np_right_image</span><span class="p">)</span>
+
+<span class="c1"># Load calibration</span>
+<span class="n">calibration</span> <span class="o">=</span> <span class="n">StereoCameraCalibration</span><span class="o">.</span><span class="n">calibrationFromYAML</span><span class="p">(</span>
+    <span class="n">left_yaml</span><span class="p">,</span> <span class="n">right_yaml</span><span class="p">)</span>
+
+<span class="c1"># Process stereo</span>
+<span class="n">disparity</span> <span class="o">=</span> <span class="n">processStereo</span><span class="p">(</span>
+    <span class="n">stereo_params</span><span class="p">,</span> <span class="n">left_image</span><span class="p">,</span> <span class="n">right_image</span><span class="p">,</span> <span class="n">calibration</span>
+<span class="p">)</span>
+<span class="k">if</span> <span class="n">disparity</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">():</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Failed to process stereo&quot;</span><span class="p">)</span>
+
+<span class="c1"># Convert disparity to depth</span>
+<span class="n">np_disparity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">disparity</span><span class="p">)</span>
+<span class="n">np_depth</span> <span class="o">=</span> <span class="n">disparity2depth</span><span class="p">(</span><span class="n">np_disparity</span><span class="p">,</span> <span class="n">calibration</span><span class="o">.</span><span class="n">getQ</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">np_depth</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Failed to convert disparity to depth&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="convert-between-mat-and-numpy">
+<h2>Convert between Mat and numpy<a class="headerlink" href="#convert-between-mat-and-numpy" title="Permalink to this headline"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">phase.pyphase.types</span> <span class="kn">import</span> <span class="n">MatrixUInt8</span><span class="p">,</span> <span class="n">StereoMatcherType</span>
+<span class="kn">from</span> <span class="nn">phase.pyphase</span> <span class="kn">import</span> <span class="n">processStereo</span>
+
+<span class="n">np_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;image.png&quot;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">IMREAD_UNCHANGED</span><span class="p">)</span>
+<span class="n">mat_left_image</span> <span class="o">=</span> <span class="n">MatrixUInt8</span><span class="p">(</span><span class="n">np_image</span><span class="p">)</span>
+<span class="n">np_image2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mat_left_image</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="save-load-rgbd-video">
+<h2>Save / Load RGBD Video<a class="headerlink" href="#save-load-rgbd-video" title="Permalink to this headline"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">phase.pyphase.types</span> <span class="kn">import</span> <span class="n">MatrixUInt8</span><span class="p">,</span> <span class="n">StereoMatcherType</span>
+<span class="kn">from</span> <span class="nn">phase.pyphase.calib</span> <span class="kn">import</span> <span class="n">StereoCameraCalibration</span>
+<span class="kn">from</span> <span class="nn">phase.pyphase</span> <span class="kn">import</span> <span class="n">processStereo</span><span class="p">,</span> <span class="n">disparity2depth</span>
+<span class="kn">from</span> <span class="nn">phase.pyphase</span> <span class="kn">import</span> <span class="n">RGBDVideoWriter</span><span class="p">,</span> <span class="n">RGBDVideoStream</span>
+<span class="kn">from</span> <span class="nn">phase.pyphase.stereomatcher</span> <span class="kn">import</span> <span class="n">StereoParams</span>
+
+<span class="n">left_yaml</span> <span class="o">=</span> <span class="s2">&quot;left.yaml&quot;</span>
+<span class="n">right_yaml</span> <span class="o">=</span> <span class="s2">&quot;right.yaml&quot;</span>
+<span class="n">left_image_file</span> <span class="o">=</span> <span class="s2">&quot;left.png&quot;</span>
+<span class="n">right_image_file</span> <span class="o">=</span> <span class="s2">&quot;right.png&quot;</span>
+<span class="n">out_rgb_video</span> <span class="o">=</span> <span class="s2">&quot;rgb.mp4&quot;</span>
+<span class="n">out_depth_video</span> <span class="o">=</span> <span class="s2">&quot;depth.avi&quot;</span>
+<span class="n">num_of_frames</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">out_folder</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_folder</span><span class="p">)</span>
+
+<span class="n">np_left_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">left_image_file</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">IMREAD_UNCHANGED</span><span class="p">)</span>
+<span class="n">np_right_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">right_image_file</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">IMREAD_UNCHANGED</span><span class="p">)</span>
+
+<span class="n">calibration</span> <span class="o">=</span> <span class="n">StereoCameraCalibration</span><span class="o">.</span><span class="n">calibrationFromYAML</span><span class="p">(</span>
+    <span class="n">left_yaml</span><span class="p">,</span> <span class="n">right_yaml</span><span class="p">)</span>
+
+<span class="n">rect_image_pair</span> <span class="o">=</span> <span class="n">calibration</span><span class="o">.</span><span class="n">rectify</span><span class="p">(</span><span class="n">np_left_image</span><span class="p">,</span> <span class="n">np_right_image</span><span class="p">)</span>
+
+<span class="n">ph_left_image</span> <span class="o">=</span> <span class="n">MatrixUInt8</span><span class="p">(</span><span class="n">rect_image_pair</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+<span class="n">ph_right_image</span> <span class="o">=</span> <span class="n">MatrixUInt8</span><span class="p">(</span><span class="n">rect_image_pair</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+<span class="n">stereo_params</span> <span class="o">=</span> <span class="n">StereoParams</span><span class="p">(</span>
+    <span class="n">StereoMatcherType</span><span class="o">.</span><span class="n">STEREO_MATCHER_BM</span><span class="p">,</span>
+    <span class="mi">11</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="bp">False</span>
+<span class="p">)</span>
+<span class="n">ph_disparity</span> <span class="o">=</span> <span class="n">processStereo</span><span class="p">(</span>
+    <span class="n">stereo_params</span><span class="p">,</span>
+    <span class="n">ph_left_image</span><span class="p">,</span> <span class="n">ph_right_image</span><span class="p">,</span> <span class="n">calibration</span><span class="p">,</span> <span class="bp">False</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="n">ph_disparity</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">():</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Failed to process stereo&quot;</span><span class="p">)</span>
+
+<span class="n">np_disparity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ph_disparity</span><span class="p">)</span>
+
+<span class="n">np_depth</span> <span class="o">=</span> <span class="n">disparity2depth</span><span class="p">(</span><span class="n">np_disparity</span><span class="p">,</span> <span class="n">calibration</span><span class="o">.</span><span class="n">getQ</span><span class="p">())</span>
+
+<span class="k">if</span> <span class="n">np_depth</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Failed to convert disparity to depth&quot;</span><span class="p">)</span>
+
+<span class="n">rgbdVideoWriter</span> <span class="o">=</span> <span class="n">RGBDVideoWriter</span><span class="p">(</span>
+    <span class="n">out_rgb_video</span><span class="p">,</span> <span class="n">out_depth_video</span><span class="p">,</span>
+    <span class="n">ph_left_image</span><span class="o">.</span><span class="n">getColumns</span><span class="p">(),</span> <span class="n">ph_left_image</span><span class="o">.</span><span class="n">getRows</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">rgbdVideoWriter</span><span class="o">.</span><span class="n">isOpened</span><span class="p">():</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Failed to open RGBD video for writing&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_of_frames</span><span class="p">):</span>
+    <span class="n">rgbdVideoWriter</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">rect_image_pair</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">np_depth</span><span class="p">)</span>
+
+<span class="n">rgbdVideoWriter</span><span class="o">.</span><span class="n">saveThreaded</span><span class="p">()</span>
+<span class="k">while</span><span class="p">(</span><span class="n">rgbdVideoWriter</span><span class="o">.</span><span class="n">isSaveThreadRunning</span><span class="p">()):</span>
+    <span class="k">pass</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">rgbdVideoWriter</span><span class="o">.</span><span class="n">getSaveThreadResult</span><span class="p">():</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Error saving RGBD video&quot;</span><span class="p">)</span>
+
+<span class="n">rgbdVideoStream</span> <span class="o">=</span> <span class="n">RGBDVideoStream</span><span class="p">(</span>
+    <span class="n">out_rgb_video</span><span class="p">,</span> <span class="n">out_depth_video</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">rgbdVideoStream</span><span class="o">.</span><span class="n">isOpened</span><span class="p">():</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Failed to open RGBD video stream&quot;</span><span class="p">)</span>
+
+<span class="n">rgbdVideoStream</span><span class="o">.</span><span class="n">loadThreaded</span><span class="p">()</span>
+
+<span class="k">while</span><span class="p">(</span><span class="n">rgbdVideoStream</span><span class="o">.</span><span class="n">isLoadThreadRunning</span><span class="p">()):</span>
+    <span class="k">pass</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">rgbdVideoStream</span><span class="o">.</span><span class="n">getLoadThreadResult</span><span class="p">():</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Failed to load RGBD video stream&quot;</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="ow">not</span> <span class="n">rgbdVideoStream</span><span class="o">.</span><span class="n">isFinished</span><span class="p">()):</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">rgbdVideoStream</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">rgbdVideoStream</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installing.html" class="btn btn-neutral float-left" title="Install" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="autocode.html" class="btn btn-neutral float-right" title="Module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Industrial 3D Robotics.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
