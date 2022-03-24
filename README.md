@@ -50,6 +50,14 @@ Python requirements for building pyPhase can be install using the following comm
 pip install -r requirements.txt
 ```
 
+## Additional dependencies
+Doxygen is used for documentation.  
+On Linux install with the following command:
+```
+sudo apt-get install doxygen
+```
+On Windows download and install doxygen from [here](https://www.doxygen.nl/download.html)
+
 ## Build
 Build pyPhase bindings using CMake:
 ```bash

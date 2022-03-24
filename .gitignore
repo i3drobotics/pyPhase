@@ -2,6 +2,7 @@
 .pytest_cache
 .vscode
 *.egg-info
+*.deb
 build
 version.txt
 phase_install
