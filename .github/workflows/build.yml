@@ -55,6 +55,11 @@ jobs:
         run: |
           cd build/lib
           python3 -m pytest ../../test/src/
+      # Generate docs
+      - name: Generate docs
+        shell: bash
+        run: |
+          ./docs/gen_docs.sh
 
 # Build / test
   build-windows:
