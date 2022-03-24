@@ -50,6 +50,7 @@ jobs:
 
   # Build / test
   build-ubuntu:
+    needs: [versioning]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -120,6 +121,7 @@ jobs:
 
   # Build / test
   build-windows:
+    needs: [versioning]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
