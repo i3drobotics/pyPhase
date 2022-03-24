@@ -4,3 +4,20 @@ tasks:
       sudo apt update && sudo apt install -y -f ./phase.deb
       sudo rm ./phase.deb
       pip install -r requirements.txt
+
+github:
+  prebuilds:
+    # enable for the default branch (defaults to true)
+    main: true
+    # enable for all branches in this repo (defaults to false)
+    branches: false
+    # enable for pull requests coming from this repo (defaults to true)
+    pullRequests: true
+    # enable for pull requests coming from forks (defaults to false)
+    pullRequestsFromForks: false
+    # add a check to pull requests (defaults to true)
+    addCheck: true
+    # add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
+    addComment: false
+    # add a "Review in Gitpod" button to the pull request's description (defaults to false)
+    addBadge: false
