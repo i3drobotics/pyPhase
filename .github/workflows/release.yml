@@ -179,7 +179,7 @@ jobs:
 
   # Deploy release on GitHub
   deploy:
-    needs: [build]
+    needs: [build-ubuntu, build-windows]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
