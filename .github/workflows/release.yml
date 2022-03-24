@@ -283,31 +283,31 @@ jobs:
         with:
           name: deployment-windows-2019-py3.10-${{ github.sha }}-pyphase-release
           path: deployment
-      - name: Download deployment artifact (C++ Windows)
-        uses: actions/download-artifact@v2
-        with:
-          name: deployment-ubuntu-20.04-py3.6-${{ github.sha }}-pyphase-release
-          path: deployment
-      - name: Download deployment artifact (C++ Windows)
-        uses: actions/download-artifact@v2
-        with:
-          name: deployment-ubuntu-20.04-py3.7-${{ github.sha }}-pyphase-release
-          path: deployment
-      - name: Download deployment artifact (C++ Windows)
-        uses: actions/download-artifact@v2
-        with:
-          name: deployment-ubuntu-20.04-py3.8-${{ github.sha }}-pyphase-release
-          path: deployment
-      - name: Download deployment artifact (C++ Windows)
-        uses: actions/download-artifact@v2
-        with:
-          name: deployment-ubuntu-20.04-py3.9-${{ github.sha }}-pyphase-release
-          path: deployment
-      - name: Download deployment artifact (C++ Windows)
-        uses: actions/download-artifact@v2
-        with:
-          name: deployment-ubuntu-20.04-py3.10-${{ github.sha }}-pyphase-release
-          path: deployment
+      #- name: Download deployment artifact (C++ Windows)
+      #  uses: actions/download-artifact@v2
+      #  with:
+      #    name: deployment-ubuntu-20.04-py3.6-${{ github.sha }}-pyphase-release
+      #    path: deployment
+      #- name: Download deployment artifact (C++ Windows)
+      #  uses: actions/download-artifact@v2
+      #  with:
+      #    name: deployment-ubuntu-20.04-py3.7-${{ github.sha }}-pyphase-release
+      #    path: deployment
+      #- name: Download deployment artifact (C++ Windows)
+      #  uses: actions/download-artifact@v2
+      #  with:
+      #    name: deployment-ubuntu-20.04-py3.8-${{ github.sha }}-pyphase-release
+      #    path: deployment
+      #- name: Download deployment artifact (C++ Windows)
+      #  uses: actions/download-artifact@v2
+      #  with:
+      #    name: deployment-ubuntu-20.04-py3.9-${{ github.sha }}-pyphase-release
+      #    path: deployment
+      #- name: Download deployment artifact (C++ Windows)
+      #  uses: actions/download-artifact@v2
+      #  with:
+      #    name: deployment-ubuntu-20.04-py3.10-${{ github.sha }}-pyphase-release
+      #    path: deployment
       # Publish python wheels to pip
       - name: Publish pip packages
         shell: bash
