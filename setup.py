@@ -100,10 +100,7 @@ setup(
     zip_safe=False,
     packages=['phase'],
     python_requires='>=3.5',
-    install_requires=[
-        'numpy'
-        "LinuxOnlyDependency ; platform_system=='Linux'",
-        "WindowsOnlyDependency ; platform_system=='Windows'"],
+    install_requires=['numpy'],
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
