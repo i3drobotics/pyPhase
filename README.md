@@ -1,6 +1,11 @@
 # pyPhase
 pyPhase is a python wrapper package over I3DR's Phase C++ library.
 
+[![Pyversions](https://img.shields.io/pypi/pyversions/phase.svg?style=flat-square)](https://pypi.python.org/pypi/phase)
+
+[![Release](https://github.com/i3drobotics/pyphase/actions/workflows/release.yml/badge.svg)](https://github.com/i3drobotics/pyphase/actions/workflows/release.yml)
+[![Build](https://github.com/i3drobotics/pyphase/actions/workflows/build.yml/badge.svg)](https://github.com/i3drobotics/pyphase/actions/workflows/build.yml)
+
 ## Install
 Phase library is required to be installed to use pyPhase.  
 >### Linux

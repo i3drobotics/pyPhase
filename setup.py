@@ -104,7 +104,13 @@ setup(
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
-        'Programming Language :: Python :: 3'
+        'Programming Language :: Python'
+        'Programming Language :: Python :: 3.5'
+        'Programming Language :: Python :: 3.6'
+        'Programming Language :: Python :: 3.7'
+        'Programming Language :: Python :: 3.8'
+        'Programming Language :: Python :: 3.9'
+        'Programming Language :: Python :: 3.10'
     ],
     keywords='Industrial 3D Robotics I3DR stereo camera',
     package_dir={'phase': package_folder},
