@@ -7,7 +7,7 @@
  * @brief Python bindings module
  * @details Python bindings generated using pybind11.
  * Bindings for classes defined in other '_bindings' files
- * are brought together in this file to form the 'core' module.
+ * are brought together in this file to form the 'pyphase' module.
  */
 
 #include"pybind11/pybind11.h"
@@ -15,7 +15,7 @@
 
 namespace py = pybind11;
 
-// core
+// pyphase
 void init_phaseversion(py::module &);
 void init_stereovision(py::module &);
 void init_utils(py::module &);

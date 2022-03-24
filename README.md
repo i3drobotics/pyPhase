@@ -2,6 +2,20 @@
 pyPhase is a wrapper over the I3DR's Phase C++ library.
 
 ## Install
+Phase library is required to be installed to use pyPhase.  
+>### Linux
+>Download debian package from [v0.0.20 release](https://github.com/>i3drobotics/phase-dev/releases/tag/v0.0.20).  
+>Install debian package using apt package manager:
+>```
+>sudo apt install -f ./phase_vx.x.x-amd64.deb
+>```
+>This should install to `/opt/i3dr/phase`
+>### Windows
+>Download Windows installer from the [v0.0.20 release](https://github.com/>i3drobotics/phase-dev/releases/tag/v0.0.20).  
+>Install using the installer GUI, this should install to `C:\Program Files\i3DR\Phase`
+>
+
+Then install pyPhase using pip:
 ```
 pip install phase
 ```
@@ -9,14 +23,14 @@ pip install phase
 ## Dependencies
 Phase library is required to be installed for use in the build process.  
 ### Linux
-Download debian package from latest release.  
+Download debian package from [v0.0.20 release](https://github.com/i3drobotics/phase-dev/releases/tag/v0.0.20).  
 Install debian package using apt package manager:
 ```
 sudo apt install -f ./phase_vx.x.x-amd64.deb
 ```
 This should install to `/opt/i3dr/phase`
 ### Windows
-Download Windows installer from the latest release.  
+Download Windows installer from the [v0.0.20 release](https://github.com/i3drobotics/phase-dev/releases/tag/v0.0.20).  
 Install using the installer GUI, this should install to `C:\Program Files\i3DR\Phase`
 
 The following libraries are used to build pyPhase:
@@ -65,3 +79,16 @@ python ../../test/drivers/demo_rgbd.py
 ```
 
 *Note: Make sure to run this from the repository root directory*
+
+## Docs
+Documentation is generated and deployed in GitHub actions, however, to test documentation generation locally, run the following commands:
+```bash
+./docs/gen_docs.sh
+```
+
+## Deploy
+Deployment is handelled by GitHub actions, however, to test deployment locally, use the following command:
+```bash
+export PYTHONPATH=./build/lib
+python3 setup.py bdist_wheel --dist-dir="deployment" --with_i3drsgm
+```

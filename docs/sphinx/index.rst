@@ -1,5 +1,5 @@
 .. toctree::
-   :caption: pyPhase is a wrapper over the I3DR's Phase C++ library.
+   :caption: pyPhase
    :maxdepth: 2
 
    installing

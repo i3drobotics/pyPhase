@@ -8,7 +8,7 @@ if "%SPHINXBUILD%" == "" (
 	set SPHINXBUILD=sphinx-build
 )
 set SOURCEDIR=.
-set BUILDDIR=../external/python
+set BUILDDIR=../../deployment/docs/external
 
 if "%1" == "" goto help
 

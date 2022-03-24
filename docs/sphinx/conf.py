@@ -16,12 +16,16 @@ import phase # import to make sure module is installed
 
 # -- Project information -----------------------------------------------------
 
-project = 'I3DR Stereo Vision Library'
-copyright = '2021, Industrial 3D Robotics'
+project = 'pyPhase'
+copyright = '2022, Industrial 3D Robotics'
 author = 'Ben Knight <bknight@i3drobotics.com>'
 
 # The full version, including alpha/beta/rc tags
-release = "0.0.0"
+version_filepath = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),
+    '..', '..', 'version.txt')
+version_file = open(version_filepath, "r")
+release = version_file.read()
 
 # -- General configuration ---------------------------------------------------
 master_doc = 'index'

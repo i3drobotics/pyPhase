@@ -19,6 +19,7 @@ phase_download_url = \
 
 
 def find_phase():
+    global phase_version, phase_download_url
     if sys.platform == "win32":
         lib_path_list = []
         # pyPhase module path
@@ -86,4 +87,5 @@ if getVersionString() != phase_version:
             phase_version, phase_download_url)
     raise Exception(error_msg)
 del getVersionString
+del phase_download_url
 del phase_version
