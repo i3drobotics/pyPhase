@@ -211,11 +211,11 @@ jobs:
         with:
           repository: ${{ env.PHASE_REPO }}
           tag: ${{ env.PHASE_VERSION }}
-          fileName: phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
+          fileName: phase-${{ env.PHASE_VERSION }}-ubuntu-20.04-x86_64.deb
       - name: Install Phase
         shell: bash
         run: |
-          sudo apt update && sudo apt install -y -f ./phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
+          sudo apt update && sudo apt install -y -f ./phase-${{ env.PHASE_VERSION }}-ubuntu-20.04-x86_64.deb
       # Install python packages
       - name: Python requirements
         shell: bash
