@@ -232,6 +232,7 @@ jobs:
       - name: Generate docs
         shell: bash
         run: |
+          sudo apt update && sudo apt install doxygen
           ./docs/gen_docs.sh
       # Zip developer docs
       - uses: papeloto/action-zip@v1
