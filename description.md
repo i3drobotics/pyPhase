@@ -21,4 +21,4 @@ pip install phase
 ```
 
 ## Documentation
-For detailed documentation see [here](https://i3drobotics.github.io/phase)
+For detailed documentation see [here](https://i3drobotics.github.io/pyphase/)
