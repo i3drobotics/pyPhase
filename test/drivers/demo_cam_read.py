@@ -5,13 +5,10 @@
  @date 2021-05-26
  @copyright Copyright (c) I3D Robotics Ltd, 2021
  @file demo_cam_read.py
- @brief Example application using I3DR Stereo Vision Python API
+ @brief Example application using pyPhase
 """
 import os
-import sys
 import cv2
-p = os.path.abspath('.')
-sys.path.insert(1, p)
 from phase.pyphase import StereoVision
 from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
 from phase.pyphase.types import CameraDeviceInfo, StereoMatcherType
@@ -27,10 +24,11 @@ else:
     print("Missing or invalid I3DRSGM license")
 
 script_path = os.path.dirname(os.path.realpath(__file__))
-python_wrapper_proj_path = os.path.join(script_path, "../../")
-phase_proj_path = os.path.join(python_wrapper_proj_path, "../../")
-resource_folder = os.path.join(phase_proj_path, "resources")
-camera_name = "stereotheatresim"
+data_folder = os.path.join(script_path, "..", "data")
+left_yaml = os.path.join(data_folder, "left.yaml")
+right_yaml = os.path.join(data_folder, "right.yaml")
+left_image_file = os.path.join(data_folder, "left.png")
+right_image_file = os.path.join(data_folder, "right.png")
 left_serial = "0815-0000"
 right_serial = "0815-0001"
 device_type = CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON
@@ -41,14 +39,8 @@ display_downsample = 0.25
 use_test_image = True
 capture_count = 1
 
-# Define calibration files
-left_yaml = os.path.join(
-    resource_folder, "test", camera_name, "ros/left.yaml")
-right_yaml = os.path.join(
-    resource_folder, "test", camera_name, "ros/right.yaml")
-
 device_info = CameraDeviceInfo(
-    left_serial, right_serial, camera_name,
+    left_serial, right_serial, "virtual-camera",
     device_type,
     interface_type
 )
@@ -66,10 +58,7 @@ if (not sv.getCalibration().isValid()):
 
 print("StereoVision instance created")
 if use_test_image:
-    sv.setTestImagePaths(
-        os.path.join(resource_folder, "test", camera_name, "left.png"),
-        os.path.join(resource_folder, "test", camera_name, "right.png")
-    )
+    sv.setTestImagePaths(left_image_file, right_image_file)
 
 sv.setDownsampleFactor(downsample_factor)
 matcher = sv.getMatcher()

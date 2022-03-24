@@ -1,27 +1,27 @@
 *******
 Module
 *******
-.. automodule:: phase.core
+.. automodule:: phase.pyphase
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: phase.core.types
+.. automodule:: phase.pyphase.types
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: phase.core.calib
+.. automodule:: phase.pyphase.calib
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: phase.core.stereocamera
+.. automodule:: phase.pyphase.stereocamera
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: phase.core.stereomatcher
+.. automodule:: phase.pyphase.stereomatcher
     :members:
     :undoc-members:
     :show-inheritance:

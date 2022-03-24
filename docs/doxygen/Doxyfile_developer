@@ -6,10 +6,9 @@
 
 PROJECT_NAME           = "pyPhase"
 PROJECT_LOGO           = "./docs/i3dr_logo_128x128.png"
-OUTPUT_DIRECTORY       = "./docs/developer/public/python"
-INPUT                  = ./wrappers/python/modules/core/src \
-                         ./wrappers/python/modules/core/test \
-                         ./wrappers/python/examples \
+OUTPUT_DIRECTORY       = "./deployment/docs/developer"
+INPUT                  = ./src \
+                         ./test \
                          ./docs/README_python_developer.md
 USE_MDFILE_AS_MAINPAGE = README_python_developer.md
 
@@ -178,7 +177,7 @@ IGNORE_PREFIX          =
 #---------------------------------------------------------------------------
 
 GENERATE_HTML          = YES
-HTML_OUTPUT            = html
+HTML_OUTPUT            = .
 HTML_FILE_EXTENSION    = .html
 HTML_HEADER            =
 HTML_STYLESHEET        =

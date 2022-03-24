@@ -1,0 +1,56 @@
+name: Pull Request
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [ opened, synchronize, reopened ]
+
+env:
+  PHASE_VERSION: v0.0.20
+  PHASE_REPO: i3drobotics/phase
+
+jobs:
+  # Build / test
+  build-ubuntu:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+        python-version: ['3.10']
+
+    steps:
+      - uses: actions/checkout@v2
+      # Setup python
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      # Install Phase
+      - name: Download Phase
+        uses: robinraju/release-downloader@v1.3
+        with:
+          repository: ${{ env.PHASE_REPO }}
+          tag: ${{ env.PHASE_VERSION }}
+          fileName: phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
+      - name: Install Phase
+        shell: bash
+        run: |
+          sudo apt update && sudo apt install -y -f ./phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
+      # Install python packages
+      - name: Python requirements
+        shell: bash
+        run: |
+          pip install -r requirements.txt
+      # Build
+      - name: Build
+        shell: bash
+        run: |
+          mkdir -p build && cd build
+          sudo apt-get update && cmake -DPhase_DIR="/opt/i3dr/phase/lib/cmake" ..
+          make -j$(nproc)
+      # Unit Test
+      - name: Unit Test
+        shell: bash
+        run: |
+          cd build/lib
+          python3 -m pytest ../../test/src/

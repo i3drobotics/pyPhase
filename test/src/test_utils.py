@@ -9,13 +9,12 @@
  @details Unit tests generated using PyTest
 """
 import os
-import numpy as np
-import cv2
 from phase.pyphase import cvMatIsEqual
 from phase.pyphase import processStereo, disparity2depth, depth2xyz, savePLY
 from phase.pyphase.calib import StereoCameraCalibration
 from phase.pyphase.types import MatrixUInt8, StereoMatcherType
 from phase.pyphase.stereomatcher import StereoParams
+import numpy as np
 
 
 def test_Utils_checkEqualMat():

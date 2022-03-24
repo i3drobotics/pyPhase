@@ -6,7 +6,7 @@
 SPHINXOPTS    ?=
 SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = .
-BUILDDIR      = ../external/python
+BUILDDIR      = ../../deployment/docs/external
 
 # Put it first so that "make" without argument is like "make help".
 help:

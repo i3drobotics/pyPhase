@@ -3,8 +3,8 @@
  * @date 2021-05-26
  * @copyright Copyright (c) I3D Robotics Ltd, 2021
  * 
- * @file stereovision_bindings.cpp
- * @brief Stereo Vision class python bindings
+ * @file common_bindings.cpp
+ * @brief Common class python bindings
  * @details Python bindings generated using pybind11
  */
 

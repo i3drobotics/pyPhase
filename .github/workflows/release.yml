@@ -1,0 +1,355 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+        level:
+          type: choice
+          description: Release type
+          options: 
+          - patch
+          - minor
+          - major
+
+env:
+  PHASE_VERSION: v0.0.20
+  PHASE_REPO: i3drobotics/phase
+
+jobs:
+  versioning:
+    runs-on: ubuntu-20.04
+    steps:
+      # Get latest released version
+      - uses: oprypin/find-latest-tag@v1
+        with:
+          repository: i3drobotics/pyphase  # The repository to scan.
+          releases-only: true  # All relevant tags have a GitHub release for them.
+        id: latest-tag  # The step ID to refer to later.
+      # Generate new release version
+      - name: Generate new version
+        uses: actions-ecosystem/action-bump-semver@v1
+        id: bump-version
+        with:
+          current_version: ${{ steps.latest-tag.outputs.tag }}
+          level: ${{ github.event.inputs.level }}
+      # Add generated version to VERSION file
+      # remove 'v' character from version string
+      - name: Add to Version file
+        shell: bash
+        run: |
+          PROJ_VERSION=${{ steps.bump-version.outputs.new_version }}
+          PROJ_VERSION=${PROJ_VERSION:1}
+          echo "$PROJ_VERSION" > version.txt
+      # Upload version file for use in other jobs
+      - name: Archive version file
+        uses: actions/upload-artifact@v2
+        with:
+          name: version-file-${{ github.sha }}-pyphase-release
+          path: version.txt
+
+
+  # Build / test
+  build-ubuntu:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
+
+    steps:
+      - uses: actions/checkout@v2
+      # Get project version
+      - name: Download version file artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: version-file-${{ github.sha }}-pyphase-release
+          path: versioning
+      - name: Get project version
+        shell: bash
+        run: |
+          PROJ_VER=$(cat versioning/version.txt)
+          echo "$PROJ_VER" > version.txt
+          echo "PROJ_VER=$PROJ_VER" >> $GITHUB_ENV
+      # Setup python
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      # Install Phase
+      - name: Download Phase
+        uses: robinraju/release-downloader@v1.3
+        with:
+          repository: ${{ env.PHASE_REPO }}
+          tag: ${{ env.PHASE_VERSION }}
+          fileName: phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
+      - name: Install Phase
+        shell: bash
+        run: |
+          sudo apt update && sudo apt install -y -f ./phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
+      # Install python packages
+      - name: Python requirements
+        shell: bash
+        run: |
+          pip install -r requirements.txt
+      # Build
+      - name: Build
+        shell: bash
+        run: |
+          mkdir -p build && cd build
+          sudo apt-get update && cmake -DPhase_DIR="/opt/i3dr/phase/lib/cmake" ..
+          make -j$(nproc)
+      # Unit Test
+      - name: Unit Test
+        shell: bash
+        run: |
+          cd build/lib
+          python3 -m pytest ../../test/src/
+      # Build deployment wheel
+      - name: Build wheel
+        shell: bash
+        run: |
+          export PYTHONPATH=./build/lib
+          python3 setup.py bdist_wheel --dist-dir="deployment" --with_i3drsgm
+      # Upload deployment artifact
+      # (for data sharing across jobs)
+      - name: Upload deployment artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: deployment-${{ matrix.os }}-py${{ matrix.python-version }}-${{ github.sha }}-pyphase-release
+          path: deployment
+
+  # Build / test
+  build-windows:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-2019]
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
+
+    steps:
+      - uses: actions/checkout@v2
+      # Setup python
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      # Install Phase
+      - name: Download Phase
+        uses: robinraju/release-downloader@v1.3
+        with:
+          repository: ${{ env.PHASE_REPO }}
+          tag: ${{ env.PHASE_VERSION }}
+          fileName: phase-${{ env.PHASE_VERSION }}-windows-x86_64.zip
+      - name: Install Phase
+        shell: powershell
+        run: |
+          Expand-Archive -Path phase-${{ env.PHASE_VERSION }}-windows-x86_64.zip -DestinationPath phase_install
+      # Install python packages
+      - name: Python requirements
+        shell: bash
+        run: |
+          pip install -r requirements.txt
+      # Build
+      - name: Build
+        shell: bash
+        run: |
+          mkdir -p build && cd build
+          cmake -G "Visual Studio 16 2019" -A x64 -DPhase_DIR="./phase_install/install/lib/cmake" ..
+          cmake --build . --config Release
+      # Unit Test
+      - name: Unit Test
+        shell: bash
+        run: |
+          export PHASE_DIR="$(pwd)/phase_install/install"
+          cd build/lib
+          python -m pytest ../../test/src/
+      # Build deployment wheel
+      - name: Build wheel
+        shell: bash
+        run: |
+          export PYTHONPATH=./build/lib
+          python setup.py bdist_wheel --dist-dir="deployment" --with_i3drsgm
+      # Upload deployment artifact
+      # (for data sharing across jobs)
+      - name: Upload deployment artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: deployment-${{ matrix.os }}-py${{ matrix.python-version }}-${{ github.sha }}-pyphase-release
+          path: deployment
+
+  # Deploy release on GitHub
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      # Get project version
+      - name: Download version file artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: version-file-${{ github.sha }}-pyphase-release
+          path: versioning
+      - name: Get project version
+        shell: bash
+        run: |
+          PROJ_VER=$(cat versioning/version.txt)
+          echo "$PROJ_VER" > version.txt
+          echo "PROJ_VER=$PROJ_VER" >> $GITHUB_ENV
+      # Setup python
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      # Install Phase
+      - name: Download Phase
+        uses: robinraju/release-downloader@v1.3
+        with:
+          repository: ${{ env.PHASE_REPO }}
+          tag: ${{ env.PHASE_VERSION }}
+          fileName: phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
+      - name: Install Phase
+        shell: bash
+        run: |
+          sudo apt update && sudo apt install -y -f ./phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
+      # Install python packages
+      - name: Python requirements
+        shell: bash
+        run: |
+          pip install -r requirements.txt
+      # Build
+      - name: Build
+        shell: bash
+        run: |
+          mkdir -p build && cd build
+          sudo apt-get update && cmake -DPhase_DIR="/opt/i3dr/phase/lib/cmake" ..
+          make -j$(nproc)
+      # Generate docs
+      - name: Generate docs
+        shell: bash
+        run: |
+          ./docs/gen_docs.sh
+      # Zip developer docs
+      - uses: papeloto/action-zip@v1
+        with:
+          files: deployment/docs/developer/
+          dest: docs-dev.zip
+      # Zip public docs
+      - uses: papeloto/action-zip@v1
+        with:
+          files: deployment/docs/external/
+          dest: docs.zip
+      # Download deployments from build artifacts
+      - name: Download deployment artifact (C++ Windows)
+        uses: actions/download-artifact@v2
+        with:
+          name: deployment-windows-2019-py3.6-${{ github.sha }}-pyphase-release
+          path: deployment
+      - name: Download deployment artifact (C++ Windows)
+        uses: actions/download-artifact@v2
+        with:
+          name: deployment-windows-2019-py3.7-${{ github.sha }}-pyphase-release
+          path: deployment
+      - name: Download deployment artifact (C++ Windows)
+        uses: actions/download-artifact@v2
+        with:
+          name: deployment-windows-2019-py3.8-${{ github.sha }}-pyphase-release
+          path: deployment
+      - name: Download deployment artifact (C++ Windows)
+        uses: actions/download-artifact@v2
+        with:
+          name: deployment-windows-2019-py3.9-${{ github.sha }}-pyphase-release
+          path: deployment
+      - name: Download deployment artifact (C++ Windows)
+        uses: actions/download-artifact@v2
+        with:
+          name: deployment-windows-2019-py3.10-${{ github.sha }}-pyphase-release
+          path: deployment
+      - name: Download deployment artifact (C++ Windows)
+        uses: actions/download-artifact@v2
+        with:
+          name: deployment-ubuntu-20.04-py3.6-${{ github.sha }}-pyphase-release
+          path: deployment
+      - name: Download deployment artifact (C++ Windows)
+        uses: actions/download-artifact@v2
+        with:
+          name: deployment-ubuntu-20.04-py3.7-${{ github.sha }}-pyphase-release
+          path: deployment
+      - name: Download deployment artifact (C++ Windows)
+        uses: actions/download-artifact@v2
+        with:
+          name: deployment-ubuntu-20.04-py3.8-${{ github.sha }}-pyphase-release
+          path: deployment
+      - name: Download deployment artifact (C++ Windows)
+        uses: actions/download-artifact@v2
+        with:
+          name: deployment-ubuntu-20.04-py3.9-${{ github.sha }}-pyphase-release
+          path: deployment
+      - name: Download deployment artifact (C++ Windows)
+        uses: actions/download-artifact@v2
+        with:
+          name: deployment-ubuntu-20.04-py3.10-${{ github.sha }}-pyphase-release
+          path: deployment
+      # Create release
+      - name: Developer release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: false
+          body_path: release.md
+          tag_name: v${{ env.PROJ_VER }}
+          files: |
+            deployment/*.whl
+            docs.zip
+            docs-dev.zip
+      # Update public docs
+      - name: Deploy public docs
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: docs # The branch the action should deploy to.
+          folder: deployment/docs/external # The folder the action should deploy.
+          repository-name: i3drobotics/pyphase
+      # Get git variables
+      - name: Get commit variables
+        id: commit-vars
+        shell: bash
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      # Merge branch into production
+      - name: Merge main -> prod
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          target_branch: prod
+          github_token: ${{ github.token }}
+          message: merged ${{ steps.commit-vars.outputs.sha_short }}
+      # Merge main back to production
+      - name: Merge prod -> main
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          from_branch: prod
+          target_branch: main
+          github_token: ${{ github.token }}
+          message: merged ${{ steps.commit-vars.outputs.sha_short }}
+
+  cleanup-deployments:
+      needs: [deploy]
+      runs-on: ${{ matrix.os }}
+      strategy:
+        matrix:
+          os: [ubuntu-20.04, windows-2019]
+          python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
+
+      steps:
+        - uses: geekyeggo/delete-artifact@v1
+          with:
+            name: deployment-${{ matrix.os }}-py${{ matrix.python-version }}-${{ github.sha }}-pyphase-release
+
+  cleanup:
+      needs: [deploy]
+      runs-on: ubuntu-20.04
+
+      steps:
+        - uses: geekyeggo/delete-artifact@v1
+          with:
+            name: version-file-${{ github.sha }}-pyphase-release

@@ -8,11 +8,11 @@ Read and process stereo camera data
 .. code-block:: python
    
     import cv2
-    from phase.core import StereoVision
-    from phase.core.types import CameraDeviceType, CameraInterfaceType
-    from phase.core.types import CameraDeviceInfo, StereoMatcherType
-    from phase.core.stereomatcher import StereoI3DRSGM
-    from phase.core import scaleImage, normaliseDisparity
+    from phase.pyphase import StereoVision
+    from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
+    from phase.pyphase.types import CameraDeviceInfo, StereoMatcherType
+    from phase.pyphase.stereomatcher import StereoI3DRSGM
+    from phase.pyphase import scaleImage, normaliseDisparity
 
     i3drsgm = StereoI3DRSGM()
     license_valid = i3drsgm.isLicenseValid()
@@ -202,11 +202,11 @@ Read and process stereo data from file
    
     import cv2
     import numpy as np
-    from phase.core.types import CameraDeviceType, CameraInterfaceType
-    from phase.core.types import StereoMatcherType, MatrixUInt8
-    from phase.core.stereomatcher import StereoI3DRSGM, StereoParams
-    from phase.core.calib import StereoCameraCalibration
-    from phase.core import processStereo, disparity2depth
+    from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
+    from phase.pyphase.types import StereoMatcherType, MatrixUInt8
+    from phase.pyphase.stereomatcher import StereoI3DRSGM, StereoParams
+    from phase.pyphase.calib import StereoCameraCalibration
+    from phase.pyphase import processStereo, disparity2depth
 
     license_valid = StereoI3DRSGM().isLicenseValid()
     if license_valid:
@@ -266,8 +266,8 @@ Convert between Mat and numpy
 
     import cv2
     import numpy as np
-    from phase.core.types import MatrixUInt8, StereoMatcherType
-    from phase.core import processStereo
+    from phase.pyphase.types import MatrixUInt8, StereoMatcherType
+    from phase.pyphase import processStereo
 
     np_image = cv2.imread("image.png", cv2.IMREAD_UNCHANGED)
     mat_left_image = MatrixUInt8(np_image)
@@ -281,11 +281,11 @@ Save / Load RGBD Video
     import os
     import cv2
     import numpy as np
-    from phase.core.types import MatrixUInt8, StereoMatcherType
-    from phase.core.calib import StereoCameraCalibration
-    from phase.core import processStereo, disparity2depth
-    from phase.core import RGBDVideoWriter, RGBDVideoStream
-    from phase.core.stereomatcher import StereoParams
+    from phase.pyphase.types import MatrixUInt8, StereoMatcherType
+    from phase.pyphase.calib import StereoCameraCalibration
+    from phase.pyphase import processStereo, disparity2depth
+    from phase.pyphase import RGBDVideoWriter, RGBDVideoStream
+    from phase.pyphase.stereomatcher import StereoParams
 
     left_yaml = "left.yaml"
     right_yaml = "right.yaml"
