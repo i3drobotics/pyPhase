@@ -1,5 +1,5 @@
 # pyPhase
-pyPhase is a wrapper over the I3DR's Phase C++ library.
+pyPhase is a python wrapper package over I3DR's Phase C++ library.
 
 ## Install
 Phase library is required to be installed to use pyPhase.  
