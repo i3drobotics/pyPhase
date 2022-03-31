@@ -17,7 +17,7 @@ import phase # import to make sure module is installed
 # -- Project information -----------------------------------------------------
 
 project = 'pyPhase'
-copyright = '2022, Industrial 3D Robotics'
+copyright = '2021, Industrial 3D Robotics'
 author = 'Ben Knight <bknight@i3drobotics.com>'
 
 # The full version, including alpha/beta/rc tags
