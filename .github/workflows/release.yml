@@ -198,6 +198,7 @@ jobs:
   deploy:
     needs: [build-ubuntu, build-windows]
     runs-on: ubuntu-20.04
+
     steps:
       - uses: actions/checkout@v2
       # Get project version
@@ -283,30 +284,30 @@ jobs:
           name: deployment-windows-2019-py3.10-${{ github.sha }}-pyphase-release
           path: deployment
       - name: Download deployment artifact (Ubuntu py3.6)
-       uses: actions/download-artifact@v2
-       with:
-         name: deployment-ubuntu-20.04-py3.6-${{ github.sha }}-pyphase-release
-         path: deployment
+        uses: actions/download-artifact@v2
+        with:
+          name: deployment-ubuntu-20.04-py3.6-${{ github.sha }}-pyphase-release
+          path: deployment
       - name: Download deployment artifact (Ubuntu py3.7)
-       uses: actions/download-artifact@v2
-       with:
-         name: deployment-ubuntu-20.04-py3.7-${{ github.sha }}-pyphase-release
-         path: deployment
+        uses: actions/download-artifact@v2
+        with:
+          name: deployment-ubuntu-20.04-py3.7-${{ github.sha }}-pyphase-release
+          path: deployment
       - name: Download deployment artifact (Ubuntu py3.8)
-       uses: actions/download-artifact@v2
-       with:
-         name: deployment-ubuntu-20.04-py3.8-${{ github.sha }}-pyphase-release
-         path: deployment
+        uses: actions/download-artifact@v2
+        with:
+          name: deployment-ubuntu-20.04-py3.8-${{ github.sha }}-pyphase-release
+          path: deployment
       - name: Download deployment artifact (Ubuntu py3.9)
-       uses: actions/download-artifact@v2
-       with:
-         name: deployment-ubuntu-20.04-py3.9-${{ github.sha }}-pyphase-release
-         path: deployment
+        uses: actions/download-artifact@v2
+        with:
+          name: deployment-ubuntu-20.04-py3.9-${{ github.sha }}-pyphase-release
+          path: deployment
       - name: Download deployment artifact (Ubuntu py3.10)
-       uses: actions/download-artifact@v2
-       with:
-         name: deployment-ubuntu-20.04-py3.10-${{ github.sha }}-pyphase-release
-         path: deployment
+        uses: actions/download-artifact@v2
+        with:
+          name: deployment-ubuntu-20.04-py3.10-${{ github.sha }}-pyphase-release
+          path: deployment
       # Publish python wheels to pip (Windows only)
       # TODO publish linux wheels to pip when manylinux support is complete
       - name: Publish pip packages
