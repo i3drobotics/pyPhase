@@ -14,9 +14,13 @@ Phase library is required to be installed to use pyPhase.
 >Install using the installer GUI, this should install to `C:\Program Files\i3DR\Phase`
 >
 
-Then install pyPhase using pip:
+Then install pyPhase from pypi using pip:
 ```
 pip install phase
+```
+This is not yet available on pypi for Linux. Please download the wheel for your version of python from the release and install using:
+```
+pip install ./phase-X.X.X-cpXXX-cpXXX-linux_x86_64.whl
 ```
 
 Documentation is available [here](https://i3drobotics.github.io/pyphase/)
