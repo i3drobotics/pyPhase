@@ -50,74 +50,74 @@ jobs:
 
   # Build / test on Ubuntu
   build-ubuntu:
-   needs: [versioning]
-   runs-on: ${{ matrix.os }}
-   strategy:
-     matrix:
-       os: [ubuntu-20.04]
-       python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
+    needs: [versioning]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
   
-   steps:
-     - uses: actions/checkout@v2
-     # Get project version
-     - name: Download version file artifact
-       uses: actions/download-artifact@v2
-       with:
-         name: version-file-${{ github.sha }}-pyphase-release
-         path: versioning
-     - name: Get project version
-       shell: bash
-       run: |
-         PROJ_VER=$(cat versioning/version.txt)
-         echo "$PROJ_VER" > version.txt
-         echo "PROJ_VER=$PROJ_VER" >> $GITHUB_ENV
-     # Setup python
-     - name: Setup Python
-       uses: actions/setup-python@v2
-       with:
-         python-version: ${{ matrix.python-version }}
-     # Install Phase
-     - name: Download Phase
-       uses: robinraju/release-downloader@v1.3
-       with:
-         repository: ${{ env.PHASE_REPO }}
-         tag: ${{ env.PHASE_VERSION }}
-         fileName: phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
-     - name: Install Phase
-       shell: bash
-       run: |
-         sudo apt update && sudo apt install -y -f ./phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
-     # Install python packages
-     - name: Python requirements
-       shell: bash
-       run: |
-         pip install -r requirements.txt
-     # Build
-     - name: Build
-       shell: bash
-       run: |
-         mkdir -p build && cd build
-         sudo apt-get update && cmake -DPhase_DIR="/opt/i3dr/phase/lib/cmake" ..
-         make -j$(nproc)
-     # Unit Test
-     - name: Unit Test
-       shell: bash
-       run: |
-         cd build/lib
-         python3 -m pytest ../../test/src/
-     # Build deployment wheel
-     - name: Build wheel
-       shell: bash
-       run: |
-         export PYTHONPATH=./build/lib
-         python3 setup.py bdist_wheel --dist-dir="deployment" --with_i3drsgm
-     # Upload deployment artifact
-     # (for data sharing across jobs)
-     - name: Upload deployment artifact
-       uses: actions/upload-artifact@v3
-       with:
-         name: deployment-${{ matrix.os }}-py${{ matrix.python-version }}-${{ github.sha }}-pyphase-release
-         path: deployment
+    steps:
+      - uses: actions/checkout@v2
+      # Get project version
+      - name: Download version file artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: version-file-${{ github.sha }}-pyphase-release
+          path: versioning
+      - name: Get project version
+        shell: bash
+        run: |
+          PROJ_VER=$(cat versioning/version.txt)
+          echo "$PROJ_VER" > version.txt
+          echo "PROJ_VER=$PROJ_VER" >> $GITHUB_ENV
+      # Setup python
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      # Install Phase
+      - name: Download Phase
+        uses: robinraju/release-downloader@v1.3
+        with:
+          repository: ${{ env.PHASE_REPO }}
+          tag: ${{ env.PHASE_VERSION }}
+          fileName: phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
+      - name: Install Phase
+        shell: bash
+        run: |
+          sudo apt update && sudo apt install -y -f ./phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
+      # Install python packages
+      - name: Python requirements
+        shell: bash
+        run: |
+          pip install -r requirements.txt
+      # Build
+      - name: Build
+        shell: bash
+        run: |
+          mkdir -p build && cd build
+          sudo apt-get update && cmake -DPhase_DIR="/opt/i3dr/phase/lib/cmake" ..
+          make -j$(nproc)
+      # Unit Test
+      - name: Unit Test
+        shell: bash
+        run: |
+          cd build/lib
+          python3 -m pytest ../../test/src/
+      # Build deployment wheel
+      - name: Build wheel
+        shell: bash
+        run: |
+          export PYTHONPATH=./build/lib
+          python3 setup.py bdist_wheel --dist-dir="deployment" --with_i3drsgm
+      # Upload deployment artifact
+      # (for data sharing across jobs)
+      - name: Upload deployment artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: deployment-${{ matrix.os }}-py${{ matrix.python-version }}-${{ github.sha }}-pyphase-release
+          path: deployment
 
   # Build / test on Windows
   build-windows:
