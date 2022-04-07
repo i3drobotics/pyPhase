@@ -23,4 +23,10 @@ void init_abstractstereocamera(py::module_ &m) {
         .def_readwrite("valid", &I3DR::Phase::CameraReadResult::valid)
         .def_readwrite("left_image", &I3DR::Phase::CameraReadResult::left_image)
         .def_readwrite("right_image", &I3DR::Phase::CameraReadResult::right_image);
+
+    py::class_<I3DR::Phase::AbstractStereoCamera>(m, "AbstractStereoCamera")
+        .def(py::init<I3DR::Phase::CameraDeviceInfo>());
+
+    //TODO add callback funtion for read results (https://pybind11.readthedocs.io/en/stable/advanced/cast/functional.html)
+
 }
