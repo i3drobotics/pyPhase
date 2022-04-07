@@ -12,7 +12,7 @@
 import os
 import sys
 
-phase_version = "0.0.20"
+phase_version = "0.0.21"
 phase_download_url = \
     "https://github.com/i3drobotics/phase/releases/tag/v{}".format(
         phase_version)

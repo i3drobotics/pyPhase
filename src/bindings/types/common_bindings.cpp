@@ -23,12 +23,23 @@ void init_common(py::module_ &m) {
         .def_readwrite("left", &I3DR::Phase::StereoImagePair::left)
         .def_readwrite("right", &I3DR::Phase::StereoImagePair::right);
 
+    py::class_<I3DR::Phase::CameraReadResult>(m, "CameraReadResult")
+        .def(py::init<bool,cv::Mat,cv::Mat>())
+        .def_readwrite("valid", &I3DR::Phase::CameraReadResult::valid)
+        .def_readwrite("left", &I3DR::Phase::CameraReadResult::left)
+        .def_readwrite("right", &I3DR::Phase::CameraReadResult::right);
+
     py::class_<I3DR::Phase::StereoVisionReadResult>(m, "StereoVisionReadResult")
         .def(py::init<bool,cv::Mat,cv::Mat,cv::Mat>())
         .def_readwrite("valid", &I3DR::Phase::StereoVisionReadResult::valid)
-        .def_readwrite("left_image", &I3DR::Phase::StereoVisionReadResult::left_image)
-        .def_readwrite("right_image", &I3DR::Phase::StereoVisionReadResult::right_image)
+        .def_readwrite("left", &I3DR::Phase::StereoVisionReadResult::left)
+        .def_readwrite("right", &I3DR::Phase::StereoVisionReadResult::right)
         .def_readwrite("disparity", &I3DR::Phase::StereoVisionReadResult::disparity);
+
+    py::class_<I3DR::Phase::StereoMatcherComputeResult>(m, "StereoMatcherComputeResult")
+        .def(py::init<bool,cv::Mat>())
+        .def_readwrite("valid", &I3DR::Phase::StereoMatcherComputeResult::valid)
+        .def_readwrite("disparity", &I3DR::Phase::StereoMatcherComputeResult::disparity);
 
     py::class_<I3DR::Phase::RGBDVideoFrame>(m, "RGBDVideoFrame")
         .def(py::init<bool,cv::Mat,cv::Mat>())

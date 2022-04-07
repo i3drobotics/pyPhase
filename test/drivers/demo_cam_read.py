@@ -87,15 +87,15 @@ if (ret):
             print("Framerate: {}".format(sv.getCamera().getFrameRate()))
             if display_downsample != 1.0:
                 img_left = scaleImage(
-                    read_result.left_image, display_downsample)
+                    read_result.left, display_downsample)
                 img_right = scaleImage(
-                    read_result.right_image, display_downsample)
+                    read_result.right, display_downsample)
                 img_disp = scaleImage(
                     normaliseDisparity(
                         read_result.disparity), display_downsample)
             else:
-                img_left = read_result.left_image
-                img_right = read_result.right_image
+                img_left = read_result.left
+                img_right = read_result.right
                 img_disp = normaliseDisparity(read_result.disparity)
             cv2.imshow("left", img_left)
             cv2.imshow("right", img_right)
@@ -119,8 +119,8 @@ if (ret):
         if (cam_result.valid):
             print("Read result received")
             image_pair = sv.getCalibration().rectify(
-                cam_result.left_image,
-                cam_result.right_image)
+                cam_result.left,
+                cam_result.right)
             print("Starting compute thread...")
             matcher.startComputeThread(
                 image_pair.left, image_pair.right)
@@ -147,8 +147,8 @@ if (ret):
                 if (cam_result.valid):
                     print("Rectifing read result...")
                     image_pair = sv.getCalibration().rectify(
-                        cam_result.left_image,
-                        cam_result.right_image)
+                        cam_result.left,
+                        cam_result.right)
                     print("Displaying read result...")
                     if display_downsample != 1.0:
                         img_left = scaleImage(
@@ -187,13 +187,13 @@ if (ret):
             print("Stereo result received")
             print("Framerate: {}".format(sv.getCamera().getFrameRate()))
             if display_downsample != 1.0:
-                img_left = scaleImage(result.left_image, display_downsample)
-                img_right = scaleImage(result.right_image, display_downsample)
+                img_left = scaleImage(result.left, display_downsample)
+                img_right = scaleImage(result.right, display_downsample)
                 img_disp = scaleImage(
                     normaliseDisparity(result.disparity), display_downsample)
             else:
-                img_left = result.left_image
-                img_right = result.right_image
+                img_left = result.left
+                img_right = result.right
                 img_disp = normaliseDisparity(result.disparity)
             cv2.imshow("left", img_left)
             cv2.imshow("right", img_right)
