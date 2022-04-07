@@ -1,6 +1,17 @@
 # pyPhase
 ***WARNING: This is an early alpha release so may be unstable with breaking changes and have missing documentaiton. Use with caution.***
 
+## Features
+ - Upgrade to Phase v0.0.21
+ - Docstrings for utils functions
+ - Access to abstract classes (AbstractStereoMatcher & AbstractStereoCamera)
+ - Add functions to AbstractStereoCamera for capturing images to file (enableDataCapture, setDataCapturePath)
+ - Add functions to AbstractStereoCamera for counting frames (getCaptureCount, resetCaptureCount)
+
+## Breaking changes
+ - CameraReadResult, and StereoVisionReadResult now all use 'left'/'right' rather than 'left_image'/'right_image' for more consistent naming of variables across types.
+
+## Install
 Phase library is required to be installed to use pyPhase.  
 >### Linux
 >Download debian package from [v0.0.21 release](https://github.com/i3drobotics/phase/releases/tag/v0.0.21).  
