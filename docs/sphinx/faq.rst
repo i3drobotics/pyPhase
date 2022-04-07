@@ -38,7 +38,7 @@ Phase Library is not installed.
 
    **Linux**
 
-   Download debian package from `v0.0.21 release <https://github.com/i3drobotics/phase-dev/releases/tag/v0.0.21>`_.
+   Download debian package from `v0.0.21 release <https://github.com/i3drobotics/phase/releases/tag/v0.0.21>`_.
 
    Install debian package using apt package manager:
 
@@ -50,6 +50,6 @@ Phase Library is not installed.
 
    **Windows**
 
-   Download Windows installer from the `v0.0.21 release <https://github.com/i3drobotics/phase-dev/releases/tag/v0.0.21>`_.
+   Download Windows installer from the `v0.0.21 release <https://github.com/i3drobotics/phase/releases/tag/v0.0.21>`_.
 
    Install using the installer GUI, this should install to `C:\\Program Files\\i3DR\\Phase`
