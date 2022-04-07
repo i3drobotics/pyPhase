@@ -26,8 +26,11 @@ void init_abstractstereomatcher(py::module_ &m) {
         .def_readwrite("numDisparities", &I3DR::Phase::StereoParams::numDisparities)
         .def_readwrite("interpolation", &I3DR::Phase::StereoParams::interpolation);
 
-    py::class_<I3DR::Phase::StereoMatcherComputeResult>(m, "StereoMatcherComputeResult")
-        .def(py::init<bool,cv::Mat>())
-        .def_readwrite("valid", &I3DR::Phase::StereoMatcherComputeResult::valid)
-        .def_readwrite("disparity", &I3DR::Phase::StereoMatcherComputeResult::disparity);
+    py::class_<I3DR::Phase::AbstractStereoMatcher>(m, "AbstractStereoMatcher")
+        .def("compute", &I3DR::Phase::AbstractStereoMatcher::compute)
+        .def("startComputeThread", &I3DR::Phase::AbstractStereoMatcher::startComputeThread)
+        .def("isComputeThreadRunning", &I3DR::Phase::AbstractStereoMatcher::isComputeThreadRunning)
+        .def("getComputeThreadResult", &I3DR::Phase::AbstractStereoMatcher::getComputeThreadResult)
+        .def("setComputeThreadCallback", &I3DR::Phase::AbstractStereoMatcher::setComputeThreadCallback);
+
 }
