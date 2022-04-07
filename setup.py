@@ -99,7 +99,7 @@ setup(
     cmdclass={'bdist_wheel': bdist_wheel},
     zip_safe=False,
     packages=['phase'],
-    python_requires='>=3.5',
+    python_requires='>=3.6',
     install_requires=['numpy'],
     classifiers=[
         "Development Status :: 3 - Alpha",
