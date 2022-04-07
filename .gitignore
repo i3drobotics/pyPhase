@@ -7,4 +7,5 @@ build
 version.txt
 phase_install
 test/.phase_test
+test/src/.phase_test
 deployment
