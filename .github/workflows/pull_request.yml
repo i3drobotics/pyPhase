@@ -29,7 +29,7 @@ jobs:
       - name: Download Phase
         shell: bash
         run: |
-          curl --output phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb -L https://github.com/i3drobotics/phase-dev/releases/download/${{ env.PHASE_VERSION }}/phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
+          curl --output phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb -L https://github.com/i3drobotics/phase/releases/download/${{ env.PHASE_VERSION }}/phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
       - name: Install Phase
         shell: bash
         run: |
