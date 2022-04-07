@@ -164,7 +164,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p build && cd build
-          cmake -G "Visual Studio 16 2019" -A x64 -DPhase_DIR="./phase_install/install/lib/cmake" ..
+          cmake -G "Visual Studio 16 2019" -A x64 -DPhase_DIR="./phase_install/lib/cmake" ..
           cmake --build . --config Release
       # Unit Test
       - name: Unit Test
@@ -173,7 +173,7 @@ jobs:
           cd build/lib
           python -m pytest ../../test/src/
         env:
-          PHASE_DIR: "${{ github.workspace }}/phase_install/install"
+          PHASE_DIR: "${{ github.workspace }}/phase_install"
       # Build deployment wheel
       - name: Build wheel
         shell: bash
@@ -181,7 +181,7 @@ jobs:
           export PYTHONPATH=./build/lib
           python setup.py bdist_wheel --dist-dir="deployment" --with_i3drsgm
         env:
-          PHASE_DIR: "${{ github.workspace }}/phase_install/install"
+          PHASE_DIR: "${{ github.workspace }}/phase_install"
       # Upload deployment artifact
       # (for data sharing across jobs)
       - name: Upload deployment artifact
