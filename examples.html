@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Examples &mdash; pyPhase 0.1.3
+  <title>Examples &mdash; pyPhase 0.1.4
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -150,15 +150,15 @@
             <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Framerate: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sv</span><span class="o">.</span><span class="n">getCamera</span><span class="p">()</span><span class="o">.</span><span class="n">getFrameRate</span><span class="p">()))</span>
             <span class="k">if</span> <span class="n">display_downsample</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span>
                 <span class="n">img_left</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span>
-                    <span class="n">read_result</span><span class="o">.</span><span class="n">left_image</span><span class="p">,</span> <span class="n">display_downsample</span><span class="p">)</span>
+                    <span class="n">read_result</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">display_downsample</span><span class="p">)</span>
                 <span class="n">img_right</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span>
-                    <span class="n">read_result</span><span class="o">.</span><span class="n">right_image</span><span class="p">,</span> <span class="n">display_downsample</span><span class="p">)</span>
+                    <span class="n">read_result</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">display_downsample</span><span class="p">)</span>
                 <span class="n">img_disp</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span>
                     <span class="n">normaliseDisparity</span><span class="p">(</span>
                         <span class="n">read_result</span><span class="o">.</span><span class="n">disparity</span><span class="p">),</span> <span class="n">display_downsample</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">img_left</span> <span class="o">=</span> <span class="n">read_result</span><span class="o">.</span><span class="n">left_image</span>
-                <span class="n">img_right</span> <span class="o">=</span> <span class="n">read_result</span><span class="o">.</span><span class="n">right_image</span>
+                <span class="n">img_left</span> <span class="o">=</span> <span class="n">read_result</span><span class="o">.</span><span class="n">left</span>
+                <span class="n">img_right</span> <span class="o">=</span> <span class="n">read_result</span><span class="o">.</span><span class="n">right</span>
                 <span class="n">img_disp</span> <span class="o">=</span> <span class="n">normaliseDisparity</span><span class="p">(</span><span class="n">read_result</span><span class="o">.</span><span class="n">disparity</span><span class="p">)</span>
             <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">img_left</span><span class="p">)</span>
             <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">img_right</span><span class="p">)</span>
@@ -182,8 +182,8 @@
         <span class="k">if</span> <span class="p">(</span><span class="n">cam_result</span><span class="o">.</span><span class="n">valid</span><span class="p">):</span>
             <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Read result received&quot;</span><span class="p">)</span>
             <span class="n">image_pair</span> <span class="o">=</span> <span class="n">sv</span><span class="o">.</span><span class="n">getCalibration</span><span class="p">()</span><span class="o">.</span><span class="n">rectify</span><span class="p">(</span>
-                <span class="n">cam_result</span><span class="o">.</span><span class="n">left_image</span><span class="p">,</span>
-                <span class="n">cam_result</span><span class="o">.</span><span class="n">right_image</span><span class="p">)</span>
+                <span class="n">cam_result</span><span class="o">.</span><span class="n">left</span><span class="p">,</span>
+                <span class="n">cam_result</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
             <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Starting compute thread...&quot;</span><span class="p">)</span>
             <span class="n">matcher</span><span class="o">.</span><span class="n">startComputeThread</span><span class="p">(</span>
                 <span class="n">image_pair</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">image_pair</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
@@ -210,8 +210,8 @@
                 <span class="k">if</span> <span class="p">(</span><span class="n">cam_result</span><span class="o">.</span><span class="n">valid</span><span class="p">):</span>
                     <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Rectifing read result...&quot;</span><span class="p">)</span>
                     <span class="n">image_pair</span> <span class="o">=</span> <span class="n">sv</span><span class="o">.</span><span class="n">getCalibration</span><span class="p">()</span><span class="o">.</span><span class="n">rectify</span><span class="p">(</span>
-                        <span class="n">cam_result</span><span class="o">.</span><span class="n">left_image</span><span class="p">,</span>
-                        <span class="n">cam_result</span><span class="o">.</span><span class="n">right_image</span><span class="p">)</span>
+                        <span class="n">cam_result</span><span class="o">.</span><span class="n">left</span><span class="p">,</span>
+                        <span class="n">cam_result</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
                     <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Displaying read result...&quot;</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">display_downsample</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span>
                         <span class="n">img_left</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span>
@@ -250,13 +250,13 @@
             <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Stereo result received&quot;</span><span class="p">)</span>
             <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Framerate: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sv</span><span class="o">.</span><span class="n">getCamera</span><span class="p">()</span><span class="o">.</span><span class="n">getFrameRate</span><span class="p">()))</span>
             <span class="k">if</span> <span class="n">display_downsample</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span>
-                <span class="n">img_left</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">left_image</span><span class="p">,</span> <span class="n">display_downsample</span><span class="p">)</span>
-                <span class="n">img_right</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">right_image</span><span class="p">,</span> <span class="n">display_downsample</span><span class="p">)</span>
+                <span class="n">img_left</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">display_downsample</span><span class="p">)</span>
+                <span class="n">img_right</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">display_downsample</span><span class="p">)</span>
                 <span class="n">img_disp</span> <span class="o">=</span> <span class="n">scaleImage</span><span class="p">(</span>
                     <span class="n">normaliseDisparity</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">disparity</span><span class="p">),</span> <span class="n">display_downsample</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">img_left</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">left_image</span>
-                <span class="n">img_right</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">right_image</span>
+                <span class="n">img_left</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">left</span>
+                <span class="n">img_right</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">right</span>
                 <span class="n">img_disp</span> <span class="o">=</span> <span class="n">normaliseDisparity</span><span class="p">(</span><span class="n">matcher_result</span><span class="o">.</span><span class="n">disparity</span><span class="p">)</span>
             <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">img_left</span><span class="p">)</span>
             <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">img_right</span><span class="p">)</span>

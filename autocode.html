@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Module &mdash; pyPhase 0.1.3
+  <title>Module &mdash; pyPhase 0.1.4
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -327,42 +327,124 @@ single class for easy use.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="phase.pyphase.bgr2bgra">
 <span class="sig-prename descclassname"><span class="pre">phase.pyphase.</span></span><span class="sig-name descname"><span class="pre">bgr2bgra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#phase.pyphase.bgr2bgra" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Convert BGR image to BGRA.</p>
+<dl class="simple">
+<dt>bgr<span class="classifier">numpy.ndarray</span></dt><dd><p>BGR image to convert</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>numpy.ndarray</dt><dd><p>BGRA image</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="phase.pyphase.bgr2rgba">
 <span class="sig-prename descclassname"><span class="pre">phase.pyphase.</span></span><span class="sig-name descname"><span class="pre">bgr2rgba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#phase.pyphase.bgr2rgba" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Convert BGR image to RGBA.</p>
+<dl class="simple">
+<dt>bgr<span class="classifier">numpy.ndarray</span></dt><dd><p>BGR image to convert</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>numpy.ndarray</dt><dd><p>RGBA image</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="phase.pyphase.bgra2rgba">
 <span class="sig-prename descclassname"><span class="pre">phase.pyphase.</span></span><span class="sig-name descname"><span class="pre">bgra2rgba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#phase.pyphase.bgra2rgba" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Convert BGRA image to RGBA.</p>
+<dl class="simple">
+<dt>bgra<span class="classifier">numpy.ndarray</span></dt><dd><p>BGRA image to convert</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>numpy.ndarray</dt><dd><p>RGBA image</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="phase.pyphase.cvMatIsEqual">
 <span class="sig-prename descclassname"><span class="pre">phase.pyphase.</span></span><span class="sig-name descname"><span class="pre">cvMatIsEqual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#phase.pyphase.cvMatIsEqual" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Check if two cv::Mat objects are equal.</p>
+<dl class="simple">
+<dt>mat1<span class="classifier">cv::Mat</span></dt><dd><p>First cv::Mat object</p>
+</dd>
+<dt>mat2<span class="classifier">cv::Mat</span></dt><dd><p>Second cv::Mat object</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>bool</dt><dd><p>True if equal</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="phase.pyphase.depth2xyz">
 <span class="sig-prename descclassname"><span class="pre">phase.pyphase.</span></span><span class="sig-name descname"><span class="pre">depth2xyz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#phase.pyphase.depth2xyz" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Calculate Point cloud (xyz) from depth image.</p>
+<dl class="simple">
+<dt>xyz<span class="classifier">numpy.ndarray</span></dt><dd><p>Point cloud (xyz)</p>
+</dd>
+<dt>hfov<span class="classifier">float</span></dt><dd><p>Horizontal field of view (degrees)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>numpy.ndarray</dt><dd><p>Point cloud (xyz)</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="phase.pyphase.disparity2depth">
 <span class="sig-prename descclassname"><span class="pre">phase.pyphase.</span></span><span class="sig-name descname"><span class="pre">disparity2depth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#phase.pyphase.disparity2depth" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Calculate depth image from disparity image.</p>
+<dl class="simple">
+<dt>disparity<span class="classifier">numpy.ndarray</span></dt><dd><p>Disparity image</p>
+</dd>
+<dt>Q: numpy.ndarray</dt><dd><p>Q Matrix from calibration (e.g. ‘calibration.getQ()’)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>numpy.ndarray</dt><dd><p>Depth image</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="phase.pyphase.disparity2xyz">
 <span class="sig-prename descclassname"><span class="pre">phase.pyphase.</span></span><span class="sig-name descname"><span class="pre">disparity2xyz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#phase.pyphase.disparity2xyz" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Calculate point cloud (xyz) from disparity image.</p>
+<dl class="simple">
+<dt>disparity<span class="classifier">numpy.ndarray</span></dt><dd><p>Disparity image</p>
+</dd>
+<dt>Q: numpy.ndarray</dt><dd><p>Q Matrix from calibration (e.g. ‘calibration.getQ()’)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>numpy.ndarray</dt><dd><p>Point clouds (xyz)</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="phase.pyphase.flip">
 <span class="sig-prename descclassname"><span class="pre">phase.pyphase.</span></span><span class="sig-name descname"><span class="pre">flip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#phase.pyphase.flip" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Flip image horizontally or vertically based on flip code.</p>
+<dl class="simple">
+<dt>image<span class="classifier">numpy.ndarray</span></dt><dd><p>Image to flip</p>
+</dd>
+<dt>flip_code<span class="classifier">int</span></dt><dd><p>Flip code (0 = horizontal, 1 = vertical)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>numpy.ndarray</dt><dd><p>Flipped image</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="phase.pyphase.getVersionMajor">
@@ -387,7 +469,16 @@ single class for easy use.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="phase.pyphase.normaliseDisparity">
 <span class="sig-prename descclassname"><span class="pre">phase.pyphase.</span></span><span class="sig-name descname"><span class="pre">normaliseDisparity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#phase.pyphase.normaliseDisparity" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Normalise disparity image.</p>
+<dl class="simple">
+<dt>disparity<span class="classifier">numpy.ndarray</span></dt><dd><p>Dispairty image to normalise</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>numpy.ndarray</dt><dd><p>Normalised disparity image</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="phase.pyphase.processStereo">
@@ -402,27 +493,76 @@ single class for easy use.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="phase.pyphase.readImage">
 <span class="sig-prename descclassname"><span class="pre">phase.pyphase.</span></span><span class="sig-name descname"><span class="pre">readImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#phase.pyphase.readImage" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Read image from file.</p>
+<dl class="simple">
+<dt>image_filepath<span class="classifier">str</span></dt><dd><p>Filepath of image</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>numpy.ndarray</dt><dd><p>Image</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="phase.pyphase.savePLY">
 <span class="sig-prename descclassname"><span class="pre">phase.pyphase.</span></span><span class="sig-name descname"><span class="pre">savePLY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#phase.pyphase.savePLY" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Save point cloud to PLY file.</p>
+<dl class="simple">
+<dt>ply_filepath<span class="classifier">str</span></dt><dd><p>Filepath of PLY file</p>
+</dd>
+<dt>xyz<span class="classifier">numpy.ndarray</span></dt><dd><p>Point cloud (xyz)</p>
+</dd>
+<dt>rgb<span class="classifier">numpy.ndarray</span></dt><dd><p>RGB image for point cloud colours</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>bool</dt><dd><p>True if successful</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="phase.pyphase.scaleImage">
 <span class="sig-prename descclassname"><span class="pre">phase.pyphase.</span></span><span class="sig-name descname"><span class="pre">scaleImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#phase.pyphase.scaleImage" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Scale image to a new size.</p>
+<dl class="simple">
+<dt>image<span class="classifier">numpy.ndarray</span></dt><dd><p>Image to scale</p>
+</dd>
+<dt>scale_factor<span class="classifier">float</span></dt><dd><p>Scale factor to apply to image</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>numpy.ndarray</dt><dd><p>Scaled image</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="phase.pyphase.showImage">
 <span class="sig-prename descclassname"><span class="pre">phase.pyphase.</span></span><span class="sig-name descname"><span class="pre">showImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#phase.pyphase.showImage" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Display image in GUI window.</p>
+<dl class="simple">
+<dt>window_name<span class="classifier">str</span></dt><dd><p>Name of window</p>
+</dd>
+<dt>image<span class="classifier">numpy.ndarray</span></dt><dd><p>Point cloud (xyz)</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="phase.pyphase.xyz2depth">
 <span class="sig-prename descclassname"><span class="pre">phase.pyphase.</span></span><span class="sig-name descname"><span class="pre">xyz2depth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#phase.pyphase.xyz2depth" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Calculate depth image from point cloud (xyz).</p>
+<dl class="simple">
+<dt>xyz<span class="classifier">numpy.ndarray</span></dt><dd><p>Point cloud (xyz)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>numpy.ndarray</dt><dd><p>Depth image</p>
+</dd>
+</dl>
+</dd></dl>
 
 <span class="target" id="module-phase.pyphase.types"></span><p>custom Phase types</p>
 <dl class="py class">
@@ -555,6 +695,27 @@ single class for easy use.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="phase.pyphase.types.CameraInterfaceType.value">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#phase.pyphase.types.CameraInterfaceType.value" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phase.pyphase.types.CameraReadResult">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.types.</span></span><span class="sig-name descname"><span class="pre">CameraReadResult</span></span><a class="headerlink" href="#phase.pyphase.types.CameraReadResult" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="phase.pyphase.types.CameraReadResult.left">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">left</span></span><a class="headerlink" href="#phase.pyphase.types.CameraReadResult.left" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="phase.pyphase.types.CameraReadResult.right">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">right</span></span><a class="headerlink" href="#phase.pyphase.types.CameraReadResult.right" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="phase.pyphase.types.CameraReadResult.valid">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">valid</span></span><a class="headerlink" href="#phase.pyphase.types.CameraReadResult.valid" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -766,6 +927,22 @@ single class for easy use.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="phase.pyphase.types.StereoMatcherComputeResult">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.types.</span></span><span class="sig-name descname"><span class="pre">StereoMatcherComputeResult</span></span><a class="headerlink" href="#phase.pyphase.types.StereoMatcherComputeResult" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="phase.pyphase.types.StereoMatcherComputeResult.disparity">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disparity</span></span><a class="headerlink" href="#phase.pyphase.types.StereoMatcherComputeResult.disparity" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="phase.pyphase.types.StereoMatcherComputeResult.valid">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">valid</span></span><a class="headerlink" href="#phase.pyphase.types.StereoMatcherComputeResult.valid" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.types.StereoMatcherType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.types.</span></span><span class="sig-name descname"><span class="pre">StereoMatcherType</span></span><a class="headerlink" href="#phase.pyphase.types.StereoMatcherType" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
@@ -816,13 +993,13 @@ single class for easy use.</p>
 <dd></dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="phase.pyphase.types.StereoVisionReadResult.left_image">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">left_image</span></span><a class="headerlink" href="#phase.pyphase.types.StereoVisionReadResult.left_image" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="phase.pyphase.types.StereoVisionReadResult.left">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">left</span></span><a class="headerlink" href="#phase.pyphase.types.StereoVisionReadResult.left" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="phase.pyphase.types.StereoVisionReadResult.right_image">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">right_image</span></span><a class="headerlink" href="#phase.pyphase.types.StereoVisionReadResult.right_image" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="phase.pyphase.types.StereoVisionReadResult.right">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">right</span></span><a class="headerlink" href="#phase.pyphase.types.StereoVisionReadResult.right" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
@@ -1042,22 +1219,152 @@ single class for easy use.</p>
 
 <span class="target" id="module-phase.pyphase.stereocamera"></span><p>stereo camera</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="phase.pyphase.stereocamera.CameraReadResult">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereocamera.</span></span><span class="sig-name descname"><span class="pre">CameraReadResult</span></span><a class="headerlink" href="#phase.pyphase.stereocamera.CameraReadResult" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereocamera.</span></span><span class="sig-name descname"><span class="pre">AbstractStereoCamera</span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
-<dl class="py property">
-<dt class="sig sig-object py" id="phase.pyphase.stereocamera.CameraReadResult.left_image">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">left_image</span></span><a class="headerlink" href="#phase.pyphase.stereocamera.CameraReadResult.left_image" title="Permalink to this definition"></a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.connect" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="py property">
-<dt class="sig sig-object py" id="phase.pyphase.stereocamera.CameraReadResult.right_image">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">right_image</span></span><a class="headerlink" href="#phase.pyphase.stereocamera.CameraReadResult.right_image" title="Permalink to this definition"></a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.disconnect">
+<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.disconnect" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="py property">
-<dt class="sig sig-object py" id="phase.pyphase.stereocamera.CameraReadResult.valid">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">valid</span></span><a class="headerlink" href="#phase.pyphase.stereocamera.CameraReadResult.valid" title="Permalink to this definition"></a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.enableDataCapture">
+<span class="sig-name descname"><span class="pre">enableDataCapture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.enableDataCapture" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.enableHardwareTrigger">
+<span class="sig-name descname"><span class="pre">enableHardwareTrigger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.enableHardwareTrigger" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.getCaptureCount">
+<span class="sig-name descname"><span class="pre">getCaptureCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.getCaptureCount" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.getDownsampleFactor">
+<span class="sig-name descname"><span class="pre">getDownsampleFactor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.getDownsampleFactor" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.getFrameRate">
+<span class="sig-name descname"><span class="pre">getFrameRate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.getFrameRate" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.getHeight">
+<span class="sig-name descname"><span class="pre">getHeight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.getHeight" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.getReadThreadResult">
+<span class="sig-name descname"><span class="pre">getReadThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.CameraReadResult" title="phase.pyphase.types.CameraReadResult"><span class="pre">phase.pyphase.types.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.getReadThreadResult" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.getWidth">
+<span class="sig-name descname"><span class="pre">getWidth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.getWidth" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.isCapturing">
+<span class="sig-name descname"><span class="pre">isCapturing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.isCapturing" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.isConnected">
+<span class="sig-name descname"><span class="pre">isConnected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.isConnected" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.isReadThreadRunning">
+<span class="sig-name descname"><span class="pre">isReadThreadRunning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.isReadThreadRunning" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.CameraReadResult" title="phase.pyphase.types.CameraReadResult"><span class="pre">phase.pyphase.types.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.read" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.resetCaptureCount">
+<span class="sig-name descname"><span class="pre">resetCaptureCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.resetCaptureCount" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.setDataCapturePath">
+<span class="sig-name descname"><span class="pre">setDataCapturePath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.setDataCapturePath" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.setDownsampleFactor">
+<span class="sig-name descname"><span class="pre">setDownsampleFactor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.setDownsampleFactor" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.setExposure">
+<span class="sig-name descname"><span class="pre">setExposure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.setExposure" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.setFrameRate">
+<span class="sig-name descname"><span class="pre">setFrameRate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.setFrameRate" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.setLeftAOI">
+<span class="sig-name descname"><span class="pre">setLeftAOI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg3</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.setLeftAOI" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.setLeftFlipX">
+<span class="sig-name descname"><span class="pre">setLeftFlipX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.setLeftFlipX" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.setLeftFlipY">
+<span class="sig-name descname"><span class="pre">setLeftFlipY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.setLeftFlipY" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.setRightAOI">
+<span class="sig-name descname"><span class="pre">setRightAOI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg3</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.setRightAOI" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.setRightFlipX">
+<span class="sig-name descname"><span class="pre">setRightFlipX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.setRightFlipX" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.setRightFlipY">
+<span class="sig-name descname"><span class="pre">setRightFlipY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.setRightFlipY" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.setTestImagePaths">
+<span class="sig-name descname"><span class="pre">setTestImagePaths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.setTestImagePaths" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.startCapture">
+<span class="sig-name descname"><span class="pre">startCapture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.startCapture" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.startReadThread">
+<span class="sig-name descname"><span class="pre">startReadThread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.startReadThread" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.stopCapture">
+<span class="sig-name descname"><span class="pre">stopCapture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.stopCapture" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1077,8 +1384,23 @@ single class for easy use.</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.DeimosStereoCamera.enableDataCapture">
+<span class="sig-name descname"><span class="pre">enableDataCapture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.DeimosStereoCamera" title="phase.pyphase.stereocamera.DeimosStereoCamera"><span class="pre">phase.pyphase.stereocamera.DeimosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.DeimosStereoCamera.enableDataCapture" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.DeimosStereoCamera.enableHardwareTrigger">
 <span class="sig-name descname"><span class="pre">enableHardwareTrigger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.DeimosStereoCamera" title="phase.pyphase.stereocamera.DeimosStereoCamera"><span class="pre">phase.pyphase.stereocamera.DeimosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.DeimosStereoCamera.enableHardwareTrigger" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.DeimosStereoCamera.getCaptureCount">
+<span class="sig-name descname"><span class="pre">getCaptureCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.DeimosStereoCamera" title="phase.pyphase.stereocamera.DeimosStereoCamera"><span class="pre">phase.pyphase.stereocamera.DeimosStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.DeimosStereoCamera.getCaptureCount" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.DeimosStereoCamera.getDownsampleFactor">
+<span class="sig-name descname"><span class="pre">getDownsampleFactor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.DeimosStereoCamera" title="phase.pyphase.stereocamera.DeimosStereoCamera"><span class="pre">phase.pyphase.stereocamera.DeimosStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.DeimosStereoCamera.getDownsampleFactor" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1093,7 +1415,7 @@ single class for easy use.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.DeimosStereoCamera.getReadThreadResult">
-<span class="sig-name descname"><span class="pre">getReadThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.DeimosStereoCamera" title="phase.pyphase.stereocamera.DeimosStereoCamera"><span class="pre">phase.pyphase.stereocamera.DeimosStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereocamera.CameraReadResult" title="phase.pyphase.stereocamera.CameraReadResult"><span class="pre">phase.pyphase.stereocamera.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.DeimosStereoCamera.getReadThreadResult" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getReadThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.DeimosStereoCamera" title="phase.pyphase.stereocamera.DeimosStereoCamera"><span class="pre">phase.pyphase.stereocamera.DeimosStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.CameraReadResult" title="phase.pyphase.types.CameraReadResult"><span class="pre">phase.pyphase.types.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.DeimosStereoCamera.getReadThreadResult" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1118,7 +1440,17 @@ single class for easy use.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.DeimosStereoCamera.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.DeimosStereoCamera" title="phase.pyphase.stereocamera.DeimosStereoCamera"><span class="pre">phase.pyphase.stereocamera.DeimosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereocamera.CameraReadResult" title="phase.pyphase.stereocamera.CameraReadResult"><span class="pre">phase.pyphase.stereocamera.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.DeimosStereoCamera.read" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.DeimosStereoCamera" title="phase.pyphase.stereocamera.DeimosStereoCamera"><span class="pre">phase.pyphase.stereocamera.DeimosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.CameraReadResult" title="phase.pyphase.types.CameraReadResult"><span class="pre">phase.pyphase.types.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.DeimosStereoCamera.read" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.DeimosStereoCamera.resetCaptureCount">
+<span class="sig-name descname"><span class="pre">resetCaptureCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.DeimosStereoCamera" title="phase.pyphase.stereocamera.DeimosStereoCamera"><span class="pre">phase.pyphase.stereocamera.DeimosStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.DeimosStereoCamera.resetCaptureCount" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.DeimosStereoCamera.setDataCapturePath">
+<span class="sig-name descname"><span class="pre">setDataCapturePath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.DeimosStereoCamera" title="phase.pyphase.stereocamera.DeimosStereoCamera"><span class="pre">phase.pyphase.stereocamera.DeimosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.DeimosStereoCamera.setDataCapturePath" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1142,8 +1474,28 @@ single class for easy use.</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.DeimosStereoCamera.setLeftFlipX">
+<span class="sig-name descname"><span class="pre">setLeftFlipX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.DeimosStereoCamera" title="phase.pyphase.stereocamera.DeimosStereoCamera"><span class="pre">phase.pyphase.stereocamera.DeimosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.DeimosStereoCamera.setLeftFlipX" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.DeimosStereoCamera.setLeftFlipY">
+<span class="sig-name descname"><span class="pre">setLeftFlipY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.DeimosStereoCamera" title="phase.pyphase.stereocamera.DeimosStereoCamera"><span class="pre">phase.pyphase.stereocamera.DeimosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.DeimosStereoCamera.setLeftFlipY" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.DeimosStereoCamera.setRightAOI">
 <span class="sig-name descname"><span class="pre">setRightAOI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.DeimosStereoCamera" title="phase.pyphase.stereocamera.DeimosStereoCamera"><span class="pre">phase.pyphase.stereocamera.DeimosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg3</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.DeimosStereoCamera.setRightAOI" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.DeimosStereoCamera.setRightFlipX">
+<span class="sig-name descname"><span class="pre">setRightFlipX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.DeimosStereoCamera" title="phase.pyphase.stereocamera.DeimosStereoCamera"><span class="pre">phase.pyphase.stereocamera.DeimosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.DeimosStereoCamera.setRightFlipX" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.DeimosStereoCamera.setRightFlipY">
+<span class="sig-name descname"><span class="pre">setRightFlipY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.DeimosStereoCamera" title="phase.pyphase.stereocamera.DeimosStereoCamera"><span class="pre">phase.pyphase.stereocamera.DeimosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.DeimosStereoCamera.setRightFlipY" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1183,8 +1535,23 @@ single class for easy use.</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PhobosStereoCamera.enableDataCapture">
+<span class="sig-name descname"><span class="pre">enableDataCapture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PhobosStereoCamera" title="phase.pyphase.stereocamera.PhobosStereoCamera"><span class="pre">phase.pyphase.stereocamera.PhobosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PhobosStereoCamera.enableDataCapture" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.PhobosStereoCamera.enableHardwareTrigger">
 <span class="sig-name descname"><span class="pre">enableHardwareTrigger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PhobosStereoCamera" title="phase.pyphase.stereocamera.PhobosStereoCamera"><span class="pre">phase.pyphase.stereocamera.PhobosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PhobosStereoCamera.enableHardwareTrigger" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PhobosStereoCamera.getCaptureCount">
+<span class="sig-name descname"><span class="pre">getCaptureCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PhobosStereoCamera" title="phase.pyphase.stereocamera.PhobosStereoCamera"><span class="pre">phase.pyphase.stereocamera.PhobosStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PhobosStereoCamera.getCaptureCount" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PhobosStereoCamera.getDownsampleFactor">
+<span class="sig-name descname"><span class="pre">getDownsampleFactor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PhobosStereoCamera" title="phase.pyphase.stereocamera.PhobosStereoCamera"><span class="pre">phase.pyphase.stereocamera.PhobosStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PhobosStereoCamera.getDownsampleFactor" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1199,7 +1566,7 @@ single class for easy use.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.PhobosStereoCamera.getReadThreadResult">
-<span class="sig-name descname"><span class="pre">getReadThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PhobosStereoCamera" title="phase.pyphase.stereocamera.PhobosStereoCamera"><span class="pre">phase.pyphase.stereocamera.PhobosStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereocamera.CameraReadResult" title="phase.pyphase.stereocamera.CameraReadResult"><span class="pre">phase.pyphase.stereocamera.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PhobosStereoCamera.getReadThreadResult" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getReadThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PhobosStereoCamera" title="phase.pyphase.stereocamera.PhobosStereoCamera"><span class="pre">phase.pyphase.stereocamera.PhobosStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.CameraReadResult" title="phase.pyphase.types.CameraReadResult"><span class="pre">phase.pyphase.types.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PhobosStereoCamera.getReadThreadResult" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1224,7 +1591,17 @@ single class for easy use.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.PhobosStereoCamera.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PhobosStereoCamera" title="phase.pyphase.stereocamera.PhobosStereoCamera"><span class="pre">phase.pyphase.stereocamera.PhobosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereocamera.CameraReadResult" title="phase.pyphase.stereocamera.CameraReadResult"><span class="pre">phase.pyphase.stereocamera.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PhobosStereoCamera.read" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PhobosStereoCamera" title="phase.pyphase.stereocamera.PhobosStereoCamera"><span class="pre">phase.pyphase.stereocamera.PhobosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.CameraReadResult" title="phase.pyphase.types.CameraReadResult"><span class="pre">phase.pyphase.types.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PhobosStereoCamera.read" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PhobosStereoCamera.resetCaptureCount">
+<span class="sig-name descname"><span class="pre">resetCaptureCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PhobosStereoCamera" title="phase.pyphase.stereocamera.PhobosStereoCamera"><span class="pre">phase.pyphase.stereocamera.PhobosStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PhobosStereoCamera.resetCaptureCount" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PhobosStereoCamera.setDataCapturePath">
+<span class="sig-name descname"><span class="pre">setDataCapturePath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PhobosStereoCamera" title="phase.pyphase.stereocamera.PhobosStereoCamera"><span class="pre">phase.pyphase.stereocamera.PhobosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PhobosStereoCamera.setDataCapturePath" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1248,8 +1625,28 @@ single class for easy use.</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PhobosStereoCamera.setLeftFlipX">
+<span class="sig-name descname"><span class="pre">setLeftFlipX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PhobosStereoCamera" title="phase.pyphase.stereocamera.PhobosStereoCamera"><span class="pre">phase.pyphase.stereocamera.PhobosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PhobosStereoCamera.setLeftFlipX" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PhobosStereoCamera.setLeftFlipY">
+<span class="sig-name descname"><span class="pre">setLeftFlipY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PhobosStereoCamera" title="phase.pyphase.stereocamera.PhobosStereoCamera"><span class="pre">phase.pyphase.stereocamera.PhobosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PhobosStereoCamera.setLeftFlipY" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.PhobosStereoCamera.setRightAOI">
 <span class="sig-name descname"><span class="pre">setRightAOI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PhobosStereoCamera" title="phase.pyphase.stereocamera.PhobosStereoCamera"><span class="pre">phase.pyphase.stereocamera.PhobosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg3</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PhobosStereoCamera.setRightAOI" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PhobosStereoCamera.setRightFlipX">
+<span class="sig-name descname"><span class="pre">setRightFlipX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PhobosStereoCamera" title="phase.pyphase.stereocamera.PhobosStereoCamera"><span class="pre">phase.pyphase.stereocamera.PhobosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PhobosStereoCamera.setRightFlipX" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PhobosStereoCamera.setRightFlipY">
+<span class="sig-name descname"><span class="pre">setRightFlipY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PhobosStereoCamera" title="phase.pyphase.stereocamera.PhobosStereoCamera"><span class="pre">phase.pyphase.stereocamera.PhobosStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PhobosStereoCamera.setRightFlipY" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1289,8 +1686,23 @@ single class for easy use.</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.enableDataCapture">
+<span class="sig-name descname"><span class="pre">enableDataCapture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PylonStereoCamera" title="phase.pyphase.stereocamera.PylonStereoCamera"><span class="pre">phase.pyphase.stereocamera.PylonStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.enableDataCapture" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.enableHardwareTrigger">
 <span class="sig-name descname"><span class="pre">enableHardwareTrigger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PylonStereoCamera" title="phase.pyphase.stereocamera.PylonStereoCamera"><span class="pre">phase.pyphase.stereocamera.PylonStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.enableHardwareTrigger" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.getCaptureCount">
+<span class="sig-name descname"><span class="pre">getCaptureCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PylonStereoCamera" title="phase.pyphase.stereocamera.PylonStereoCamera"><span class="pre">phase.pyphase.stereocamera.PylonStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.getCaptureCount" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.getDownsampleFactor">
+<span class="sig-name descname"><span class="pre">getDownsampleFactor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PylonStereoCamera" title="phase.pyphase.stereocamera.PylonStereoCamera"><span class="pre">phase.pyphase.stereocamera.PylonStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.getDownsampleFactor" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1305,7 +1717,7 @@ single class for easy use.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.getReadThreadResult">
-<span class="sig-name descname"><span class="pre">getReadThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PylonStereoCamera" title="phase.pyphase.stereocamera.PylonStereoCamera"><span class="pre">phase.pyphase.stereocamera.PylonStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereocamera.CameraReadResult" title="phase.pyphase.stereocamera.CameraReadResult"><span class="pre">phase.pyphase.stereocamera.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.getReadThreadResult" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getReadThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PylonStereoCamera" title="phase.pyphase.stereocamera.PylonStereoCamera"><span class="pre">phase.pyphase.stereocamera.PylonStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.CameraReadResult" title="phase.pyphase.types.CameraReadResult"><span class="pre">phase.pyphase.types.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.getReadThreadResult" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1328,29 +1740,19 @@ single class for easy use.</p>
 <span class="sig-name descname"><span class="pre">isReadThreadRunning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PylonStereoCamera" title="phase.pyphase.stereocamera.PylonStereoCamera"><span class="pre">phase.pyphase.stereocamera.PylonStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.isReadThreadRunning" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="py property">
-<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.left_reverse_x">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">left_reverse_x</span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.left_reverse_x" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.left_reverse_y">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">left_reverse_y</span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.left_reverse_y" title="Permalink to this definition"></a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PylonStereoCamera" title="phase.pyphase.stereocamera.PylonStereoCamera"><span class="pre">phase.pyphase.stereocamera.PylonStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.CameraReadResult" title="phase.pyphase.types.CameraReadResult"><span class="pre">phase.pyphase.types.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.read" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PylonStereoCamera" title="phase.pyphase.stereocamera.PylonStereoCamera"><span class="pre">phase.pyphase.stereocamera.PylonStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereocamera.CameraReadResult" title="phase.pyphase.stereocamera.CameraReadResult"><span class="pre">phase.pyphase.stereocamera.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.read" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.resetCaptureCount">
+<span class="sig-name descname"><span class="pre">resetCaptureCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PylonStereoCamera" title="phase.pyphase.stereocamera.PylonStereoCamera"><span class="pre">phase.pyphase.stereocamera.PylonStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.resetCaptureCount" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="py property">
-<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.right_reverse_x">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">right_reverse_x</span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.right_reverse_x" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.right_reverse_y">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">right_reverse_y</span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.right_reverse_y" title="Permalink to this definition"></a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.setDataCapturePath">
+<span class="sig-name descname"><span class="pre">setDataCapturePath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PylonStereoCamera" title="phase.pyphase.stereocamera.PylonStereoCamera"><span class="pre">phase.pyphase.stereocamera.PylonStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.setDataCapturePath" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1374,8 +1776,28 @@ single class for easy use.</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.setLeftFlipX">
+<span class="sig-name descname"><span class="pre">setLeftFlipX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PylonStereoCamera" title="phase.pyphase.stereocamera.PylonStereoCamera"><span class="pre">phase.pyphase.stereocamera.PylonStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.setLeftFlipX" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.setLeftFlipY">
+<span class="sig-name descname"><span class="pre">setLeftFlipY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PylonStereoCamera" title="phase.pyphase.stereocamera.PylonStereoCamera"><span class="pre">phase.pyphase.stereocamera.PylonStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.setLeftFlipY" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.setRightAOI">
 <span class="sig-name descname"><span class="pre">setRightAOI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PylonStereoCamera" title="phase.pyphase.stereocamera.PylonStereoCamera"><span class="pre">phase.pyphase.stereocamera.PylonStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg3</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.setRightAOI" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.setRightFlipX">
+<span class="sig-name descname"><span class="pre">setRightFlipX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PylonStereoCamera" title="phase.pyphase.stereocamera.PylonStereoCamera"><span class="pre">phase.pyphase.stereocamera.PylonStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.setRightFlipX" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.setRightFlipY">
+<span class="sig-name descname"><span class="pre">setRightFlipY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PylonStereoCamera" title="phase.pyphase.stereocamera.PylonStereoCamera"><span class="pre">phase.pyphase.stereocamera.PylonStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.setRightFlipY" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1415,8 +1837,23 @@ single class for easy use.</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.TitaniaStereoCamera.enableDataCapture">
+<span class="sig-name descname"><span class="pre">enableDataCapture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.TitaniaStereoCamera" title="phase.pyphase.stereocamera.TitaniaStereoCamera"><span class="pre">phase.pyphase.stereocamera.TitaniaStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.TitaniaStereoCamera.enableDataCapture" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.TitaniaStereoCamera.enableHardwareTrigger">
 <span class="sig-name descname"><span class="pre">enableHardwareTrigger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.TitaniaStereoCamera" title="phase.pyphase.stereocamera.TitaniaStereoCamera"><span class="pre">phase.pyphase.stereocamera.TitaniaStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.TitaniaStereoCamera.enableHardwareTrigger" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.TitaniaStereoCamera.getCaptureCount">
+<span class="sig-name descname"><span class="pre">getCaptureCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.TitaniaStereoCamera" title="phase.pyphase.stereocamera.TitaniaStereoCamera"><span class="pre">phase.pyphase.stereocamera.TitaniaStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.TitaniaStereoCamera.getCaptureCount" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.TitaniaStereoCamera.getDownsampleFactor">
+<span class="sig-name descname"><span class="pre">getDownsampleFactor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.TitaniaStereoCamera" title="phase.pyphase.stereocamera.TitaniaStereoCamera"><span class="pre">phase.pyphase.stereocamera.TitaniaStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.TitaniaStereoCamera.getDownsampleFactor" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1431,7 +1868,7 @@ single class for easy use.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.TitaniaStereoCamera.getReadThreadResult">
-<span class="sig-name descname"><span class="pre">getReadThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.TitaniaStereoCamera" title="phase.pyphase.stereocamera.TitaniaStereoCamera"><span class="pre">phase.pyphase.stereocamera.TitaniaStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereocamera.CameraReadResult" title="phase.pyphase.stereocamera.CameraReadResult"><span class="pre">phase.pyphase.stereocamera.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.TitaniaStereoCamera.getReadThreadResult" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getReadThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.TitaniaStereoCamera" title="phase.pyphase.stereocamera.TitaniaStereoCamera"><span class="pre">phase.pyphase.stereocamera.TitaniaStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.CameraReadResult" title="phase.pyphase.types.CameraReadResult"><span class="pre">phase.pyphase.types.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.TitaniaStereoCamera.getReadThreadResult" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1456,7 +1893,17 @@ single class for easy use.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.TitaniaStereoCamera.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.TitaniaStereoCamera" title="phase.pyphase.stereocamera.TitaniaStereoCamera"><span class="pre">phase.pyphase.stereocamera.TitaniaStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereocamera.CameraReadResult" title="phase.pyphase.stereocamera.CameraReadResult"><span class="pre">phase.pyphase.stereocamera.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.TitaniaStereoCamera.read" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.TitaniaStereoCamera" title="phase.pyphase.stereocamera.TitaniaStereoCamera"><span class="pre">phase.pyphase.stereocamera.TitaniaStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.CameraReadResult" title="phase.pyphase.types.CameraReadResult"><span class="pre">phase.pyphase.types.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.TitaniaStereoCamera.read" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.TitaniaStereoCamera.resetCaptureCount">
+<span class="sig-name descname"><span class="pre">resetCaptureCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.TitaniaStereoCamera" title="phase.pyphase.stereocamera.TitaniaStereoCamera"><span class="pre">phase.pyphase.stereocamera.TitaniaStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.TitaniaStereoCamera.resetCaptureCount" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.TitaniaStereoCamera.setDataCapturePath">
+<span class="sig-name descname"><span class="pre">setDataCapturePath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.TitaniaStereoCamera" title="phase.pyphase.stereocamera.TitaniaStereoCamera"><span class="pre">phase.pyphase.stereocamera.TitaniaStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.TitaniaStereoCamera.setDataCapturePath" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1480,8 +1927,28 @@ single class for easy use.</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.TitaniaStereoCamera.setLeftFlipX">
+<span class="sig-name descname"><span class="pre">setLeftFlipX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.TitaniaStereoCamera" title="phase.pyphase.stereocamera.TitaniaStereoCamera"><span class="pre">phase.pyphase.stereocamera.TitaniaStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.TitaniaStereoCamera.setLeftFlipX" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.TitaniaStereoCamera.setLeftFlipY">
+<span class="sig-name descname"><span class="pre">setLeftFlipY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.TitaniaStereoCamera" title="phase.pyphase.stereocamera.TitaniaStereoCamera"><span class="pre">phase.pyphase.stereocamera.TitaniaStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.TitaniaStereoCamera.setLeftFlipY" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.TitaniaStereoCamera.setRightAOI">
 <span class="sig-name descname"><span class="pre">setRightAOI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.TitaniaStereoCamera" title="phase.pyphase.stereocamera.TitaniaStereoCamera"><span class="pre">phase.pyphase.stereocamera.TitaniaStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg3</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.TitaniaStereoCamera.setRightAOI" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.TitaniaStereoCamera.setRightFlipX">
+<span class="sig-name descname"><span class="pre">setRightFlipX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.TitaniaStereoCamera" title="phase.pyphase.stereocamera.TitaniaStereoCamera"><span class="pre">phase.pyphase.stereocamera.TitaniaStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.TitaniaStereoCamera.setRightFlipX" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.TitaniaStereoCamera.setRightFlipY">
+<span class="sig-name descname"><span class="pre">setRightFlipY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.TitaniaStereoCamera" title="phase.pyphase.stereocamera.TitaniaStereoCamera"><span class="pre">phase.pyphase.stereocamera.TitaniaStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.TitaniaStereoCamera.setRightFlipY" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1521,8 +1988,23 @@ single class for easy use.</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.UVCStereoCamera.enableDataCapture">
+<span class="sig-name descname"><span class="pre">enableDataCapture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.UVCStereoCamera" title="phase.pyphase.stereocamera.UVCStereoCamera"><span class="pre">phase.pyphase.stereocamera.UVCStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.UVCStereoCamera.enableDataCapture" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.UVCStereoCamera.enableHardwareTrigger">
 <span class="sig-name descname"><span class="pre">enableHardwareTrigger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.UVCStereoCamera" title="phase.pyphase.stereocamera.UVCStereoCamera"><span class="pre">phase.pyphase.stereocamera.UVCStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.UVCStereoCamera.enableHardwareTrigger" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.UVCStereoCamera.getCaptureCount">
+<span class="sig-name descname"><span class="pre">getCaptureCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.UVCStereoCamera" title="phase.pyphase.stereocamera.UVCStereoCamera"><span class="pre">phase.pyphase.stereocamera.UVCStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.UVCStereoCamera.getCaptureCount" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.UVCStereoCamera.getDownsampleFactor">
+<span class="sig-name descname"><span class="pre">getDownsampleFactor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.UVCStereoCamera" title="phase.pyphase.stereocamera.UVCStereoCamera"><span class="pre">phase.pyphase.stereocamera.UVCStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.UVCStereoCamera.getDownsampleFactor" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1537,7 +2019,7 @@ single class for easy use.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.UVCStereoCamera.getReadThreadResult">
-<span class="sig-name descname"><span class="pre">getReadThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.UVCStereoCamera" title="phase.pyphase.stereocamera.UVCStereoCamera"><span class="pre">phase.pyphase.stereocamera.UVCStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereocamera.CameraReadResult" title="phase.pyphase.stereocamera.CameraReadResult"><span class="pre">phase.pyphase.stereocamera.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.UVCStereoCamera.getReadThreadResult" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getReadThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.UVCStereoCamera" title="phase.pyphase.stereocamera.UVCStereoCamera"><span class="pre">phase.pyphase.stereocamera.UVCStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.CameraReadResult" title="phase.pyphase.types.CameraReadResult"><span class="pre">phase.pyphase.types.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.UVCStereoCamera.getReadThreadResult" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1562,7 +2044,17 @@ single class for easy use.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.UVCStereoCamera.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.UVCStereoCamera" title="phase.pyphase.stereocamera.UVCStereoCamera"><span class="pre">phase.pyphase.stereocamera.UVCStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereocamera.CameraReadResult" title="phase.pyphase.stereocamera.CameraReadResult"><span class="pre">phase.pyphase.stereocamera.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.UVCStereoCamera.read" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.UVCStereoCamera" title="phase.pyphase.stereocamera.UVCStereoCamera"><span class="pre">phase.pyphase.stereocamera.UVCStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.CameraReadResult" title="phase.pyphase.types.CameraReadResult"><span class="pre">phase.pyphase.types.CameraReadResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.UVCStereoCamera.read" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.UVCStereoCamera.resetCaptureCount">
+<span class="sig-name descname"><span class="pre">resetCaptureCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.UVCStereoCamera" title="phase.pyphase.stereocamera.UVCStereoCamera"><span class="pre">phase.pyphase.stereocamera.UVCStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.UVCStereoCamera.resetCaptureCount" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.UVCStereoCamera.setDataCapturePath">
+<span class="sig-name descname"><span class="pre">setDataCapturePath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.UVCStereoCamera" title="phase.pyphase.stereocamera.UVCStereoCamera"><span class="pre">phase.pyphase.stereocamera.UVCStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.UVCStereoCamera.setDataCapturePath" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1586,8 +2078,28 @@ single class for easy use.</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.UVCStereoCamera.setLeftFlipX">
+<span class="sig-name descname"><span class="pre">setLeftFlipX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.UVCStereoCamera" title="phase.pyphase.stereocamera.UVCStereoCamera"><span class="pre">phase.pyphase.stereocamera.UVCStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.UVCStereoCamera.setLeftFlipX" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.UVCStereoCamera.setLeftFlipY">
+<span class="sig-name descname"><span class="pre">setLeftFlipY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.UVCStereoCamera" title="phase.pyphase.stereocamera.UVCStereoCamera"><span class="pre">phase.pyphase.stereocamera.UVCStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.UVCStereoCamera.setLeftFlipY" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.UVCStereoCamera.setRightAOI">
 <span class="sig-name descname"><span class="pre">setRightAOI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.UVCStereoCamera" title="phase.pyphase.stereocamera.UVCStereoCamera"><span class="pre">phase.pyphase.stereocamera.UVCStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg3</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.UVCStereoCamera.setRightAOI" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.UVCStereoCamera.setRightFlipX">
+<span class="sig-name descname"><span class="pre">setRightFlipX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.UVCStereoCamera" title="phase.pyphase.stereocamera.UVCStereoCamera"><span class="pre">phase.pyphase.stereocamera.UVCStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.UVCStereoCamera.setRightFlipX" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereocamera.UVCStereoCamera.setRightFlipY">
+<span class="sig-name descname"><span class="pre">setRightFlipY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.UVCStereoCamera" title="phase.pyphase.stereocamera.UVCStereoCamera"><span class="pre">phase.pyphase.stereocamera.UVCStereoCamera</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.UVCStereoCamera.setRightFlipY" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1614,22 +2126,53 @@ single class for easy use.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.createStereoCamera">
-<span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereocamera.</span></span><span class="sig-name descname"><span class="pre">createStereoCamera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.types.CameraDeviceInfo" title="phase.pyphase.types.CameraDeviceInfo"><span class="pre">phase.pyphase.types.CameraDeviceInfo</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">I3DR::Phase::AbstractStereoCamera</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.createStereoCamera" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereocamera.</span></span><span class="sig-name descname"><span class="pre">createStereoCamera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.types.CameraDeviceInfo" title="phase.pyphase.types.CameraDeviceInfo"><span class="pre">phase.pyphase.types.CameraDeviceInfo</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.createStereoCamera" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <span class="target" id="module-phase.pyphase.stereomatcher"></span><p>stereo matcher</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="phase.pyphase.stereomatcher.AbstractStereoMatcher">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereomatcher.</span></span><span class="sig-name descname"><span class="pre">AbstractStereoMatcher</span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.AbstractStereoMatcher" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereomatcher.AbstractStereoMatcher.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.AbstractStereoMatcher" title="phase.pyphase.stereomatcher.AbstractStereoMatcher"><span class="pre">phase.pyphase.stereomatcher.AbstractStereoMatcher</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.StereoMatcherComputeResult" title="phase.pyphase.types.StereoMatcherComputeResult"><span class="pre">phase.pyphase.types.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.AbstractStereoMatcher.compute" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereomatcher.AbstractStereoMatcher.getComputeThreadResult">
+<span class="sig-name descname"><span class="pre">getComputeThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.AbstractStereoMatcher" title="phase.pyphase.stereomatcher.AbstractStereoMatcher"><span class="pre">phase.pyphase.stereomatcher.AbstractStereoMatcher</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.StereoMatcherComputeResult" title="phase.pyphase.types.StereoMatcherComputeResult"><span class="pre">phase.pyphase.types.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.AbstractStereoMatcher.getComputeThreadResult" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereomatcher.AbstractStereoMatcher.isComputeThreadRunning">
+<span class="sig-name descname"><span class="pre">isComputeThreadRunning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.AbstractStereoMatcher" title="phase.pyphase.stereomatcher.AbstractStereoMatcher"><span class="pre">phase.pyphase.stereomatcher.AbstractStereoMatcher</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.AbstractStereoMatcher.isComputeThreadRunning" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereomatcher.AbstractStereoMatcher.setComputeThreadCallback">
+<span class="sig-name descname"><span class="pre">setComputeThreadCallback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">phase.pyphase.stereomatcher.AbstractStereoMatcher</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0:</span> <span class="pre">std::function&lt;void</span> <span class="pre">()&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.AbstractStereoMatcher.setComputeThreadCallback" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phase.pyphase.stereomatcher.AbstractStereoMatcher.startComputeThread">
+<span class="sig-name descname"><span class="pre">startComputeThread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.AbstractStereoMatcher" title="phase.pyphase.stereomatcher.AbstractStereoMatcher"><span class="pre">phase.pyphase.stereomatcher.AbstractStereoMatcher</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.AbstractStereoMatcher.startComputeThread" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoBM">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereomatcher.</span></span><span class="sig-name descname"><span class="pre">StereoBM</span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoBM" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoBM.compute">
-<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoBM" title="phase.pyphase.stereomatcher.StereoBM"><span class="pre">phase.pyphase.stereomatcher.StereoBM</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoMatcherComputeResult" title="phase.pyphase.stereomatcher.StereoMatcherComputeResult"><span class="pre">phase.pyphase.stereomatcher.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoBM.compute" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoBM" title="phase.pyphase.stereomatcher.StereoBM"><span class="pre">phase.pyphase.stereomatcher.StereoBM</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.StereoMatcherComputeResult" title="phase.pyphase.types.StereoMatcherComputeResult"><span class="pre">phase.pyphase.types.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoBM.compute" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoBM.getComputeThreadResult">
-<span class="sig-name descname"><span class="pre">getComputeThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoBM" title="phase.pyphase.stereomatcher.StereoBM"><span class="pre">phase.pyphase.stereomatcher.StereoBM</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoMatcherComputeResult" title="phase.pyphase.stereomatcher.StereoMatcherComputeResult"><span class="pre">phase.pyphase.stereomatcher.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoBM.getComputeThreadResult" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getComputeThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoBM" title="phase.pyphase.stereomatcher.StereoBM"><span class="pre">phase.pyphase.stereomatcher.StereoBM</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.StereoMatcherComputeResult" title="phase.pyphase.types.StereoMatcherComputeResult"><span class="pre">phase.pyphase.types.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoBM.getComputeThreadResult" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1670,12 +2213,12 @@ single class for easy use.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoHOBM.compute">
-<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoHOBM" title="phase.pyphase.stereomatcher.StereoHOBM"><span class="pre">phase.pyphase.stereomatcher.StereoHOBM</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoMatcherComputeResult" title="phase.pyphase.stereomatcher.StereoMatcherComputeResult"><span class="pre">phase.pyphase.stereomatcher.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoHOBM.compute" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoHOBM" title="phase.pyphase.stereomatcher.StereoHOBM"><span class="pre">phase.pyphase.stereomatcher.StereoHOBM</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.StereoMatcherComputeResult" title="phase.pyphase.types.StereoMatcherComputeResult"><span class="pre">phase.pyphase.types.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoHOBM.compute" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoHOBM.getComputeThreadResult">
-<span class="sig-name descname"><span class="pre">getComputeThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoHOBM" title="phase.pyphase.stereomatcher.StereoHOBM"><span class="pre">phase.pyphase.stereomatcher.StereoHOBM</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoMatcherComputeResult" title="phase.pyphase.stereomatcher.StereoMatcherComputeResult"><span class="pre">phase.pyphase.stereomatcher.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoHOBM.getComputeThreadResult" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getComputeThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoHOBM" title="phase.pyphase.stereomatcher.StereoHOBM"><span class="pre">phase.pyphase.stereomatcher.StereoHOBM</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.StereoMatcherComputeResult" title="phase.pyphase.types.StereoMatcherComputeResult"><span class="pre">phase.pyphase.types.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoHOBM.getComputeThreadResult" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1716,7 +2259,7 @@ single class for easy use.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoI3DRSGM.compute">
-<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoI3DRSGM" title="phase.pyphase.stereomatcher.StereoI3DRSGM"><span class="pre">phase.pyphase.stereomatcher.StereoI3DRSGM</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoMatcherComputeResult" title="phase.pyphase.stereomatcher.StereoMatcherComputeResult"><span class="pre">phase.pyphase.stereomatcher.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoI3DRSGM.compute" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoI3DRSGM" title="phase.pyphase.stereomatcher.StereoI3DRSGM"><span class="pre">phase.pyphase.stereomatcher.StereoI3DRSGM</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.StereoMatcherComputeResult" title="phase.pyphase.types.StereoMatcherComputeResult"><span class="pre">phase.pyphase.types.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoI3DRSGM.compute" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1731,7 +2274,7 @@ single class for easy use.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoI3DRSGM.getComputeThreadResult">
-<span class="sig-name descname"><span class="pre">getComputeThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoI3DRSGM" title="phase.pyphase.stereomatcher.StereoI3DRSGM"><span class="pre">phase.pyphase.stereomatcher.StereoI3DRSGM</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoMatcherComputeResult" title="phase.pyphase.stereomatcher.StereoMatcherComputeResult"><span class="pre">phase.pyphase.stereomatcher.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoI3DRSGM.getComputeThreadResult" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getComputeThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoI3DRSGM" title="phase.pyphase.stereomatcher.StereoI3DRSGM"><span class="pre">phase.pyphase.stereomatcher.StereoI3DRSGM</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.StereoMatcherComputeResult" title="phase.pyphase.types.StereoMatcherComputeResult"><span class="pre">phase.pyphase.types.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoI3DRSGM.getComputeThreadResult" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1782,22 +2325,6 @@ single class for easy use.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoMatcherComputeResult">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereomatcher.</span></span><span class="sig-name descname"><span class="pre">StereoMatcherComputeResult</span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoMatcherComputeResult" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
-<dl class="py property">
-<dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoMatcherComputeResult.disparity">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disparity</span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoMatcherComputeResult.disparity" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoMatcherComputeResult.valid">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">valid</span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoMatcherComputeResult.valid" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoParams">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereomatcher.</span></span><span class="sig-name descname"><span class="pre">StereoParams</span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoParams" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
@@ -1834,12 +2361,12 @@ single class for easy use.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoSGBM.compute">
-<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoSGBM" title="phase.pyphase.stereomatcher.StereoSGBM"><span class="pre">phase.pyphase.stereomatcher.StereoSGBM</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoMatcherComputeResult" title="phase.pyphase.stereomatcher.StereoMatcherComputeResult"><span class="pre">phase.pyphase.stereomatcher.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoSGBM.compute" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoSGBM" title="phase.pyphase.stereomatcher.StereoSGBM"><span class="pre">phase.pyphase.stereomatcher.StereoSGBM</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.StereoMatcherComputeResult" title="phase.pyphase.types.StereoMatcherComputeResult"><span class="pre">phase.pyphase.types.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoSGBM.compute" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoSGBM.getComputeThreadResult">
-<span class="sig-name descname"><span class="pre">getComputeThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoSGBM" title="phase.pyphase.stereomatcher.StereoSGBM"><span class="pre">phase.pyphase.stereomatcher.StereoSGBM</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoMatcherComputeResult" title="phase.pyphase.stereomatcher.StereoMatcherComputeResult"><span class="pre">phase.pyphase.stereomatcher.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoSGBM.getComputeThreadResult" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getComputeThreadResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoSGBM" title="phase.pyphase.stereomatcher.StereoSGBM"><span class="pre">phase.pyphase.stereomatcher.StereoSGBM</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.StereoMatcherComputeResult" title="phase.pyphase.types.StereoMatcherComputeResult"><span class="pre">phase.pyphase.types.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoSGBM.getComputeThreadResult" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1879,8 +2406,8 @@ single class for easy use.</p>
 <span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereomatcher.</span></span><span class="sig-name descname"><span class="pre">createStereoMatcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phase.pyphase.stereomatcher.createStereoMatcher" title="Permalink to this definition"></a></dt>
 <dd><p>Overloaded function.</p>
 <ol class="arabic simple">
-<li><p>createStereoMatcher(arg0: phase.pyphase.types.StereoMatcherType) -&gt; I3DR::Phase::AbstractStereoMatcher</p></li>
-<li><p>createStereoMatcher(arg0: phase.pyphase.stereomatcher.StereoParams) -&gt; I3DR::Phase::AbstractStereoMatcher</p></li>
+<li><p>createStereoMatcher(arg0: phase.pyphase.types.StereoMatcherType) -&gt; phase.pyphase.stereomatcher.AbstractStereoMatcher</p></li>
+<li><p>createStereoMatcher(arg0: phase.pyphase.stereomatcher.StereoParams) -&gt; phase.pyphase.stereomatcher.AbstractStereoMatcher</p></li>
 </ol>
 </dd></dl>
 
