@@ -28,11 +28,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
       # Install Phase
       - name: Download Phase
-        uses: robinraju/release-downloader@v1.3
-        with:
-          repository: ${{ env.PHASE_REPO }}
-          tag: ${{ env.PHASE_VERSION }}
-          fileName: phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
+        shell: bash
+        run: |
+          curl --output phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb -L https://github.com/i3drobotics/phase-dev/releases/download/${{ env.PHASE_VERSION }}/phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
       - name: Install Phase
         shell: bash
         run: |
@@ -73,11 +71,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
       # Install Phase
       - name: Download Phase
-        uses: robinraju/release-downloader@v1.3
-        with:
-          repository: ${{ env.PHASE_REPO }}
-          tag: ${{ env.PHASE_VERSION }}
-          fileName: phase-${{ env.PHASE_VERSION }}-windows-x86_64.zip
+        shell: bash
+        run: |
+          curl --output phase-${{ env.PHASE_VERSION }}-windows-x86_64.zip -L https://github.com/i3drobotics/phase-dev/releases/download/${{ env.PHASE_VERSION }}/phase-${{ env.PHASE_VERSION }}-windows-x86_64.zip
       - name: Install Phase
         shell: powershell
         run: |
