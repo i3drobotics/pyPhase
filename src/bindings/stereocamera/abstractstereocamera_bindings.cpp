@@ -35,6 +35,14 @@ void init_abstractstereocamera(py::module_ &m) {
         .def("startReadThread", &I3DR::Phase::AbstractStereoCamera::startReadThread, py::arg("timeout") = 1000)
         .def("isReadThreadRunning", &I3DR::Phase::AbstractStereoCamera::isReadThreadRunning)
         .def("getReadThreadResult", &I3DR::Phase::AbstractStereoCamera::getReadThreadResult)
+        .def("startContinousReadThread", &I3DR::Phase::AbstractStereoCamera::startContinousReadThread, py::arg("timeout") = 1000)
+        .def("stopContinousReadThread", &I3DR::Phase::AbstractStereoCamera::stopContinousReadThread)
+        .def("isContinousReadThreadRunning", &I3DR::Phase::AbstractStereoCamera::isContinousReadThreadRunning)
+        
+
+        bool startContinousReadThread(int timeout = 1000);
+            void stopContinousReadThread();
+            bool isContinousReadThreadRunning();
         .def("getWidth", &I3DR::Phase::AbstractStereoCamera::getWidth)
         .def("getHeight", &I3DR::Phase::AbstractStereoCamera::getHeight)
         .def("getDownsampleFactor", &I3DR::Phase::AbstractStereoCamera::getDownsampleFactor)
