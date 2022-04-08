@@ -12,7 +12,7 @@ on:
           - major
 
 env:
-  PHASE_VERSION: v0.0.22
+  PHASE_VERSION: v0.0.23
   PHASE_REPO: i3drobotics/phase
 
 jobs:
