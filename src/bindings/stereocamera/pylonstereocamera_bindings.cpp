@@ -36,6 +36,7 @@ void init_pylonstereocamera(py::module_ &m) {
         .def("startReadThread", &I3DR::Phase::PylonStereoCamera::startReadThread, py::arg("timeout") = 1000)
         .def("isReadThreadRunning", &I3DR::Phase::PylonStereoCamera::isReadThreadRunning)
         .def("getReadThreadResult", &I3DR::Phase::PylonStereoCamera::getReadThreadResult)
+        .def("setReadThreadCallback", &I3DR::Phase::PylonStereoCamera::setReadThreadCallback)
         .def("startContinousReadThread", &I3DR::Phase::PylonStereoCamera::startContinousReadThread, py::arg("timeout") = 1000)
         .def("stopContinousReadThread", &I3DR::Phase::PylonStereoCamera::stopContinousReadThread)
         .def("isContinousReadThreadRunning", &I3DR::Phase::PylonStereoCamera::isContinousReadThreadRunning)

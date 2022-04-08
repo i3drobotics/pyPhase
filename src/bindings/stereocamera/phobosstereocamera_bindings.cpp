@@ -36,6 +36,7 @@ void init_phobosstereocamera(py::module_ &m) {
         .def("startReadThread", &I3DR::Phase::PhobosStereoCamera::startReadThread, py::arg("timeout") = 1000)
         .def("isReadThreadRunning", &I3DR::Phase::PhobosStereoCamera::isReadThreadRunning)
         .def("getReadThreadResult", &I3DR::Phase::PhobosStereoCamera::getReadThreadResult)
+        .def("setReadThreadCallback", &I3DR::Phase::PhobosStereoCamera::setReadThreadCallback)
         .def("startContinousReadThread", &I3DR::Phase::PhobosStereoCamera::startContinousReadThread, py::arg("timeout") = 1000)
         .def("stopContinousReadThread", &I3DR::Phase::PhobosStereoCamera::stopContinousReadThread)
         .def("isContinousReadThreadRunning", &I3DR::Phase::PhobosStereoCamera::isContinousReadThreadRunning)

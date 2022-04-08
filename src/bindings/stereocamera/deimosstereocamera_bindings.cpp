@@ -37,6 +37,7 @@ void init_deimosstereocamera(py::module_ &m) {
         .def("startReadThread", &I3DR::Phase::DeimosStereoCamera::startReadThread, py::arg("timeout") = 1000)
         .def("isReadThreadRunning", &I3DR::Phase::DeimosStereoCamera::isReadThreadRunning)
         .def("getReadThreadResult", &I3DR::Phase::DeimosStereoCamera::getReadThreadResult)
+        .def("setReadThreadCallback", &I3DR::Phase::DeimosStereoCamera::setReadThreadCallback)
         .def("startContinousReadThread", &I3DR::Phase::DeimosStereoCamera::startContinousReadThread, py::arg("timeout") = 1000)
         .def("stopContinousReadThread", &I3DR::Phase::DeimosStereoCamera::stopContinousReadThread)
         .def("isContinousReadThreadRunning", &I3DR::Phase::DeimosStereoCamera::isContinousReadThreadRunning)

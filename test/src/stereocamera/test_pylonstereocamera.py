@@ -154,11 +154,63 @@ def test_PylonStereoCamera_virtual_continous_read():
             time.sleep(0.1)
         print("Frame capture complete.")
         cam.stopContinousReadThread()
-        assert(cam.getCaptureCount() == frames)
+        assert(cam.getCaptureCount() >= frames)
         cam.resetCaptureCount()
         assert(cam.getCaptureCount() == 0)
         cam.disconnect()
     left_glob_files = glob(os.path.join(test_folder, "*_l.png"))
     right_glob_files = glob(os.path.join(test_folder, "*_r.png"))
-    assert len(left_glob_files) == frames
-    assert len(right_glob_files) == frames
+    assert len(left_glob_files) >= frames
+    assert len(right_glob_files) >= frames
+
+
+def test_PylonStereoCamera_virtual_read_callback():
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    test_folder = os.path.join(
+        script_path, "..", ".phase_test", "PylonStereoCamera_read_callback")
+
+    if not os.path.exists(test_folder):
+        os.makedirs(test_folder)
+
+    left_image_file = os.path.join(test_folder, "left.png")
+    right_image_file = os.path.join(test_folder, "right.png")
+
+    left_image = np.zeros((100, 100, 3), dtype=np.uint8)
+    right_image = np.zeros((100, 100, 3), dtype=np.uint8)
+    cv2.imwrite(left_image_file, left_image)
+    cv2.imwrite(right_image_file, right_image)
+
+    device_info = CameraDeviceInfo(
+        "0815-0000", "0815-0001", "virtualpylon",
+        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+    )
+    frames = 10
+    cam = PylonStereoCamera(device_info)
+    cam.setTestImagePaths(left_image_file, right_image_file)
+    cam.enableDataCapture(True)
+    cam.setDataCapturePath(test_folder)
+
+    def read_callback(result):
+        assert (result.valid)
+
+    cam.setReadThreadCallback(read_callback)
+    connected = cam.connect()
+    assert connected is True
+    if connected:
+        print("Capturing continous frames...")
+        cam.startCapture()
+        cam.startContinousReadThread()
+        while(cam.getCaptureCount() < frames):
+            # wait some time
+            time.sleep(0.1)
+        print("Frame capture complete.")
+        cam.stopContinousReadThread()
+        assert(cam.getCaptureCount() >= frames)
+        cam.resetCaptureCount()
+        assert(cam.getCaptureCount() == 0)
+        cam.disconnect()
+    left_glob_files = glob(os.path.join(test_folder, "*_l.png"))
+    right_glob_files = glob(os.path.join(test_folder, "*_r.png"))
+    assert len(left_glob_files) >= frames
+    assert len(right_glob_files) >= frames

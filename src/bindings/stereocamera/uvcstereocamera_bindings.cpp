@@ -36,6 +36,7 @@ void init_uvcstereocamera(py::module_ &m) {
         .def("startReadThread", &I3DR::Phase::UVCStereoCamera::startReadThread, py::arg("timeout") = 1000)
         .def("isReadThreadRunning", &I3DR::Phase::UVCStereoCamera::isReadThreadRunning)
         .def("getReadThreadResult", &I3DR::Phase::UVCStereoCamera::getReadThreadResult)
+        .def("setReadThreadCallback", &I3DR::Phase::UVCStereoCamera::setReadThreadCallback)
         .def("startContinousReadThread", &I3DR::Phase::UVCStereoCamera::startContinousReadThread, py::arg("timeout") = 1000)
         .def("stopContinousReadThread", &I3DR::Phase::UVCStereoCamera::stopContinousReadThread)
         .def("isContinousReadThreadRunning", &I3DR::Phase::UVCStereoCamera::isContinousReadThreadRunning)
