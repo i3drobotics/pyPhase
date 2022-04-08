@@ -102,7 +102,8 @@ def test_PylonStereoCamera_virtual_capture_count():
         cam.startCapture()
         print("Capturing frames...")
         for _ in range(frames):
-            cam.read()
+            result = cam.read()
+            assert (result.left.size != 0)
         assert cam.getCaptureCount() == frames
         print("Frame capture complete.")
         cam.resetCaptureCount()
@@ -148,7 +149,7 @@ def test_PylonStereoCamera_virtual_continous_read():
             count = cam.getCaptureCount()
             if (count > previous_count):
                 result = cam.getReadThreadResult()
-                assert (np.any(result.left) == False)
+                assert (result.left.size != 0)
             # wait some time
             time.sleep(0.1)
         print("Frame capture complete.")
