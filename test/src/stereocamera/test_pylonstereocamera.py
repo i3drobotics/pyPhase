@@ -10,6 +10,7 @@
 """
 import os
 import time
+import shutil
 from glob import glob
 import numpy as np
 import cv2
@@ -66,8 +67,9 @@ def test_PylonStereoCamera_virtual_data_capture():
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_data_capture")
-    if not os.path.exists(test_folder):
-        os.makedirs(test_folder)
+    if os.path.exists(test_folder):
+        shutil.rmtree(test_folder)
+    os.makedirs(test_folder)
 
     device_info = CameraDeviceInfo(
         "0815-0000", "0815-0001", "virtualpylon",
@@ -80,7 +82,8 @@ def test_PylonStereoCamera_virtual_data_capture():
     connected = cam.connect()
     if connected:
         cam.startCapture()
-        cam.read()
+        result = cam.read()
+        assert (result.valid)
         cam.disconnect()
     assert connected is True
     left_glob_files = glob(os.path.join(test_folder, "*_l.png"))
@@ -103,7 +106,7 @@ def test_PylonStereoCamera_virtual_capture_count():
         print("Capturing frames...")
         for _ in range(frames):
             result = cam.read()
-            assert (result.left.size != 0)
+            assert (result.valid)
         assert cam.getCaptureCount() == frames
         print("Frame capture complete.")
         cam.resetCaptureCount()
@@ -117,8 +120,9 @@ def test_PylonStereoCamera_virtual_continous_read():
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_continous_read")
 
-    if not os.path.exists(test_folder):
-        os.makedirs(test_folder)
+    if os.path.exists(test_folder):
+        shutil.rmtree(test_folder)
+    os.makedirs(test_folder)
 
     left_image_file = os.path.join(test_folder, "left.png")
     right_image_file = os.path.join(test_folder, "right.png")
@@ -149,7 +153,7 @@ def test_PylonStereoCamera_virtual_continous_read():
             count = cam.getCaptureCount()
             if (count > previous_count):
                 result = cam.getReadThreadResult()
-                assert (result.left.size != 0)
+                assert (result.valid)
             # wait some time
             time.sleep(0.1)
         print("Frame capture complete.")
@@ -169,8 +173,9 @@ def test_PylonStereoCamera_virtual_read_callback():
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_read_callback")
 
-    if not os.path.exists(test_folder):
-        os.makedirs(test_folder)
+    if os.path.exists(test_folder):
+        shutil.rmtree(test_folder)
+    os.makedirs(test_folder)
 
     left_image_file = os.path.join(test_folder, "left.png")
     right_image_file = os.path.join(test_folder, "right.png")
