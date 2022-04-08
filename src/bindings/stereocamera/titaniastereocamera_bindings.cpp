@@ -9,7 +9,8 @@
  */
 
 
-#include"pybind11/pybind11.h"
+#include "pybind11/pybind11.h"
+#include <pybind11/functional.h>
 #include "ndarray_converter.h"
 
 #include <phase/stereocamera/titaniastereocamera.h>
@@ -37,6 +38,7 @@ void init_titaniastereocamera(py::module_ &m) {
         .def("startReadThread", &I3DR::Phase::TitaniaStereoCamera::startReadThread, py::arg("timeout") = 1000)
         .def("isReadThreadRunning", &I3DR::Phase::TitaniaStereoCamera::isReadThreadRunning)
         .def("getReadThreadResult", &I3DR::Phase::TitaniaStereoCamera::getReadThreadResult)
+        .def("setReadThreadCallback", &I3DR::Phase::TitaniaStereoCamera::setReadThreadCallback)
         .def("startContinousReadThread", &I3DR::Phase::TitaniaStereoCamera::startContinousReadThread, py::arg("timeout") = 1000)
         .def("stopContinousReadThread", &I3DR::Phase::TitaniaStereoCamera::stopContinousReadThread)
         .def("isContinousReadThreadRunning", &I3DR::Phase::TitaniaStereoCamera::isContinousReadThreadRunning)
