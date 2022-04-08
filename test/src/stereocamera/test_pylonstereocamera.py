@@ -71,12 +71,21 @@ def test_PylonStereoCamera_virtual_data_capture():
         shutil.rmtree(test_folder)
     os.makedirs(test_folder)
 
+    left_image_file = os.path.join(test_folder, "left.png")
+    right_image_file = os.path.join(test_folder, "right.png")
+
+    left_image = np.zeros((100, 100, 3), dtype=np.uint8)
+    right_image = np.zeros((100, 100, 3), dtype=np.uint8)
+    cv2.imwrite(left_image_file, left_image)
+    cv2.imwrite(right_image_file, right_image)
+
     device_info = CameraDeviceInfo(
         "0815-0000", "0815-0001", "virtualpylon",
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = PylonStereoCamera(device_info)
+    cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
     connected = cam.connect()
@@ -93,6 +102,22 @@ def test_PylonStereoCamera_virtual_data_capture():
 
 
 def test_PylonStereoCamera_virtual_capture_count():
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    test_folder = os.path.join(
+        script_path, "..", ".phase_test", "PylonStereoCamera_capture_count")
+
+    if os.path.exists(test_folder):
+        shutil.rmtree(test_folder)
+    os.makedirs(test_folder)
+
+    left_image_file = os.path.join(test_folder, "left.png")
+    right_image_file = os.path.join(test_folder, "right.png")
+
+    left_image = np.zeros((100, 100, 3), dtype=np.uint8)
+    right_image = np.zeros((100, 100, 3), dtype=np.uint8)
+    cv2.imwrite(left_image_file, left_image)
+    cv2.imwrite(right_image_file, right_image)
+
     device_info = CameraDeviceInfo(
         "0815-0000", "0815-0001", "virtualpylon",
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
@@ -100,6 +125,7 @@ def test_PylonStereoCamera_virtual_capture_count():
     )
     cam = PylonStereoCamera(device_info)
     frames = 10
+    cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
     if connected:
         cam.startCapture()
