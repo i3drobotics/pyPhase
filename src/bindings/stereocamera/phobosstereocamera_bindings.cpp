@@ -8,7 +8,8 @@
  * @details Python bindings generated using pybind11
  */
 
-#include"pybind11/pybind11.h"
+#include "pybind11/pybind11.h"
+#include <pybind11/functional.h>
 #include "ndarray_converter.h"
 
 #include <phase/stereocamera/phobosstereocamera.h>
