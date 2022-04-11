@@ -3,7 +3,7 @@
 
 ## Features
  - Upgrade to Phase v0.0.24
- - Add read thread callback function to AbstractStereoCamera (setReadThreadCallback). This allows you to provide a callback function to receive the camera read result when using startReadThread or startContinousReadThread.
+ - Fix left image data saved to both left and right image files during data capture
 
 ## Install
 Phase library is required to be installed to use pyPhase.  
