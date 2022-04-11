@@ -1,6 +1,6 @@
 tasks:
   - init: |
-      curl --output phase.deb -L https://github.com/i3drobotics/phase/releases/download/v0.0.23/phase-v0.0.23-ubuntu-20.04-x86_64.deb
+      curl --output phase.deb -L https://github.com/i3drobotics/phase/releases/download/v0.0.24/phase-v0.0.24-ubuntu-20.04-x86_64.deb
       sudo apt update && sudo apt install -y -f ./phase.deb
       sudo rm ./phase.deb
       pip install -r requirements.txt
