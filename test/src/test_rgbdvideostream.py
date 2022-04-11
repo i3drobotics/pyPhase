@@ -9,7 +9,7 @@
  @details Unit tests generated using PyTest
 """
 import os
-import cv2
+import time
 import numpy as np
 from phase.pyphase.types import MatrixUInt8, StereoMatcherType
 from phase.pyphase.calib import StereoCameraCalibration
@@ -120,8 +120,17 @@ def test_RGBDVideoStream():
         rgbdVideoWriter.add(rect_image_pair.left, np_depth)
 
     rgbdVideoWriter.saveThreaded()
+    max_save_duration = 10
+    save_start = time.time()
     while(rgbdVideoWriter.isSaveThreadRunning()):
-        pass
+        # wait some time
+        time.sleep(0.1)
+        # check read is not taking too long
+        save_end = time.time()
+        duration = save_end - save_start
+        assert (duration < max_save_duration)
+        if (duration > max_save_duration):
+            break
 
     assert rgbdVideoWriter.getSaveThreadResult()
 
@@ -133,8 +142,17 @@ def test_RGBDVideoStream():
 
     rgbdVideoStream.loadThreaded()
 
+    max_load_duration = 10
+    load_start = time.time()
     while(rgbdVideoStream.isLoadThreadRunning()):
-        pass
+        # wait some time
+        time.sleep(0.1)
+        # check read is not taking too long
+        load_end = time.time()
+        duration = load_end - load_start
+        assert (duration < max_load_duration)
+        if (duration > max_load_duration):
+            break
 
     assert rgbdVideoStream.getLoadThreadResult()
 
@@ -148,9 +166,17 @@ def test_RGBDVideoStream():
     np_depth_sim_input = np_depth_sim_input.astype(np.float32)
     np_depth_sim_input = np_depth_sim_input*(1.0/6553.5)
 
+    max_stream_duration = 10
+    stream_start = time.time()
     while (not rgbdVideoStream.isFinished()):
         frame = rgbdVideoStream.read()
         assert np.array_equal(frame.depth, np_depth_sim_input)
+        # check read is not taking too long
+        stream_end = time.time()
+        duration = stream_end - stream_start
+        assert (duration < max_stream_duration)
+        if (duration > max_stream_duration):
+            break
 
     rgbdVideoStream.close()
 

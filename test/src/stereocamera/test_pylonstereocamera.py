@@ -175,6 +175,8 @@ def test_PylonStereoCamera_virtual_continous_read():
         cam.startCapture()
         cam.startContinousReadThread()
         previous_count = cam.getCaptureCount()
+        max_read_duration = 10
+        read_start = time.time()
         while(cam.getCaptureCount() < frames):
             count = cam.getCaptureCount()
             if (count > previous_count):
@@ -182,6 +184,12 @@ def test_PylonStereoCamera_virtual_continous_read():
                 assert (result.valid)
             # wait some time
             time.sleep(0.1)
+            # check read is not taking too long
+            read_end = time.time()
+            duration = read_end - read_start
+            assert (duration < max_read_duration)
+            if (duration > max_read_duration):
+                break
         print("Frame capture complete.")
         cam.stopContinousReadThread()
         assert(cam.getCaptureCount() >= frames)
@@ -232,9 +240,17 @@ def test_PylonStereoCamera_virtual_read_callback():
         print("Capturing continous frames...")
         cam.startCapture()
         cam.startContinousReadThread()
+        max_read_duration = 10
+        read_start = time.time()
         while(cam.getCaptureCount() < frames):
             # wait some time
             time.sleep(0.1)
+            # check read is not taking too long
+            read_end = time.time()
+            duration = read_end - read_start
+            assert (duration < max_read_duration)
+            if (duration > max_read_duration):
+                break
         print("Frame capture complete.")
         cam.stopContinousReadThread()
         assert(cam.getCaptureCount() >= frames)

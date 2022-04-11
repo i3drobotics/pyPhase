@@ -9,7 +9,7 @@
  @details Unit tests generated using PyTest
 """
 import os
-import cv2
+import time
 import numpy as np
 from phase.pyphase.types import MatrixUInt8, StereoMatcherType
 from phase.pyphase.calib import StereoCameraCalibration
@@ -120,7 +120,16 @@ def test_RGBDVideoWriter():
         rgbdVideoWriter.add(rect_image_pair.left, np_depth)
 
     rgbdVideoWriter.saveThreaded()
+    max_save_duration = 10
+    save_start = time.time()
     while(rgbdVideoWriter.isSaveThreadRunning()):
-        pass
+        # wait some time
+        time.sleep(0.1)
+        # check read is not taking too long
+        save_end = time.time()
+        duration = save_end - save_start
+        assert (duration < max_save_duration)
+        if (duration > max_save_duration):
+            break
 
     assert rgbdVideoWriter.getSaveThreadResult()
