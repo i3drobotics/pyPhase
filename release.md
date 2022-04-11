@@ -2,8 +2,11 @@
 ***WARNING: This is an early alpha release so may be unstable with breaking changes and have missing documentaiton. Use with caution.***
 
 ## Features
- - Upgrade to Phase v0.0.24
- - Fix left image data saved to both left and right image files during data capture
+ - Upgrade to Phase v0.0.24 [#9](https://github.com/i3drobotics/pyphase/issues/9)
+ - Add timeouts to unit tests to avoid infinite loops [#10](https://github.com/i3drobotics/pyphase/issues/10)
+
+## Bug fixes
+ - Fix left image data saved to both left and right image files during data capture [#9](https://github.com/i3drobotics/pyphase/issues/9)
 
 ## Install
 Phase library is required to be installed to use pyPhase.  
