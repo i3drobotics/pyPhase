@@ -84,13 +84,15 @@ jobs:
       - name: Install Phase
         shell: bash
         run: |
-          tar -xf phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.tar.gz -C phase_install
+          mkdir phase_install
+          tar -xf phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.tar.gz -C ./phase_install
           sudo apt update
           sudo apt install -y libavcodec-dev libavformat-dev libswscale-dev
           sudo apt install -y libgl-dev liblapack-dev libblas-dev libgtk2.0-dev
           sudo apt install -y libgstreamer1.0-0 libgstreamer-plugins-base1.0-0
           sudo apt install -y zlib1g libstdc++6
           sudo apt install -y libc6 libgcc1
+          sudo apt install -y chrpath
       # Install python packages
       - name: Python requirements
         shell: bash
@@ -103,11 +105,16 @@ jobs:
           mkdir -p build && cd build
           sudo apt-get update && cmake -DPhase_DIR="./phase_install/lib/cmake" ..
           make -j$(nproc)
+          patchelf --set-rpath "\$ORIGIN:\$ORIGIN/i3drsgm" "./lib/phase/libphase.so"
+          pyversion=${{ matrix.python-version }}
+          pyversion=${pyversion//./}
+          patchelf --set-rpath "\$ORIGIN:\$ORIGIN/i3drsgm" "./lib/phase/pyphase.cpython-$pyversion-x86_64-linux-gnu.so"
       # Unit Test
       - name: Unit Test
         shell: bash
         run: |
           cd build/lib
+          export LD_LIBRARY_PATH=$(pwd)/phase:$LD_LIBRARY_PATH
           python3 -m pytest ../../test/src/
       # Build deployment wheel
       - name: Build wheel

@@ -52,6 +52,9 @@ elseif(UNIX)
     file (GLOB PHASE_LIBRARY_FILES
         "${PHASE_LIB_DIR}/*.so*"
     )
+    file (GLOB PHASE_I3DRSGM_LIBRARY_FILES
+        "${PHASE_LIB_DIR}/i3drsgm/*.so*"
+    )
 endif()
 
 include(FetchContent)
@@ -119,17 +122,51 @@ add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
     ${PROJECT_SOURCE_DIR}/src/package/phase ${CMAKE_BINARY_DIR}/lib/phase
 )
 
+if (UNIX)
+    add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+        COMMAND mkdir -p $<TARGET_FILE_DIR:${PROJECT_NAME}>/i3drsgm)
+    foreach(PHASE_LIBRARY_FILEPATH ${PHASE_I3DRSGM_LIBRARY_FILES})
+        get_filename_component(PHASE_LIBRARY_FILE "${PHASE_LIBRARY_FILEPATH}" NAME)
+        get_filename_component(PHASE_LIBRARY_FILE_EXT "${PHASE_LIBRARY_FILEPATH}" EXT)
+        # copy library file to target directory
+        add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+                        COMMAND cp -a -u
+                        ${PHASE_LIBRARY_FILEPATH} $<TARGET_FILE_DIR:${PROJECT_NAME}>/i3drsgm/)
+        set(FILEPATH_FULL 
+            ${CMAKE_BINARY_DIR}/lib/phase/i3drsgm/${PHASE_LIBRARY_FILE}
+        )
+        # change rpath for dynamic library files to relative
+        # chrpath -r "\$ORIGIN" file
+        # message(STATUS ${FILEPATH_FULL})
+        # add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+        #     # COMMAND if ! [ -L ${FILEPATH_FULL} ] \; then patchelf --set-rpath "\$ORIGIN" ${FILEPATH_FULL} \; fi
+        #     COMMAND patchelf --set-rpath "\$ORIGIN" ${FILEPATH_FULL} || true
+        # )
+    endforeach()
+endif()
+
 foreach(PHASE_LIBRARY_FILEPATH ${PHASE_LIBRARY_FILES})
     get_filename_component(PHASE_LIBRARY_FILE "${PHASE_LIBRARY_FILEPATH}" NAME)
+    get_filename_component(PHASE_LIBRARY_FILE_EXT "${PHASE_LIBRARY_FILEPATH}" EXT)
     # copy library file to target directory
-    add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
-                       COMMAND ${CMAKE_COMMAND} -E copy 
-                       ${PHASE_LIBRARY_FILEPATH} $<TARGET_FILE_DIR:${PROJECT_NAME}>)
-    if(UNIX)
-        # change rpath for dynamic library files to relative
+    if (WIN32)
         add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
-                        COMMAND chrpath -r "\$ORIGIN"
-                        $<TARGET_FILE_DIR:${PROJECT_NAME}>/${PHASE_LIBRARY_FILE})
+                           COMMAND ${CMAKE_COMMAND} -E copy 
+                           ${PHASE_LIBRARY_FILEPATH} $<TARGET_FILE_DIR:${PROJECT_NAME}>)
+    elseif (UNIX)
+        add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+                           COMMAND cp -a -u
+                           ${PHASE_LIBRARY_FILEPATH} $<TARGET_FILE_DIR:${PROJECT_NAME}>)
+        set(FILEPATH_FULL 
+            ${CMAKE_BINARY_DIR}/lib/phase/${PHASE_LIBRARY_FILE}
+        )
+        # change rpath for dynamic library files to relative
+        # chrpath -r "\$ORIGIN" file
+        # message(STATUS ${FILEPATH_FULL})
+        # add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+        #     COMMAND patchelf --set-rpath "\\\$ORIGIN" ${FILEPATH_FULL} || true
+        #     # COMMAND if ! [ -L ${FILEPATH_FULL} ] \; then echo ${FILEPATH_FULL} \; fi
+        # )
     endif()
 endforeach()
 

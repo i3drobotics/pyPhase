@@ -73,8 +73,11 @@ cmake --build . --config Release
 # [linux]
 cmake -DPhase_DIR="/opt/i3dr/phase/lib/cmake" ..
 make -j$(nproc)
+patchelf --set-rpath "\$ORIGIN:\$ORIGIN/i3drsgm" "./lib/phase/libphase.so"
+patchelf --set-rpath "\$ORIGIN:\$ORIGIN/i3drsgm" "./lib/phase/pyphase.cpython-X-x86_64-linux-gnu.so"
 ```
-*Note: Make sure to run this from the repository root directory*
+*Note: Make sure to run this from the repository root directory*  
+*Note: Change pyphase.cpython-X-x86_64-linux-gnu.so for your python version. e.g. pyphase.cpython-38-x86_64-linux-gnu.so*
 
 ## Test
 ### Unit tests
@@ -84,6 +87,14 @@ cd build/lib
 python3 -m pytest ../../test/src/
 ```
 *Note: Make sure to run this from the repository root directory*
+
+On linux currently libopencv_flann.so.4.5 and libopencv_features2d.so.4.5 are not found.  
+The temporary fix for this is to set LD_LIBRARY_PATH
+```bash
+cd build/lib
+export LD_LIBRARY_PATH=$(pwd)/phase:$LD_LIBRARY_PATH
+python3 -m pytest ../../test/src/
+```
 
 ### Drivers
 ```bash
