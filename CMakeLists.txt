@@ -119,10 +119,18 @@ add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
     ${PROJECT_SOURCE_DIR}/src/package/phase ${CMAKE_BINARY_DIR}/lib/phase
 )
 
-foreach(PHASE_LIBRARY_FILE ${PHASE_LIBRARY_FILES})
+foreach(PHASE_LIBRARY_FILEPATH ${PHASE_LIBRARY_FILES})
+    get_filename_component(PHASE_LIBRARY_FILE "${PHASE_LIBRARY_FILEPATH}" NAME)
+    # copy library file to target directory
     add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
                        COMMAND ${CMAKE_COMMAND} -E copy 
-                       ${PHASE_LIBRARY_FILE} $<TARGET_FILE_DIR:${PROJECT_NAME}>)
+                       ${PHASE_LIBRARY_FILEPATH} $<TARGET_FILE_DIR:${PROJECT_NAME}>)
+    if(UNIX)
+        # change rpath for dynamic library files to relative
+        add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+                        COMMAND chrpath -r "\$ORIGIN"
+                        $<TARGET_FILE_DIR:${PROJECT_NAME}>/${PHASE_LIBRARY_FILE})
+    endif()
 endforeach()
 
 install(TARGETS ${PROJECT_NAME}

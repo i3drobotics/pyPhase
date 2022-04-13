@@ -29,11 +29,17 @@ jobs:
       - name: Download Phase
         shell: bash
         run: |
-          curl --output phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb -L https://github.com/i3drobotics/phase/releases/download/${{ env.PHASE_VERSION }}/phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
+          curl --output phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.tar.gz -L https://github.com/i3drobotics/phase/releases/download/${{ env.PHASE_VERSION }}/phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.tar.gz
       - name: Install Phase
         shell: bash
         run: |
-          sudo apt update && sudo apt install -y -f ./phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
+          tar -xf phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.tar.gz -C phase_install
+          sudo apt update
+          sudo apt install -y libavcodec-dev libavformat-dev libswscale-dev
+          sudo apt install -y libgl-dev liblapack-dev libblas-dev libgtk2.0-dev
+          sudo apt install -y libgstreamer1.0-0 libgstreamer-plugins-base1.0-0
+          sudo apt install -y zlib1g libstdc++6
+          sudo apt install -y libc6 libgcc1
       # Install python packages
       - name: Python requirements
         shell: bash
@@ -44,7 +50,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p build && cd build
-          sudo apt-get update && cmake -DPhase_DIR="/opt/i3dr/phase/lib/cmake" ..
+          sudo apt-get update && cmake -DPhase_DIR="./phase_install/lib/cmake" ..
           make -j$(nproc)
       # Unit Test
       - name: Unit Test
