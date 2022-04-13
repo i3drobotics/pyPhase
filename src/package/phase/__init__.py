@@ -12,14 +12,15 @@
 import os
 import sys
 
-phase_version = "0.0.24"
-phase_download_url = \
-    "https://github.com/i3drobotics/phase/releases/tag/v{}".format(
+
+def get_phase_url(phase_version):
+    return "https://github.com/i3drobotics/phase/releases/tag/v{}".format(
         phase_version)
 
 
-def find_phase():
-    global phase_version, phase_download_url
+def find_phase(phase_version):
+    # Find Phase dlls
+    phase_download_url = get_phase_url(phase_version)
     if sys.platform == "win32":
         lib_path_list = []
         # pyPhase module path
@@ -73,19 +74,37 @@ def find_phase():
             raise Exception(error_msg)
 
 
-find_phase()
-del find_phase
+def check_phase_version(phase_version):
+    # check Phase installed version matches expected version
+    phase_download_url = get_phase_url(phase_version)
+    try:
+        from phase.pyphase import getVersionString
+    except ImportError:
+        error_msg = \
+            "Failed to import pyphase. " \
+            "Likely due to Phase version mismatch. " \
+            "Install Phase v{} from {}".format(
+                phase_version, phase_download_url)
+        raise ImportError(error_msg)
 
-# check Phase installed version matches expected version
-from phase.pyphase import getVersionString
-m_phase_version = getVersionString()
-if getVersionString() != phase_version:
-    error_msg = \
-        "Phase version mismatch. Expected {} but got {}" \
-        "Install Phase v{} from {}".format(
-            phase_version, getVersionString(),
-            phase_version, phase_download_url)
-    raise Exception(error_msg)
-del getVersionString
-del phase_download_url
+    m_phase_version = getVersionString()
+    if m_phase_version != phase_version:
+        error_msg = \
+            "Phase version mismatch. Expected {} but got {}" \
+            "Install Phase v{} from {}".format(
+                phase_version, m_phase_version,
+                phase_version, phase_download_url)
+        raise Exception(error_msg)
+
+
+# Define phase version
+phase_version = "0.0.24"
+
+# Check valid phase import
+find_phase(phase_version)
+check_phase_version(phase_version)
+
+# Cleanup variables/functions so they are accessible after import
+del find_phase
+del check_phase_version
 del phase_version
