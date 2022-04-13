@@ -40,16 +40,17 @@ def find_phase(phase_version):
                 lib_path_list.append(PHASE_BIN)
             else:
                 error_msg = \
-                    "Cannot load Phase library. " \
+                    "Failed to load Phase library. " \
                     "PHASE_DIR is set but path " \
                     "does not exist: {}".format(PHASE_DIR)
                 raise Exception(error_msg)
         else:
             error_msg = \
-                "Cannot load Phase library. " \
+                "Failed to load Phase library files. " \
                 "Phase was not found in standard " \
-                "install location ({}) and PHASE_DIR " \
-                "environment variable is not set.\n" \
+                "install location ({}).\n" \
+                "If you installed Phase library to a non standard folder, " \
+                "set PHASE_DIR environment variable.\n" \
                 "Install Phase v{} from {}".format(
                     PHASE_INSTALL_PATH, phase_version, phase_download_url)
             raise Exception(error_msg)
@@ -66,10 +67,12 @@ def find_phase(phase_version):
         PHASE_INSTALL_PATH = os.path.join("/opt", "i3dr", "phase")
         if not os.path.exists(PHASE_INSTALL_PATH):
             error_msg = \
-                "Cannot load Phase library. " \
-                "Phase was not found in standard " \
+                "Failed to find Phase library files. " \
+                "Phase library was not found in standard " \
                 "install location ({}).\n" \
-                "Install Phase v{} from {}".format(
+                "If you installed Phase library to a non standard folder, " \
+                "you must manually add the path to LD_LIBRARY_PATH.\n" \
+                "Install Phase library v{} from {}".format(
                     PHASE_INSTALL_PATH, phase_version, phase_download_url)
             raise Exception(error_msg)
 
@@ -81,17 +84,21 @@ def check_phase_version(phase_version):
         from phase.pyphase import getVersionString
     except ImportError:
         error_msg = \
-            "Failed to import pyphase. " \
-            "Likely due to Phase version mismatch. " \
-            "Install Phase v{} from {}".format(
+            "Failed to import pyphase.\n" \
+            "Likely due to Phase library version mismatch. " \
+            "If you installed Phase to a non standard folder, " \
+            "set PHASE_DIR environment variable.\n" \
+            "Install Phase v{} from {}.".format(
                 phase_version, phase_download_url)
         raise ImportError(error_msg)
 
     m_phase_version = getVersionString()
     if m_phase_version != phase_version:
         error_msg = \
-            "Phase version mismatch. Expected {} but got {}" \
-            "Install Phase v{} from {}".format(
+            "Phase library version mismatch. Expected v{} but got v{}.\n" \
+            "If you installed Phase library to a non standard folder, " \
+            "set PHASE_DIR environment variable.\n" \
+            "Install Phase library v{} from {}.".format(
                 phase_version, m_phase_version,
                 phase_version, phase_download_url)
         raise Exception(error_msg)
