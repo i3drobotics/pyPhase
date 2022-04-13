@@ -93,5 +93,5 @@ Documentation is generated and deployed in GitHub actions, however, to test docu
 Deployment is handelled by GitHub actions, however, to test deployment locally, use the following command:
 ```bash
 export PYTHONPATH=./build/lib
-python3 setup.py bdist_wheel --dist-dir="deployment" --with_i3drsgm
+python3 setup.py bdist_wheel --dist-dir="deployment"
 ```

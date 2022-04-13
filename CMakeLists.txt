@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.9)
 
-if (NOT (WIN32 OR UNIX OR APPLE))
-    message(FATAL_ERROR "Unsupport os. WIN32, UNIX and APPLE currently supported.")
+if (NOT (WIN32 OR UNIX))
+    message(FATAL_ERROR "Unsupport OS. Only WIN32, UNIX currently supported.")
+elseif (APPLE)
+    message(FATAL_ERROR "APPLE not currently supported.")
 endif ()
 
 # Create temporary version file if it does not exist
@@ -33,6 +35,24 @@ set(PYTHON_MODULE_INSTALL_DIR ${PROJECT_SOURCE_DIR}/phase)
 
 # Find Phase
 find_package(Phase REQUIRED)
+# Get Phase library files
+set(PHASE_ROOT_DIR "${Phase_DIR}/../..")
+get_filename_component(PHASE_ROOT_DIR "${PHASE_ROOT_DIR}" ABSOLUTE)
+set(PHASE_BIN_DIR 
+    "${PHASE_ROOT_DIR}/bin"
+)
+set(PHASE_LIB_DIR 
+    "${PHASE_ROOT_DIR}/lib"
+)
+if (WIN32)
+    file (GLOB PHASE_LIBRARY_FILES
+        "${PHASE_BIN_DIR}/*.dll"
+    )
+elseif(UNIX)
+    file (GLOB PHASE_LIBRARY_FILES
+        "${PHASE_LIB_DIR}/*.so*"
+    )
+endif()
 
 include(FetchContent)
 
@@ -95,8 +115,15 @@ set_target_properties(${PROJECT_NAME_LOWER} PROPERTIES
 )
 
 add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/src/package/phase ${CMAKE_BINARY_DIR}/lib/phase
+    COMMAND ${CMAKE_COMMAND} -E copy_directory 
+    ${PROJECT_SOURCE_DIR}/src/package/phase ${CMAKE_BINARY_DIR}/lib/phase
 )
+
+foreach(PHASE_LIBRARY_FILE ${PHASE_LIBRARY_FILES})
+    add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+                       COMMAND ${CMAKE_COMMAND} -E copy 
+                       ${PHASE_LIBRARY_FILE} $<TARGET_FILE_DIR:${PROJECT_NAME}>)
+endforeach()
 
 install(TARGETS ${PROJECT_NAME}
     COMPONENT python
@@ -104,3 +131,5 @@ install(TARGETS ${PROJECT_NAME}
     LIBRARY DESTINATION ${PYTHON_MODULE_INSTALL_DIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
+
+# install(FILES ${PHASE_LIBRARY_FILES} DESTINATION bin)

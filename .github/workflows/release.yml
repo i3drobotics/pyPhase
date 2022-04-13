@@ -108,7 +108,7 @@ jobs:
         shell: bash
         run: |
           export PYTHONPATH=./build/lib
-          python3 setup.py bdist_wheel --dist-dir="deployment" --with_i3drsgm
+          python3 setup.py bdist_wheel --dist-dir="deployment"
       # Upload deployment artifact
       # (for data sharing across jobs)
       - name: Upload deployment artifact
@@ -179,7 +179,7 @@ jobs:
         shell: bash
         run: |
           export PYTHONPATH=./build/lib
-          python setup.py bdist_wheel --dist-dir="deployment" --with_i3drsgm
+          python setup.py bdist_wheel --dist-dir="deployment"
         env:
           PHASE_DIR: "${{ github.workspace }}/phase_install"
       # Upload deployment artifact
