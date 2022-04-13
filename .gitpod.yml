@@ -3,16 +3,19 @@ tasks:
       curl --output phase.deb -L https://github.com/i3drobotics/phase/releases/download/v0.0.24/phase-v0.0.24-ubuntu-20.04-x86_64.deb
       sudo apt update && sudo apt install -y -f ./phase.deb
       sudo rm ./phase.deb
+      sudo apt-get install doxygen
       pip install -r requirements.txt
 
 github:
   prebuilds:
+    # prebuilds disabled untill dockerfile created for system installs
+
     # enable for the default branch (defaults to true)
-    main: true
+    main: false
     # enable for all branches in this repo (defaults to false)
     branches: false
     # enable for pull requests coming from this repo (defaults to true)
-    pullRequests: true
+    pullRequests: false
     # enable for pull requests coming from forks (defaults to false)
     pullRequestsFromForks: false
     # add a check to pull requests (defaults to true)
