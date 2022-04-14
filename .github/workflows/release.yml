@@ -385,7 +385,7 @@ jobs:
         with:
           tag_name: v${{ env.PROJ_VER }}
           files: |
-            deployment/phase-${{ env.PROJ_VER }}cp38-cp38-linux_x86_64.whl
+            deployment/phase-${{ env.PROJ_VER }}-cp38-cp38-linux_x86_64.whl
       - name: Upload Linux wheel release assets
         uses: softprops/action-gh-release@v1
         with:
