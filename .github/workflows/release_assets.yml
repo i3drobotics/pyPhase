@@ -1,13 +1,25 @@
-name: Test Release
+name: Release Assets
+
+# Manually release assets if failed on automatic release
+# See issue #19 for details
 
 on:
   workflow_dispatch:
+
+env:
+  RELEASE_TAG: v0.1.10
+  RUN_ID: 2167621475
+  COMMIT_SHA: 275579c93fd1d89900dd44056af445daa91380d3
 
 jobs:
   # Test release on GitHub
   # Used to test issue #19
   deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
 
     steps:
       - uses: actions/checkout@v2
@@ -16,13 +28,13 @@ jobs:
         uses: dawidd6/action-download-artifact@v2
         with:
           workflow: release.yml
-          run_id: 2167621475
+          run_id: ${{ env.RUN_ID }}
           branch: main
-          name: deployment-ubuntu-20.04-py3.10-275579c93fd1d89900dd44056af445daa91380d3-pyphase-release
+          name: deployment-ubuntu-20.04-py${{ matrix.python-version }}-${{ env.COMMIT_SHA }}-pyphase-release
           path: deployment
       - name: Upload Linux wheel release assets
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: v0.1.10
+          tag_name: ${{ env.RELEASE_TAG }}
           files: |
             deployment/phase*linux_x86_64.whl
