@@ -319,14 +319,13 @@ jobs:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
       # Create release
-      - name: Developer release
+      - name: GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           draft: false
           body_path: release.md
           tag_name: v${{ env.PROJ_VER }}
           files: |
-            deployment/*.whl
             docs.zip
             docs-dev.zip
       # Update public docs
@@ -360,6 +359,20 @@ jobs:
           target_branch: main
           github_token: ${{ github.token }}
           message: merged ${{ steps.commit-vars.outputs.sha_short }}
+      # Add wheels to release
+      # Placed after everything to avoid issues if failure (see issue #19)
+      - name: Upload Windows wheel release assets
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ env.PROJ_VER }}
+          files: |
+            deployment/phase*win_amd64.whl
+      - name: Upload Linux wheel release assets
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ env.PROJ_VER }}
+          files: |
+            deployment/phase*linux_x86_64.whl
 
   cleanup-deployments:
       needs: [deploy]
