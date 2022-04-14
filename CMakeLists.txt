@@ -79,6 +79,9 @@ if ("${NUMPY_INCLUDE}" STREQUAL "")
     message(FATAL_ERROR "\nFailed to find required python package numpy.\nInstall using `pip install numpy`.")
 endif()
 
+# find python version
+find_package(Python COMPONENTS Interpreter)
+
 # Get pybind11_opencv_numpy from git repository for opencv->numpy conversion
 FetchContent_Declare(
     pybind11_opencv_numpy
@@ -132,16 +135,6 @@ if (UNIX)
         add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
                         COMMAND cp -a -u
                         ${PHASE_LIBRARY_FILEPATH} $<TARGET_FILE_DIR:${PROJECT_NAME}>/i3drsgm/)
-        set(FILEPATH_FULL 
-            ${CMAKE_BINARY_DIR}/lib/phase/i3drsgm/${PHASE_LIBRARY_FILE}
-        )
-        # change rpath for dynamic library files to relative
-        # chrpath -r "\$ORIGIN" file
-        # message(STATUS ${FILEPATH_FULL})
-        # add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
-        #     # COMMAND if ! [ -L ${FILEPATH_FULL} ] \; then patchelf --set-rpath "\$ORIGIN" ${FILEPATH_FULL} \; fi
-        #     COMMAND patchelf --set-rpath "\$ORIGIN" ${FILEPATH_FULL} || true
-        # )
     endforeach()
 endif()
 
@@ -157,24 +150,34 @@ foreach(PHASE_LIBRARY_FILEPATH ${PHASE_LIBRARY_FILES})
         add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
                            COMMAND cp -a -u
                            ${PHASE_LIBRARY_FILEPATH} $<TARGET_FILE_DIR:${PROJECT_NAME}>)
-        set(FILEPATH_FULL 
+        set(PHASE_LIBRARY_FILEPATH_FULL 
             ${CMAKE_BINARY_DIR}/lib/phase/${PHASE_LIBRARY_FILE}
         )
-        # change rpath for dynamic library files to relative
-        # chrpath -r "\$ORIGIN" file
-        # message(STATUS ${FILEPATH_FULL})
-        # add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
-        #     COMMAND patchelf --set-rpath "\\\$ORIGIN" ${FILEPATH_FULL} || true
-        #     # COMMAND if ! [ -L ${FILEPATH_FULL} ] \; then echo ${FILEPATH_FULL} \; fi
-        # )
+        # change rpath for dynamic library to find dependencies in local directory
+        set(origin_var "\\$$ORIGIN")
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND if ! [ -L ${PHASE_LIBRARY_FILEPATH_FULL} ] \; then patchelf --set-rpath ${origin_var} ${PHASE_LIBRARY_FILEPATH_FULL} \; fi
+        )
     endif()
 endforeach()
 
-install(TARGETS ${PROJECT_NAME}
-    COMPONENT python
-    RUNTIME DESTINATION ${PYTHON_MODULE_INSTALL_DIR}
-    LIBRARY DESTINATION ${PYTHON_MODULE_INSTALL_DIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-)
-
-# install(FILES ${PHASE_LIBRARY_FILES} DESTINATION bin)
+if (UNIX)
+    set(origin_var "\\$$ORIGIN:\\$$ORIGIN/i3drsgm")
+    # change rpath for dynamic library to find dependencies in local directory
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND patchelf --set-rpath ${origin_var}
+        ${CMAKE_BINARY_DIR}/lib/phase/libphase.so
+    )
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND patchelf --set-rpath ${origin_var}
+        ${CMAKE_BINARY_DIR}/lib/phase/pyphase.cpython-${Python_VERSION_MAJOR}${Python_VERSION_MINOR}-x86_64-linux-gnu.so
+    )
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND mv ${CMAKE_BINARY_DIR}/lib/phase/libpng*
+        ${CMAKE_BINARY_DIR}/lib/phase/i3drsgm
+    )
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND mv ${CMAKE_BINARY_DIR}/lib/phase/libxerces*
+        ${CMAKE_BINARY_DIR}/lib/phase/i3drsgm
+    )
+endif()

@@ -7,24 +7,22 @@ pyPhase is a python wrapper package over I3DR's Phase C++ library.
 [![Build](https://github.com/i3drobotics/pyphase/actions/workflows/build.yml/badge.svg)](https://github.com/i3drobotics/pyphase/actions/workflows/build.yml)
 
 ## Install
-Phase library is required to be installed to use pyPhase.  
->### Linux
->Download debian package from [v0.0.24 release](https://github.com/i3drobotics/phase/releases/tag/v0.0.24).  
->Install debian package using apt package manager:
->```
->sudo apt install -f ./phase_vx.x.x-amd64.deb
->```
->This should install to `/opt/i3dr/phase`
->### Windows
->Download Windows installer from the [v0.0.24 release](https://github.com/i3drobotics/phase/releases/tag/v0.0.24).  
->Install using the installer GUI, this should install to `C:\Program Files\i3DR\Phase`
->
-
-Then install pyPhase from pypi using pip:
+### Windows
+Install pyPhase from pypi using pip:
 ```
 pip install phase
 ```
-This is not yet available on pypi for Linux. Please download the wheel for your version of python from the release and install using:
+### Linux
+Install dependencies
+```
+sudo apt install -y libavcodec-dev libavformat-dev libswscale-dev
+sudo apt install -y libgl-dev liblapack-dev libblas-dev libgtk2.0-dev
+sudo apt install -y libgstreamer1.0-0 libgstreamer-plugins-base1.0-0
+sudo apt install -y zlib1g libstdc++6
+sudo apt install -y libc6 libgcc1
+```
+Package is not yet available on pypi for Linux.  
+Please download the wheel for your version of python from the release and install using:
 ```
 pip install ./phase-X.X.X-cpXXX-cpXXX-linux_x86_64.whl
 ```
@@ -55,12 +53,12 @@ pip install -r requirements.txt
 ```
 
 ## Additional dependencies
-Doxygen is used for documentation.  
-On Linux install with the following command:
+### Linux
 ```
-sudo apt-get install doxygen
+sudo apt-get install doxygen patchelf
 ```
-On Windows download and install doxygen from [here](https://www.doxygen.nl/download.html)
+### Windows
+Download and install doxygen from [here](https://www.doxygen.nl/download.html)
 
 ## Build
 Build pyPhase bindings using CMake:
@@ -73,11 +71,8 @@ cmake --build . --config Release
 # [linux]
 cmake -DPhase_DIR="/opt/i3dr/phase/lib/cmake" ..
 make -j$(nproc)
-patchelf --set-rpath "\$ORIGIN:\$ORIGIN/i3drsgm" "./lib/phase/libphase.so"
-patchelf --set-rpath "\$ORIGIN:\$ORIGIN/i3drsgm" "./lib/phase/pyphase.cpython-X-x86_64-linux-gnu.so"
 ```
 *Note: Make sure to run this from the repository root directory*  
-*Note: Change pyphase.cpython-X-x86_64-linux-gnu.so for your python version. e.g. pyphase.cpython-38-x86_64-linux-gnu.so*
 
 ## Test
 ### Unit tests
@@ -87,14 +82,6 @@ cd build/lib
 python3 -m pytest ../../test/src/
 ```
 *Note: Make sure to run this from the repository root directory*
-
-On linux currently libopencv_flann.so.4.5 and libopencv_features2d.so.4.5 are not found.  
-The temporary fix for this is to set LD_LIBRARY_PATH
-```bash
-cd build/lib
-export LD_LIBRARY_PATH=$(pwd)/phase:$LD_LIBRARY_PATH
-python3 -m pytest ../../test/src/
-```
 
 ### Drivers
 ```bash
