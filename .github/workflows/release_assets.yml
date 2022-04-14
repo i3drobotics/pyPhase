@@ -38,3 +38,16 @@ jobs:
           tag_name: ${{ env.RELEASE_TAG }}
           files: |
             deployment/phase*linux_x86_64.whl
+
+  cleanup-deployments:
+      needs: [deploy]
+      runs-on: ${{ matrix.os }}
+      strategy:
+        matrix:
+          os: [ubuntu-20.04]
+          python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
+
+      steps:
+        - uses: geekyeggo/delete-artifact@v1
+          with:
+            name: deployment-${{ matrix.os }}-py${{ matrix.python-version }}-${{ github.sha }}-pyphase-release
