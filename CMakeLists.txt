@@ -79,9 +79,6 @@ if ("${NUMPY_INCLUDE}" STREQUAL "")
     message(FATAL_ERROR "\nFailed to find required python package numpy.\nInstall using `pip install numpy`.")
 endif()
 
-# find python version
-find_package(Python COMPONENTS Interpreter)
-
 # Get pybind11_opencv_numpy from git repository for opencv->numpy conversion
 FetchContent_Declare(
     pybind11_opencv_numpy
@@ -170,7 +167,7 @@ if (UNIX)
     )
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND patchelf --set-rpath ${origin_var}
-        ${CMAKE_BINARY_DIR}/lib/phase/pyphase.cpython-${Python_VERSION_MAJOR}${Python_VERSION_MINOR}-x86_64-linux-gnu.so
+        $<TARGET_FILE:${PROJECT_NAME}>
     )
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND mv ${CMAKE_BINARY_DIR}/lib/phase/libpng*
