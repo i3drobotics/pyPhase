@@ -12,54 +12,34 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       # Download deployments from build artifacts
-      - name: Download deployment artifact (Windows py3.6)
-        uses: actions/download-artifact@v2
-        with:
-          name: deployment-windows-2019-py3.6-275579c93fd1d89900dd44056af445daa91380d3-pyphase-release
-          path: deployment
-      - name: Download deployment artifact (Windows py3.7)
-        uses: actions/download-artifact@v2
-        with:
-          name: deployment-windows-2019-py3.7-275579c93fd1d89900dd44056af445daa91380d3-pyphase-release
-          path: deployment
-      - name: Download deployment artifact (Windows py3.8)
-        uses: actions/download-artifact@v2
-        with:
-          name: deployment-windows-2019-py3.8-275579c93fd1d89900dd44056af445daa91380d3-pyphase-release
-          path: deployment
-      - name: Download deployment artifact (Windows py3.9)
-        uses: actions/download-artifact@v2
-        with:
-          name: deployment-windows-2019-py3.9-275579c93fd1d89900dd44056af445daa91380d3-pyphase-release
-          path: deployment
-      - name: Download deployment artifact (Windows py3.10)
-        uses: actions/download-artifact@v2
-        with:
-          name: deployment-windows-2019-py3.10-275579c93fd1d89900dd44056af445daa91380d3-pyphase-release
-          path: deployment
       - name: Download deployment artifact (Ubuntu py3.6)
-        uses: actions/download-artifact@v2
+        uses: dawidd6/action-download-artifact@v2
         with:
+          workflow: release.yml
           name: deployment-ubuntu-20.04-py3.6-275579c93fd1d89900dd44056af445daa91380d3-pyphase-release
           path: deployment
       - name: Download deployment artifact (Ubuntu py3.7)
-        uses: actions/download-artifact@v2
+        uses: dawidd6/action-download-artifact@v2
         with:
+          workflow: release.yml
           name: deployment-ubuntu-20.04-py3.7-275579c93fd1d89900dd44056af445daa91380d3-pyphase-release
           path: deployment
       - name: Download deployment artifact (Ubuntu py3.8)
-        uses: actions/download-artifact@v2
+        uses: dawidd6/action-download-artifact@v2
         with:
+          workflow: release.yml
           name: deployment-ubuntu-20.04-py3.8-275579c93fd1d89900dd44056af445daa91380d3-pyphase-release
           path: deployment
       - name: Download deployment artifact (Ubuntu py3.9)
-        uses: actions/download-artifact@v2
+        uses: dawidd6/action-download-artifact@v2
         with:
+          workflow: release.yml
           name: deployment-ubuntu-20.04-py3.9-275579c93fd1d89900dd44056af445daa91380d3-pyphase-release
           path: deployment
       - name: Download deployment artifact (Ubuntu py3.10)
-        uses: actions/download-artifact@v2
+        uses: dawidd6/action-download-artifact@v2
         with:
+          workflow: release.yml
           name: deployment-ubuntu-20.04-py3.10-275579c93fd1d89900dd44056af445daa91380d3-pyphase-release
           path: deployment
       - name: Upload Linux wheel release assets
