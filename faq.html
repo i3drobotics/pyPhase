@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FAQ &mdash; pyPhase 0.1.10
+  <title>FAQ &mdash; pyPhase 0.1.11
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -44,7 +44,6 @@
 <li class="toctree-l1"><a class="reference internal" href="autocode.html">Module</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">FAQ</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#no-module-named-phase">No module named ‘phase’</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cannot-load-phase-library">Cannot load Phase library</a></li>
 </ul>
 </li>
 </ul>
@@ -87,28 +86,6 @@
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install phase</span>
 </pre></div>
 </div>
-</section>
-<section id="cannot-load-phase-library">
-<h2>Cannot load Phase library<a class="headerlink" href="#cannot-load-phase-library" title="Permalink to this headline"></a></h2>
-<p><strong>Issue:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ne">Exception</span><span class="p">:</span> <span class="n">Cannot</span> <span class="n">load</span> <span class="n">Phase</span> <span class="n">library</span><span class="o">.</span> <span class="n">PHASE_DIR</span> <span class="ow">is</span> <span class="nb">set</span> <span class="n">but</span> <span class="n">path</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">exist</span><span class="p">:</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Program</span> <span class="n">Files</span>\<span class="n">Phase</span>\<span class="nb">bin</span>
-</pre></div>
-</div>
-<p><strong>Cause:</strong></p>
-<p>Phase Library is not installed.</p>
-<p><strong>Solution:</strong></p>
-<blockquote>
-<div><p><strong>Linux</strong></p>
-<p>Download debian package from <a class="reference external" href="https://github.com/i3drobotics/phase/releases/tag/v0.0.24">v0.0.24 release</a>.</p>
-<p>Install debian package using apt package manager:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt install -f ./phase_vx.x.x-amd64.deb</span>
-</pre></div>
-</div>
-<p>This should install to <cite>/opt/i3dr/phase</cite></p>
-<p><strong>Windows</strong></p>
-<p>Download Windows installer from the <a class="reference external" href="https://github.com/i3drobotics/phase/releases/tag/v0.0.24">v0.0.24 release</a>.</p>
-<p>Install using the installer GUI, this should install to <cite>C:\Program Files\i3DR\Phase</cite></p>
-</div></blockquote>
 </section>
 </section>
 

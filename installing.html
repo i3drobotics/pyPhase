@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Install &mdash; pyPhase 0.1.10
+  <title>Install &mdash; pyPhase 0.1.11
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -41,7 +41,8 @@
               <p class="caption" role="heading"><span class="caption-text">pyPhase</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Install</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#install-pip-package">Install pip package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#windows">Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#linux">Linux</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
@@ -75,9 +76,26 @@
              
   <section id="install">
 <h1>Install<a class="headerlink" href="#install" title="Permalink to this headline"></a></h1>
-<section id="install-pip-package">
-<h2>Install pip package<a class="headerlink" href="#install-pip-package" title="Permalink to this headline"></a></h2>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python -m pip install phase</span>
+<section id="windows">
+<h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline"></a></h2>
+<p>Install pyPhase from pypi using pip:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install phase</span>
+</pre></div>
+</div>
+</section>
+<section id="linux">
+<h2>Linux<a class="headerlink" href="#linux" title="Permalink to this headline"></a></h2>
+<p>Install dependencies</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt install -y libavcodec-dev libavformat-dev libswscale-dev</span>
+<span class="go">sudo apt install -y libgl-dev liblapack-dev libblas-dev libgtk2.0-dev</span>
+<span class="go">sudo apt install -y libgstreamer1.0-0 libgstreamer-plugins-base1.0-0</span>
+<span class="go">sudo apt install -y zlib1g libstdc++6</span>
+<span class="go">sudo apt install -y libc6 libgcc1</span>
+</pre></div>
+</div>
+<p>Package is not yet available on pypi for Linux.
+Please download the wheel for your version of python from the release and install using:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install ./phase-X.X.X-cpXXX-cpXXX-linux_x86_64.whl</span>
 </pre></div>
 </div>
 </section>
