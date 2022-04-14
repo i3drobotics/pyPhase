@@ -17,7 +17,6 @@ jobs:
         with:
           workflow: release.yml
           branch: main
-          name: deployment-ubuntu-20.04-py3.10-275579c93fd1d89900dd44056af445daa91380d3-pyphase-release
           path: deployment
       - name: Upload Linux wheel release assets
         uses: softprops/action-gh-release@v1
