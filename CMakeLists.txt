@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.9)
 
-if (NOT (WIN32 OR UNIX OR APPLE))
-    message(FATAL_ERROR "Unsupport os. WIN32, UNIX and APPLE currently supported.")
+if (NOT (WIN32 OR UNIX))
+    message(FATAL_ERROR "Unsupport OS. Only WIN32, UNIX currently supported.")
+elseif (APPLE)
+    message(FATAL_ERROR "APPLE not currently supported.")
 endif ()
 
 # Create temporary version file if it does not exist
@@ -33,6 +35,27 @@ set(PYTHON_MODULE_INSTALL_DIR ${PROJECT_SOURCE_DIR}/phase)
 
 # Find Phase
 find_package(Phase REQUIRED)
+# Get Phase library files
+set(PHASE_ROOT_DIR "${Phase_DIR}/../..")
+get_filename_component(PHASE_ROOT_DIR "${PHASE_ROOT_DIR}" ABSOLUTE)
+set(PHASE_BIN_DIR 
+    "${PHASE_ROOT_DIR}/bin"
+)
+set(PHASE_LIB_DIR 
+    "${PHASE_ROOT_DIR}/lib"
+)
+if (WIN32)
+    file (GLOB PHASE_LIBRARY_FILES
+        "${PHASE_BIN_DIR}/*.dll"
+    )
+elseif(UNIX)
+    file (GLOB PHASE_LIBRARY_FILES
+        "${PHASE_LIB_DIR}/*.so*"
+    )
+    file (GLOB PHASE_I3DRSGM_LIBRARY_FILES
+        "${PHASE_LIB_DIR}/i3drsgm/*.so*"
+    )
+endif()
 
 include(FetchContent)
 
@@ -95,12 +118,66 @@ set_target_properties(${PROJECT_NAME_LOWER} PROPERTIES
 )
 
 add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/src/package/phase ${CMAKE_BINARY_DIR}/lib/phase
+    COMMAND ${CMAKE_COMMAND} -E copy_directory 
+    ${PROJECT_SOURCE_DIR}/src/package/phase ${CMAKE_BINARY_DIR}/lib/phase
 )
 
-install(TARGETS ${PROJECT_NAME}
-    COMPONENT python
-    RUNTIME DESTINATION ${PYTHON_MODULE_INSTALL_DIR}
-    LIBRARY DESTINATION ${PYTHON_MODULE_INSTALL_DIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-)
+if (UNIX)
+    add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+        COMMAND mkdir -p $<TARGET_FILE_DIR:${PROJECT_NAME}>/i3drsgm)
+    foreach(PHASE_LIBRARY_FILEPATH ${PHASE_I3DRSGM_LIBRARY_FILES})
+        get_filename_component(PHASE_LIBRARY_FILE "${PHASE_LIBRARY_FILEPATH}" NAME)
+        get_filename_component(PHASE_LIBRARY_FILE_EXT "${PHASE_LIBRARY_FILEPATH}" EXT)
+        # copy library file to target directory
+        add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+                        COMMAND cp -a -u
+                        ${PHASE_LIBRARY_FILEPATH} $<TARGET_FILE_DIR:${PROJECT_NAME}>/i3drsgm/)
+    endforeach()
+endif()
+
+foreach(PHASE_LIBRARY_FILEPATH ${PHASE_LIBRARY_FILES})
+    get_filename_component(PHASE_LIBRARY_FILE "${PHASE_LIBRARY_FILEPATH}" NAME)
+    get_filename_component(PHASE_LIBRARY_FILE_EXT "${PHASE_LIBRARY_FILEPATH}" EXT)
+    # copy library file to target directory
+    if (WIN32)
+        add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+                           COMMAND ${CMAKE_COMMAND} -E copy 
+                           ${PHASE_LIBRARY_FILEPATH} $<TARGET_FILE_DIR:${PROJECT_NAME}>)
+    elseif (UNIX)
+        add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+                           COMMAND cp -a -u
+                           ${PHASE_LIBRARY_FILEPATH} $<TARGET_FILE_DIR:${PROJECT_NAME}>)
+        set(PHASE_LIBRARY_FILEPATH_FULL 
+            ${CMAKE_BINARY_DIR}/lib/phase/${PHASE_LIBRARY_FILE}
+        )
+        # change rpath for dynamic library to find dependencies in local directory
+        set(origin_var "\\$$ORIGIN")
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND if ! [ -L ${PHASE_LIBRARY_FILEPATH_FULL} ] \; then patchelf --set-rpath ${origin_var} ${PHASE_LIBRARY_FILEPATH_FULL} \; fi
+        )
+    endif()
+endforeach()
+
+if (UNIX)
+    set(origin_var "\\$$ORIGIN:\\$$ORIGIN/i3drsgm")
+    # change rpath for dynamic library to find dependencies in local directory
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND patchelf --set-rpath ${origin_var}
+        ${CMAKE_BINARY_DIR}/lib/phase/libphase.so
+    )
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND patchelf --set-rpath ${origin_var}
+        $<TARGET_FILE:${PROJECT_NAME}>
+    )
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND mv ${CMAKE_BINARY_DIR}/lib/phase/libpng*
+        ${CMAKE_BINARY_DIR}/lib/phase/i3drsgm
+    )
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND mv ${CMAKE_BINARY_DIR}/lib/phase/libxerces*
+        ${CMAKE_BINARY_DIR}/lib/phase/i3drsgm
+    )
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND rm -rf ${CMAKE_BINARY_DIR}/lib/phase/libicu*.so.55
+    )
+endif()

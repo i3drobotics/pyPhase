@@ -124,7 +124,7 @@ def test_PylonStereoCamera_virtual_capture_count():
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = PylonStereoCamera(device_info)
-    frames = 10
+    frames = 3
     cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
     if connected:
@@ -163,7 +163,7 @@ def test_PylonStereoCamera_virtual_continous_read():
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    frames = 10
+    frames = 3
     cam = PylonStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
@@ -224,7 +224,7 @@ def test_PylonStereoCamera_virtual_read_callback():
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    frames = 10
+    frames = 3
     cam = PylonStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)

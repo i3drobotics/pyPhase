@@ -12,80 +12,52 @@
 import os
 import sys
 
-phase_version = "0.0.24"
-phase_download_url = \
-    "https://github.com/i3drobotics/phase/releases/tag/v{}".format(
+
+def get_phase_url(phase_version):
+    return "https://github.com/i3drobotics/phase/releases/tag/v{}".format(
         phase_version)
 
 
-def find_phase():
-    global phase_version, phase_download_url
+def import_phase():
     if sys.platform == "win32":
         lib_path_list = []
         # pyPhase module path
         PYPHASE_PATH = os.path.abspath(
             os.path.dirname(os.path.realpath(__file__)))
-        # standard install location of Phase library
-        # %PROGRAMFILES%\i3DR\Phase\bin
-        PHASE_INSTALL_PATH = os.path.abspath(os.path.join(
-            os.environ["ProgramFiles"], "i3DR", "Phase", "bin"))
-        if os.path.exists(PHASE_INSTALL_PATH):
-            lib_path_list.append(PHASE_INSTALL_PATH)
-        elif "PHASE_DIR" in os.environ:
-            # get path from PHASE_DIR environment variable
-            PHASE_DIR = os.environ["PHASE_DIR"]
-            PHASE_BIN = os.path.join(PHASE_DIR, "bin")
-            if os.path.exists(PHASE_BIN):
-                lib_path_list.append(PHASE_BIN)
-            else:
-                error_msg = \
-                    "Cannot load Phase library. " \
-                    "PHASE_DIR is set but path " \
-                    "does not exist: {}".format(PHASE_DIR)
-                raise Exception(error_msg)
-        else:
-            error_msg = \
-                "Cannot load Phase library. " \
-                "Phase was not found in standard " \
-                "install location ({}) and PHASE_DIR " \
-                "environment variable is not set.\n" \
-                "Install Phase v{} from {}".format(
-                    PHASE_INSTALL_PATH, phase_version, phase_download_url)
-            raise Exception(error_msg)
         lib_path_list.append(PYPHASE_PATH)
-        # add paths to library search paths
+        # add pyphase install path to library search paths
         for p in lib_path_list:
             if (sys.version_info.major == 3 and sys.version_info.minor >= 8):
                 os.add_dll_directory(p)
             else:
                 os.environ['PATH'] = p + os.pathsep + os.environ['PATH']
     if sys.platform == "linux" or sys.platform == "linux2":
-        # phase shared libraries are installed to /opt/i3dr/phase/lib
-        # libraries are added to search path in Phase install process
-        PHASE_INSTALL_PATH = os.path.join("/opt", "i3dr", "phase")
-        if not os.path.exists(PHASE_INSTALL_PATH):
-            error_msg = \
-                "Cannot load Phase library. " \
-                "Phase was not found in standard " \
-                "install location ({}).\n" \
-                "Install Phase v{} from {}".format(
-                    PHASE_INSTALL_PATH, phase_version, phase_download_url)
-            raise Exception(error_msg)
+        # TODO use rpath to find libs
+        pass
 
 
-find_phase()
-del find_phase
+def check_phase_version(phase_version):
+    # check Phase library included version matches expected version
+    from phase.pyphase import getVersionString
 
-# check Phase installed version matches expected version
-from phase.pyphase import getVersionString
-m_phase_version = getVersionString()
-if getVersionString() != phase_version:
-    error_msg = \
-        "Phase version mismatch. Expected {} but got {}" \
-        "Install Phase v{} from {}".format(
-            phase_version, getVersionString(),
-            phase_version, phase_download_url)
-    raise Exception(error_msg)
-del getVersionString
-del phase_download_url
+    m_phase_version = getVersionString()
+    if m_phase_version != phase_version:
+        error_msg = \
+            "Phase library version mismatch. Expected v{} but got v{}.\n" \
+            "This may occur if another version of the Phase library \n" \
+            "is installed and library files are accessable globally.".format(
+                phase_version, m_phase_version)
+        raise Exception(error_msg)
+
+
+# Define phase version
+phase_version = "0.0.24"
+
+# Check valid phase import
+import_phase()
+check_phase_version(phase_version)
+
+# Cleanup variables/functions so they are accessible after import
+del import_phase
+del check_phase_version
 del phase_version

@@ -7,24 +7,22 @@ pyPhase is a python wrapper package over I3DR's Phase C++ library.
 [![Build](https://github.com/i3drobotics/pyphase/actions/workflows/build.yml/badge.svg)](https://github.com/i3drobotics/pyphase/actions/workflows/build.yml)
 
 ## Install
-Phase library is required to be installed to use pyPhase.  
->### Linux
->Download debian package from [v0.0.24 release](https://github.com/i3drobotics/phase/releases/tag/v0.0.24).  
->Install debian package using apt package manager:
->```
->sudo apt install -f ./phase_vx.x.x-amd64.deb
->```
->This should install to `/opt/i3dr/phase`
->### Windows
->Download Windows installer from the [v0.0.24 release](https://github.com/i3drobotics/phase/releases/tag/v0.0.24).  
->Install using the installer GUI, this should install to `C:\Program Files\i3DR\Phase`
->
-
-Then install pyPhase from pypi using pip:
+### Windows
+Install pyPhase from pypi using pip:
 ```
 pip install phase
 ```
-This is not yet available on pypi for Linux. Please download the wheel for your version of python from the release and install using:
+### Linux
+Install dependencies
+```
+sudo apt install -y libavcodec-dev libavformat-dev libswscale-dev
+sudo apt install -y libgl-dev liblapack-dev libblas-dev libgtk2.0-dev
+sudo apt install -y libgstreamer1.0-0 libgstreamer-plugins-base1.0-0
+sudo apt install -y zlib1g libstdc++6
+sudo apt install -y libc6 libgcc1
+```
+Package is not yet available on pypi for Linux.  
+Please download the wheel for your version of python from the release and install using:
 ```
 pip install ./phase-X.X.X-cpXXX-cpXXX-linux_x86_64.whl
 ```
@@ -55,12 +53,12 @@ pip install -r requirements.txt
 ```
 
 ## Additional dependencies
-Doxygen is used for documentation.  
-On Linux install with the following command:
+### Linux
 ```
-sudo apt-get install doxygen
+sudo apt-get install doxygen patchelf
 ```
-On Windows download and install doxygen from [here](https://www.doxygen.nl/download.html)
+### Windows
+Download and install doxygen from [here](https://www.doxygen.nl/download.html)
 
 ## Build
 Build pyPhase bindings using CMake:
@@ -74,7 +72,7 @@ cmake --build . --config Release
 cmake -DPhase_DIR="/opt/i3dr/phase/lib/cmake" ..
 make -j$(nproc)
 ```
-*Note: Make sure to run this from the repository root directory*
+*Note: Make sure to run this from the repository root directory*  
 
 ## Test
 ### Unit tests
@@ -107,5 +105,5 @@ Documentation is generated and deployed in GitHub actions, however, to test docu
 Deployment is handelled by GitHub actions, however, to test deployment locally, use the following command:
 ```bash
 export PYTHONPATH=./build/lib
-python3 setup.py bdist_wheel --dist-dir="deployment" --with_i3drsgm
+python3 setup.py bdist_wheel --dist-dir="deployment"
 ```

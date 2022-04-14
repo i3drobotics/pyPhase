@@ -13,11 +13,6 @@ python_version_lower = \
 python_version_upper = \
     str(sys.version_info.major) + '.' + str(sys.version_info.minor + 1)
 
-with_i3drsgm = False
-if "--with_i3drsgm" in sys.argv:
-    with_i3drsgm = True
-    sys.argv.remove("--with_i3drsgm")
-
 
 def load_long_description():
     global project_root
@@ -113,5 +108,5 @@ setup(
     ],
     keywords='Industrial 3D Robotics I3DR stereo camera',
     package_dir={'phase': package_folder},
-    package_data=find_package_data(),
+    package_data=find_package_data()
 )
