@@ -180,4 +180,7 @@ if (UNIX)
         COMMAND mv ${CMAKE_BINARY_DIR}/lib/phase/libxerces*
         ${CMAKE_BINARY_DIR}/lib/phase/i3drsgm
     )
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND rm -rf ${CMAKE_BINARY_DIR}/lib/phase/libicu*.so.55
+    )
 endif()
