@@ -2,31 +2,28 @@
 ***WARNING: This is an early alpha release so may be unstable with breaking changes and have missing documentaiton. Use with caution.***
 
 ## Features
- - Upgrade to Phase v0.0.24 [#9](https://github.com/i3drobotics/pyphase/issues/9)
- - Add timeouts to unit tests to avoid infinite loops [#10](https://github.com/i3drobotics/pyphase/issues/10)
+ - Added binary wheels for Windows & Linux. Phase library is no longer required to be installed seperately as all wheels include the Phase library binaries. [#14](https://github.com/i3drobotics/pyphase/issues/14)
 
 ## Bug fixes
- - Fix left image data saved to both left and right image files during data capture [#9](https://github.com/i3drobotics/pyphase/issues/9)
+ - Improved unclear import failure messages [#12](https://github.com/i3drobotics/pyphase/issues/12)
 
 ## Install
-Phase library is required to be installed to use pyPhase.  
->### Linux
->Download debian package from [v0.0.24 release](https://github.com/i3drobotics/phase/releases/tag/v0.0.24).  
->Install debian package using apt package manager:
->```
->sudo apt install -f ./phase_vx.x.x-amd64.deb
->```
->This should install to `/opt/i3dr/phase`
->### Windows
->Download Windows installer from the [v0.0.24 release](https://github.com/i3drobotics/phase/releases/tag/v0.0.24).  
->Install using the installer GUI, this should install to `C:\Program Files\i3DR\Phase`
->
-
-Then install pyPhase from pypi using pip:
+### Windows
+Install pyPhase from pypi using pip:
 ```
 pip install phase
 ```
-This is not yet available on pypi for Linux. Please download the wheel for your version of python from the release and install using:
+### Linux
+Install dependencies
+```
+sudo apt install -y libavcodec-dev libavformat-dev libswscale-dev
+sudo apt install -y libgl-dev liblapack-dev libblas-dev libgtk2.0-dev
+sudo apt install -y libgstreamer1.0-0 libgstreamer-plugins-base1.0-0
+sudo apt install -y zlib1g libstdc++6
+sudo apt install -y libc6 libgcc1
+```
+Package is not yet available on pypi for Linux.  
+Please download the wheel for your version of python from the release and install using:
 ```
 pip install ./phase-X.X.X-cpXXX-cpXXX-linux_x86_64.whl
 ```

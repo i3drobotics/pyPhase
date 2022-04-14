@@ -80,11 +80,19 @@ jobs:
       - name: Download Phase
         shell: bash
         run: |
-          curl --output phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb -L https://github.com/i3drobotics/phase/releases/download/${{ env.PHASE_VERSION }}/phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
+          curl --output phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.tar.gz -L https://github.com/i3drobotics/phase/releases/download/${{ env.PHASE_VERSION }}/phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.tar.gz
       - name: Install Phase
         shell: bash
         run: |
-          sudo apt update && sudo apt install -y -f ./phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.deb
+          mkdir phase_install
+          tar -xf phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.tar.gz -C ./phase_install
+          sudo apt update
+          sudo apt install -y libavcodec-dev libavformat-dev libswscale-dev
+          sudo apt install -y libgl-dev liblapack-dev libblas-dev libgtk2.0-dev
+          sudo apt install -y libgstreamer1.0-0 libgstreamer-plugins-base1.0-0
+          sudo apt install -y zlib1g libstdc++6
+          sudo apt install -y libc6 libgcc1
+          sudo apt install -y patchelf
       # Install python packages
       - name: Python requirements
         shell: bash
@@ -95,7 +103,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p build && cd build
-          sudo apt-get update && cmake -DPhase_DIR="/opt/i3dr/phase/lib/cmake" ..
+          sudo apt-get update && cmake -DPhase_DIR="./phase_install/lib/cmake" ..
           make -j$(nproc)
       # Unit Test
       - name: Unit Test
@@ -108,7 +116,7 @@ jobs:
         shell: bash
         run: |
           export PYTHONPATH=./build/lib
-          python3 setup.py bdist_wheel --dist-dir="deployment" --with_i3drsgm
+          python3 setup.py bdist_wheel --dist-dir="deployment"
       # Upload deployment artifact
       # (for data sharing across jobs)
       - name: Upload deployment artifact
@@ -179,7 +187,7 @@ jobs:
         shell: bash
         run: |
           export PYTHONPATH=./build/lib
-          python setup.py bdist_wheel --dist-dir="deployment" --with_i3drsgm
+          python setup.py bdist_wheel --dist-dir="deployment"
         env:
           PHASE_DIR: "${{ github.workspace }}/phase_install"
       # Upload deployment artifact
@@ -209,50 +217,6 @@ jobs:
           PROJ_VER=$(cat versioning/version.txt)
           echo "$PROJ_VER" > version.txt
           echo "PROJ_VER=$PROJ_VER" >> $GITHUB_ENV
-      # Setup python
-      - name: Setup Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
-      # Install Phase
-      - name: Download Phase
-        uses: robinraju/release-downloader@v1.3
-        with:
-          repository: ${{ env.PHASE_REPO }}
-          tag: ${{ env.PHASE_VERSION }}
-          fileName: phase-${{ env.PHASE_VERSION }}-ubuntu-20.04-x86_64.deb
-      - name: Install Phase
-        shell: bash
-        run: |
-          sudo apt update && sudo apt install -y -f ./phase-${{ env.PHASE_VERSION }}-ubuntu-20.04-x86_64.deb
-      # Install python packages
-      - name: Python requirements
-        shell: bash
-        run: |
-          pip install -r requirements.txt
-      # Build
-      - name: Build
-        shell: bash
-        run: |
-          mkdir -p build && cd build
-          sudo apt-get update && cmake -DPhase_DIR="/opt/i3dr/phase/lib/cmake" ..
-          make -j$(nproc)
-      # Generate docs
-      - name: Generate docs
-        shell: bash
-        run: |
-          sudo apt update && sudo apt install doxygen
-          ./docs/gen_docs.sh
-      # Zip developer docs
-      - uses: papeloto/action-zip@v1
-        with:
-          files: deployment/docs/developer/
-          dest: docs-dev.zip
-      # Zip public docs
-      - uses: papeloto/action-zip@v1
-        with:
-          files: deployment/docs/external/
-          dest: docs.zip
       # Download deployments from build artifacts
       - name: Download deployment artifact (Windows py3.6)
         uses: actions/download-artifact@v2
@@ -304,6 +268,38 @@ jobs:
         with:
           name: deployment-ubuntu-20.04-py3.10-${{ github.sha }}-pyphase-release
           path: deployment
+      # Setup python
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+      # Install pyphase from deployment for docs
+      - name: Install pyphase
+        shell: bash
+        run: |
+          sudo apt update
+          sudo apt install -y libavcodec-dev libavformat-dev libswscale-dev
+          sudo apt install -y libgl-dev liblapack-dev libblas-dev libgtk2.0-dev
+          sudo apt install -y libgstreamer1.0-0 libgstreamer-plugins-base1.0-0
+          sudo apt install -y zlib1g libstdc++6
+          sudo apt install -y libc6 libgcc1
+          python3 -m pip install deployment/phase-*-cp310-cp310-linux_x86_64.whl
+      # Generate docs
+      - name: Generate docs
+        shell: bash
+        run: |
+          sudo apt update && sudo apt install doxygen
+          ./docs/gen_docs.sh
+      # Zip developer docs
+      - uses: papeloto/action-zip@v1
+        with:
+          files: deployment/docs/developer/
+          dest: docs-dev.zip
+      # Zip public docs
+      - uses: papeloto/action-zip@v1
+        with:
+          files: deployment/docs/external/
+          dest: docs.zip
       # Publish python wheels to pip (Windows only)
       # TODO publish linux wheels to pip when manylinux support is complete
       - name: Publish wheels to testpypi
