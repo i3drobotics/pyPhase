@@ -1,11 +1,8 @@
 # pyPhase
 ***WARNING: This is an early alpha release so may be unstable with breaking changes and have missing documentaiton. Use with caution.***
 
-## Features
- - Added binary wheels for Windows & Linux. Phase library is no longer required to be installed seperately as all wheels include the Phase library binaries. [#14](https://github.com/i3drobotics/pyphase/issues/14)
-
 ## Bug fixes
- - Improved unclear import failure messages [#12](https://github.com/i3drobotics/pyphase/issues/12)
+ - Fix missing Linux python v3.8 wheel in GitHub release assets [#21](https://github.com/i3drobotics/pyphase/issues/21)
 
 ## Install
 ### Windows
