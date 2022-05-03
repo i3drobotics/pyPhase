@@ -2,10 +2,11 @@
 ***WARNING: This is an early alpha release so may be unstable with breaking changes and have missing documentaiton. Use with caution.***
 
 ## Features
- - Added binary wheels for Windows & Linux. Phase library is no longer required to be installed seperately as all wheels include the Phase library binaries. [#14](https://github.com/i3drobotics/pyphase/issues/14)
+ - Upgrade to Phase v0.0.25
+ - Added test for Pylon Virtual cameras image size
 
 ## Bug fixes
- - Improved unclear import failure messages [#12](https://github.com/i3drobotics/pyphase/issues/12)
+ - Fix camera image size is incorrect for Pylon virtual cameras
 
 ## Install
 ### Windows

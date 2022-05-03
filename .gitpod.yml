@@ -1,6 +1,6 @@
 tasks:
   - init: |
-      curl --output phase.tar.gz -L https://github.com/i3drobotics/phase/releases/download/v0.0.24/phase-v0.0.24-ubuntu-20.04-x86_64.tar.gz
+      curl --output phase.tar.gz -L https://github.com/i3drobotics/phase/releases/download/v0.0.25/phase-v0.0.25-ubuntu-20.04-x86_64.tar.gz
       mkdir phase_install
       tar -xf phase.tar.gz -C phase_install
       sudo apt update
