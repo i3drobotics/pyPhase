@@ -63,6 +63,23 @@ def test_PylonStereoCamera_connect_virtual_onInit():
     assert connected is True
 
 
+def test_PylonStereoCamera_connect_virtual_size():
+    device_info = CameraDeviceInfo(
+        "0815-0000", "0815-0001", "virtualpylon",
+        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+    )
+    cam = PylonStereoCamera(device_info)
+    connected = cam.connect()
+    if connected:
+        # assumes that default virtual camera image size
+        # has not been modified before connecting
+        assert(cam.getWidth() == 1024)
+        assert(cam.getHeight() == 1040)
+        cam.disconnect()
+    assert connected is True
+
+
 def test_PylonStereoCamera_virtual_data_capture():
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
