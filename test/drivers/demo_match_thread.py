@@ -2,9 +2,9 @@
 
 """!
  @authors Ben Knight (bknight@i3drobotics.com)
- @date 2021-05-26
+ @date 2022-05-05
  @copyright Copyright (c) I3D Robotics Ltd, 2021
- @file demo_read.py
+ @file demo_match_thread.py
  @brief Example application using pyPhase
 """
 import os

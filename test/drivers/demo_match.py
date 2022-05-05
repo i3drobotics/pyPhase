@@ -2,9 +2,9 @@
 
 """!
  @authors Ben Knight (bknight@i3drobotics.com)
- @date 2021-05-26
+ @date 2022-05-05
  @copyright Copyright (c) I3D Robotics Ltd, 2021
- @file demo_read.py
+ @file demo_match.py
  @brief Example application using pyPhase
 """
 import os
@@ -15,7 +15,7 @@ from phase.pyphase.stereocamera import createStereoCamera
 from phase.pyphase.calib import StereoCameraCalibration
 from phase.pyphase.stereomatcher import StereoParams, createStereoMatcher
 from phase.pyphase.stereomatcher import StereoI3DRSGM
-from phase.pyphase import scaleImage, normaliseDisparity
+from phase.pyphase import scaleImage, normaliseDisparity, disparity2depth
 
 
 left_serial = "0815-0000"
@@ -72,6 +72,9 @@ if (ret):
             rect = calibration.rectify(read_result.left, read_result.right)
             print("Framerate: {}".format(cam.getFrameRate()))
             match_result = matcher.compute(rect.left, rect.right)
+            depth = disparity2depth(match_result.disparity, calibration.getQ())
+            if depth.size == 0:
+                print("Failed to convert disparity to depth")
             if display_downsample != 1.0:
                 img_left = scaleImage(
                     rect.left, display_downsample)
