@@ -1,8 +1,16 @@
 # pyPhase
 ***WARNING: This is an early alpha release so may be unstable with breaking changes and have missing documentaiton. Use with caution.***
 
+## Features
+ - Upgrade to Phase v0.0.26
+ - Added test for Pylon virtual cameras image size
+ - Added simpified demo drivers (demo_read, demo_match, demo_read_thread, demo_match_thread)
+ - Improved thread safety for camera read threads
+
 ## Bug fixes
- - Fix missing Linux python v3.8 wheel in GitHub release assets [#21](https://github.com/i3drobotics/pyphase/issues/21)
+ - Fixed unstable read rates
+ - Fixed camera image size is incorrect for Pylon virtual cameras
+ - Fixed thread lock when reading frame rate
 
 ## Install
 ### Windows

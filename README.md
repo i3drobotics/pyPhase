@@ -30,14 +30,14 @@ pip install ./phase-X.X.X-cpXXX-cpXXX-linux_x86_64.whl
 ## Dependencies
 Phase library is required to be installed for use in the build process.  
 ### Linux
-Download debian package from [v0.0.24 release](https://github.com/i3drobotics/phase/releases/tag/v0.0.24).  
+Download debian package from [v0.0.26 release](https://github.com/i3drobotics/phase/releases/tag/v0.0.26).  
 Install debian package using apt package manager:
 ```
 sudo apt install -f ./phase_vx.x.x-amd64.deb
 ```
 This should install to `/opt/i3dr/phase`
 ### Windows
-Download Windows installer from the [v0.0.24 release](https://github.com/i3drobotics/phase/releases/tag/v0.0.24).  
+Download Windows installer from the [v0.0.26 release](https://github.com/i3drobotics/phase/releases/tag/v0.0.26).  
 Install using the installer GUI, this should install to `C:\Program Files\i3DR\Phase`
 
 The following libraries are used to build pyPhase:
@@ -85,12 +85,12 @@ python3 -m pytest ../../test/src/
 
 ### Drivers
 ```bash
-# [windows]
-cd build/lib
-python ../../test/drivers/demo_3d_from_image_files.py
-python ../../test/drivers/demo_cam_read.py
-python ../../test/drivers/demo_mat_numpy_conversion.py
-python ../../test/drivers/demo_rgbd.py
+export PYTHONPATH=./build/lib
+python3 test/drivers/demo_read.py
+python3 test/drivers/demo_read_thread.py
+python3 test/drivers/demo_match.py
+python3 test/drivers/demo_match_thread.py
+python3 test/drivers/demo_rgbd.py
 ```
 
 *Note: Make sure to run this from the repository root directory*
