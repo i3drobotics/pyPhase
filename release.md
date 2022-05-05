@@ -6,6 +6,7 @@
  - Added test for Pylon virtual cameras image size
  - Added simpified demo drivers (demo_read, demo_match, demo_read_thread, demo_match_thread)
  - Improved thread safety for camera read threads
+ - Added read callback example to documentation
 
 ## Bug fixes
  - Fixed unstable read rates
