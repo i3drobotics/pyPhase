@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Module &mdash; pyPhase 0.1.14
+  <title>Module &mdash; pyPhase 0.1.15
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -15,6 +15,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -71,12 +72,12 @@
            <div itemprop="articleBody">
              
   <section id="module-phase.pyphase">
-<span id="module"></span><h1>Module<a class="headerlink" href="#module-phase.pyphase" title="Permalink to this headline"></a></h1>
+<span id="module"></span><h1>Module<a class="headerlink" href="#module-phase.pyphase" title="Permalink to this heading"></a></h1>
 <p>pyPhase is a python wrapper package over I3DR’s Phase C++ library.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.RGBDVideoStream">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.</span></span><span class="sig-name descname"><span class="pre">RGBDVideoStream</span></span><a class="headerlink" href="#phase.pyphase.RGBDVideoStream" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <p>RGBD Video Stream</p>
 <p>Stream RGB and Depth video</p>
 <dl class="py method">
@@ -174,7 +175,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.RGBDVideoWriter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.</span></span><span class="sig-name descname"><span class="pre">RGBDVideoWriter</span></span><a class="headerlink" href="#phase.pyphase.RGBDVideoWriter" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <p>RGBD Video Writer</p>
 <p>Write RGB and Depth video</p>
 <dl class="py method">
@@ -217,7 +218,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.StereoVision">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.</span></span><span class="sig-name descname"><span class="pre">StereoVision</span></span><a class="headerlink" href="#phase.pyphase.StereoVision" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <p>Stereo Vision class</p>
 <p>Capture images from stereo camera and process with stereo matcher
 to generate depth. Brings together Stereo Camera and Stereo Matcher classes into
@@ -568,7 +569,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.types.CameraDeviceInfo">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.types.</span></span><span class="sig-name descname"><span class="pre">CameraDeviceInfo</span></span><a class="headerlink" href="#phase.pyphase.types.CameraDeviceInfo" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="phase.pyphase.types.CameraDeviceInfo.device_type">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device_type</span></span><a class="headerlink" href="#phase.pyphase.types.CameraDeviceInfo.device_type" title="Permalink to this definition"></a></dt>
@@ -614,7 +615,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.types.CameraDeviceType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.types.</span></span><span class="sig-name descname"><span class="pre">CameraDeviceType</span></span><a class="headerlink" href="#phase.pyphase.types.CameraDeviceType" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <p>Members:</p>
 <p>DEVICE_TYPE_GENERIC_PYLON</p>
 <p>DEVICE_TYPE_GENERIC_UVC</p>
@@ -667,7 +668,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.types.CameraInterfaceType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.types.</span></span><span class="sig-name descname"><span class="pre">CameraInterfaceType</span></span><a class="headerlink" href="#phase.pyphase.types.CameraInterfaceType" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <p>Members:</p>
 <p>INTERFACE_TYPE_USB</p>
 <p>INTERFACE_TYPE_GIGE</p>
@@ -702,7 +703,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.types.CameraReadResult">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.types.</span></span><span class="sig-name descname"><span class="pre">CameraReadResult</span></span><a class="headerlink" href="#phase.pyphase.types.CameraReadResult" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="phase.pyphase.types.CameraReadResult.left">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">left</span></span><a class="headerlink" href="#phase.pyphase.types.CameraReadResult.left" title="Permalink to this definition"></a></dt>
@@ -723,7 +724,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.types.LeftOrRight">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.types.</span></span><span class="sig-name descname"><span class="pre">LeftOrRight</span></span><a class="headerlink" href="#phase.pyphase.types.LeftOrRight" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <p>Members:</p>
 <p>LEFT</p>
 <p>RIGHT</p>
@@ -752,7 +753,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.types.MatrixFloat">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.types.</span></span><span class="sig-name descname"><span class="pre">MatrixFloat</span></span><a class="headerlink" href="#phase.pyphase.types.MatrixFloat" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.types.MatrixFloat.getAt">
 <span class="sig-name descname"><span class="pre">getAt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.types.MatrixFloat" title="phase.pyphase.types.MatrixFloat"><span class="pre">phase.pyphase.types.MatrixFloat</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#phase.pyphase.types.MatrixFloat.getAt" title="Permalink to this definition"></a></dt>
@@ -798,7 +799,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.types.MatrixUInt8">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.types.</span></span><span class="sig-name descname"><span class="pre">MatrixUInt8</span></span><a class="headerlink" href="#phase.pyphase.types.MatrixUInt8" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.types.MatrixUInt8.getAt">
 <span class="sig-name descname"><span class="pre">getAt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.types.MatrixUInt8" title="phase.pyphase.types.MatrixUInt8"><span class="pre">phase.pyphase.types.MatrixUInt8</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#phase.pyphase.types.MatrixUInt8.getAt" title="Permalink to this definition"></a></dt>
@@ -844,7 +845,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.types.Point2d">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.types.</span></span><span class="sig-name descname"><span class="pre">Point2d</span></span><a class="headerlink" href="#phase.pyphase.types.Point2d" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="phase.pyphase.types.Point2d.x">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#phase.pyphase.types.Point2d.x" title="Permalink to this definition"></a></dt>
@@ -860,7 +861,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.types.Point2f">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.types.</span></span><span class="sig-name descname"><span class="pre">Point2f</span></span><a class="headerlink" href="#phase.pyphase.types.Point2f" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="phase.pyphase.types.Point2f.x">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#phase.pyphase.types.Point2f.x" title="Permalink to this definition"></a></dt>
@@ -876,7 +877,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.types.Point2i">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.types.</span></span><span class="sig-name descname"><span class="pre">Point2i</span></span><a class="headerlink" href="#phase.pyphase.types.Point2i" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="phase.pyphase.types.Point2i.x">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#phase.pyphase.types.Point2i.x" title="Permalink to this definition"></a></dt>
@@ -892,7 +893,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.types.RGBDVideoFrame">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.types.</span></span><span class="sig-name descname"><span class="pre">RGBDVideoFrame</span></span><a class="headerlink" href="#phase.pyphase.types.RGBDVideoFrame" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="phase.pyphase.types.RGBDVideoFrame.depth">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">depth</span></span><a class="headerlink" href="#phase.pyphase.types.RGBDVideoFrame.depth" title="Permalink to this definition"></a></dt>
@@ -913,7 +914,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.types.StereoImagePair">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.types.</span></span><span class="sig-name descname"><span class="pre">StereoImagePair</span></span><a class="headerlink" href="#phase.pyphase.types.StereoImagePair" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="phase.pyphase.types.StereoImagePair.left">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">left</span></span><a class="headerlink" href="#phase.pyphase.types.StereoImagePair.left" title="Permalink to this definition"></a></dt>
@@ -929,7 +930,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.types.StereoMatcherComputeResult">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.types.</span></span><span class="sig-name descname"><span class="pre">StereoMatcherComputeResult</span></span><a class="headerlink" href="#phase.pyphase.types.StereoMatcherComputeResult" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="phase.pyphase.types.StereoMatcherComputeResult.disparity">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disparity</span></span><a class="headerlink" href="#phase.pyphase.types.StereoMatcherComputeResult.disparity" title="Permalink to this definition"></a></dt>
@@ -945,7 +946,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.types.StereoMatcherType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.types.</span></span><span class="sig-name descname"><span class="pre">StereoMatcherType</span></span><a class="headerlink" href="#phase.pyphase.types.StereoMatcherType" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <p>Members:</p>
 <p>STEREO_MATCHER_BM</p>
 <p>STEREO_MATCHER_SGBM</p>
@@ -986,7 +987,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.types.StereoVisionReadResult">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.types.</span></span><span class="sig-name descname"><span class="pre">StereoVisionReadResult</span></span><a class="headerlink" href="#phase.pyphase.types.StereoVisionReadResult" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="phase.pyphase.types.StereoVisionReadResult.disparity">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disparity</span></span><a class="headerlink" href="#phase.pyphase.types.StereoVisionReadResult.disparity" title="Permalink to this definition"></a></dt>
@@ -1013,7 +1014,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.calib.CalibrationFileType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.calib.</span></span><span class="sig-name descname"><span class="pre">CalibrationFileType</span></span><a class="headerlink" href="#phase.pyphase.calib.CalibrationFileType" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <p>Members:</p>
 <p>ROS_YAML</p>
 <p>OPENCV_YAML</p>
@@ -1048,7 +1049,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.calib.CameraCalibration">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.calib.</span></span><span class="sig-name descname"><span class="pre">CameraCalibration</span></span><a class="headerlink" href="#phase.pyphase.calib.CameraCalibration" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.calib.CameraCalibration.calibrationFromIdeal">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calibrationFromIdeal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg3</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg4</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg5</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.calib.CameraCalibration" title="phase.pyphase.calib.CameraCalibration"><span class="pre">phase.pyphase.calib.CameraCalibration</span></a></span></span><a class="headerlink" href="#phase.pyphase.calib.CameraCalibration.calibrationFromIdeal" title="Permalink to this definition"></a></dt>
@@ -1154,7 +1155,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.calib.StereoCameraCalibration">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.calib.</span></span><span class="sig-name descname"><span class="pre">StereoCameraCalibration</span></span><a class="headerlink" href="#phase.pyphase.calib.StereoCameraCalibration" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.calib.StereoCameraCalibration.calibrationFromIdeal">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calibrationFromIdeal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg3</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg4</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.calib.StereoCameraCalibration" title="phase.pyphase.calib.StereoCameraCalibration"><span class="pre">phase.pyphase.calib.StereoCameraCalibration</span></a></span></span><a class="headerlink" href="#phase.pyphase.calib.StereoCameraCalibration.calibrationFromIdeal" title="Permalink to this definition"></a></dt>
@@ -1195,6 +1196,11 @@ single class for easy use.</p>
 <span class="sig-name descname"><span class="pre">isValidSize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.calib.StereoCameraCalibration" title="phase.pyphase.calib.StereoCameraCalibration"><span class="pre">phase.pyphase.calib.StereoCameraCalibration</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#phase.pyphase.calib.StereoCameraCalibration.isValidSize" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="phase.pyphase.calib.StereoCameraCalibration.left_calibration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">left_calibration</span></span><a class="headerlink" href="#phase.pyphase.calib.StereoCameraCalibration.left_calibration" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.calib.StereoCameraCalibration.rectify">
 <span class="sig-name descname"><span class="pre">rectify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.calib.StereoCameraCalibration" title="phase.pyphase.calib.StereoCameraCalibration"><span class="pre">phase.pyphase.calib.StereoCameraCalibration</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.StereoImagePair" title="phase.pyphase.types.StereoImagePair"><span class="pre">phase.pyphase.types.StereoImagePair</span></a></span></span><a class="headerlink" href="#phase.pyphase.calib.StereoCameraCalibration.rectify" title="Permalink to this definition"></a></dt>
@@ -1203,6 +1209,11 @@ single class for easy use.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.calib.StereoCameraCalibration.remapPoint">
 <span class="sig-name descname"><span class="pre">remapPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.calib.StereoCameraCalibration" title="phase.pyphase.calib.StereoCameraCalibration"><span class="pre">phase.pyphase.calib.StereoCameraCalibration</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.types.Point2i" title="phase.pyphase.types.Point2i"><span class="pre">phase.pyphase.types.Point2i</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.types.LeftOrRight" title="phase.pyphase.types.LeftOrRight"><span class="pre">phase.pyphase.types.LeftOrRight</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.Point2i" title="phase.pyphase.types.Point2i"><span class="pre">phase.pyphase.types.Point2i</span></a></span></span><a class="headerlink" href="#phase.pyphase.calib.StereoCameraCalibration.remapPoint" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="phase.pyphase.calib.StereoCameraCalibration.right_calibration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">right_calibration</span></span><a class="headerlink" href="#phase.pyphase.calib.StereoCameraCalibration.right_calibration" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1221,7 +1232,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereocamera.</span></span><span class="sig-name descname"><span class="pre">AbstractStereoCamera</span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.AbstractStereoCamera.connect">
 <span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.AbstractStereoCamera" title="phase.pyphase.stereocamera.AbstractStereoCamera"><span class="pre">phase.pyphase.stereocamera.AbstractStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.AbstractStereoCamera.connect" title="Permalink to this definition"></a></dt>
@@ -1392,7 +1403,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.DeimosStereoCamera">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereocamera.</span></span><span class="sig-name descname"><span class="pre">DeimosStereoCamera</span></span><a class="headerlink" href="#phase.pyphase.stereocamera.DeimosStereoCamera" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.DeimosStereoCamera.connect">
 <span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.DeimosStereoCamera" title="phase.pyphase.stereocamera.DeimosStereoCamera"><span class="pre">phase.pyphase.stereocamera.DeimosStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.DeimosStereoCamera.connect" title="Permalink to this definition"></a></dt>
@@ -1563,7 +1574,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.PhobosStereoCamera">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereocamera.</span></span><span class="sig-name descname"><span class="pre">PhobosStereoCamera</span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PhobosStereoCamera" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.PhobosStereoCamera.connect">
 <span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PhobosStereoCamera" title="phase.pyphase.stereocamera.PhobosStereoCamera"><span class="pre">phase.pyphase.stereocamera.PhobosStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PhobosStereoCamera.connect" title="Permalink to this definition"></a></dt>
@@ -1734,7 +1745,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereocamera.</span></span><span class="sig-name descname"><span class="pre">PylonStereoCamera</span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.PylonStereoCamera.connect">
 <span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.PylonStereoCamera" title="phase.pyphase.stereocamera.PylonStereoCamera"><span class="pre">phase.pyphase.stereocamera.PylonStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.PylonStereoCamera.connect" title="Permalink to this definition"></a></dt>
@@ -1905,7 +1916,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.TitaniaStereoCamera">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereocamera.</span></span><span class="sig-name descname"><span class="pre">TitaniaStereoCamera</span></span><a class="headerlink" href="#phase.pyphase.stereocamera.TitaniaStereoCamera" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.TitaniaStereoCamera.connect">
 <span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.TitaniaStereoCamera" title="phase.pyphase.stereocamera.TitaniaStereoCamera"><span class="pre">phase.pyphase.stereocamera.TitaniaStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.TitaniaStereoCamera.connect" title="Permalink to this definition"></a></dt>
@@ -2076,7 +2087,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.UVCStereoCamera">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereocamera.</span></span><span class="sig-name descname"><span class="pre">UVCStereoCamera</span></span><a class="headerlink" href="#phase.pyphase.stereocamera.UVCStereoCamera" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereocamera.UVCStereoCamera.connect">
 <span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereocamera.UVCStereoCamera" title="phase.pyphase.stereocamera.UVCStereoCamera"><span class="pre">phase.pyphase.stereocamera.UVCStereoCamera</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#phase.pyphase.stereocamera.UVCStereoCamera.connect" title="Permalink to this definition"></a></dt>
@@ -2253,7 +2264,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.AbstractStereoMatcher">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereomatcher.</span></span><span class="sig-name descname"><span class="pre">AbstractStereoMatcher</span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.AbstractStereoMatcher" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.AbstractStereoMatcher.compute">
 <span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.AbstractStereoMatcher" title="phase.pyphase.stereomatcher.AbstractStereoMatcher"><span class="pre">phase.pyphase.stereomatcher.AbstractStereoMatcher</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.StereoMatcherComputeResult" title="phase.pyphase.types.StereoMatcherComputeResult"><span class="pre">phase.pyphase.types.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.AbstractStereoMatcher.compute" title="Permalink to this definition"></a></dt>
@@ -2284,7 +2295,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoBM">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereomatcher.</span></span><span class="sig-name descname"><span class="pre">StereoBM</span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoBM" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoBM.compute">
 <span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoBM" title="phase.pyphase.stereomatcher.StereoBM"><span class="pre">phase.pyphase.stereomatcher.StereoBM</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.StereoMatcherComputeResult" title="phase.pyphase.types.StereoMatcherComputeResult"><span class="pre">phase.pyphase.types.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoBM.compute" title="Permalink to this definition"></a></dt>
@@ -2330,7 +2341,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoHOBM">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereomatcher.</span></span><span class="sig-name descname"><span class="pre">StereoHOBM</span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoHOBM" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoHOBM.compute">
 <span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoHOBM" title="phase.pyphase.stereomatcher.StereoHOBM"><span class="pre">phase.pyphase.stereomatcher.StereoHOBM</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.StereoMatcherComputeResult" title="phase.pyphase.types.StereoMatcherComputeResult"><span class="pre">phase.pyphase.types.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoHOBM.compute" title="Permalink to this definition"></a></dt>
@@ -2376,7 +2387,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoI3DRSGM">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereomatcher.</span></span><span class="sig-name descname"><span class="pre">StereoI3DRSGM</span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoI3DRSGM" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoI3DRSGM.compute">
 <span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoI3DRSGM" title="phase.pyphase.stereomatcher.StereoI3DRSGM"><span class="pre">phase.pyphase.stereomatcher.StereoI3DRSGM</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.StereoMatcherComputeResult" title="phase.pyphase.types.StereoMatcherComputeResult"><span class="pre">phase.pyphase.types.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoI3DRSGM.compute" title="Permalink to this definition"></a></dt>
@@ -2447,7 +2458,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoParams">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereomatcher.</span></span><span class="sig-name descname"><span class="pre">StereoParams</span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoParams" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoParams.interpolation">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">interpolation</span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoParams.interpolation" title="Permalink to this definition"></a></dt>
@@ -2478,7 +2489,7 @@ single class for easy use.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoSGBM">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phase.pyphase.stereomatcher.</span></span><span class="sig-name descname"><span class="pre">StereoSGBM</span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoSGBM" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="phase.pyphase.stereomatcher.StereoSGBM.compute">
 <span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phase.pyphase.stereomatcher.StereoSGBM" title="phase.pyphase.stereomatcher.StereoSGBM"><span class="pre">phase.pyphase.stereomatcher.StereoSGBM</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phase.pyphase.types.StereoMatcherComputeResult" title="phase.pyphase.types.StereoMatcherComputeResult"><span class="pre">phase.pyphase.types.StereoMatcherComputeResult</span></a></span></span><a class="headerlink" href="#phase.pyphase.stereomatcher.StereoSGBM.compute" title="Permalink to this definition"></a></dt>
