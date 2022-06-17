@@ -3,6 +3,7 @@
 
 ## Bug fixes
  - Added access to left and right calibration objects in stereo calibration [#25](https://github.com/i3drobotics/pyphase/issues/25)
+ - Added test for CameraCalibration [#27](https://github.com/i3drobotics/pyphase/issues/27)
 
 ## Install
 ### Windows
