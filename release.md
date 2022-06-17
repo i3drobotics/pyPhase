@@ -1,6 +1,9 @@
 # pyPhase
 ***WARNING: This is an early alpha release so may be unstable with breaking changes and have missing documentaiton. Use with caution.***
 
+## Features
+ - Upgrade to Phase v0.0.27 [#28](https://github.com/i3drobotics/pyphase/issues/28)
+
 ## Bug fixes
  - Added access to left and right calibration objects in stereo calibration [#25](https://github.com/i3drobotics/pyphase/issues/25)
  - Added test for CameraCalibration [#27](https://github.com/i3drobotics/pyphase/issues/27)
