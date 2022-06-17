@@ -22,6 +22,8 @@ void init_stereocalibration(py::module_ &m) {
         .def(py::init<I3DR::Phase::CameraCalibration, I3DR::Phase::CameraCalibration>())
         .def_static("calibrationFromYAML", &I3DR::Phase::StereoCameraCalibration::calibrationFromYAML)
         .def_static("calibrationFromIdeal", &I3DR::Phase::StereoCameraCalibration::calibrationFromIdeal)
+        .def_readwrite("left_calibration", &I3DR::Phase::StereoCameraCalibration::left_calibration)
+        .def_readwrite("right_calibration", &I3DR::Phase::StereoCameraCalibration::right_calibration)
         .def("isValid", &I3DR::Phase::StereoCameraCalibration::isValid)
         .def("isValidSize", &I3DR::Phase::StereoCameraCalibration::isValidSize)
         .def("rectify", static_cast<I3DR::Phase::StereoImagePair(I3DR::Phase::StereoCameraCalibration::*)(cv::Mat, cv::Mat)>(&I3DR::Phase::StereoCameraCalibration::rectify))
