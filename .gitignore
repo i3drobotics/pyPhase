@@ -1,5 +1,6 @@
 *__pycache__*
 .pytest_cache
+.phase_test
 .vscode
 *.egg-info
 *.deb

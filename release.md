@@ -2,7 +2,7 @@
 ***WARNING: This is an early alpha release so may be unstable with breaking changes and have missing documentaiton. Use with caution.***
 
 ## Bug fixes
- - Added numpy version requirement to fix api mismatch. [#23](https://github.com/i3drobotics/pyphase/issues/23)
+ - Added access to left and right calibration objects in stereo calibration [#25](https://github.com/i3drobotics/pyphase/issues/25)
 
 ## Install
 ### Windows
