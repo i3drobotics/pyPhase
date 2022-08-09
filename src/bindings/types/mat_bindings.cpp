@@ -47,7 +47,7 @@ I3DR::Phase::Matrix<T>* init_mat_buffer(py::array_t<T, py::array::c_style> const
 void init_mat(py::module_ &m) {
     NDArrayConverter::init_numpy();
     // TODOC Description of the class and the functions of MatrixFloat class
-    py::class_<I3DR::Phase::MatrixFloat>(m, "MatrixFloat", py::buffer_protocol(), R"(TODOC)")
+    py::class_<I3DR::Phase::MatrixFloat>(m, "MatrixFloat", py::buffer_protocol())
     .def(py::init<int, int, int>(), R"(TODOC)")
     .def(py::init<const I3DR::Phase::MatrixFloat&>(), R"(TODOC)")
     .def("getRows", &I3DR::Phase::MatrixFloat::getRows, R"(TODOC)")
@@ -63,10 +63,10 @@ void init_mat(py::module_ &m) {
     }), R"(TODOC)")
     .def_buffer([](I3DR::Phase::MatrixFloat &m) -> py::buffer_info {
         return get_mat_buffer_info(m);
-    }, R"(TODOC)");
+    });
 
     // TODOC Description of the class and the functions of MatrixUInt8 class
-    py::class_<I3DR::Phase::MatrixUInt8>(m, "MatrixUInt8", py::buffer_protocol(), R"(TODOC)")
+    py::class_<I3DR::Phase::MatrixUInt8>(m, "MatrixUInt8", py::buffer_protocol())
     .def(py::init<int, int, int>(), R"(TODOC)")
     .def(py::init<const I3DR::Phase::MatrixUInt8&>(), R"(TODOC)")
     .def("getRows", &I3DR::Phase::MatrixUInt8::getRows, R"(TODOC)")
@@ -82,5 +82,5 @@ void init_mat(py::module_ &m) {
     }), R"(TODOC)")
     .def_buffer([](I3DR::Phase::MatrixUInt8 &m) -> py::buffer_info {
         return get_mat_buffer_info(m);
-    }, R"(TODOC)");
+    });
 }
