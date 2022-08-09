@@ -17,21 +17,21 @@ namespace py = pybind11;
 
 void init_stereocalibration(py::module_ &m) {
     NDArrayConverter::init_numpy();
-
-    py::class_<I3DR::Phase::StereoCameraCalibration>(m, "StereoCameraCalibration")
-        .def(py::init<I3DR::Phase::CameraCalibration, I3DR::Phase::CameraCalibration>())
-        .def_static("calibrationFromYAML", &I3DR::Phase::StereoCameraCalibration::calibrationFromYAML)
-        .def_static("calibrationFromIdeal", &I3DR::Phase::StereoCameraCalibration::calibrationFromIdeal)
-        .def_readwrite("left_calibration", &I3DR::Phase::StereoCameraCalibration::left_calibration)
-        .def_readwrite("right_calibration", &I3DR::Phase::StereoCameraCalibration::right_calibration)
-        .def("isValid", &I3DR::Phase::StereoCameraCalibration::isValid)
-        .def("isValidSize", &I3DR::Phase::StereoCameraCalibration::isValidSize)
-        .def("rectify", static_cast<I3DR::Phase::StereoImagePair(I3DR::Phase::StereoCameraCalibration::*)(cv::Mat, cv::Mat)>(&I3DR::Phase::StereoCameraCalibration::rectify))
-        .def("remapPoint", &I3DR::Phase::StereoCameraCalibration::remapPoint)
-        .def("getQ", &I3DR::Phase::StereoCameraCalibration::getQ)
-        .def("getBaseline", &I3DR::Phase::StereoCameraCalibration::getBaseline)
-        .def("getDownsampleFactor", &I3DR::Phase::StereoCameraCalibration::getDownsampleFactor)
-        .def("setDownsampleFactor", &I3DR::Phase::StereoCameraCalibration::setDownsampleFactor)
-        .def("getHFOV", &I3DR::Phase::StereoCameraCalibration::getHFOV)
-        .def("saveToYAML", &I3DR::Phase::StereoCameraCalibration::saveToYAML);
+    //TODOC Description of the class and functions in StereoCameraCalibration class
+    py::class_<I3DR::Phase::StereoCameraCalibration>(m, "StereoCameraCalibration", R"(TODOC)")
+        .def(py::init<I3DR::Phase::CameraCalibration, I3DR::Phase::CameraCalibration>(), R"(TODOC)")
+        .def_static("calibrationFromYAML", &I3DR::Phase::StereoCameraCalibration::calibrationFromYAML, R"(TODOC)")
+        .def_static("calibrationFromIdeal", &I3DR::Phase::StereoCameraCalibration::calibrationFromIdeal, R"(TODOC)")
+        .def_readwrite("left_calibration", &I3DR::Phase::StereoCameraCalibration::left_calibration, R"(TODOC)")
+        .def_readwrite("right_calibration", &I3DR::Phase::StereoCameraCalibration::right_calibration, R"(TODOC)")
+        .def("isValid", &I3DR::Phase::StereoCameraCalibration::isValid, R"(TODOC)")
+        .def("isValidSize", &I3DR::Phase::StereoCameraCalibration::isValidSize, R"(TODOC)")
+        .def("rectify", static_cast<I3DR::Phase::StereoImagePair(I3DR::Phase::StereoCameraCalibration::*)(cv::Mat, cv::Mat)>(&I3DR::Phase::StereoCameraCalibration::rectify), R"(TODOC)")
+        .def("remapPoint", &I3DR::Phase::StereoCameraCalibration::remapPoint, R"(TODOC)")
+        .def("getQ", &I3DR::Phase::StereoCameraCalibration::getQ, R"(TODOC)")
+        .def("getBaseline", &I3DR::Phase::StereoCameraCalibration::getBaseline, R"(TODOC)")
+        .def("getDownsampleFactor", &I3DR::Phase::StereoCameraCalibration::getDownsampleFactor, R"(TODOC)")
+        .def("setDownsampleFactor", &I3DR::Phase::StereoCameraCalibration::setDownsampleFactor, R"(TODOC)")
+        .def("getHFOV", &I3DR::Phase::StereoCameraCalibration::getHFOV, R"(TODOC)")
+        .def("saveToYAML", &I3DR::Phase::StereoCameraCalibration::saveToYAML, R"(TODOC)");
 }

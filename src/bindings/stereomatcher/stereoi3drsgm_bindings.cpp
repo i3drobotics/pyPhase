@@ -18,21 +18,21 @@ namespace py = pybind11;
 
 void init_stereoi3drsgm(py::module_ &m) {
     NDArrayConverter::init_numpy();
-
-    py::class_<I3DR::Phase::StereoI3DRSGM>(m, "StereoI3DRSGM")
-        .def(py::init<>())
-        .def(py::init<I3DR::Phase::StereoParams>())
-        .def("compute", &I3DR::Phase::StereoI3DRSGM::compute)
-        .def("startComputeThread", &I3DR::Phase::StereoI3DRSGM::startComputeThread)
-        .def("setComputeThreadCallback", &I3DR::Phase::StereoI3DRSGM::setComputeThreadCallback)
-        .def("isComputeThreadRunning", &I3DR::Phase::StereoI3DRSGM::isComputeThreadRunning)
-        .def("getComputeThreadResult", &I3DR::Phase::StereoI3DRSGM::getComputeThreadResult)
-        .def("setWindowSize", &I3DR::Phase::StereoI3DRSGM::setWindowSize)
-        .def("setMinDisparity", &I3DR::Phase::StereoI3DRSGM::setMinDisparity)
-        .def("setNumDisparities", &I3DR::Phase::StereoI3DRSGM::setNumDisparities)
-        .def("setSpeckleMaxSize", &I3DR::Phase::StereoI3DRSGM::setSpeckleMaxSize)
-        .def("setSpeckleMaxDiff", &I3DR::Phase::StereoI3DRSGM::setSpeckleMaxDiff)
-        .def("enableSubpixel", &I3DR::Phase::StereoI3DRSGM::enableSubpixel)
-        .def("enableInterpolation", &I3DR::Phase::StereoI3DRSGM::enableInterpolation)
-        .def_static("isLicenseValid", &I3DR::Phase::StereoI3DRSGM::isLicenseValid);
+    //TODOC Description of the class and functions in StereoI3DRSGM class
+    py::class_<I3DR::Phase::StereoI3DRSGM>(m, "StereoI3DRSGM", R"(TODOC)")
+        .def(py::init<>(), R"(TODOC)")
+        .def(py::init<I3DR::Phase::StereoParams>(), R"(TODOC)")
+        .def("compute", &I3DR::Phase::StereoI3DRSGM::compute, R"(TODOC)")
+        .def("startComputeThread", &I3DR::Phase::StereoI3DRSGM::startComputeThread, R"(TODOC)")
+        .def("setComputeThreadCallback", &I3DR::Phase::StereoI3DRSGM::setComputeThreadCallback, R"(TODOC)")
+        .def("isComputeThreadRunning", &I3DR::Phase::StereoI3DRSGM::isComputeThreadRunning, R"(TODOC)")
+        .def("getComputeThreadResult", &I3DR::Phase::StereoI3DRSGM::getComputeThreadResult, R"(TODOC)")
+        .def("setWindowSize", &I3DR::Phase::StereoI3DRSGM::setWindowSize, R"(TODOC)")
+        .def("setMinDisparity", &I3DR::Phase::StereoI3DRSGM::setMinDisparity, R"(TODOC)")
+        .def("setNumDisparities", &I3DR::Phase::StereoI3DRSGM::setNumDisparities, R"(TODOC)")
+        .def("setSpeckleMaxSize", &I3DR::Phase::StereoI3DRSGM::setSpeckleMaxSize, R"(TODOC)")
+        .def("setSpeckleMaxDiff", &I3DR::Phase::StereoI3DRSGM::setSpeckleMaxDiff, R"(TODOC)")
+        .def("enableSubpixel", &I3DR::Phase::StereoI3DRSGM::enableSubpixel, R"(TODOC)")
+        .def("enableInterpolation", &I3DR::Phase::StereoI3DRSGM::enableInterpolation, R"(TODOC)")
+        .def_static("isLicenseValid", &I3DR::Phase::StereoI3DRSGM::isLicenseValid, R"(TODOC)");
 }

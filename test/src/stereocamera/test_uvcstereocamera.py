@@ -18,6 +18,7 @@ from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
 
 
 def test_UVCStereoCamera():
+    #TODOC Description of the test
     device_info = CameraDeviceInfo(
         "0", "0", "virtualuvc",
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
@@ -37,6 +38,7 @@ def test_UVCStereoCamera():
 
 
 def test_UVCStereoCamera_connect_virtual_onInit():
+    #TODOC Description of the test
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(script_path, "..", "..", ".phase_test")
     left_image_file = os.path.join(test_folder, "left.png")

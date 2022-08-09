@@ -25,12 +25,13 @@ void init_rgbdvideowriter(py::module_ &m) {
         Write RGB and Depth video
 
         )")
-        .def(py::init<const char*, const char*, int, int>())
-        .def("add", &I3DR::Phase::RGBDVideoWriter::add)
-        .def("isOpened", &I3DR::Phase::RGBDVideoWriter::isOpened)
-        .def("save", &I3DR::Phase::RGBDVideoWriter::save)
-        .def("saveThreaded", &I3DR::Phase::RGBDVideoWriter::saveThreaded)
-        .def("isSaveThreadRunning", &I3DR::Phase::RGBDVideoWriter::isSaveThreadRunning)
-        .def("getSaveThreadResult", &I3DR::Phase::RGBDVideoWriter::getSaveThreadResult)
-        .def("close", &I3DR::Phase::RGBDVideoWriter::close);
+        //TODOC Description of functions in RGBDVideoWriter class
+        .def(py::init<const char*, const char*, int, int>(), R"(TODOC)")
+        .def("add", &I3DR::Phase::RGBDVideoWriter::add, R"(TODOC)")
+        .def("isOpened", &I3DR::Phase::RGBDVideoWriter::isOpened, R"(TODOC)")
+        .def("save", &I3DR::Phase::RGBDVideoWriter::save, R"(TODOC)")
+        .def("saveThreaded", &I3DR::Phase::RGBDVideoWriter::saveThreaded, R"(TODOC)")
+        .def("isSaveThreadRunning", &I3DR::Phase::RGBDVideoWriter::isSaveThreadRunning, R"(TODOC)")
+        .def("getSaveThreadResult", &I3DR::Phase::RGBDVideoWriter::getSaveThreadResult, R"(TODOC)")
+        .def("close", &I3DR::Phase::RGBDVideoWriter::close, R"(TODOC)");
 }

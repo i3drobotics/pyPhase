@@ -17,6 +17,6 @@ namespace py = pybind11;
 
 void init_stereocamera(py::module_ &m) {
     NDArrayConverter::init_numpy();
-
-    m.def("createStereoCamera", &I3DR::Phase::createStereoCamera, py::return_value_policy::reference);
+    //TODOC Description of the function
+    m.def("createStereoCamera", &I3DR::Phase::createStereoCamera, py::return_value_policy::reference, R"(TODOC)");
 }

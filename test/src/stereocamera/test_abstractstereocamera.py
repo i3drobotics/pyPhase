@@ -14,6 +14,7 @@ from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
 
 
 def test_CameraDeviceInfo():
+    #TODOC Description of the test
     CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,

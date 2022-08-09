@@ -16,8 +16,9 @@
 namespace py = pybind11;
 
 void init_phaseversion(py::module_ &m) {
-    m.def("getVersionString", &I3DR::Phase::getVersionString);
-    m.def("getVersionMajor", &I3DR::Phase::getVersionMajor);
-    m.def("getVersionMinor", &I3DR::Phase::getVersionMinor);
-    m.def("getVersionPatch", &I3DR::Phase::getVersionPatch);
+    //TODOC Description of functions
+    m.def("getVersionString", &I3DR::Phase::getVersionString, R"(TODOC)");
+    m.def("getVersionMajor", &I3DR::Phase::getVersionMajor, R"(TODOC)");
+    m.def("getVersionMinor", &I3DR::Phase::getVersionMinor, R"(TODOC)");
+    m.def("getVersionPatch", &I3DR::Phase::getVersionPatch, R"(TODOC)");
 }

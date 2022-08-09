@@ -33,6 +33,7 @@ def test_Utils_checkEqualMat():
 
 
 def test_Utils_savePly():
+    #TODOC Description of the test
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(script_path, "..", ".phase_test")
     left_yaml = os.path.join(test_folder, "left.yaml")

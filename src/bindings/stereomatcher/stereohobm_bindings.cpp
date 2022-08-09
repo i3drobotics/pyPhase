@@ -18,16 +18,16 @@ namespace py = pybind11;
 
 void init_stereohobm(py::module_ &m) {
     NDArrayConverter::init_numpy();
-
-    py::class_<I3DR::Phase::StereoHOBM>(m, "StereoHOBM")
-        .def(py::init<>())
-        .def(py::init<I3DR::Phase::StereoParams>())
-        .def("compute", &I3DR::Phase::StereoHOBM::compute)
-        .def("startComputeThread", &I3DR::Phase::StereoHOBM::startComputeThread)
-        .def("setComputeThreadCallback", &I3DR::Phase::StereoHOBM::setComputeThreadCallback)
-        .def("isComputeThreadRunning", &I3DR::Phase::StereoHOBM::isComputeThreadRunning)
-        .def("getComputeThreadResult", &I3DR::Phase::StereoHOBM::getComputeThreadResult)
-        .def("setWindowSize", &I3DR::Phase::StereoHOBM::setWindowSize)
-        .def("setMinDisparity", &I3DR::Phase::StereoHOBM::setMinDisparity)
-        .def("setNumDisparities", &I3DR::Phase::StereoHOBM::setNumDisparities);
+    //TODOC Description of the class and functions in StereoHOBM class
+    py::class_<I3DR::Phase::StereoHOBM>(m, "StereoHOBM", R"(TODOC)")
+        .def(py::init<>(), R"(TODOC)")
+        .def(py::init<I3DR::Phase::StereoParams>(), R"(TODOC)")
+        .def("compute", &I3DR::Phase::StereoHOBM::compute, R"(TODOC)")
+        .def("startComputeThread", &I3DR::Phase::StereoHOBM::startComputeThread, R"(TODOC)")
+        .def("setComputeThreadCallback", &I3DR::Phase::StereoHOBM::setComputeThreadCallback, R"(TODOC)")
+        .def("isComputeThreadRunning", &I3DR::Phase::StereoHOBM::isComputeThreadRunning, R"(TODOC)")
+        .def("getComputeThreadResult", &I3DR::Phase::StereoHOBM::getComputeThreadResult, R"(TODOC)")
+        .def("setWindowSize", &I3DR::Phase::StereoHOBM::setWindowSize, R"(TODOC)")
+        .def("setMinDisparity", &I3DR::Phase::StereoHOBM::setMinDisparity, R"(TODOC)")
+        .def("setNumDisparities", &I3DR::Phase::StereoHOBM::setNumDisparities, R"(TODOC)");
 }
