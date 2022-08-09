@@ -17,6 +17,7 @@
 
 namespace py = pybind11;
 
+//TODOC
 template <typename T>
 py::buffer_info get_mat_buffer_info(I3DR::Phase::Matrix<T> &m){
     return py::buffer_info(
@@ -31,6 +32,7 @@ py::buffer_info get_mat_buffer_info(I3DR::Phase::Matrix<T> &m){
             );
 }
 
+//TODOC
 template <typename T>
 I3DR::Phase::Matrix<T>* init_mat_buffer(py::array_t<T, py::array::c_style> const b){
     py::buffer_info info = b.request();
@@ -44,40 +46,41 @@ I3DR::Phase::Matrix<T>* init_mat_buffer(py::array_t<T, py::array::c_style> const
 
 void init_mat(py::module_ &m) {
     NDArrayConverter::init_numpy();
-
-    py::class_<I3DR::Phase::MatrixFloat>(m, "MatrixFloat", py::buffer_protocol())
-    .def(py::init<int, int, int>())
-    .def(py::init<const I3DR::Phase::MatrixFloat&>())
-    .def("getRows", &I3DR::Phase::MatrixFloat::getRows)
-    .def("getColumns", &I3DR::Phase::MatrixFloat::getColumns)
-    .def("getLayers", &I3DR::Phase::MatrixFloat::getLayers)
-    .def("setAt", &I3DR::Phase::MatrixFloat::setAt)
-    .def("getAt", &I3DR::Phase::MatrixFloat::getAt)
-    .def("getLength", &I3DR::Phase::MatrixFloat::getLength)
-    .def("getSize", &I3DR::Phase::MatrixFloat::getSize)
-    .def("isEmpty", &I3DR::Phase::MatrixFloat::isEmpty)
+    // TODOC Description of the class and the functions of MatrixFloat class
+    py::class_<I3DR::Phase::MatrixFloat>(m, "MatrixFloat", py::buffer_protocol(), R"(TODOC)")
+    .def(py::init<int, int, int>(), R"(TODOC)")
+    .def(py::init<const I3DR::Phase::MatrixFloat&>(), R"(TODOC)")
+    .def("getRows", &I3DR::Phase::MatrixFloat::getRows, R"(TODOC)")
+    .def("getColumns", &I3DR::Phase::MatrixFloat::getColumns, R"(TODOC)")
+    .def("getLayers", &I3DR::Phase::MatrixFloat::getLayers, R"(TODOC)")
+    .def("setAt", &I3DR::Phase::MatrixFloat::setAt, R"(TODOC)")
+    .def("getAt", &I3DR::Phase::MatrixFloat::getAt, R"(TODOC)")
+    .def("getLength", &I3DR::Phase::MatrixFloat::getLength, R"(TODOC)")
+    .def("getSize", &I3DR::Phase::MatrixFloat::getSize, R"(TODOC)")
+    .def("isEmpty", &I3DR::Phase::MatrixFloat::isEmpty, R"(TODOC)")
     .def(py::init([](py::array_t<float, py::array::c_style> const b) {
         return init_mat_buffer(b);
-    }))
+    }), R"(TODOC)")
     .def_buffer([](I3DR::Phase::MatrixFloat &m) -> py::buffer_info {
         return get_mat_buffer_info(m);
-    });
+    }, R"(TODOC)");
 
-    py::class_<I3DR::Phase::MatrixUInt8>(m, "MatrixUInt8", py::buffer_protocol())
-    .def(py::init<int, int, int>())
-    .def(py::init<const I3DR::Phase::MatrixUInt8&>())
-    .def("getRows", &I3DR::Phase::MatrixUInt8::getRows)
-    .def("getColumns", &I3DR::Phase::MatrixUInt8::getColumns)
-    .def("getLayers", &I3DR::Phase::MatrixUInt8::getLayers)
-    .def("setAt", &I3DR::Phase::MatrixUInt8::setAt)
-    .def("getAt", &I3DR::Phase::MatrixUInt8::getAt)
-    .def("getLength", &I3DR::Phase::MatrixUInt8::getLength)
-    .def("getSize", &I3DR::Phase::MatrixUInt8::getSize)
-    .def("isEmpty", &I3DR::Phase::MatrixUInt8::isEmpty)
+    // TODOC Description of the class and the functions of MatrixUInt8 class
+    py::class_<I3DR::Phase::MatrixUInt8>(m, "MatrixUInt8", py::buffer_protocol(), R"(TODOC)")
+    .def(py::init<int, int, int>(), R"(TODOC)")
+    .def(py::init<const I3DR::Phase::MatrixUInt8&>(), R"(TODOC)")
+    .def("getRows", &I3DR::Phase::MatrixUInt8::getRows, R"(TODOC)")
+    .def("getColumns", &I3DR::Phase::MatrixUInt8::getColumns, R"(TODOC)")
+    .def("getLayers", &I3DR::Phase::MatrixUInt8::getLayers, R"(TODOC)")
+    .def("setAt", &I3DR::Phase::MatrixUInt8::setAt, R"(TODOC)")
+    .def("getAt", &I3DR::Phase::MatrixUInt8::getAt, R"(TODOC)")
+    .def("getLength", &I3DR::Phase::MatrixUInt8::getLength, R"(TODOC)")
+    .def("getSize", &I3DR::Phase::MatrixUInt8::getSize, R"(TODOC)")
+    .def("isEmpty", &I3DR::Phase::MatrixUInt8::isEmpty, R"(TODOC)")
     .def(py::init([](py::array_t<uint8_t, py::array::c_style> const b) {
         return init_mat_buffer(b);
-    }))
+    }), R"(TODOC)")
     .def_buffer([](I3DR::Phase::MatrixUInt8 &m) -> py::buffer_info {
         return get_mat_buffer_info(m);
-    });
+    }, R"(TODOC)");
 }

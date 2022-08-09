@@ -13,5 +13,6 @@ from phase.pyphase.stereomatcher import StereoBM
 
 
 def test_StereoBM():
+    #TODOC Description of the test
     matcher = StereoBM()
     del matcher

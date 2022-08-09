@@ -13,6 +13,7 @@ from phase.pyphase.calib import StereoCameraCalibration, CalibrationFileType
 
 
 def test_lr_access():
+    //TODOC
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(script_path, "..", "..", ".phase_test")
     left_ros_yaml = os.path.join(test_folder, "left_ros.yaml")
@@ -85,6 +86,7 @@ def test_lr_access():
 
 
 def test_LoadCalibration():
+    #TODOC Description of the test
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(script_path, "..", "..", ".phase_test")
     left_ros_yaml = os.path.join(test_folder, "left_ros.yaml")
@@ -215,6 +217,7 @@ def test_LoadCalibration():
 
 
 def test_SaveCalibration():
+    #TODOC Description of the test
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(script_path, "..", "..", ".phase_test")
     left_yaml = os.path.join(test_folder, "left.yaml")

@@ -17,7 +17,7 @@ namespace py = pybind11;
 
 void init_stereomatcher(py::module_ &m) {
     NDArrayConverter::init_numpy();
-
-    m.def("createStereoMatcher", static_cast<I3DR::Phase::AbstractStereoMatcher* (*)(I3DR::Phase::StereoMatcherType)>(&I3DR::Phase::createStereoMatcher), py::return_value_policy::reference);
-    m.def("createStereoMatcher", static_cast<I3DR::Phase::AbstractStereoMatcher* (*)(I3DR::Phase::StereoParams)>(&I3DR::Phase::createStereoMatcher), py::return_value_policy::reference);
+    //TODOC Description of the functions
+    m.def("createStereoMatcher", static_cast<I3DR::Phase::AbstractStereoMatcher* (*)(I3DR::Phase::StereoMatcherType)>(&I3DR::Phase::createStereoMatcher), py::return_value_policy::reference, R"(TODOC)");
+    m.def("createStereoMatcher", static_cast<I3DR::Phase::AbstractStereoMatcher* (*)(I3DR::Phase::StereoParams)>(&I3DR::Phase::createStereoMatcher), py::return_value_policy::reference, R"(TODOC)");
 }

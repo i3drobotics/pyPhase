@@ -22,6 +22,7 @@ from phase.pyphase.types import CameraReadResult
 
 
 def test_PylonStereoCamera():
+    #TODOC Description of the test
     device_info = CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
@@ -31,6 +32,7 @@ def test_PylonStereoCamera():
 
 
 def test_PylonStereoCamera_isConnected_onInit():
+    #TODOC Description of the test
     device_info = CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
@@ -41,6 +43,7 @@ def test_PylonStereoCamera_isConnected_onInit():
 
 
 def test_PylonStereoCamera_connect_onInit():
+    #TODOC Description of the test
     device_info = CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
@@ -51,6 +54,7 @@ def test_PylonStereoCamera_connect_onInit():
 
 
 def test_PylonStereoCamera_connect_virtual_onInit():
+    #TODOC Description of the test
     device_info = CameraDeviceInfo(
         "0815-0000", "0815-0001", "virtualpylon",
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
@@ -64,6 +68,7 @@ def test_PylonStereoCamera_connect_virtual_onInit():
 
 
 def test_PylonStereoCamera_connect_virtual_size():
+    #TODOC Description of the test
     device_info = CameraDeviceInfo(
         "0815-0000", "0815-0001", "virtualpylon",
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
@@ -81,6 +86,7 @@ def test_PylonStereoCamera_connect_virtual_size():
 
 
 def test_PylonStereoCamera_virtual_data_capture():
+    #TODOC Description of the test
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_data_capture")
@@ -119,6 +125,7 @@ def test_PylonStereoCamera_virtual_data_capture():
 
 
 def test_PylonStereoCamera_virtual_capture_count():
+    #TODOC Description of the test
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_capture_count")
@@ -159,6 +166,7 @@ def test_PylonStereoCamera_virtual_capture_count():
 
 
 def test_PylonStereoCamera_virtual_continous_read():
+    #TODOC Description of the test
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_continous_read")
@@ -220,6 +228,7 @@ def test_PylonStereoCamera_virtual_continous_read():
 
 
 def test_PylonStereoCamera_virtual_read_callback():
+    #TODOC Description of the test
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_read_callback")

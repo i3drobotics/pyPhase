@@ -15,6 +15,7 @@ from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
 
 
 def test_StereoCamera():
+    #TODOC Description of the test
     device_info = CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
@@ -24,6 +25,7 @@ def test_StereoCamera():
 
 
 def test_StereoCamera_isConnected_onInit():
+    #TODOC Description of the test
     device_info = CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
@@ -34,6 +36,7 @@ def test_StereoCamera_isConnected_onInit():
 
 
 def test_StereoCamera_connect_onInit():
+    #TODOC Description of the test
     device_info = CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
