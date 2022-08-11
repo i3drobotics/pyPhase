@@ -14,6 +14,6 @@ from phase.pyphase.stereomatcher import StereoSGBM
 
 
 def test_StereoSGBM():
-    #TODOC Description of the test
+    # Test StereoSGBM stereo matcher
     matcher = StereoSGBM()
     del matcher

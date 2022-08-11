@@ -16,7 +16,7 @@ from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
 
 
 def test_StereoVision():
-    #TODOC Description of the test
+    # Load in virtual camera to test CameraDeviceInfo
     device_info = CameraDeviceInfo(
         "0815-0000", "0815-0001", "virtualpylon",
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,

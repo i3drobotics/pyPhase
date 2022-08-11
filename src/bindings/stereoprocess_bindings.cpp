@@ -19,13 +19,18 @@ namespace py = pybind11;
 
 void init_stereoprocess(py::module_ &m) {
     NDArrayConverter::init_numpy();
-    //TODOC Description of the function
     m.def("processStereoFiles", &I3DR::Phase::processStereoFiles,
         py::arg("stereo_params"), py::arg("left_yaml"),  py::arg("right_yaml"),
         py::arg("left_image_path"), py::arg("right_image_path"),  py::arg("output_folder"),
-        py::arg("rectify") = true, R"(TODOC)");
-    //TODOC Description of the function
+        py::arg("rectify") = true, R"(
+            Process stereo calibration files, returns error if failed
+
+            )");
+
     m.def("processStereo", &I3DR::Phase::processStereo,
         py::arg("stereo_params"), py::arg("left_image"),  py::arg("right_image"),
-        py::arg("calibration"), py::arg("rectify") = true, R"(TODOC)");
+        py::arg("calibration"), py::arg("rectify") = true, R"(
+            Load in calibration files and process stereo images, returns error if failed
+
+            )");
 }

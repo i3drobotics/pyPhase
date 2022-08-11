@@ -18,40 +18,272 @@ namespace py = pybind11;
 
 void init_uvcstereocamera(py::module_ &m) {
     NDArrayConverter::init_numpy();
-    //TODOC Description of the class and the functions in UVCStereoCamera class
-    py::class_<I3DR::Phase::UVCStereoCamera>(m, "UVCStereoCamera", R"(TODOC)")
-        .def(py::init<I3DR::Phase::CameraDeviceInfo>(), R"(TODOC)")
-        .def("connect", &I3DR::Phase::UVCStereoCamera::connect, R"(TODOC)")
-        .def("isConnected", &I3DR::Phase::UVCStereoCamera::isConnected, R"(TODOC)")
-        .def("startCapture", &I3DR::Phase::UVCStereoCamera::startCapture, R"(TODOC)")
-        .def("stopCapture", &I3DR::Phase::UVCStereoCamera::stopCapture, R"(TODOC)")
-        .def("isCapturing", &I3DR::Phase::UVCStereoCamera::isCapturing, R"(TODOC)")
-        .def("getFrameRate", &I3DR::Phase::UVCStereoCamera::getFrameRate, R"(TODOC)")
-        .def("setExposure", &I3DR::Phase::UVCStereoCamera::setExposure, R"(TODOC)")
-        .def("enableHardwareTrigger", &I3DR::Phase::UVCStereoCamera::enableHardwareTrigger, R"(TODOC)")
-        .def("setFrameRate", &I3DR::Phase::UVCStereoCamera::setFrameRate, R"(TODOC)")
-        .def("setLeftAOI", &I3DR::Phase::UVCStereoCamera::setLeftAOI, R"(TODOC)")
-        .def("setRightAOI", &I3DR::Phase::UVCStereoCamera::setRightAOI, R"(TODOC)")
-        .def("read", &I3DR::Phase::UVCStereoCamera::read, py::arg("timeout") = 1000, R"(TODOC)")
-        .def("setTestImagePaths", &I3DR::Phase::UVCStereoCamera::setTestImagePaths, R"(TODOC)")
-        .def("startReadThread", &I3DR::Phase::UVCStereoCamera::startReadThread, py::arg("timeout") = 1000, R"(TODOC)")
-        .def("isReadThreadRunning", &I3DR::Phase::UVCStereoCamera::isReadThreadRunning, R"(TODOC)")
-        .def("getReadThreadResult", &I3DR::Phase::UVCStereoCamera::getReadThreadResult, R"(TODOC)")
-        .def("setReadThreadCallback", &I3DR::Phase::UVCStereoCamera::setReadThreadCallback, R"(TODOC)")
-        .def("startContinousReadThread", &I3DR::Phase::UVCStereoCamera::startContinousReadThread, py::arg("timeout") = 1000, R"(TODOC)")
-        .def("stopContinousReadThread", &I3DR::Phase::UVCStereoCamera::stopContinousReadThread, R"(TODOC)")
-        .def("isContinousReadThreadRunning", &I3DR::Phase::UVCStereoCamera::isContinousReadThreadRunning, R"(TODOC)")
-        .def("getWidth", &I3DR::Phase::UVCStereoCamera::getWidth, R"(TODOC)")
-        .def("getHeight", &I3DR::Phase::UVCStereoCamera::getHeight, R"(TODOC)")
-        .def("getDownsampleFactor", &I3DR::Phase::UVCStereoCamera::getDownsampleFactor, R"(TODOC)")
-        .def("enableDataCapture", &I3DR::Phase::UVCStereoCamera::enableDataCapture, R"(TODOC)")
-        .def("setDataCapturePath", &I3DR::Phase::UVCStereoCamera::setDataCapturePath, R"(TODOC)")
-        .def("getCaptureCount", &I3DR::Phase::UVCStereoCamera::getCaptureCount, R"(TODOC)")
-        .def("resetCaptureCount", &I3DR::Phase::UVCStereoCamera::resetCaptureCount, R"(TODOC)")
-        .def("setLeftFlipX", &I3DR::Phase::UVCStereoCamera::setLeftFlipX, R"(TODOC)")
-        .def("setLeftFlipY", &I3DR::Phase::UVCStereoCamera::setLeftFlipY, R"(TODOC)")
-        .def("setRightFlipX", &I3DR::Phase::UVCStereoCamera::setRightFlipX, R"(TODOC)")
-        .def("setRightFlipY", &I3DR::Phase::UVCStereoCamera::setRightFlipY, R"(TODOC)")
-        .def("setDownsampleFactor", &I3DR::Phase::UVCStereoCamera::setDownsampleFactor, R"(TODOC)")
-        .def("disconnect", &I3DR::Phase::UVCStereoCamera::disconnect, R"(TODOC)");
+    // All functions and variables of UVCStereoCamera
+    py::class_<I3DR::Phase::UVCStereoCamera>(m, "UVCStereoCamera", R"(
+            Variables contain Phobos camera data
+
+            )")
+        .def(py::init<I3DR::Phase::CameraDeviceInfo>(), R"(
+            Variable stored unique camera information
+
+            Parameters
+            ----------
+
+            left_serial     : str
+                Camera left serial ID
+            right_serial    : str
+                Camera right serial ID
+            unique_serial   : str
+                Camera unique serial ID
+            device_type     : enum
+                enum of device type, according to the type of camera
+            interface_type  : enum
+                enum of interface type, according to the type of camera connection
+            )")
+        .def("connect", &I3DR::Phase::UVCStereoCamera::connect, R"(
+            Connect camera from reading CameraDeviceInfo
+    
+            )")
+        .def("isConnected", &I3DR::Phase::UVCStereoCamera::isConnected, R"(
+            Check if camera is connected
+    
+            )")
+        .def("startCapture", &I3DR::Phase::UVCStereoCamera::startCapture, R"(
+            To start camera communication
+    
+            )")
+        .def("stopCapture", &I3DR::Phase::UVCStereoCamera::stopCapture, R"(
+            To stop camera communication
+
+            )")
+        .def("isCapturing", &I3DR::Phase::UVCStereoCamera::isCapturing, R"(
+            Check if camera is capturing
+    
+            )")
+        .def("getFrameRate", &I3DR::Phase::UVCStereoCamera::getFrameRate, R"(
+            Get the value of frame rate
+    
+            )")
+        .def("setExposure", &I3DR::Phase::UVCStereoCamera::setExposure, R"(
+            To overwrite the exposure value
+
+            Parameters
+            ----------
+
+            value : int
+                Input desired value of exposure
+            )")
+        .def("enableHardwareTrigger", &I3DR::Phase::UVCStereoCamera::enableHardwareTrigger, R"(
+            To enable camera trigger
+
+            Parameters
+            ----------
+
+            enable : bool
+                Set "True" to enable trigger
+            )")
+        .def("setFrameRate", &I3DR::Phase::UVCStereoCamera::setFrameRate, R"(
+            To overwrite the frame rate
+            
+            Parameters
+            ----------
+            value : float
+                Input desired value of frame rate
+            )")
+        .def("setLeftAOI", &I3DR::Phase::UVCStereoCamera::setLeftAOI, R"(
+            To set a new area of interest for LEFT image
+            
+            Parameters
+            ----------
+            x_min : int
+                x value of top left corner of targeted AOI
+            y_min : int
+                y value of top left corner of targeted AOI
+            x_max : int
+                x value of bottom right corner of targeted AOI
+            y_max : int
+                y value of bottom right corner of targeted AOI
+            )")
+        .def("setRightAOI", &I3DR::Phase::UVCStereoCamera::setRightAOI, R"(
+            To set a new area of interest for RIGHT image
+            
+            Parameters
+            ----------
+            x_min : int
+                x value of top left corner of targeted AOI
+            y_min : int
+                y value of top left corner of targeted AOI
+            x_max : int
+                x value of bottom right corner of targeted AOI
+            y_max : int
+                y value of bottom right corner of targeted AOI
+            )")
+        .def("read", &I3DR::Phase::UVCStereoCamera::read, py::arg("timeout") = 1000, R"(
+            Read image from createStereoCamera
+            
+            Parameters
+            ----------
+            timeout : int
+                timeout in millisecond, default timeout is 1000(1s)
+            Returns
+            -------
+            left : numpy.ndarray, right : numpy.ndarray
+                Return stereo images left, right
+            )")
+        .def("setTestImagePaths", &I3DR::Phase::UVCStereoCamera::setTestImagePaths, R"(
+            Set the path for test images, input both left and right image path
+
+            Parameters
+            ----------
+            left_test_image_path    : str
+            right_test_image_path   : str
+            )")
+        .def("startReadThread", &I3DR::Phase::UVCStereoCamera::startReadThread, py::arg("timeout") = 1000, R"(
+            Read camera thread
+            
+            Parameters
+            ----------
+            timeout : int
+                timeout in millisecond, default timeout is 1000(1s)
+
+            Returns
+            -------
+            bool
+                True if thread is reading
+            )")
+        .def("isReadThreadRunning", &I3DR::Phase::UVCStereoCamera::isReadThreadRunning, R"(
+            Check if camera thread is reading
+
+            Returns
+            -------
+            bool
+                True if thread is reading
+            )")
+        .def("getReadThreadResult", &I3DR::Phase::UVCStereoCamera::getReadThreadResult, R"(
+            Get the result of thread read
+    
+            )")
+        .def("setReadThreadCallback", &I3DR::Phase::UVCStereoCamera::setReadThreadCallback, R"(
+            Set read thread callback from function read
+
+            )")
+        .def("startContinousReadThread", &I3DR::Phase::UVCStereoCamera::startContinousReadThread, py::arg("timeout") = 1000, R"(
+            Start read thread continuously
+            
+            Parameters
+            ----------
+            timeout : int
+                timeout in millisecond, default timeout is 1000(1s)
+
+            Returns
+            -------
+            bool
+                True if thread is reading
+            )")
+        .def("stopContinousReadThread", &I3DR::Phase::UVCStereoCamera::stopContinousReadThread, R"(
+            Stop read thread continuously after startContinousReadThread
+    
+            )")
+        .def("isContinousReadThreadRunning", &I3DR::Phase::UVCStereoCamera::isContinousReadThreadRunning, R"(
+            Check if thread is continuously reading
+            
+            Returns
+            -------
+            bool
+                True if thread is reading
+            )")
+        .def("getWidth", &I3DR::Phase::UVCStereoCamera::getWidth, R"(
+            Get the width of UVC image
+            
+            Returns
+            -------
+            value : int
+                Width of UVC image
+            )")
+        .def("getHeight", &I3DR::Phase::UVCStereoCamera::getHeight, R"(
+            Get the height of UVC image
+            
+            Returns
+            -------
+            value : int
+                Height of UVC image)
+            ")
+        .def("getDownsampleFactor", &I3DR::Phase::UVCStereoCamera::getDownsampleFactor, R"(
+            Get the value of Downsample Factor
+            
+            Returns
+            -------
+            value : float
+                Downsampled factor
+            )")
+        .def("enableDataCapture", &I3DR::Phase::UVCStereoCamera::enableDataCapture, R"(
+            Enable data capture
+
+            Parameters
+            ----------
+            enable : bool
+                Set "True" to enable data capture
+            )")
+        .def("setDataCapturePath", &I3DR::Phase::UVCStereoCamera::setDataCapturePath, R"(
+            Set path of saved directory for capture data
+
+            path : str
+                directory of desired capture data storage
+            )")
+        .def("getCaptureCount", &I3DR::Phase::UVCStereoCamera::getCaptureCount, R"(
+            Get the capture count
+
+            Returns
+            -------
+            value : int
+                Value of capture count
+            )")
+        .def("resetCaptureCount", &I3DR::Phase::UVCStereoCamera::resetCaptureCount, R"(
+            Reset the capture count
+
+            )")
+        .def("setLeftFlipX", &I3DR::Phase::UVCStereoCamera::setLeftFlipX, R"(
+            Flip left image in x axis
+
+            Parameters
+            ----------
+            enable : bool
+                Set "True" to flip image
+            )")
+        .def("setLeftFlipY", &I3DR::Phase::UVCStereoCamera::setLeftFlipY, R"(
+            Flip left image in y axis
+
+            Parameters
+            ----------
+            enable : bool
+                Set "True" to flip image
+            )")
+        .def("setRightFlipX", &I3DR::Phase::UVCStereoCamera::setRightFlipX, R"(
+            Flip right image in x axis
+
+            Parameters
+            ----------
+            enable : bool
+                Set "True" to flip image
+            )")
+        .def("setRightFlipY", &I3DR::Phase::UVCStereoCamera::setRightFlipY, R"(
+            Flip right image in y axis
+
+            Parameters
+            ----------
+            enable : bool
+                Set "True" to flip image
+            )")
+        .def("setDownsampleFactor", &I3DR::Phase::UVCStereoCamera::setDownsampleFactor, R"(
+            To overwrite the downsample factor
+
+            Parameters
+            ----------
+            float : value
+                Set desired downsample factor
+            )")
+        .def("disconnect", &I3DR::Phase::UVCStereoCamera::disconnect, R"(
+            Disconnect camera from reading CameraDeviceInfo
+
+            )");
 }

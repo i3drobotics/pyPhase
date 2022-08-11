@@ -13,7 +13,7 @@ import os
 from phase.pyphase.calib import CameraCalibration
 
 def test_CameraCalibration():
-    #TODOC Description of the test
+    # Creates left and right calibration yaml files for test calib functions
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(script_path, "..", "..", ".phase_test")
     left_ros_yaml = os.path.join(test_folder, "left_ros.yaml")

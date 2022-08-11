@@ -14,13 +14,13 @@ from phase.pyphase.stereomatcher import StereoI3DRSGM
 
 
 def test_StereoI3DRSGM():
-    #TODOC Description of the test
+    # Test StereoI3DRSGM stereo matcher
     matcher = StereoI3DRSGM()
     del matcher
 
 
 def test_StereoI3DRSGM_params():
-    #TODOC Description of the test
+    # Test overwrite desired I3DR stereo matcher parameters
     valid = StereoI3DRSGM().isLicenseValid()
     if valid:
         matcher = StereoI3DRSGM()

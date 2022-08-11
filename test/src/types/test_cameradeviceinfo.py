@@ -11,5 +11,4 @@
 
 
 def test_CameraDeviceInfo():
-    #TODOC Description of the test
     pass

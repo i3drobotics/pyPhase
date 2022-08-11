@@ -19,7 +19,7 @@ namespace py = pybind11;
 
 void init_utils(py::module_ &m) {
     NDArrayConverter::init_numpy();
-    //TODOC
+
     m.def("scaleImage", &I3DR::Phase::scaleImage, R"(
         Scale image to a new size.
 
@@ -202,14 +202,14 @@ void init_utils(py::module_ &m) {
             True if successful
         )");
     m.def("cvMatIsEqual", &I3DR::Phase::cvMatIsEqual, R"(
-        Check if two cv::Mat objects are equal.
+        Check if two numpy.ndarray objects are equal.
 
         Parameters
         ----------
-        mat1 : cv::Mat
-            First cv::Mat object
-        mat2 : cv::Mat
-            Second cv::Mat object
+        mat1 : numpy.ndarray
+            First numpy.ndarray object
+        mat2 : numpy.ndarray
+            Second numpy.ndarray object
 
         Returns
         -------

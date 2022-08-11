@@ -25,13 +25,57 @@ void init_rgbdvideowriter(py::module_ &m) {
         Write RGB and Depth video
 
         )")
-        //TODOC Description of functions in RGBDVideoWriter class
-        .def(py::init<const char*, const char*, int, int>(), R"(TODOC)")
-        .def("add", &I3DR::Phase::RGBDVideoWriter::add, R"(TODOC)")
-        .def("isOpened", &I3DR::Phase::RGBDVideoWriter::isOpened, R"(TODOC)")
-        .def("save", &I3DR::Phase::RGBDVideoWriter::save, R"(TODOC)")
-        .def("saveThreaded", &I3DR::Phase::RGBDVideoWriter::saveThreaded, R"(TODOC)")
-        .def("isSaveThreadRunning", &I3DR::Phase::RGBDVideoWriter::isSaveThreadRunning, R"(TODOC)")
-        .def("getSaveThreadResult", &I3DR::Phase::RGBDVideoWriter::getSaveThreadResult, R"(TODOC)")
-        .def("close", &I3DR::Phase::RGBDVideoWriter::close, R"(TODOC)");
+        
+        .def(py::init<const char*, const char*, int, int>(), R"(
+            Class to write RGBD video
+            
+            )")
+        .def("add", &I3DR::Phase::RGBDVideoWriter::add, R"(
+            Add colour channel RGB and the depth to form 4 channels
+
+            Parameters
+            ----------
+            rgb : numpy.ndarray
+            depth : numpy.ndarray
+            )")
+        .def("isOpened", &I3DR::Phase::RGBDVideoWriter::isOpened, R"(
+            Check if RGBD writer is opened
+
+            Returns
+            -------
+            bool
+                True if RGBD writer is opened
+            )")
+        .def("save", &I3DR::Phase::RGBDVideoWriter::save, R"(
+            Save RGBD video
+
+            Returns
+            -------
+            bool
+                True if RGBD video is saved
+            )")
+        .def("saveThreaded", &I3DR::Phase::RGBDVideoWriter::saveThreaded, R"(
+            Save threaded
+
+            )")
+        .def("isSaveThreadRunning", &I3DR::Phase::RGBDVideoWriter::isSaveThreadRunning, R"(
+            Check if save thread is running
+
+            Returns
+            -------
+            bool
+                True if save thread is running
+            )")
+        .def("getSaveThreadResult", &I3DR::Phase::RGBDVideoWriter::getSaveThreadResult, R"(
+            Get save thread
+            
+            Returns
+            -------
+            bool
+                True if equal
+            )")
+        .def("close", &I3DR::Phase::RGBDVideoWriter::close, R"(
+            Close RGBD video writer
+
+            )");
 }

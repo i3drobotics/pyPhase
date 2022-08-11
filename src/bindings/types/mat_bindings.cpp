@@ -17,7 +17,6 @@
 
 namespace py = pybind11;
 
-//TODOC
 template <typename T>
 py::buffer_info get_mat_buffer_info(I3DR::Phase::Matrix<T> &m){
     return py::buffer_info(
@@ -32,7 +31,6 @@ py::buffer_info get_mat_buffer_info(I3DR::Phase::Matrix<T> &m){
             );
 }
 
-//TODOC
 template <typename T>
 I3DR::Phase::Matrix<T>* init_mat_buffer(py::array_t<T, py::array::c_style> const b){
     py::buffer_info info = b.request();
@@ -46,40 +44,197 @@ I3DR::Phase::Matrix<T>* init_mat_buffer(py::array_t<T, py::array::c_style> const
 
 void init_mat(py::module_ &m) {
     NDArrayConverter::init_numpy();
-    // TODOC Description of the class and the functions of MatrixFloat class
-    py::class_<I3DR::Phase::MatrixFloat>(m, "MatrixFloat", py::buffer_protocol())
-    .def(py::init<int, int, int>(), R"(TODOC)")
-    .def(py::init<const I3DR::Phase::MatrixFloat&>(), R"(TODOC)")
-    .def("getRows", &I3DR::Phase::MatrixFloat::getRows, R"(TODOC)")
-    .def("getColumns", &I3DR::Phase::MatrixFloat::getColumns, R"(TODOC)")
-    .def("getLayers", &I3DR::Phase::MatrixFloat::getLayers, R"(TODOC)")
-    .def("setAt", &I3DR::Phase::MatrixFloat::setAt, R"(TODOC)")
-    .def("getAt", &I3DR::Phase::MatrixFloat::getAt, R"(TODOC)")
-    .def("getLength", &I3DR::Phase::MatrixFloat::getLength, R"(TODOC)")
-    .def("getSize", &I3DR::Phase::MatrixFloat::getSize, R"(TODOC)")
-    .def("isEmpty", &I3DR::Phase::MatrixFloat::isEmpty, R"(TODOC)")
+    // Class of accessing buffer matrix data
+    py::class_<I3DR::Phase::MatrixFloat>(m, "MatrixFloat", py::buffer_protocol(), R"(
+        Class to access data float type matrix
+        
+        )")
+    .def(py::init<int, int, int>(), R"(
+        Access float type matrix data
+
+        Parameters
+        ----------
+        rows : int
+        cols : int
+        channels : int
+
+        )")
+    .def(py::init<const I3DR::Phase::MatrixFloat&>(), R"(
+        Access float type matrix data
+
+        )")
+    .def("getRows", &I3DR::Phase::MatrixFloat::getRows, R"(
+        Get rows of the float type matrix
+        
+        Returns
+        -------
+        rows : int
+            Row of the matrix
+        )")
+    .def("getColumns", &I3DR::Phase::MatrixFloat::getColumns, R"(
+        Get columns of the float type matrix
+        
+        Returns
+        -------
+        columns : int
+            Column of the matrix
+        )")
+    .def("getLayers", &I3DR::Phase::MatrixFloat::getLayers, R"(
+        Get layers of the float type matrix
+        
+        Returns
+        -------
+        layers : int
+            Layer of the matrix
+        )")
+    .def("setAt", &I3DR::Phase::MatrixFloat::setAt, R"(
+        Set the data value to the desired index of matrix
+
+        Parameters
+        ----------
+        row : int
+        column : int
+        layer : int
+        value : float
+
+    )")
+    .def("getAt", &I3DR::Phase::MatrixFloat::getAt, R"(
+        Get the data of the desired index of matrix
+
+        Parameters
+        ----------
+        row : int
+        column : int
+        layer : int
+
+        Returns
+        -------
+        data : float
+            The value of data in float
+        )")
+    .def("getLength", &I3DR::Phase::MatrixFloat::getLength, R"(
+        Get length of the float type matrix, defines as rows X columns X layer
+        
+        Returns
+        -------
+        value : int
+            Length of the matrix
+        )")
+    .def("getSize", &I3DR::Phase::MatrixFloat::getSize, R"(
+        Get size of the float type matrix
+        
+        Returns
+        -------
+        value : int
+            Size of the matrix
+        )")
+    .def("isEmpty", &I3DR::Phase::MatrixFloat::isEmpty, R"(
+        Check if the matrix is empty
+        
+        Returns
+        -------
+        bool
+            True if empty
+        )")
     .def(py::init([](py::array_t<float, py::array::c_style> const b) {
         return init_mat_buffer(b);
-    }), R"(TODOC)")
+    }), R"(Access float type matrix data)")
     .def_buffer([](I3DR::Phase::MatrixFloat &m) -> py::buffer_info {
         return get_mat_buffer_info(m);
     });
 
-    // TODOC Description of the class and the functions of MatrixUInt8 class
-    py::class_<I3DR::Phase::MatrixUInt8>(m, "MatrixUInt8", py::buffer_protocol())
-    .def(py::init<int, int, int>(), R"(TODOC)")
-    .def(py::init<const I3DR::Phase::MatrixUInt8&>(), R"(TODOC)")
-    .def("getRows", &I3DR::Phase::MatrixUInt8::getRows, R"(TODOC)")
-    .def("getColumns", &I3DR::Phase::MatrixUInt8::getColumns, R"(TODOC)")
-    .def("getLayers", &I3DR::Phase::MatrixUInt8::getLayers, R"(TODOC)")
-    .def("setAt", &I3DR::Phase::MatrixUInt8::setAt, R"(TODOC)")
-    .def("getAt", &I3DR::Phase::MatrixUInt8::getAt, R"(TODOC)")
-    .def("getLength", &I3DR::Phase::MatrixUInt8::getLength, R"(TODOC)")
-    .def("getSize", &I3DR::Phase::MatrixUInt8::getSize, R"(TODOC)")
-    .def("isEmpty", &I3DR::Phase::MatrixUInt8::isEmpty, R"(TODOC)")
+    py::class_<I3DR::Phase::MatrixUInt8>(m, "MatrixUInt8", py::buffer_protocol(), R"(
+        Class to access data UInt8 type matrix
+
+        )")
+    .def(py::init<int, int, int>(), R"(
+        Access UInt8 type matrix data
+
+        Parameters
+        ----------
+        rows : int
+        cols : int
+        channels : int
+        )")
+    .def(py::init<const I3DR::Phase::MatrixUInt8&>(), R"(
+        Access UInt8 type matrix data
+
+        )")
+    .def("getRows", &I3DR::Phase::MatrixUInt8::getRows, R"(
+        Get rows of the UInt8 type matrix
+        
+        Returns
+        -------
+        rows : int
+            Row of the matrix
+        )")
+    .def("getColumns", &I3DR::Phase::MatrixUInt8::getColumns, R"(
+        Get columns of the UInt8 type matrix
+        
+        Returns
+        -------
+        columns : int
+            Column of the matrix
+        )")
+    .def("getLayers", &I3DR::Phase::MatrixUInt8::getLayers, R"(
+        Get layers of the UInt8 type matrix
+        
+        Returns
+        -------
+        layers : int
+            Layer of the matrix
+        )")
+    .def("setAt", &I3DR::Phase::MatrixUInt8::setAt, R"(
+        Set the data value to the desired index of matrix
+
+        Parameters
+        ----------
+        row : int
+        column : int
+        layer : int
+        value : int
+        )")
+    .def("getAt", &I3DR::Phase::MatrixUInt8::getAt, R"(
+        Get the data of the desired index of matrix
+
+        Parameters
+        ----------
+        row : int
+        column : int
+        layer : int
+
+        Returns
+        -------
+        data : int
+            The value of data in float
+        )")
+    .def("getLength", &I3DR::Phase::MatrixUInt8::getLength, R"(
+        Get length of the UInt8 type matrix, defines as rows X columns X layer
+        
+        Returns
+        -------
+        value : int
+            Length of the matrix
+        )")
+    .def("getSize", &I3DR::Phase::MatrixUInt8::getSize, R"(
+        Get size of the UInt8 type matrix
+        
+        Returns
+        -------
+        value : int
+            Size of the matrix
+        )")
+    .def("isEmpty", &I3DR::Phase::MatrixUInt8::isEmpty, R"(
+        Check if the matrix is empty
+        
+        Returns
+        -------
+        bool
+            True if empty
+        )")
     .def(py::init([](py::array_t<uint8_t, py::array::c_style> const b) {
         return init_mat_buffer(b);
-    }), R"(TODOC)")
+    }), R"(Access UInt8 type matrix data)")
     .def_buffer([](I3DR::Phase::MatrixUInt8 &m) -> py::buffer_info {
         return get_mat_buffer_info(m);
     });

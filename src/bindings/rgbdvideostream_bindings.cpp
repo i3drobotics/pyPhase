@@ -19,30 +19,153 @@ void init_rgbdvideostream(py::module_ &m) {
     NDArrayConverter::init_numpy();
 
     py::class_<I3DR::Phase::RGBDVideoStream>(m, "RGBDVideoStream", py::module_local(), R"(
-        RGBD Video Stream
-        
-
         Stream RGB and Depth video
 
+        Parameters
+        ----------
+        rgb_video_filepath : str
+        depth_video_filepath : str
+
         )")
-        //TODOC Description of functions in RGBDVideoStream class
-        .def(py::init<const char*, const char* >(), R"(TODOC)")
-        .def("load", &I3DR::Phase::RGBDVideoStream::load, R"(TODOC)")
-        .def("loadThreaded", &I3DR::Phase::RGBDVideoStream::loadThreaded, R"(TODOC)")
-        .def("isLoadThreadRunning", &I3DR::Phase::RGBDVideoStream::isLoadThreadRunning, R"(TODOC)")
-        .def("getLoadThreadResult", &I3DR::Phase::RGBDVideoStream::getLoadThreadResult, R"(TODOC)")
-        .def("restart", &I3DR::Phase::RGBDVideoStream::restart, R"(TODOC)")
-        .def("read", &I3DR::Phase::RGBDVideoStream::read, R"(TODOC)")
-        .def("readThreaded", &I3DR::Phase::RGBDVideoStream::readThreaded, R"(TODOC)")
-        .def("isReadThreadRunning", &I3DR::Phase::RGBDVideoStream::isReadThreadRunning, R"(TODOC)")
-        .def("getReadThreadResult", &I3DR::Phase::RGBDVideoStream::getReadThreadResult, R"(TODOC)")
-        .def("isOpened", &I3DR::Phase::RGBDVideoStream::isOpened, R"(TODOC)")
-        .def("isLoaded", &I3DR::Phase::RGBDVideoStream::isLoaded, R"(TODOC)")
-        .def("isFinished", &I3DR::Phase::RGBDVideoStream::isFinished, R"(TODOC)")
-        .def("getWidth", &I3DR::Phase::RGBDVideoStream::getWidth, R"(TODOC)")
-        .def("getHeight", &I3DR::Phase::RGBDVideoStream::getHeight, R"(TODOC)")
-        .def("getHFOV", &I3DR::Phase::RGBDVideoStream::getHFOV, R"(TODOC)")
-        .def("getDownsampleFactor", &I3DR::Phase::RGBDVideoStream::getDownsampleFactor, R"(TODOC)")
-        .def("setDownsampleFactor", &I3DR::Phase::RGBDVideoStream::setDownsampleFactor, R"(TODOC)")
-        .def("close", &I3DR::Phase::RGBDVideoStream::close, R"(TODOC)");
+    
+        .def(py::init<const char*, const char* >(), R"(
+            Class to load RGBD video stream
+
+            )")
+        .def("load", &I3DR::Phase::RGBDVideoStream::load, R"(
+            Load camera
+
+            Returns
+            -------
+            bool
+                True if camera loaded
+            )")
+        .def("loadThreaded", &I3DR::Phase::RGBDVideoStream::loadThreaded, R"(
+            Load thread
+
+            )")
+        .def("isLoadThreadRunning", &I3DR::Phase::RGBDVideoStream::isLoadThreadRunning, R"(
+            Check if thread load is running
+
+            Returns
+            -------
+            bool
+                True if thread load is running
+            )")
+        .def("getLoadThreadResult", &I3DR::Phase::RGBDVideoStream::getLoadThreadResult, R"(
+            Check if thread is loaded with result
+
+            Returns
+            -------
+            bool
+                True if thread is loaded with result
+        )")
+        .def("restart", &I3DR::Phase::RGBDVideoStream::restart, R"(
+            Restart camera
+
+            )")
+        .def("read", &I3DR::Phase::RGBDVideoStream::read, R"(
+            Read camera data
+
+            Returns
+            -------
+            bool
+                True if opened
+            numpy.ndarray
+                Image
+            numpy.ndarray
+                Image
+            )")
+        .def("readThreaded", &I3DR::Phase::RGBDVideoStream::readThreaded, R"(
+            Read thread
+
+            )")
+        .def("isReadThreadRunning", &I3DR::Phase::RGBDVideoStream::isReadThreadRunning, R"(
+            Check if thread read is running
+
+            Returns
+            -------
+            bool
+                True if thread read is running
+            )")
+        .def("getReadThreadResult", &I3DR::Phase::RGBDVideoStream::getReadThreadResult, R"(
+            Get read thread
+
+            Returns
+            -------
+            bool
+                True if opened
+            numpy.ndarray
+                Image
+            numpy.ndarray
+                Image
+            )")
+        .def("isOpened", &I3DR::Phase::RGBDVideoStream::isOpened, R"(
+            Check if RGBD video stream is opened
+
+            Returns
+            -------
+            bool
+                True if opened
+            )")
+        .def("isLoaded", &I3DR::Phase::RGBDVideoStream::isLoaded, R"(
+            Check if RGBD video stream is loaded
+
+            Returns
+            -------
+            bool
+                True if loaded
+            )")
+        .def("isFinished", &I3DR::Phase::RGBDVideoStream::isFinished, R"(
+            Check if RGBD video stream is finished
+
+            Returns
+            -------
+            bool
+                True if finished
+            )")
+        .def("getWidth", &I3DR::Phase::RGBDVideoStream::getWidth, R"(
+            Get the width of image
+            
+            Returns
+            -------
+            value : int
+                Width of image
+            )")
+        .def("getHeight", &I3DR::Phase::RGBDVideoStream::getHeight, R"(
+            Get the height of image
+            
+            Returns
+            -------
+            value : int
+                Height of image
+            )")
+        .def("getHFOV", &I3DR::Phase::RGBDVideoStream::getHFOV, R"(
+            Get horitonzal Field Of View of camera from Q matrix
+
+            Returns
+            -------
+            fov_x : float
+                Horitonzal Field Of View of camera from Q matrix
+            )")
+        .def("getDownsampleFactor", &I3DR::Phase::RGBDVideoStream::getDownsampleFactor, R"(
+            Get the value of Downsample Factor
+            
+            Returns
+            -------
+            value : float
+                Downsampled factor
+            )")
+        .def("setDownsampleFactor", &I3DR::Phase::RGBDVideoStream::setDownsampleFactor, R"(
+            Set downsample factor
+
+            Parameters
+            ----------
+            value : float
+                Desired value of downsample factor
+            )")
+        .def("close", &I3DR::Phase::RGBDVideoStream::close, R"(
+            Close RGBD video stream
+    
+            )");
 }
