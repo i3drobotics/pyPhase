@@ -12,12 +12,12 @@ import os
 
 from phase.pyphase.calib import CameraCalibration
 
+
 def test_CameraCalibration():
-    #TODOC Description of the test
+    # Test loading of calibration data from file
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(script_path, "..", "..", ".phase_test")
     left_ros_yaml = os.path.join(test_folder, "left_ros.yaml")
-    right_ros_yaml = os.path.join(test_folder, "right_ros.yaml")
 
     if not os.path.exists(test_folder):
         os.makedirs(test_folder)

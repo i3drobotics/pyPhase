@@ -11,5 +11,5 @@
 
 
 def test_CameraDeviceInfo():
-    #TODOC Description of the test
+    # TODO add tests for CameraDeviceInfo
     pass

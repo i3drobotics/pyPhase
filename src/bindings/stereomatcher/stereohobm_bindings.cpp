@@ -18,16 +18,75 @@ namespace py = pybind11;
 
 void init_stereohobm(py::module_ &m) {
     NDArrayConverter::init_numpy();
-    //TODOC Description of the class and functions in StereoHOBM class
-    py::class_<I3DR::Phase::StereoHOBM>(m, "StereoHOBM", R"(TODOC)")
+    py::class_<I3DR::Phase::StereoHOBM>(m, "StereoHOBM", R"(
+        Class to set the parameters for stereoHOBM matcher
+        )")
         .def(py::init<>(), R"(TODOC)")
-        .def(py::init<I3DR::Phase::StereoParams>(), R"(TODOC)")
-        .def("compute", &I3DR::Phase::StereoHOBM::compute, R"(TODOC)")
-        .def("startComputeThread", &I3DR::Phase::StereoHOBM::startComputeThread, R"(TODOC)")
-        .def("setComputeThreadCallback", &I3DR::Phase::StereoHOBM::setComputeThreadCallback, R"(TODOC)")
-        .def("isComputeThreadRunning", &I3DR::Phase::StereoHOBM::isComputeThreadRunning, R"(TODOC)")
-        .def("getComputeThreadResult", &I3DR::Phase::StereoHOBM::getComputeThreadResult, R"(TODOC)")
-        .def("setWindowSize", &I3DR::Phase::StereoHOBM::setWindowSize, R"(TODOC)")
-        .def("setMinDisparity", &I3DR::Phase::StereoHOBM::setMinDisparity, R"(TODOC)")
-        .def("setNumDisparities", &I3DR::Phase::StereoHOBM::setNumDisparities, R"(TODOC)");
+        .def(py::init<I3DR::Phase::StereoParams>(), R"(
+            Stereo parameters contain matcherType, windowSize, minDisparity, numDisparities, interpolation
+            
+            )")
+        .def("compute", &I3DR::Phase::StereoHOBM::compute, R"(
+            Compute stereo matching
+
+            Parameters
+            ----------
+            left_image : numpy.ndarray
+                Left image of stereo pair
+            right_image : numpy.ndarray
+                Right image of stereo pair
+            )")
+        .def("startComputeThread", &I3DR::Phase::StereoHOBM::startComputeThread, R"(
+            Start compute thread
+
+            Parameters
+            ----------
+            left_image : numpy.ndarray
+                Left image of stereo pair
+            right_image : numpy.ndarray
+                Right image of stereo pair
+            )")
+        .def("setComputeThreadCallback", &I3DR::Phase::StereoHOBM::setComputeThreadCallback, R"(
+            Set to compute thread callback
+
+            Parameters
+            ----------
+            computeThread_callback : std::function<void __cdecl(void)>
+            )")
+        .def("isComputeThreadRunning", &I3DR::Phase::StereoHOBM::isComputeThreadRunning, R"(
+            Check if compute thread is running
+
+            Returns
+            -------
+            bool
+                True is compute thread is running
+            )")
+        .def("getComputeThreadResult", &I3DR::Phase::StereoHOBM::getComputeThreadResult, R"(
+            Get compute thread result 
+
+            )")
+        .def("setWindowSize", &I3DR::Phase::StereoHOBM::setWindowSize, R"(
+            Set window size value
+
+            Parameters
+            ----------
+            value : int
+                Desired value of window size value
+            )")
+        .def("setMinDisparity", &I3DR::Phase::StereoHOBM::setMinDisparity, R"(
+            Set minimum disparity value
+
+            Parameters
+            ----------
+            value : int
+                Desired value of minimum disparity value
+            )")
+        .def("setNumDisparities", &I3DR::Phase::StereoHOBM::setNumDisparities, R"(
+            Set number of disparities
+
+            Parameters
+            ----------
+            value : int
+                Desired value of number of disparities
+            )");
 }

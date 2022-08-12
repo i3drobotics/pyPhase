@@ -18,6 +18,7 @@ import numpy as np
 
 
 def test_Utils_checkEqualMat():
+    # Test if two matrices are equal
     # Create equal matrices
     mat_a = np.ones((3, 3, 1), dtype=np.float32)
     mat_b = np.ones((3, 3, 1), dtype=np.float32)
@@ -33,7 +34,7 @@ def test_Utils_checkEqualMat():
 
 
 def test_Utils_savePly():
-    #TODOC Description of the test
+    # Test of save point cloud
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(script_path, "..", ".phase_test")
     left_yaml = os.path.join(test_folder, "left.yaml")

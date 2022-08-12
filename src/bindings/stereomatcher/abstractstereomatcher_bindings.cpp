@@ -17,20 +17,60 @@ namespace py = pybind11;
 
 void init_abstractstereomatcher(py::module_ &m) {
     NDArrayConverter::init_numpy();
-    //TODOC Description of the class and functions in StereoParams class
-    py::class_<I3DR::Phase::StereoParams>(m, "StereoParams", R"(TODOC)")
-        .def(py::init<I3DR::Phase::StereoMatcherType,int,int,int,bool>(), R"(TODOC)")
-        .def_readwrite("matcherType", &I3DR::Phase::StereoParams::matcherType, R"(TODOC)")
-        .def_readwrite("windowSize", &I3DR::Phase::StereoParams::windowSize, R"(TODOC)")
-        .def_readwrite("minDisparity", &I3DR::Phase::StereoParams::minDisparity, R"(TODOC)")
-        .def_readwrite("numDisparities", &I3DR::Phase::StereoParams::numDisparities, R"(TODOC)")
-        .def_readwrite("interpolation", &I3DR::Phase::StereoParams::interpolation, R"(TODOC)");
-    //TODOC Description of the class and functions in AbstractStereoMatcher class
-    py::class_<I3DR::Phase::AbstractStereoMatcher>(m, "AbstractStereoMatcher", R"(TODOC)")
-        .def("compute", &I3DR::Phase::AbstractStereoMatcher::compute, R"(TODOC)")
-        .def("startComputeThread", &I3DR::Phase::AbstractStereoMatcher::startComputeThread, R"(TODOC)")
-        .def("isComputeThreadRunning", &I3DR::Phase::AbstractStereoMatcher::isComputeThreadRunning, R"(TODOC)")
-        .def("getComputeThreadResult", &I3DR::Phase::AbstractStereoMatcher::getComputeThreadResult, R"(TODOC)")
-        .def("setComputeThreadCallback", &I3DR::Phase::AbstractStereoMatcher::setComputeThreadCallback, R"(TODOC)");
+    // Stereo matcher parameters class
+    py::class_<I3DR::Phase::StereoParams>(m, "StereoParams", R"(
+        Class of stereo matcher parameters
+        )")
+        .def(py::init<I3DR::Phase::StereoMatcherType,int,int,int,bool>(), R"(
+            Stereo parameters contain matcherType, windowSize, minDisparity, numDisparities, interpolation
+        )")
+        .def_readwrite("matcherType", &I3DR::Phase::StereoParams::matcherType)
+        .def_readwrite("windowSize", &I3DR::Phase::StereoParams::windowSize)
+        .def_readwrite("minDisparity", &I3DR::Phase::StereoParams::minDisparity)
+        .def_readwrite("numDisparities", &I3DR::Phase::StereoParams::numDisparities)
+        .def_readwrite("interpolation", &I3DR::Phase::StereoParams::interpolation);
+    // Stereo matcher class
+    py::class_<I3DR::Phase::AbstractStereoMatcher>(m, "AbstractStereoMatcher", R"(
+        Class to set the parameters for stereo matcher
+        )")
+        .def("compute", &I3DR::Phase::AbstractStereoMatcher::compute, R"(
+            Compute stereo matching
+
+            Parameters
+            ----------
+            left_image : numpy.ndarray
+                Left image of stereo pair
+            right_image : numpy.ndarray
+                Right image of stereo pair
+            )")
+        .def("startComputeThread", &I3DR::Phase::AbstractStereoMatcher::startComputeThread, R"(
+            Start compute thread
+
+            Parameters
+            ----------
+            left_image : numpy.ndarray
+                Left image of stereo pair
+            right_image : numpy.ndarray
+                Right image of stereo pair
+            )")
+        .def("isComputeThreadRunning", &I3DR::Phase::AbstractStereoMatcher::isComputeThreadRunning, R"(
+            Check if compute thread is running
+
+            Returns
+            -------
+            bool
+                True is compute thread is running
+            )")
+        .def("getComputeThreadResult", &I3DR::Phase::AbstractStereoMatcher::getComputeThreadResult, R"(
+            Get compute thread result 
+      
+            )")
+        .def("setComputeThreadCallback", &I3DR::Phase::AbstractStereoMatcher::setComputeThreadCallback, R"(
+            Set to compute thread callback
+
+            Parameters
+            ----------
+            computeThread_callback : std::function<void __cdecl(void)>
+            )");
 
 }
