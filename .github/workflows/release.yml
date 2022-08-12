@@ -290,7 +290,7 @@ jobs:
         shell: bash
         run: |
           sudo apt update && sudo apt install doxygen
-          python3 -m pip install sphinx sphinx-rtd-theme pybind11-stubgen
+          python3 -m pip install sphinx sphinx-rtd-theme pybind11-stubgen numpydoc
           ./docs/gen_docs.sh
       # Zip developer docs
       - uses: papeloto/action-zip@v1
