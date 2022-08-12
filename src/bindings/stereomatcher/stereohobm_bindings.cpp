@@ -75,6 +75,7 @@ void init_stereohobm(py::module_ &m) {
             )")
         .def("setMinDisparity", &I3DR::Phase::StereoHOBM::setMinDisparity, R"(
             Set minimum disparity value
+
             Parameters
             ----------
             value : int

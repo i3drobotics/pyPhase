@@ -47,21 +47,21 @@ void init_cameradeviceinfo(py::module_ &m) {
             Get the left camera serial
 
             Returns
-            ----------
+            -------
             left_camera_serial : str
             )")
         .def("getRightCameraSerial", &I3DR::Phase::CameraDeviceInfo::getRightCameraSerial, R"(
             Get the right camera serial
 
             Returns
-            ----------
+            -------
             right_camera_serial : str
             )")
         .def("getUniqueSerial", &I3DR::Phase::CameraDeviceInfo::getUniqueSerial, R"(
             Get the camera unique serial
 
             Returns
-            ----------
+            -------
             unique_serial : str
             )")
         .def_readwrite("device_type", &I3DR::Phase::CameraDeviceInfo::device_type, R"(

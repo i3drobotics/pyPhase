@@ -76,6 +76,7 @@ void init_stereoi3drsgm(py::module_ &m) {
             )")
         .def("setMinDisparity", &I3DR::Phase::StereoI3DRSGM::setMinDisparity, R"(
             Set minimum disparity value
+
             Parameters
             ----------
             value : int

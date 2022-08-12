@@ -120,7 +120,7 @@ void init_uvcstereocamera(py::module_ &m) {
             )")
         .def("read", &I3DR::Phase::UVCStereoCamera::read, py::arg("timeout") = 1000, R"(
             Read image from createStereoCamera
-            
+
             Parameters
             ----------
             timeout : int
@@ -207,7 +207,7 @@ void init_uvcstereocamera(py::module_ &m) {
             -------
             value : int
                 Height of UVC image)
-            ")
+            )")
         .def("getDownsampleFactor", &I3DR::Phase::UVCStereoCamera::getDownsampleFactor, R"(
             Get the value of Downsample Factor
             

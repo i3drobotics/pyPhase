@@ -115,7 +115,7 @@ void init_deimosstereocamera(py::module_ &m) {
             )")
         .def("read", &I3DR::Phase::DeimosStereoCamera::read, py::arg("timeout") = 1000, R"(
             Read image from createStereoCamera
-            
+
             Parameters
             ----------
             timeout : int

@@ -120,7 +120,7 @@ void init_phobosstereocamera(py::module_ &m) {
             )")
         .def("read", &I3DR::Phase::PhobosStereoCamera::read, py::arg("timeout") = 1000, R"(
             Read image from createStereoCamera
-            
+
             Parameters
             ----------
             timeout : int

@@ -120,7 +120,7 @@ void init_pylonstereocamera(py::module_ &m) {
             )")
         .def("read", &I3DR::Phase::PylonStereoCamera::read, py::arg("timeout") = 1000, R"(
             Read image from createStereoCamera
-            
+
             Parameters
             ----------
             timeout : int
@@ -201,7 +201,7 @@ void init_pylonstereocamera(py::module_ &m) {
                 Width of Pylon image
             )")
         .def("getHeight", &I3DR::Phase::PylonStereoCamera::getHeight, R"(
-             Get the height of Pylon image
+            Get the height of Pylon image
             
             Returns
             -------

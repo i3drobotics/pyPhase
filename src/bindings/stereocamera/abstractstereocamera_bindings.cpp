@@ -103,11 +103,12 @@ void init_abstractstereocamera(py::module_ &m) {
             )")
         .def("read", &I3DR::Phase::AbstractStereoCamera::read, py::arg("timeout") = 1000, R"(
             Read image from createStereoCamera
-            
+
             Parameters
             ----------
             timeout : int
                 timeout in millisecond, default timeout is 1000(1s)
+
             Returns
             -------
             left : numpy.ndarray, right : numpy.ndarray

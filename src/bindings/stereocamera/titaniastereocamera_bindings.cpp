@@ -119,7 +119,7 @@ void init_titaniastereocamera(py::module_ &m) {
             y_max : int
                 y value of bottom right corner of targeted AOI
             )")
-        .def("read", &I3DR::Phase::TitaniaStereoCamera::read, py::arg("timeout") = 1000, R"(Read image from createStereoCamera
+        .def("read", &I3DR::Phase::TitaniaStereoCamera::read, py::arg("timeout") = 1000, R"(
             Read image from TitaniaStereoCamera
 
             Parameters

@@ -75,6 +75,7 @@ void init_stereosgbm(py::module_ &m) {
             )")
         .def("setMinDisparity", &I3DR::Phase::StereoSGBM::setMinDisparity, R"(
             Set minimum disparity value
+
             Parameters
             ----------
             value : int
