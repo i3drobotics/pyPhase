@@ -15,7 +15,7 @@ from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
 
 
 def test_StereoCamera():
-    # Read stereo camera info
+    # Test initalisation of stereo camera using CameraDeviceInfo
     device_info = CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,

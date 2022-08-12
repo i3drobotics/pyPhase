@@ -22,7 +22,7 @@ from phase.pyphase.types import CameraReadResult
 
 
 def test_PylonStereoCamera():
-    # Read Pylon stereo camera info
+    # Test initalisation of PylonStereoCamera using CameraDeviceInfo
     device_info = CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,

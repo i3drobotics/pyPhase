@@ -13,7 +13,7 @@ from phase.pyphase.calib import StereoCameraCalibration, CalibrationFileType
 
 
 def test_lr_access():
-    # Creates left and right calibration yaml files for test calibration types
+    # Test access to left and right calibration data from StereoCameraCalibration
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(script_path, "..", "..", ".phase_test")
     left_ros_yaml = os.path.join(test_folder, "left_ros.yaml")
@@ -86,7 +86,7 @@ def test_lr_access():
 
 
 def test_LoadCalibration():
-    # Creates calibration files in ROS and OpenCV format
+    # Test loading calibration from file
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(script_path, "..", "..", ".phase_test")
     left_ros_yaml = os.path.join(test_folder, "left_ros.yaml")
@@ -217,7 +217,7 @@ def test_LoadCalibration():
 
 
 def test_SaveCalibration():
-    # Save calibration files in yaml format
+    # Test saving calibration files
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(script_path, "..", "..", ".phase_test")
     left_yaml = os.path.join(test_folder, "left.yaml")

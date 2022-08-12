@@ -14,6 +14,6 @@ from phase.pyphase.stereomatcher import createStereoMatcher
 
 
 def test_StereoMatcher():
-    # Test create a stereo matcher
+    # Test creation of stereo matcher using createStereoMatcher function
     matcher = createStereoMatcher(StereoMatcherType.STEREO_MATCHER_BM)
     del matcher

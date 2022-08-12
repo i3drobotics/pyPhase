@@ -17,28 +17,28 @@ from phase.pyphase.types import RGBDVideoFrame
 
 
 def test_Point2d_init():
-    # Test point2 in double type
+    # Test initalisation of point2 in double type
     point = Point2d(1.0, 2.0)
     assert(point.x == 1.0)
     assert(point.y == 2.0)
 
 
 def test_Point2f_init():
-    # Test point2 in float type
+    # Test initalisation of point2 in float type
     point = Point2f(1.0, 2.0)
     assert(point.x == 1.0)
     assert(point.y == 2.0)
 
 
 def test_Point2i_init():
-    # Test point2 in int type
+    # Test initalisation of point2 in int type
     point = Point2i(1, 2)
     assert(point.x == 1)
     assert(point.y == 2)
 
 
 def test_StereoImagePair_init():
-    # Test StereoImagePair function
+    # Test initalisation of StereoImagePair
     left = np.zeros((10, 10, 3), dtype=np.uint8)
     right = np.zeros((10, 10, 3), dtype=np.uint8)
     pair = StereoImagePair(left, right)
@@ -47,7 +47,7 @@ def test_StereoImagePair_init():
 
 
 def test_CameraReadResult_init():
-    # Test CameraReadResult function
+    # Test initalisation of CameraReadResult
     left = np.zeros((10, 10, 3), dtype=np.uint8)
     right = np.zeros((10, 10, 3), dtype=np.uint8)
     valid = True
@@ -58,7 +58,7 @@ def test_CameraReadResult_init():
 
 
 def test_StereoMatcherComputeResult_init():
-    # Test StereoMatcherComputeResult function
+    # Test initalisation of StereoMatcherComputeResult
     disparity = np.zeros((10, 10, 1), dtype=np.float32)
     valid = True
     result = StereoMatcherComputeResult(valid, disparity)
@@ -67,7 +67,7 @@ def test_StereoMatcherComputeResult_init():
 
 
 def test_StereoVisionReadResult_init():
-    # Test StereoVisionReadResult function
+    # Test initalisation of StereoVisionReadResult
     left = np.zeros((10, 10, 3), dtype=np.uint8)
     right = np.zeros((10, 10, 3), dtype=np.uint8)
     disparity = np.zeros((10, 10, 1), dtype=np.float32)
@@ -80,7 +80,7 @@ def test_StereoVisionReadResult_init():
 
 
 def test_RGBDVideoFrame_init():
-    # Test RGBDVideoFrame function
+    # Test initalisation of RGBDVideoFrame
     image = np.zeros((10, 10, 3), dtype=np.uint8)
     depth = np.zeros((10, 10, 1), dtype=np.float32)
     valid = True

@@ -8,3 +8,8 @@
  @brief Unit tests for Abstract Stereo Matcher class
  @details Unit tests generated using PyTest
 """
+
+
+def test_AbstractStereoMatcher():
+    # TODO add tests for AbstractStereoMatcher
+    pass
