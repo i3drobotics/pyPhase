@@ -13,14 +13,21 @@ if(NOT EXISTS "${CMAKE_SOURCE_DIR}/version.txt")
 endif()
 
 # Read version from file
-file(READ "${CMAKE_SOURCE_DIR}/version.txt" ver)
-string(REGEX REPLACE "(\r?\n)+" "" ver ${ver}) # remove newlines
-message("version: ${ver}")
+file(READ "${CMAKE_SOURCE_DIR}/version.txt" VER)
+string(REGEX REPLACE "(\r?\n)+" "" VER ${VER}) # remove newlines
+message(STATUS "version: ${VER}")
+
+# Remove prerelease suffix from version
+string(FIND ${VER} "-" PREDASH)
+if (NOT ${PREDASH} EQUAL -1)
+    string(SUBSTRING ${VER} ${PREDASH} -1 VER_PRE)
+    string(REPLACE "${VER_PRE}" "" VER ${VER})
+endif()
 
 # Define languages used in project
 set(PROJECT_LANGS CXX)
 
-project(pyphase LANGUAGES ${PROJECT_LANGS} VERSION ${ver})
+project(pyphase LANGUAGES ${PROJECT_LANGS} VERSION ${VER})
 
 # Define names
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
