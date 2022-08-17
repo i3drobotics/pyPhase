@@ -8,8 +8,17 @@
  @brief Unit tests for Abstract Stereo Matcher class
  @details Unit tests generated using PyTest
 """
-
+from phase.pyphase.stereomatcher import StereoMatcherComputeResult
+import numpy as np
 
 def test_AbstractStereoMatcher():
     # TODO add tests for AbstractStereoMatcher
     pass
+
+def test_StereoMatcherComputeResult_init():
+    # Test initalisation of StereoMatcherComputeResult
+    disparity = np.zeros((10, 10, 1), dtype=np.float32)
+    valid = True
+    result = StereoMatcherComputeResult(valid, disparity)
+    assert(result.disparity.shape == disparity.shape)
+    assert(result.valid == valid)

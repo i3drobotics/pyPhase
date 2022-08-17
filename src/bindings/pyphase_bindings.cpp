@@ -21,6 +21,7 @@ void init_utils(py::module &);
 
 // types
 void init_mat(py::module &);
+void init_stereo(py::module &);
 
 // calib
 void init_cameracalibration(py::module &);
@@ -29,6 +30,7 @@ void init_stereocalibration(py::module &);
 // stereo camera
 void init_abstractstereocamera(py::module &);
 void init_stereocamera(py::module &);
+void init_cameradeviceinfo(py::module &);
 void init_pylonstereocamera(py::module &);
 void init_uvcstereocamera(py::module &);
 void init_deimosstereocamera(py::module &);
@@ -56,6 +58,7 @@ PYBIND11_MODULE(pyphase, m) {
     // types
     py::module_ types_module = m.def_submodule("types", "custom Phase types");
     init_mat(types_module);
+    init_stereo(types_module);
 
     // calib
     py::module_ calib_module = m.def_submodule("calib", "camera calibration");
@@ -66,6 +69,7 @@ PYBIND11_MODULE(pyphase, m) {
     py::module_ stereocamera_module = m.def_submodule("stereocamera", "stereo camera");
     init_abstractstereocamera(stereocamera_module);
     init_stereocamera(stereocamera_module);
+    init_cameradeviceinfo(stereocamera_module);
     init_pylonstereocamera(stereocamera_module);
     init_uvcstereocamera(stereocamera_module);
     init_deimosstereocamera(stereocamera_module);

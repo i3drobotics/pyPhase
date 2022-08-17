@@ -9,8 +9,10 @@
  @details Unit tests generated using PyTest
 """
 
-from phase.pyphase.types import CameraDeviceInfo
-from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
+from phase.pyphase.stereocamera import CameraDeviceInfo
+from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
+from phase.pyphase.stereocamera import CameraReadResult
+import numpy as np
 
 
 def test_CameraDeviceInfo():
@@ -20,3 +22,13 @@ def test_CameraDeviceInfo():
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
         CameraInterfaceType.INTERFACE_TYPE_USB
     )
+
+def test_CameraReadResult_init():
+    # Test initalisation of CameraReadResult
+    left = np.zeros((10, 10, 3), dtype=np.uint8)
+    right = np.zeros((10, 10, 3), dtype=np.uint8)
+    valid = True
+    result = CameraReadResult(valid, left, right)
+    assert(result.left.shape == left.shape)
+    assert(result.right.shape == right.shape)
+    assert(result.valid == valid)

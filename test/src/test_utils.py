@@ -14,12 +14,62 @@ from phase.pyphase import scaleImage, normaliseDisparity
 from phase.pyphase import bgra2rgba, bgr2rgba, bgr2bgra
 from phase.pyphase import cvMatIsEqual
 from phase.pyphase import disparity2xyz, xyz2depth
-from phase.pyphase import processStereo, disparity2depth, depth2xyz, savePLY
+from phase.pyphase import disparity2depth, depth2xyz, savePLY
 from phase.pyphase import readImage, flip
 from phase.pyphase.calib import StereoCameraCalibration
-from phase.pyphase.types import MatrixUInt8, StereoMatcherType
-from phase.pyphase.stereomatcher import StereoParams
+from phase.pyphase.types import MatrixUInt8
+from phase.pyphase.stereomatcher import StereoParams, createStereoMatcher, StereoMatcherType
 import numpy as np
+
+def test_Utils_scaleImage():
+    # Test to scale image by twice the width and height
+    img = np.ones((1080, 1920, 3), dtype=np.uint8)
+
+    scaled_img = scaleImage(img, 2.0)
+
+    assert scaled_img.shape[0] == 1080*2
+    assert scaled_img.shape[1] == 1920*2
+
+def test_utils_normaliseDisparity():
+    # Test normalise disparity matrix
+    img = np.ones((480, 640, 3), dtype=np.uint8)
+
+    assert (not normaliseDisparity(img) is None)
+
+def test_utils_bgra2rgba():
+    # Test convert bgra2rgba
+    img = np.ones((480, 640, 4), dtype=np.uint8)
+
+    assert (not bgr2rgba(img) is None)
+
+def test_utils_bgr2bgra():
+    # Test convert bgr2bgra
+    img = np.ones((480, 640, 3), dtype=np.uint8)
+
+    assert (not bgr2bgra(img) is None)
+
+def test_utils_bgr2rgba():
+    # Test convert bgr2rgba
+    img = np.ones((480, 640, 3), dtype=np.uint8)
+
+    assert (not bgra2rgba(img) is None)
+
+#def test_utils_disparity2xyz
+def test_Utils_readImage():
+    # Test to read an image and flip
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(
+        script_path, "..", "data")
+
+    left_image_file = os.path.join(data_folder, "left.png")
+    img = readImage(left_image_file)
+    
+    assert (not img is None)
+
+    width = img.shape[1]
+    flip_img = flip(img, 0)
+
+    assert (not img[0,0,0] == flip_img[0,width-1,0])
 
 def test_Utils_checkEqualMat():
     # Test if two matrices are equal
@@ -104,31 +154,25 @@ def test_Utils_savePly():
 
     calibration = StereoCameraCalibration.calibrationFromYAML(
         left_yaml, right_yaml)
-
-    rect_image_pair = calibration.rectify(np_left_image, np_right_image)
-
-    ph_left_image = MatrixUInt8(rect_image_pair.left)
-    ph_right_image = MatrixUInt8(rect_image_pair.right)
+    
+    rect = calibration.rectify(np_left_image, np_right_image)
 
     stereo_params = StereoParams(
         StereoMatcherType.STEREO_MATCHER_BM,
         11, 0, 25, False
     )
-    ph_disparity = processStereo(
-        stereo_params, ph_left_image, ph_right_image, calibration, False
-    )
 
-    assert ph_disparity.isEmpty() is False
+    matcher = createStereoMatcher(stereo_params)
+    
+    match_result = matcher.compute(rect.left, rect.right)
 
-    np_disparity = np.array(ph_disparity)
-
-    np_depth = disparity2depth(np_disparity, calibration.getQ())
+    np_depth = disparity2depth(match_result.disparity, calibration.getQ())
 
     assert np_depth.size != 0
 
     xyz = depth2xyz(np_depth, calibration.getHFOV())
 
-    save_success = savePLY(out_ply, xyz, rect_image_pair.left)
+    save_success = savePLY(out_ply, xyz, rect.left)
     assert (save_success)
 
 

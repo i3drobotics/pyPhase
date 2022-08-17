@@ -9,7 +9,7 @@
  @details Unit tests generated using PyTest
 """
 
-from phase.pyphase.types import StereoMatcherType
+from phase.pyphase.stereomatcher import StereoMatcherType
 from phase.pyphase.stereomatcher import createStereoMatcher
 
 
