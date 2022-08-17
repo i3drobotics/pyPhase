@@ -18,6 +18,14 @@ namespace py = pybind11;
 void init_stereocalibration(py::module_ &m) {
     NDArrayConverter::init_numpy();
     // Load in stereo camera calibration file
+    py::enum_<I3DR::Phase::CalibrationSelection>(m, "CalibrationSelection", R"(
+        Structure of CalibrationSelection
+
+        )")
+        .value("LEFT", I3DR::Phase::CalibrationSelection::LEFT)
+        .value("RIGHT", I3DR::Phase::CalibrationSelection::RIGHT)
+        .export_values();
+    
     py::class_<I3DR::Phase::StereoCameraCalibration>(m, "StereoCameraCalibration", R"(
             Variables of stereo camera calibration file
             )")
@@ -91,21 +99,9 @@ void init_stereocalibration(py::module_ &m) {
             right_image : numpy.ndarray
                 Stereo camera right image
             left_rect_image : numpy.ndarray
-                numpy.ndarray to store left rectified image
+                Numpy array to copy rectified left image
             right_rect_image : numpy.ndarray
-                numpy.ndarray to store right rectified image
-            )")
-        .def("remapPoint", &I3DR::Phase::StereoCameraCalibration::remapPoint, R"(
-            Remap point from calibration
-
-            Parameters
-            ----------
-            point : phase.pyphase.types.Point2i
-            camera_selection : enum
-
-            Returns
-            -------
-            remapped_point : phase.pyphase.types.Point2i
+                Numpy array to copy rectified right image
             )")
         .def("getQ", &I3DR::Phase::StereoCameraCalibration::getQ, R"(
             Get the Q matrix in numpy.ndarray

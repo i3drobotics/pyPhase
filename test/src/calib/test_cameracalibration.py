@@ -9,6 +9,7 @@
  @details Unit tests generated using PyTest
 """
 import os
+import time
 
 from phase.pyphase.calib import CameraCalibration
 
@@ -21,7 +22,7 @@ def test_CameraCalibration():
 
     if not os.path.exists(test_folder):
         os.makedirs(test_folder)
-
+    start = time.time()
     print("Generating test data...")
     # Create calibration files
     left_ros_yaml_data = \
@@ -57,3 +58,7 @@ def test_CameraCalibration():
     assert(len(cal_ros.getDistortionCoefficients()) > 0)
     assert(len(cal_ros.getRectificationMatrix()) > 0)
     assert(len(cal_ros.getProjectionMatrix()) > 0)
+
+    end = time.time()
+
+    print("test_CameraCalibration finished in "+ str(end - start) + "seconds")

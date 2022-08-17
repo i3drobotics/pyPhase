@@ -38,7 +38,10 @@ def import_phase():
 
 def check_phase_version(phase_version):
     # check Phase library included version matches expected version
-    from phase.pyphase import getVersionString
+    try:
+        from phase.pyphase import getVersionString
+    except Exception as e:
+        raise Exception("Failed to import Phase library. Likely missing library files.")
 
     m_phase_version = getVersionString()
     if m_phase_version != phase_version:
@@ -51,7 +54,7 @@ def check_phase_version(phase_version):
 
 
 # Define phase version
-phase_version = "0.0.27"
+phase_version = "0.1.2"
 
 # Check valid phase import
 import_phase()
