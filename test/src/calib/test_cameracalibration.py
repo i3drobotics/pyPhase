@@ -9,7 +9,6 @@
  @details Unit tests generated using PyTest
 """
 import os
-import time
 
 from phase.pyphase.calib import CameraCalibration
 
