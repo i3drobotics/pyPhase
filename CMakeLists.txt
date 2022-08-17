@@ -133,27 +133,23 @@ add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
     ${PROJECT_SOURCE_DIR}/src/package/phase ${CMAKE_BINARY_DIR}/lib/phase
 )
 
-# Install Phase libraries
 foreach(PHASE_LIBRARY_FILEPATH ${PHASE_LIBRARY_FILES})
-    get_filename_component(PHASE_LIBRARY_FILE "${PHASE_LIBRARY_FILEPATH}" NAME)
-    get_filename_component(PHASE_LIBRARY_FILE_EXT "${PHASE_LIBRARY_FILEPATH}" EXT)
     # copy library file to target directory
-    add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
-                    COMMAND cp -a -u
-                    ${PHASE_LIBRARY_FILEPATH} $<TARGET_FILE_DIR:${PROJECT_NAME}>/)
-    if (UNIX)
-        set(rpath_origin "\\$$ORIGIN")
-        # change rpath for dynamic library to find dependencies in local directory
+    if (WIN32)
         add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
-            COMMAND patchelf --set-rpath ${rpath_origin} $<TARGET_FILE_DIR:${PROJECT_NAME}>/${PHASE_LIBRARY_FILE}
-        )
+                           COMMAND ${CMAKE_COMMAND} -E copy 
+                           ${PHASE_LIBRARY_FILEPATH} $<TARGET_FILE_DIR:${PROJECT_NAME}>)
+    elseif (UNIX)
+        add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+                           COMMAND cp -a -u
+                           ${PHASE_LIBRARY_FILEPATH} $<TARGET_FILE_DIR:${PROJECT_NAME}>)
     endif()
 endforeach()
 
 if (UNIX)
-    # change rpath to find dependencies in local directory
+    set(origin_var "\\$$ORIGIN")
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND patchelf --set-rpath ${rpath_origin}
+        COMMAND patchelf --set-rpath ${origin_var}
         $<TARGET_FILE:${PROJECT_NAME}>
     )
 endif()
