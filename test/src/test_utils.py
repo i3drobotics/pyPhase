@@ -21,56 +21,6 @@ from phase.pyphase.types import MatrixUInt8, StereoMatcherType
 from phase.pyphase.stereomatcher import StereoParams
 import numpy as np
 
-def test_Utils_scaleImage():
-    # Test to scale image by twice the width and height
-    img = np.ones((1080, 1920, 3), dtype=np.uint8)
-
-    scaled_img = scaleImage(img, 2.0)
-
-    assert scaled_img.shape == [1080, 1920]
-
-def test_utils_normaliseDisparity():
-    # Test normalise disparity matrix
-    img = np.ones((480, 640, 3), dtype=np.uint8)
-
-    assert (not normaliseDisparity(img) is None)
-
-def test_utils_bgra2rgba():
-    # Test convert bgra2rgba
-    img = np.ones((480, 640, 4), dtype=np.uint8)
-
-    assert (not bgr2rgba(img) is None)
-
-def test_utils_bgr2bgra():
-    # Test convert bgr2bgra
-    img = np.ones((480, 640, 3), dtype=np.uint8)
-
-    assert (not bgr2bgra(img) is None)
-
-def test_utils_bgr2rgba():
-    # Test convert bgr2rgba
-    img = np.ones((480, 640, 3), dtype=np.uint8)
-
-    assert (not bgra2rgba(img) is None)
-
-#def test_utils_disparity2xyz
-def test_Utils_readImage():
-    # Test to read an image and flip
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    data_folder = os.path.join(
-        script_path, "..", "data")
-
-    left_image_file = os.path.join(data_folder, "left.png")
-    img = readImage(left_image_file)
-    
-    assert (not img is None)
-
-    width = img.shape[1]
-    flip_img = flip(img, 0)
-
-    assert (not img[0,0,0] == flip_img[0,width-1,0])
-
-
 def test_Utils_checkEqualMat():
     # Test if two matrices are equal
     # Create equal matrices

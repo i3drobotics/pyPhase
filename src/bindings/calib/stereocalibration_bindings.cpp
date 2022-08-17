@@ -27,7 +27,7 @@ void init_stereocalibration(py::module_ &m) {
         .export_values();
     
     py::class_<I3DR::Phase::StereoCameraCalibration>(m, "StereoCameraCalibration", R"(
-            Variables of stereo camera calibration file
+            Store and manipulate stereo camera calibration data
             )")
         .def(py::init<I3DR::Phase::CameraCalibration, I3DR::Phase::CameraCalibration>(), R"(
             Load left and right calibration file
