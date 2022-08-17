@@ -1,8 +1,16 @@
-image:
-  file: .gitpod.Dockerfile
+image: gitpod/workspace-full
 
 tasks:
   - init: |
+      mkdir phase_install
+      curl --output phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.tar.gz -L https://github.com/i3drobotics/phase/releases/download/v0.1.2-2/phase-v0.1.2-2-ubuntu-20.04-x86_64.tar.gz
+      tar -xf phase-${{ env.PHASE_VERSION }}-${{ matrix.os }}-x86_64.tar.gz -C ./phase_install
+      sudo apt update
+      sudo apt install -y libavcodec-dev libavformat-dev libswscale-dev
+      sudo apt install -y libgl-dev liblapack-dev libblas-dev libgtk2.0-dev
+      sudo apt install -y libgstreamer1.0-0 libgstreamer-plugins-base1.0-0
+      sudo apt install -y zlib1g libstdc++6
+      sudo apt install -y libc6 libgcc1
       pip install -r requirements.txt
       mkdir build && cd build
       cmake -DPhase_DIR="/opt/i3dr/phase/lib/cmake" ..
