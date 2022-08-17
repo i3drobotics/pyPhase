@@ -1,8 +1,8 @@
 FROM gitpod/workspace-full
 
-RUN mkdir /tmp/phase_install && \
+RUN mkdir /phase_install && \
     curl --output phase-v0.1.2-4-ubuntu-20.04-x86_64.tar.gz -L https://github.com/i3drobotics/phase/releases/download/v0.1.2-4/phase-v0.1.2-4-ubuntu-20.04-x86_64.tar.gz && \
-    tar -xf phase-v0.1.2-4-ubuntu-20.04-x86_64.tar.gz -C /tmp/phase_install && \
+    tar -xf phase-v0.1.2-4-ubuntu-20.04-x86_64.tar.gz -C /phase_install && \
     rm -rf phase-v0.1.2-4-ubuntu-20.04-x86_64.tar.gz && \
     sudo apt update && \
     sudo apt install -y libavcodec-dev libavformat-dev libswscale-dev && \
