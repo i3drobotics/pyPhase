@@ -3,7 +3,7 @@ image:
 
 tasks:
   - init: |
-      cp -r /phase_install ./phase_install
+      cp -r /home/gitpod/phase_install ./phase_install
       pip install -r requirements.txt
       mkdir build && cd build
       cmake -DPhase_DIR="./phase_install/lib/cmake" ..
