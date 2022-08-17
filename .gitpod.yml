@@ -13,7 +13,7 @@ tasks:
       sudo apt install -y libc6 libgcc1
       pip install -r requirements.txt
       mkdir build && cd build
-      cmake -DPhase_DIR="/opt/i3dr/phase/lib/cmake" ..
+      cmake -DPhase_DIR="./phase_install/lib/cmake" ..
       make -j$(nproc)
 
 github:
