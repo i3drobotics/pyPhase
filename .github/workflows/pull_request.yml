@@ -6,7 +6,7 @@ on:
     types: [ opened, synchronize, reopened ]
 
 env:
-  PHASE_VERSION: v0.1.2-6
+  PHASE_VERSION: v0.1.2-7
   PHASE_REPO: i3drobotics/phase
 
 jobs:
