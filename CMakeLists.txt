@@ -147,9 +147,8 @@ foreach(PHASE_LIBRARY_FILEPATH ${PHASE_LIBRARY_FILES})
 endforeach()
 
 if (UNIX)
-    set(origin_var "\\$$ORIGIN")
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND patchelf --set-rpath ${origin_var}
+        COMMAND patchelf --set-rpath "\\$$ORIGIN"
         $<TARGET_FILE:${PROJECT_NAME}>
     )
 endif()
