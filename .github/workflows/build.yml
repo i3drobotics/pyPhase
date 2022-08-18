@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  PHASE_VERSION: v0.1.2-5
+  PHASE_VERSION: v0.1.2-6
   PHASE_REPO: i3drobotics/phase
 
 jobs:
