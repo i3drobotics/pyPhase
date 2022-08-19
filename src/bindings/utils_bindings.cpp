@@ -35,7 +35,20 @@ void init_utils(py::module_ &m) {
         numpy.ndarray
             Scaled image
         )");
-    // m.def("toMono", &I3DR::Phase::toMono);
+    m.def("toMono", &I3DR::Phase::toMono, R"(
+        Convert numpy.narray types to 8UC
+
+        Parameters
+        ----------
+        image_in : numpy.ndarray
+            Input image
+
+        Returns
+        -------
+        image_out : numpy.ndarray
+            8UC image
+
+    )");
     m.def("normaliseDisparity", &I3DR::Phase::normaliseDisparity, R"(
         Normalise disparity image.
 

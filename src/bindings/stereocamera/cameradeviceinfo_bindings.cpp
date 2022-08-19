@@ -43,7 +43,18 @@ void init_cameradeviceinfo(py::module_ &m) {
         Camera info class contains camera serials, camera type and connection type
         )")
         .def(py::init<const char*,const char*,const char*,
-            I3DR::Phase::CameraDeviceType,I3DR::Phase::CameraInterfaceType>(), R"(TODOC)")
+            I3DR::Phase::CameraDeviceType,I3DR::Phase::CameraInterfaceType>(), R"(
+            Variable contains the camera info need to run pyPhase
+
+            Parameters
+            ----------
+            left_camera_serial : str
+            right_camera_serial : str
+            unique_serial : str
+            device_type : enum
+            interface_type : enum
+
+            )")
         .def("setLeftCameraSerial", &I3DR::Phase::CameraDeviceInfo::setLeftCameraSerial, R"(
             Set the left camera serial
 
