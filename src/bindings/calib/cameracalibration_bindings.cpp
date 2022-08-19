@@ -81,7 +81,16 @@ void init_cameracalibration(py::module_ &m) {
             translation_y : float
                 Translation in y axis of calibration file
             )")
-        //.def("rectify", &I3DR::Phase::CameraCalibration::rectify)
+        .def("rectify", &I3DR::Phase::CameraCalibration::rectify, R"(
+            Rectify stereo image pair from calibration file
+
+            Parameters
+            ----------
+            left_image : numpy.ndarray
+                Stereo camera left image
+            right_image : numpy.ndarray
+                Stereo camera right image
+            )")
         .def("remapPoint", &I3DR::Phase::CameraCalibration::remapPoint, R"(
             Remap point
 

@@ -312,5 +312,22 @@ def test_Rectify():
     assert np.any(rect_empty.left) == 0
 
 def test_calibrationFromIdeal():
+    # Test access to left and right calibration data from StereoCameraCalibration
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    test_folder = os.path.join(script_path, "..", "..", ".phase_test")
+    left_ros_yaml = os.path.join(test_folder, "left_ros.yaml")
+    right_ros_yaml = os.path.join(test_folder, "right_ros.yaml")
+    
+    # Test loading of image data from file
+    left_image_file = os.path.join(test_folder, "left.png")
+    left_image = readImage(left_image_file)
+    right_image_file = os.path.join(test_folder, "right.png")
+    right_image = readImage(right_image_file)
+
     cal = StereoCameraCalibration.calibrationFromIdeal(2448, 2048, 2, 2, 2)
     assert(cal.isValid())
+
+    assert cal.getBaseline() > 0
+
+    rect = cal.rectify(left_image, right_image)
+    assert rect.left.size > 0

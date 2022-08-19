@@ -9,6 +9,7 @@
  @details Unit tests generated using PyTest
 """
 import os
+from pickletools import uint8
 import numpy as np
 from phase.pyphase.calib import CameraCalibration, StereoCameraCalibration
 from phase.pyphase import readImage
@@ -102,26 +103,36 @@ def test_Rectify():
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(script_path, "..", "..", ".phase_test")
     left_ros_yaml = os.path.join(test_folder, "left_ros.yaml")
-    right_ros_yaml = os.path.join(test_folder, "right_ros.yaml")
     
     # Test loading of image data from file
     left_image_file = os.path.join(test_folder, "left.png")
     left_image = readImage(left_image_file)
-    right_image_file = os.path.join(test_folder, "right.png")
-    right_image = readImage(right_image_file)
+    rect_image = left_image
 
     if not os.path.exists(test_folder):
         os.makedirs(test_folder)
 
-    cal = StereoCameraCalibration.calibrationFromYAML(
-    left_ros_yaml, right_ros_yaml)
+    cal = CameraCalibration(left_ros_yaml)
 
-    rect = cal.rectify(left_image, right_image)
-    assert rect.left.size > 0
+    rect = cal.rectify(left_image, rect_image)
+    assert rect_image.size > 0
 
-    rect_empty = cal.rectify(0, 0)
-    assert np.any(rect_empty.left) == 0
+    rect_empty = cal.rectify(0, rect_image)
+    assert np.any(rect_image) == 0
 
 def test_calibrationFromIdeal():
-    cal = StereoCameraCalibration.calibrationFromIdeal(2448, 2048, 2, 2, 2)
+    # Test access to left and right calibration data from StereoCameraCalibration
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    test_folder = os.path.join(script_path, "..", "..", ".phase_test")
+    
+    # Test loading of image data from file
+    left_image_file = os.path.join(test_folder, "left.png")
+    left_image = readImage(left_image_file)
+    rect_image = left_image
+    cal = CameraCalibration.calibrationFromIdeal(2448, 2048, 2, 2, 2, 2)
     assert(cal.isValid())
+    
+    assert cal.getImageHeight() > 0
+
+    rect = cal.rectify(left_image, rect_image)
+    assert rect_image.size > 0

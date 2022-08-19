@@ -208,8 +208,8 @@ def test_Utils_savePly():
     np_right_image = np.zeros((2048, 2448, 3), dtype=np.uint8)
 
     # Create an empty matrix for testing purpose
-    np_empty = np.zeros((2048, 2448, 3), dtype=np.float32)
-    Q_empty = np.zeros((4, 4), dtype=np.float32)
+    np_empty = np.zeros((2048, 2448, 3), dtype=np.uint8)
+    Q_empty = np.zeros((4, 4), dtype=np.uint8)
     
     calibration = StereoCameraCalibration.calibrationFromYAML(
         left_yaml, right_yaml)

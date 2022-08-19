@@ -23,9 +23,9 @@ from phase.pyphase.types import CameraReadResult
 def test_DeimosStereoCamera():
     # Test initalisation of DeimosStereoCamera using CameraDeviceInfo
     device_info = CameraDeviceInfo(
-        "abc123left", "abc123right", "abc123unique",
+        "0", "1", "abc123unique",
         CameraDeviceType.DEVICE_TYPE_DEIMOS,
-        CameraInterfaceType.INTERFACE_TYPE_USB
+        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     DeimosStereoCamera(device_info)
 
@@ -33,9 +33,9 @@ def test_DeimosStereoCamera():
 def test_DeimosStereoCamera_isConnected_onInit():
     # Test if Deimos stereo camera is connected
     device_info = CameraDeviceInfo(
-        "abc123left", "abc123right", "abc123unique",
+        "0", "1", "abc123unique",
         CameraDeviceType.DEVICE_TYPE_DEIMOS,
-        CameraInterfaceType.INTERFACE_TYPE_USB
+        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = DeimosStereoCamera(device_info)
     assert cam.isConnected() is False
@@ -44,9 +44,9 @@ def test_DeimosStereoCamera_isConnected_onInit():
 def test_DeimosStereoCamera_connect_onInit():
     # Test to connect Deimos stereo camera
     device_info = CameraDeviceInfo(
-        "abc123left", "abc123right", "abc123unique",
+        "0", "1", "abc123unique",
         CameraDeviceType.DEVICE_TYPE_DEIMOS,
-        CameraInterfaceType.INTERFACE_TYPE_USB
+        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = DeimosStereoCamera(device_info)
     assert cam.connect() is False
@@ -55,12 +55,25 @@ def test_DeimosStereoCamera_connect_onInit():
 
 def test_DeimosStereoCamera_connect_virtual_onInit():
     # Test to connect virtual Deimos stereo camera
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    test_folder = os.path.join(script_path, "..", "..", ".phase_test")
+    left_image_file = os.path.join(test_folder, "left.png")
+    right_image_file = os.path.join(test_folder, "right.png")
+
+    if not os.path.exists(test_folder):
+        os.makedirs(test_folder)
+
+    np_left_image = np.zeros((2048, 2448), dtype=np.uint8)
+    np_right_image = np.zeros((2048, 2448), dtype=np.uint8)
+    cv2.imwrite(left_image_file, np_left_image)
+    cv2.imwrite(right_image_file, np_right_image)
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualdeimos",
+        "0", "1", "virtualdeimos",
         CameraDeviceType.DEVICE_TYPE_DEIMOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = DeimosStereoCamera(device_info)
+    cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
     if connected:
         cam.disconnect()
@@ -69,18 +82,32 @@ def test_DeimosStereoCamera_connect_virtual_onInit():
 
 def test_DeimosStereoCamera_connect_virtual_size():
     # Test to get the height and width of virtual Deimos stereo camera
+
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    test_folder = os.path.join(script_path, "..", "..", ".phase_test")
+    left_image_file = os.path.join(test_folder, "left.png")
+    right_image_file = os.path.join(test_folder, "right.png")
+
+    if not os.path.exists(test_folder):
+        os.makedirs(test_folder)
+
+    np_left_image = np.zeros((480, 752), dtype=np.uint8)
+    np_right_image = np.zeros((480, 752), dtype=np.uint8)
+    cv2.imwrite(left_image_file, np_left_image)
+    cv2.imwrite(right_image_file, np_right_image)
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualdeimos",
+        "0", "1", "virtualdeimos",
         CameraDeviceType.DEVICE_TYPE_DEIMOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = DeimosStereoCamera(device_info)
+    cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
     if connected:
         # assumes that default virtual camera image size
         # has not been modified before connecting
-        assert(cam.getWidth() == 1024)
-        assert(cam.getHeight() == 1040)
+        assert(cam.getWidth() == 752)
+        assert(cam.getHeight() == 480)
         cam.disconnect()
     assert connected is True
 
@@ -246,7 +273,7 @@ def test_DeimosStereoCamera_virtual_read_callback():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualdeimos",
+        "0", "1", "virtualdeimos",
         CameraDeviceType.DEVICE_TYPE_DEIMOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
@@ -315,6 +342,7 @@ def test_DeimosStereoCamera_virtual_camera_params():
     cam = DeimosStereoCamera(device_info)
     cam.setLeftAOI(0, 0, 20, 20)
     cam.setRightAOI(0, 0, 20, 20)
+    cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
     cam.setExposure(5)
     cam.setFrameRate(5)

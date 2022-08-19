@@ -13,6 +13,8 @@ import os
 import time
 from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
 from phase.pyphase.types import CameraDeviceInfo, CameraReadResult
+from phase.pyphase.types import StereoMatcherType
+from phase.pyphase.stereomatcher import StereoParams, createStereoMatcher
 from phase.pyphase.stereocamera import createStereoCamera
 from phase.pyphase.stereomatcher import StereoI3DRSGM
 from phase.pyphase import readImage
@@ -25,10 +27,10 @@ def test_StereoI3DRSGM():
 
 
 def test_StereoI3DRSGM_params():
-    # Test setting StereoI3DRSGM parameters
+    # Test setting StereoBM parameters
     script_path = os.path.dirname(os.path.realpath(__file__))
     data_folder = os.path.join(
-        script_path, "..", "data")
+        script_path, "..", "..", "data")
 
     left_image_file = os.path.join(data_folder, "left.png")
     right_image_file = os.path.join(data_folder, "right.png")
@@ -36,17 +38,27 @@ def test_StereoI3DRSGM_params():
     left_image = readImage(left_image_file)
     right_image = readImage(right_image_file)
 
-    valid = StereoI3DRSGM().isLicenseValid()
-    if valid:
-        matcher = StereoI3DRSGM()
-        matcher.setWindowSize(11)
-        matcher.setMinDisparity(0)
-        matcher.setNumDisparities(16*300)
-        matcher.enableSubpixel(False)
-        matcher.enableInterpolation(False)
+    license_valid = StereoI3DRSGM().isLicenseValid()
+    assert license_valid
+    # Check for I3DRSGM license
+    if license_valid:
+        stereo_params = StereoParams(
+            StereoMatcherType.STEREO_MATCHER_I3DRSGM,
+            9, 0, 49, False
+    )
+    else:
+        stereo_params = StereoParams(
+            StereoMatcherType.STEREO_MATCHER_BM,
+            11, 0, 25, False
+    )
+    matcher = createStereoMatcher(stereo_params)
 
-        match_result = matcher.compute(left_image, right_image)
-        del matcher
+    match_result = matcher.compute(left_image, right_image)
+    assert match_result.disparity[0,0] == 0
+    assert match_result.disparity[20,20] == 0
+    assert match_result.disparity[222,222] > 0
+
+    del matcher
 
 
 def test_StereoI3DRSGM_params_read_callback():
@@ -56,12 +68,6 @@ def test_StereoI3DRSGM_params_read_callback():
     device_type = CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON  # DEVICE_TYPE_TITANIA / DEVICE_TYPE_PHOBOS
     interface_type = CameraInterfaceType.INTERFACE_TYPE_VIRTUAL  # INTERFACE_TYPE_USB / INTERFACE_TYPE_GIGE
 
-    downsample_factor = 1.0
-    display_downsample = 0.25
-    frames = 20
-    timeout = 30
-    waitkey_delay = 1
-
     device_info = CameraDeviceInfo(
         left_serial, right_serial, "virtual-camera",
         device_type,
@@ -70,36 +76,44 @@ def test_StereoI3DRSGM_params_read_callback():
 
     cam = createStereoCamera(device_info)
 
-    def read_callback(read_result: CameraReadResult):
-        if read_result.valid:
-            valid = StereoI3DRSGM().isLicenseValid()
-            if valid:
-                matcher = StereoI3DRSGM()
-                matcher.setWindowSize(11)
-                matcher.setMinDisparity(0)
-                matcher.setNumDisparities(16*300)
+    license_valid = StereoI3DRSGM().isLicenseValid()
+    assert license_valid
+    # Check for I3DRSGM license
+    if license_valid:
+        stereo_params = StereoParams(
+            StereoMatcherType.STEREO_MATCHER_I3DRSGM,
+            9, 0, 49, False
+    )
+    else:
+        stereo_params = StereoParams(
+            StereoMatcherType.STEREO_MATCHER_BM,
+            11, 0, 25, False
+    )
 
-                match_result = matcher.startComputeThread(read_result.left_image, read_result.right_image)
+    matcher = createStereoMatcher(stereo_params)
 
-    cam.setReadThreadCallback(read_callback)
-
-    print("Connecting to camera...")
-    ret = cam.connect()
-    if (ret):
+    frames = 3
+    connected = cam.connect()
+    max_read_duration = 1
+    assert connected is True
+    if connected:
+        print("Capturing continous frames...")
         cam.startCapture()
-        cam.startContinousReadThread()
-        max_read_duration = 10
-        read_start = time.time()
-        capture_count = cam.getCaptureCount()
         while(cam.getCaptureCount() < frames):
-            # wait some time
-            time.sleep(0.1)
-            # check read is not taking too long
-            read_end = time.time()
-            duration = read_end - read_start
-            assert (duration < max_read_duration)
-            if (duration > max_read_duration):
-                break
-            time.sleep(1)
-        cam.stopContinousReadThread()
-        cam.disconnect()
+            result = cam.read()
+            matcher.startComputeThread(result.left, result.right)
+            read_start = time.time()
+            while matcher.isComputeThreadRunning():
+                # To make sure function run something
+                #print("Thread is computing")
+                # check read is not taking too long
+                read_end = time.time()
+                duration = read_end - read_start
+                assert (duration < max_read_duration)
+                if (duration > max_read_duration):
+                    break
+            assert matcher.getComputeThreadResult().valid
+
+            assert matcher.getComputeThreadResult().disparity[0,0] == 0
+            assert matcher.getComputeThreadResult().disparity[20,20] == 0
+            assert matcher.getComputeThreadResult().disparity[222,222] == 0
