@@ -12,8 +12,6 @@ import numpy as np
 from phase.pyphase.types import Point2d, Point2f, Point2i
 from phase.pyphase.types import StereoImagePair, CameraReadResult
 from phase.pyphase.types import StereoMatcherComputeResult
-from phase.pyphase.types import StereoVisionReadResult
-from phase.pyphase.types import RGBDVideoFrame
 
 
 def test_Point2d_init():
@@ -64,27 +62,3 @@ def test_StereoMatcherComputeResult_init():
     result = StereoMatcherComputeResult(valid, disparity)
     assert(result.disparity.shape == disparity.shape)
     assert(result.valid == valid)
-
-
-def test_StereoVisionReadResult_init():
-    # Test initalisation of StereoVisionReadResult
-    left = np.zeros((10, 10, 3), dtype=np.uint8)
-    right = np.zeros((10, 10, 3), dtype=np.uint8)
-    disparity = np.zeros((10, 10, 1), dtype=np.float32)
-    valid = True
-    result = StereoVisionReadResult(valid, left, right, disparity)
-    assert(result.left.shape == left.shape)
-    assert(result.right.shape == right.shape)
-    assert(result.disparity.shape == disparity.shape)
-    assert(result.valid == valid)
-
-
-def test_RGBDVideoFrame_init():
-    # Test initalisation of RGBDVideoFrame
-    image = np.zeros((10, 10, 3), dtype=np.uint8)
-    depth = np.zeros((10, 10, 1), dtype=np.float32)
-    valid = True
-    rgbd_frame = RGBDVideoFrame(valid, image, depth)
-    assert(rgbd_frame.image.shape == image.shape)
-    assert(rgbd_frame.depth.shape == depth.shape)
-    assert(rgbd_frame.valid == valid)

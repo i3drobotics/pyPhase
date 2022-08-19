@@ -17,11 +17,7 @@ namespace py = pybind11;
 
 // pyphase
 void init_phaseversion(py::module &);
-void init_stereovision(py::module &);
 void init_utils(py::module &);
-void init_stereoprocess(py::module &);
-void init_rgbdvideostream(py::module &);
-void init_rgbdvideowriter(py::module &);
 
 // types
 void init_mat(py::module &);
@@ -47,7 +43,6 @@ void init_stereomatcher(py::module &);
 void init_stereobm(py::module &);
 void init_stereosgbm(py::module &);
 void init_stereoi3drsgm(py::module &);
-void init_stereohobm(py::module &);
 
 PYBIND11_MODULE(pyphase, m) {
     NDArrayConverter::init_numpy();
@@ -58,11 +53,7 @@ PYBIND11_MODULE(pyphase, m) {
     
     // pyphase
     init_phaseversion(m);
-    init_stereovision(m);
     init_utils(m);
-    init_stereoprocess(m);
-    init_rgbdvideostream(m);
-    init_rgbdvideowriter(m);
 
     // types
     py::module_ types_module = m.def_submodule("types", "custom Phase types");
@@ -92,5 +83,4 @@ PYBIND11_MODULE(pyphase, m) {
     init_stereobm(stereomatcher_module);
     init_stereosgbm(stereomatcher_module);
     init_stereoi3drsgm(stereomatcher_module);
-    init_stereohobm(stereomatcher_module);
 }
