@@ -9,11 +9,17 @@
  @details Unit tests generated using PyTest
 """
 
-from phase.pyphase.stereomatcher import StereoMatcherType
+from phase.pyphase.stereomatcher import StereoMatcherType, StereoParams
 from phase.pyphase.stereomatcher import createStereoMatcher
 
 # TODO fix segmentation fault in createStereoMatcher
-# def test_StereoMatcher():
-#     # Test creation of stereo matcher using createStereoMatcher function
-#     matcher = createStereoMatcher(StereoMatcherType.STEREO_MATCHER_BM)
-#     del matcher
+def test_StereoMatcher():
+    # Test creation of stereo matcher using createStereoMatcher function
+    matcher_type = StereoMatcherType.STEREO_MATCHER_BM
+    stereo_params = StereoParams(
+        matcher_type,
+        11, 0, 25, False
+    )
+    # matcher = createStereoMatcher(StereoMatcherType.STEREO_MATCHER_BM)
+    # matcher = createStereoMatcher(stereo_params)
+    # del matcher
