@@ -10,8 +10,8 @@
 """
 
 from phase.pyphase.stereocamera import createStereoCamera
-from phase.pyphase.types import CameraDeviceInfo
-from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
+from phase.pyphase.stereocamera import CameraDeviceInfo
+from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
 
 
 def test_StereoCamera():

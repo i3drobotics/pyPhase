@@ -8,15 +8,3 @@
  @brief Unit tests for Abstract Stereo Camera class
  @details Unit tests generated using PyTest
 """
-
-from phase.pyphase.types import CameraDeviceInfo
-from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
-
-
-def test_CameraDeviceInfo():
-    # Test initalisation of camera device info
-    CameraDeviceInfo(
-        "abc123left", "abc123right", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
-        CameraInterfaceType.INTERFACE_TYPE_USB
-    )

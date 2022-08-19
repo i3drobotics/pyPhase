@@ -13,8 +13,8 @@ import os
 import cv2
 import numpy as np
 from phase.pyphase.stereocamera import UVCStereoCamera
-from phase.pyphase.types import CameraDeviceInfo
-from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
+from phase.pyphase.stereocamera import CameraDeviceInfo
+from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
 
 
 def test_UVCStereoCamera():
