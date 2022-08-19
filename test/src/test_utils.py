@@ -13,7 +13,7 @@ from phase.pyphase import cvMatIsEqual
 from phase.pyphase import processStereo, disparity2depth, depth2xyz, savePLY
 from phase.pyphase.calib import StereoCameraCalibration
 from phase.pyphase.types import MatrixUInt8, StereoMatcherType
-from phase.pyphase.stereomatcher import StereoParams
+from phase.pyphase.stereomatcher import StereoParams, createStereoMatcher
 import numpy as np
 
 
@@ -103,22 +103,18 @@ def test_Utils_savePly():
 
     rect_image_pair = calibration.rectify(np_left_image, np_right_image)
 
-    ph_left_image = MatrixUInt8(rect_image_pair.left)
-    ph_right_image = MatrixUInt8(rect_image_pair.right)
-
+    stereo_matcher_type = StereoMatcherType.STEREO_MATCHER_BM
     stereo_params = StereoParams(
-        StereoMatcherType.STEREO_MATCHER_BM,
+        stereo_matcher_type,
         11, 0, 25, False
     )
-    ph_disparity = processStereo(
-        stereo_params, ph_left_image, ph_right_image, calibration, False
-    )
 
-    assert ph_disparity.isEmpty() is False
+    matcher = createStereoMatcher(stereo_params)
+    compute_result = matcher.compute(rect_image_pair.left, rect_image_pair.right)
 
-    np_disparity = np.array(ph_disparity)
+    assert compute_result.valid
 
-    np_depth = disparity2depth(np_disparity, calibration.getQ())
+    np_depth = disparity2depth(compute_result.disparity, calibration.getQ())
 
     assert np_depth.size != 0
 
