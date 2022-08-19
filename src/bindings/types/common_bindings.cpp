@@ -33,30 +33,12 @@ void init_common(py::module_ &m) {
         .def_readwrite("left", &I3DR::Phase::CameraReadResult::left)
         .def_readwrite("right", &I3DR::Phase::CameraReadResult::right);
 
-    py::class_<I3DR::Phase::StereoVisionReadResult>(m, "StereoVisionReadResult", R"(
-        Structure of StereoVisionReadResult
-        )")
-        .def(py::init<bool,cv::Mat,cv::Mat,cv::Mat>())
-        .def_readwrite("valid", &I3DR::Phase::StereoVisionReadResult::valid)
-        .def_readwrite("left", &I3DR::Phase::StereoVisionReadResult::left)
-        .def_readwrite("right", &I3DR::Phase::StereoVisionReadResult::right)
-        .def_readwrite("disparity", &I3DR::Phase::StereoVisionReadResult::disparity);
-
     py::class_<I3DR::Phase::StereoMatcherComputeResult>(m, "StereoMatcherComputeResult", R"(
         Structure of StereoMatcherComputeResult
         )")
         .def(py::init<bool,cv::Mat>())
         .def_readwrite("valid", &I3DR::Phase::StereoMatcherComputeResult::valid)
         .def_readwrite("disparity", &I3DR::Phase::StereoMatcherComputeResult::disparity);
-
-    py::class_<I3DR::Phase::RGBDVideoFrame>(m, "RGBDVideoFrame", R"(
-        Structure of RGBDVideoFrame
-    
-        )")
-        .def(py::init<bool,cv::Mat,cv::Mat>())
-        .def_readwrite("valid", &I3DR::Phase::RGBDVideoFrame::valid)
-        .def_readwrite("image", &I3DR::Phase::RGBDVideoFrame::image)
-        .def_readwrite("depth", &I3DR::Phase::RGBDVideoFrame::depth);
 
     py::class_<I3DR::Phase::Point2d>(m, "Point2d", R"(
         Structure of Point2d
@@ -118,6 +100,5 @@ void init_common(py::module_ &m) {
         .value("STEREO_MATCHER_BM", I3DR::Phase::StereoMatcherType::STEREO_MATCHER_BM)
         .value("STEREO_MATCHER_SGBM", I3DR::Phase::StereoMatcherType::STEREO_MATCHER_SGBM)
         .value("STEREO_MATCHER_I3DRSGM", I3DR::Phase::StereoMatcherType::STEREO_MATCHER_I3DRSGM)
-        .value("STEREO_MATCHER_HOBM", I3DR::Phase::StereoMatcherType::STEREO_MATCHER_HOBM)
         .export_values();
 }
