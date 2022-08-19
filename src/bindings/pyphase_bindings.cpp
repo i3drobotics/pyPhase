@@ -16,7 +16,7 @@
 namespace py = pybind11;
 
 // pyphase
-void init_phaseversion(py::module &);
+void init_version(py::module &);
 void init_utils(py::module &);
 
 // types
@@ -52,7 +52,7 @@ PYBIND11_MODULE(pyphase, m) {
     )";
     
     // pyphase
-    init_phaseversion(m);
+    init_version(m);
     init_utils(m);
 
     // types
