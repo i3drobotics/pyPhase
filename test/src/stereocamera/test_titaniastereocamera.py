@@ -4,8 +4,8 @@
  @authors Ben Knight (bknight@i3drobotics.com)
  @date 2021-05-26
  @copyright Copyright (c) I3D Robotics Ltd, 2021
- @file test_pylonstereocamera.py
- @brief Unit tests for Pylon Stereo Camera class
+ @file test_titaniastereocamera.py
+ @brief Unit tests for Titania Stereo Camera class
  @details Unit tests generated using PyTest
 """
 import os
@@ -15,66 +15,66 @@ from glob import glob
 import numpy as np
 import cv2
 
-from phase.pyphase.stereocamera import PylonStereoCamera
+from phase.pyphase.stereocamera import TitaniaStereoCamera
 from phase.pyphase.types import CameraDeviceInfo
 from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
 from phase.pyphase.types import CameraReadResult
 
-
-def test_PylonStereoCamera():
-    # Test initalisation of PylonStereoCamera using CameraDeviceInfo
+def test_TitaniaStereoCamera():
+    # Test initalisation of TitaniaStereoCamera using CameraDeviceInfo
     device_info = CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        CameraDeviceType.DEVICE_TYPE_TITANIA,
         CameraInterfaceType.INTERFACE_TYPE_USB
     )
-    PylonStereoCamera(device_info)
+    TitaniaStereoCamera(device_info)
 
 
-def test_PylonStereoCamera_isConnected_onInit():
-    # Test if Pylon stereo camera is connected
+def test_TitaniaStereoCamera_isConnected_onInit():
+    # Test if Titania stereo camera is connected
     device_info = CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        CameraDeviceType.DEVICE_TYPE_TITANIA,
         CameraInterfaceType.INTERFACE_TYPE_USB
     )
-    cam = PylonStereoCamera(device_info)
+    cam = TitaniaStereoCamera(device_info)
     assert cam.isConnected() is False
 
 
-def test_PylonStereoCamera_connect_onInit():
-    # Test to connect Pylon stereo camera
+def test_TitaniaStereoCamera_connect_onInit():
+    # Test to connect Titania stereo camera
     device_info = CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        CameraDeviceType.DEVICE_TYPE_TITANIA,
         CameraInterfaceType.INTERFACE_TYPE_USB
     )
-    cam = PylonStereoCamera(device_info)
+    cam = TitaniaStereoCamera(device_info)
     assert cam.connect() is False
 
 
-def test_PylonStereoCamera_connect_virtual_onInit():
-    # Test to connect virtual Pylon stereo camera
+
+def test_TitaniaStereoCamera_connect_virtual_onInit():
+    # Test to connect virtual Titania stereo camera
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        "0815-0000", "0815-0001", "virtualtitania",
+        CameraDeviceType.DEVICE_TYPE_TITANIA,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = PylonStereoCamera(device_info)
+    cam = TitaniaStereoCamera(device_info)
     connected = cam.connect()
     if connected:
         cam.disconnect()
     assert connected is True
 
 
-def test_PylonStereoCamera_connect_virtual_size():
-    # Test to get the height and width of virtual Pylon stereo camera
+def test_TitaniaStereoCamera_connect_virtual_size():
+    # Test to get the height and width of virtual Titania stereo camera
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        "0815-0000", "0815-0001", "virtualtitania",
+        CameraDeviceType.DEVICE_TYPE_TITANIA,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = PylonStereoCamera(device_info)
+    cam = TitaniaStereoCamera(device_info)
     connected = cam.connect()
     if connected:
         # assumes that default virtual camera image size
@@ -85,8 +85,8 @@ def test_PylonStereoCamera_connect_virtual_size():
     assert connected is True
 
 
-def test_PylonStereoCamera_virtual_data_capture():
-    # Test to get the data capture of virtual Pylon stereo camera
+def test_TitaniaStereoCamera_virtual_data_capture():
+    # Test to get the data capture of virtual Titania stereo camera
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_data_capture")
@@ -103,11 +103,11 @@ def test_PylonStereoCamera_virtual_data_capture():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        "0815-0000", "0815-0001", "virtualtitania",
+        CameraDeviceType.DEVICE_TYPE_TITANIA,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = PylonStereoCamera(device_info)
+    cam = TitaniaStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
@@ -124,8 +124,8 @@ def test_PylonStereoCamera_virtual_data_capture():
     assert len(right_glob_files) == 1
 
 
-def test_PylonStereoCamera_virtual_capture_count():
-    # Test to get the capture count of virtual Pylon stereo camera
+def test_TitaniaStereoCamera_virtual_capture_count():
+    # Test to get the capture count of virtual Titania stereo camera
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_capture_count")
@@ -143,11 +143,11 @@ def test_PylonStereoCamera_virtual_capture_count():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        "0815-0000", "0815-0001", "virtualtitania",
+        CameraDeviceType.DEVICE_TYPE_TITANIA,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = PylonStereoCamera(device_info)
+    cam = TitaniaStereoCamera(device_info)
     frames = 3
     cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
@@ -165,8 +165,8 @@ def test_PylonStereoCamera_virtual_capture_count():
     assert connected is True
 
 
-def test_PylonStereoCamera_virtual_continous_read():
-    # Test to read virtual Pylon stereo camera data continuously
+def test_TitaniaStereoCamera_virtual_continous_read():
+    # Test to read virtual Titania stereo camera data continuously
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_continous_read")
@@ -184,12 +184,12 @@ def test_PylonStereoCamera_virtual_continous_read():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        "0815-0000", "0815-0001", "virtualtitania",
+        CameraDeviceType.DEVICE_TYPE_TITANIA,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     frames = 3
-    cam = PylonStereoCamera(device_info)
+    cam = TitaniaStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
@@ -227,8 +227,8 @@ def test_PylonStereoCamera_virtual_continous_read():
     assert len(right_glob_files) >= frames
 
 
-def test_PylonStereoCamera_virtual_read_callback():
-    # Test to get the data of virtual Pylon stereo camera by read callback
+def test_TitaniaStereoCamera_virtual_read_callback():
+    # Test to get the data of virtual Titania stereo camera by read callback
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_read_callback")
@@ -246,12 +246,12 @@ def test_PylonStereoCamera_virtual_read_callback():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        "0815-0000", "0815-0001", "virtualtitania",
+        CameraDeviceType.DEVICE_TYPE_TITANIA,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     frames = 3
-    cam = PylonStereoCamera(device_info)
+    cam = TitaniaStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
@@ -288,8 +288,8 @@ def test_PylonStereoCamera_virtual_read_callback():
     assert len(left_glob_files) >= frames
     assert len(right_glob_files) >= frames
 
-def test_PylonStereoCamera_virtual_camera_params():
-    # Test to get the data capture of virtual Pylon stereo camera
+def test_TitaniaStereoCamera_virtual_camera_params():
+    # Test to get the data capture of virtual Titania stereo camera
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_data_capture")
@@ -306,13 +306,13 @@ def test_PylonStereoCamera_virtual_camera_params():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        "0815-0000", "0815-0001", "virtualtitania",
+        CameraDeviceType.DEVICE_TYPE_TITANIA,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
 
     frames = 10
-    cam = PylonStereoCamera(device_info)
+    cam = TitaniaStereoCamera(device_info)
     cam.setLeftAOI(0, 0, 20, 20)
     cam.setRightAOI(0, 0, 20, 20)
     connected = cam.connect()
