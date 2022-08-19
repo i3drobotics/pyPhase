@@ -17,6 +17,23 @@ namespace py = pybind11;
 
 void init_abstractstereomatcher(py::module_ &m) {
     NDArrayConverter::init_numpy();
+
+    py::class_<I3DR::Phase::StereoMatcherComputeResult>(m, "StereoMatcherComputeResult", R"(
+        Structure of StereoMatcherComputeResult
+        )")
+        .def(py::init<bool,cv::Mat>())
+        .def_readwrite("valid", &I3DR::Phase::StereoMatcherComputeResult::valid)
+        .def_readwrite("disparity", &I3DR::Phase::StereoMatcherComputeResult::disparity);
+
+    py::enum_<I3DR::Phase::StereoMatcherType>(m, "StereoMatcherType", R"(
+        Structure of StereoMatcherType
+
+        )")
+        .value("STEREO_MATCHER_BM", I3DR::Phase::StereoMatcherType::STEREO_MATCHER_BM)
+        .value("STEREO_MATCHER_SGBM", I3DR::Phase::StereoMatcherType::STEREO_MATCHER_SGBM)
+        .value("STEREO_MATCHER_I3DRSGM", I3DR::Phase::StereoMatcherType::STEREO_MATCHER_I3DRSGM)
+        .export_values();
+
     // Stereo matcher parameters class
     py::class_<I3DR::Phase::StereoParams>(m, "StereoParams", R"(
         Class of stereo matcher parameters

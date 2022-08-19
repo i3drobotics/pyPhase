@@ -11,12 +11,34 @@
 #include "pybind11/pybind11.h"
 #include "ndarray_converter.h"
 
-#include <phase/types/cameradeviceinfo.h>
+#include <phase/stereocamera/cameradeviceinfo.h>
 
 namespace py = pybind11;
 
 void init_cameradeviceinfo(py::module_ &m) {
     NDArrayConverter::init_numpy();
+
+    py::enum_<I3DR::Phase::CameraDeviceType>(m, "CameraDeviceType", R"(
+        Structure of CameraDeviceType
+
+        )")
+        .value("DEVICE_TYPE_GENERIC_PYLON", I3DR::Phase::CameraDeviceType::DEVICE_TYPE_GENERIC_PYLON)
+        .value("DEVICE_TYPE_GENERIC_UVC", I3DR::Phase::CameraDeviceType::DEVICE_TYPE_GENERIC_UVC)
+        .value("DEVICE_TYPE_DEIMOS", I3DR::Phase::CameraDeviceType::DEVICE_TYPE_DEIMOS)
+        .value("DEVICE_TYPE_PHOBOS", I3DR::Phase::CameraDeviceType::DEVICE_TYPE_PHOBOS)
+        .value("DEVICE_TYPE_TITANIA", I3DR::Phase::CameraDeviceType::DEVICE_TYPE_TITANIA)
+        .value("DEVICE_TYPE_INVALID", I3DR::Phase::CameraDeviceType::DEVICE_TYPE_INVALID)
+        .export_values();
+
+    py::enum_<I3DR::Phase::CameraInterfaceType>(m, "CameraInterfaceType", R"(
+        Structure of CameraInterfaceType
+
+        )")
+        .value("INTERFACE_TYPE_USB", I3DR::Phase::CameraInterfaceType::INTERFACE_TYPE_USB)
+        .value("INTERFACE_TYPE_GIGE", I3DR::Phase::CameraInterfaceType::INTERFACE_TYPE_GIGE)
+        .value("INTERFACE_TYPE_VIRTUAL", I3DR::Phase::CameraInterfaceType::INTERFACE_TYPE_VIRTUAL)
+        .export_values();
+
     py::class_<I3DR::Phase::CameraDeviceInfo>(m, "CameraDeviceInfo", R"(
         Camera info class contains camera serials, camera type and connection type
         )")

@@ -9,31 +9,9 @@
  @details Unit tests generated using PyTest
 """
 import numpy as np
-from phase.pyphase.types import Point2d, Point2f, Point2i
-from phase.pyphase.types import StereoImagePair, CameraReadResult
-from phase.pyphase.types import StereoMatcherComputeResult
-
-
-def test_Point2d_init():
-    # Test initalisation of point2 in double type
-    point = Point2d(1.0, 2.0)
-    assert(point.x == 1.0)
-    assert(point.y == 2.0)
-
-
-def test_Point2f_init():
-    # Test initalisation of point2 in float type
-    point = Point2f(1.0, 2.0)
-    assert(point.x == 1.0)
-    assert(point.y == 2.0)
-
-
-def test_Point2i_init():
-    # Test initalisation of point2 in int type
-    point = Point2i(1, 2)
-    assert(point.x == 1)
-    assert(point.y == 2)
-
+from phase.pyphase.types import StereoImagePair
+from phase.pyphase.stereocamera import CameraReadResult
+from phase.pyphase.stereomatcher import StereoMatcherComputeResult
 
 def test_StereoImagePair_init():
     # Test initalisation of StereoImagePair

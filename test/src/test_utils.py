@@ -12,7 +12,8 @@ import os
 from phase.pyphase import cvMatIsEqual
 from phase.pyphase import disparity2depth, depth2xyz, savePLY
 from phase.pyphase.calib import StereoCameraCalibration
-from phase.pyphase.types import MatrixUInt8, StereoMatcherType
+from phase.pyphase.types import MatrixUInt8
+from phase.pyphase.stereomatcher import StereoMatcherType
 from phase.pyphase.stereomatcher import StereoParams, createStereoMatcher
 import numpy as np
 
