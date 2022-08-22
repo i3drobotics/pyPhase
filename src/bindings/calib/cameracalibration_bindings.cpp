@@ -91,17 +91,6 @@ void init_cameracalibration(py::module_ &m) {
             right_image : numpy.ndarray
                 Stereo camera right image
             )")
-        .def("remapPoint", &I3DR::Phase::CameraCalibration::remapPoint, R"(
-            Remap point
-
-            Parameters
-            ----------
-            point : phase.pyphase.types.Point2i
-
-            Returns
-            -------
-            remapped_point : phase.pyphase.types.Point2i
-            )")
         .def("isValid", &I3DR::Phase::CameraCalibration::isValid, R"(
             Check if the calibration file pair is valid 
 

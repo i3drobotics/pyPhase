@@ -18,6 +18,15 @@ namespace py = pybind11;
 
 void init_abstractstereocamera(py::module_ &m) {
     NDArrayConverter::init_numpy();
+
+    py::class_<I3DR::Phase::CameraReadResult>(m, "CameraReadResult", R"(
+        Structure of CameraReadResult
+        )")
+        .def(py::init<bool,cv::Mat,cv::Mat>())
+        .def_readwrite("valid", &I3DR::Phase::CameraReadResult::valid)
+        .def_readwrite("left", &I3DR::Phase::CameraReadResult::left)
+        .def_readwrite("right", &I3DR::Phase::CameraReadResult::right);
+
     // All functions and variables of AbstractStereoCamera
     py::class_<I3DR::Phase::AbstractStereoCamera>(m, "AbstractStereoCamera", R"(
             Variables contain camera data

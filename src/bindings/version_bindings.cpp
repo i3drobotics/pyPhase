@@ -11,11 +11,11 @@
 #include "pybind11/pybind11.h"
 #include "ndarray_converter.h"
 
-#include <phase/phaseversion.h>
+#include <phase/version.h>
 
 namespace py = pybind11;
 
-void init_phaseversion(py::module_ &m) {
+void init_version(py::module_ &m) {
     m.def("getVersionString", &I3DR::Phase::getVersionString, R"(
         Get version of pyphase
 

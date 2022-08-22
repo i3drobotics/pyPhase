@@ -16,9 +16,9 @@ import numpy as np
 import cv2
 
 from phase.pyphase.stereocamera import createStereoCamera
-from phase.pyphase.types import CameraDeviceInfo
-from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
-from phase.pyphase.types import CameraReadResult
+from phase.pyphase.stereocamera import CameraDeviceInfo
+from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
+from phase.pyphase.stereocamera import CameraReadResult
 
 def test_DeimosStereoCamera():
     # Test initalisation of DeimosStereoCamera using CameraDeviceInfo
