@@ -313,18 +313,21 @@ def test_TitaniaStereoCamera_virtual_camera_params():
 
     frames = 10
     cam = TitaniaStereoCamera(device_info)
-    cam.setLeftAOI(0, 0, 20, 20)
-    cam.setRightAOI(0, 0, 20, 20)
+    cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
-    cam.setExposure(5)
-    cam.setFrameRate(5)
     if connected:
+        assert cam.getFrameRate() == 5
         cam.startCapture()
+        cam.setLeftAOI(0, 0, 20, 20)
+        cam.setRightAOI(0, 0, 20, 20)
+        cam.setExposure(5)
+        cam.setFrameRate(5)
         assert cam.isCapturing() == 1
         while(cam.getCaptureCount() < frames):
             result = cam.read()
             assert (result.valid)
-            #assert cam.getFrameRate() == 5
-            #assert (result.left.shape[0] == 20)
+            # TODO cannot set framerate and AOI
+            assert cam.getFrameRate() == 5
+            assert (result.left.shape == (20,20,3))
         cam.disconnect()
     assert connected is True

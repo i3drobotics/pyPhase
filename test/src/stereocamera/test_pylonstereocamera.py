@@ -288,6 +288,7 @@ def test_PylonStereoCamera_virtual_read_callback():
     assert len(left_glob_files) >= frames
     assert len(right_glob_files) >= frames
 
+
 def test_PylonStereoCamera_virtual_camera_params():
     # Test to get the data capture of virtual Pylon stereo camera
     script_path = os.path.dirname(os.path.realpath(__file__))
@@ -313,18 +314,20 @@ def test_PylonStereoCamera_virtual_camera_params():
 
     frames = 10
     cam = PylonStereoCamera(device_info)
-    cam.setLeftAOI(0, 0, 20, 20)
-    cam.setRightAOI(0, 0, 20, 20)
+    cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
-    cam.setExposure(5)
-    cam.setFrameRate(5)
     if connected:
         cam.startCapture()
+        cam.setExposure(5000)
+        cam.setFrameRate(5)
+        cam.setLeftAOI(0, 0, 20, 20)
+        cam.setRightAOI(0, 0, 20, 20)
         assert cam.isCapturing() == 1
         while(cam.getCaptureCount() < frames):
             result = cam.read()
             assert (result.valid)
-            #assert cam.getFrameRate() == 5
-            #assert (result.left.shape[0] == 20)
+            # TODO cannot set framerate and AOI
+            assert cam.getFrameRate() == 5
+            assert (result.left.shape == (20,20,3))
         cam.disconnect()
     assert connected is True

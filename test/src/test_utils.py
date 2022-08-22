@@ -10,6 +10,7 @@
 """
 import os
 import random
+import time
 from phase.pyphase import scaleImage, toMono, normaliseDisparity
 from phase.pyphase import bgra2rgba, bgr2rgba, bgr2bgra
 from phase.pyphase import cvMatIsEqual
