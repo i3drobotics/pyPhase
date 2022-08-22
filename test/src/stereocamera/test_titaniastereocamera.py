@@ -15,7 +15,7 @@ from glob import glob
 import numpy as np
 import cv2
 
-from phase.pyphase.stereocamera import TitaniaStereoCamera
+from phase.pyphase.stereocamera import createStereoCamera
 from phase.pyphase.types import CameraDeviceInfo
 from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
 from phase.pyphase.types import CameraReadResult
@@ -27,7 +27,7 @@ def test_TitaniaStereoCamera():
         CameraDeviceType.DEVICE_TYPE_TITANIA,
         CameraInterfaceType.INTERFACE_TYPE_USB
     )
-    TitaniaStereoCamera(device_info)
+    createStereoCamera(device_info)
 
 
 def test_TitaniaStereoCamera_isConnected_onInit():
@@ -37,7 +37,7 @@ def test_TitaniaStereoCamera_isConnected_onInit():
         CameraDeviceType.DEVICE_TYPE_TITANIA,
         CameraInterfaceType.INTERFACE_TYPE_USB
     )
-    cam = TitaniaStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     assert cam.isConnected() is False
 
 
@@ -48,7 +48,7 @@ def test_TitaniaStereoCamera_connect_onInit():
         CameraDeviceType.DEVICE_TYPE_TITANIA,
         CameraInterfaceType.INTERFACE_TYPE_USB
     )
-    cam = TitaniaStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     assert cam.connect() is False
 
 
@@ -60,7 +60,7 @@ def test_TitaniaStereoCamera_connect_virtual_onInit():
         CameraDeviceType.DEVICE_TYPE_TITANIA,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = TitaniaStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     connected = cam.connect()
     if connected:
         cam.disconnect()
@@ -74,7 +74,7 @@ def test_TitaniaStereoCamera_connect_virtual_size():
         CameraDeviceType.DEVICE_TYPE_TITANIA,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = TitaniaStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     connected = cam.connect()
     if connected:
         # assumes that default virtual camera image size
@@ -107,7 +107,7 @@ def test_TitaniaStereoCamera_virtual_data_capture():
         CameraDeviceType.DEVICE_TYPE_TITANIA,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = TitaniaStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
@@ -147,7 +147,7 @@ def test_TitaniaStereoCamera_virtual_capture_count():
         CameraDeviceType.DEVICE_TYPE_TITANIA,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = TitaniaStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     frames = 3
     cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
@@ -189,7 +189,7 @@ def test_TitaniaStereoCamera_virtual_continous_read():
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     frames = 3
-    cam = TitaniaStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
@@ -251,7 +251,7 @@ def test_TitaniaStereoCamera_virtual_read_callback():
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     frames = 3
-    cam = TitaniaStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
@@ -312,7 +312,7 @@ def test_TitaniaStereoCamera_virtual_camera_params():
     )
 
     frames = 10
-    cam = TitaniaStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
     if connected:

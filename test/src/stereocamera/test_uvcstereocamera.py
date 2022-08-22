@@ -16,7 +16,7 @@ from glob import glob
 import cv2
 import numpy as np
 
-from phase.pyphase.stereocamera import UVCStereoCamera
+from phase.pyphase.stereocamera import createStereoCamera
 from phase.pyphase.types import CameraDeviceInfo
 from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
 
@@ -28,7 +28,7 @@ def test_UVCStereoCamera():
         CameraDeviceType.DEVICE_TYPE_GENERIC_UVC,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    UVCStereoCamera(device_info)
+    createStereoCamera(device_info)
 
 def test_UVCStereoCamera_isConnected_onInit():
     # Test if UVC stereo camera is connected
@@ -37,7 +37,7 @@ def test_UVCStereoCamera_isConnected_onInit():
         CameraDeviceType.DEVICE_TYPE_GENERIC_UVC,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = UVCStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     assert cam.isConnected() is False
 
 
@@ -47,7 +47,7 @@ def test_UVCStereoCamera_connect_onInit():
         CameraDeviceType.DEVICE_TYPE_GENERIC_UVC,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = UVCStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     assert cam.connect() is False
 
 
@@ -71,7 +71,7 @@ def test_UVCStereoCamera_connect_virtual_onInit():
         CameraDeviceType.DEVICE_TYPE_GENERIC_UVC,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = UVCStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
     if connected:
@@ -99,7 +99,7 @@ def test_UVCStereoCamera_connect_virtual_size():
         CameraDeviceType.DEVICE_TYPE_GENERIC_UVC,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = UVCStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
     if connected:
@@ -133,7 +133,7 @@ def test_UVCStereoCamera_virtual_data_capture():
         CameraDeviceType.DEVICE_TYPE_GENERIC_UVC,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = UVCStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
@@ -173,7 +173,7 @@ def test_UVCStereoCamera_virtual_capture_count():
         CameraDeviceType.DEVICE_TYPE_GENERIC_UVC,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = UVCStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     frames = 3
     cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
@@ -215,7 +215,7 @@ def test_UVCStereoCamera_virtual_continous_read():
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     frames = 3
-    cam = UVCStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
@@ -277,7 +277,7 @@ def test_UVCStereoCamera_virtual_read_callback():
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     frames = 3
-    cam = UVCStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
@@ -339,7 +339,7 @@ def test_UVCStereoCamera_virtual_camera_params():
     )
 
     frames = 10
-    cam = UVCStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
     if connected:

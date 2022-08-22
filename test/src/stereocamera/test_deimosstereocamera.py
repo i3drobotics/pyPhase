@@ -15,7 +15,7 @@ from glob import glob
 import numpy as np
 import cv2
 
-from phase.pyphase.stereocamera import DeimosStereoCamera
+from phase.pyphase.stereocamera import createStereoCamera
 from phase.pyphase.types import CameraDeviceInfo
 from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
 from phase.pyphase.types import CameraReadResult
@@ -27,7 +27,7 @@ def test_DeimosStereoCamera():
         CameraDeviceType.DEVICE_TYPE_DEIMOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    DeimosStereoCamera(device_info)
+    createStereoCamera(device_info)
 
 
 def test_DeimosStereoCamera_isConnected_onInit():
@@ -37,7 +37,7 @@ def test_DeimosStereoCamera_isConnected_onInit():
         CameraDeviceType.DEVICE_TYPE_DEIMOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = DeimosStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     assert cam.isConnected() is False
 
 
@@ -48,7 +48,7 @@ def test_DeimosStereoCamera_connect_onInit():
         CameraDeviceType.DEVICE_TYPE_DEIMOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = DeimosStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     assert cam.connect() is False
 
 
@@ -72,7 +72,7 @@ def test_DeimosStereoCamera_connect_virtual_onInit():
         CameraDeviceType.DEVICE_TYPE_DEIMOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = DeimosStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
     if connected:
@@ -100,7 +100,7 @@ def test_DeimosStereoCamera_connect_virtual_size():
         CameraDeviceType.DEVICE_TYPE_DEIMOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = DeimosStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
     if connected:
@@ -134,7 +134,7 @@ def test_DeimosStereoCamera_virtual_data_capture():
         CameraDeviceType.DEVICE_TYPE_DEIMOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = DeimosStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
@@ -174,7 +174,7 @@ def test_DeimosStereoCamera_virtual_capture_count():
         CameraDeviceType.DEVICE_TYPE_DEIMOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = DeimosStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     frames = 3
     cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
@@ -216,7 +216,7 @@ def test_DeimosStereoCamera_virtual_continous_read():
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     frames = 3
-    cam = DeimosStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
@@ -278,7 +278,7 @@ def test_DeimosStereoCamera_virtual_read_callback():
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     frames = 3
-    cam = DeimosStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
@@ -339,7 +339,7 @@ def test_DeimosStereoCamera_virtual_camera_params():
     )
 
     frames = 10
-    cam = DeimosStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
     if connected:
