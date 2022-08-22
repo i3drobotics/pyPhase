@@ -23,6 +23,7 @@ from phase.pyphase.stereomatcher import StereoParams, createStereoMatcher
 
 import numpy as np
 
+
 def test_utils_scaleImage():
     # Test to scale image by twice the width and height
     img = np.ones((1080, 1920, 3), dtype=np.uint8)
@@ -31,6 +32,27 @@ def test_utils_scaleImage():
 
     assert scaled_img.shape[0] == 1080*2
     assert scaled_img.shape[1] == 1920*2
+
+
+def test_utils_perf_scaleImage():
+    img = np.ones((1080, 1920, 3), dtype=np.uint8)
+    start = time.time()
+
+    scaled_img = scaleImage(img, 2.0)
+
+    end = time.time()
+    assert end-start < 0.1
+
+    img2 = np.ones((1080, 1920, 3), dtype=np.uint8)
+
+    start = time.time()
+
+    scaled_img = scaleImage(img2, 2.0)
+
+    end = time.time()
+    assert end-start < 0.1
+
+
 
 def test_utils_toMono():
     img8UC1 = np.ones((1080, 1920, 1), dtype=np.uint8)
@@ -43,11 +65,23 @@ def test_utils_toMono():
     img8UC4 = np.ones((1080, 1920, 4), dtype=np.uint8)
     assert (toMono(img8UC4, imgMono) is True)
 
+
+def test_utils_perf_toMono():
+    imgMono = np.zeros((1080, 1920, 1), dtype=np.uint8)
+    img8UC3 = np.ones((1080, 1920, 3), dtype=np.uint8)
+
+    start = time.time()
+    assert (toMono(img8UC3, imgMono) is True)
+    end = time.time()
+    assert end-start < 0.1
+
+
 def test_utils_normaliseDisparity():
     # Test normalise disparity matrix
     img = np.ones((1080, 1920, 3), dtype=np.uint8)
 
     assert (not normaliseDisparity(img).shape[2] == 1)
+
 
 def test_utils_bgra2rgba():
     # Test convert bgra2rgba
@@ -61,6 +95,17 @@ def test_utils_bgra2rgba():
     assert (converted_img[0,0,1]==img[0,0,1]).all()
     assert (converted_img[0,0,2]==img[0,0,0]).all()
     assert (converted_img[0,0,3]==img[0,0,3]).all()
+
+
+def test_utils_perf_bgra2rgba():
+    # Test convert bgra2rgba
+    img = np.zeros((1080, 1920, 4), dtype=np.uint8)
+
+    start = time.time()
+    converted_img = bgra2rgba(img)
+    end = time.time()
+    assert end-start < 0.1
+
 
 def test_utils_bgr2bgra():
     # Test convert bgr2bgra
@@ -76,6 +121,17 @@ def test_utils_bgr2bgra():
     assert (img.shape[2] == 3)
     assert (not converted_img[:,:,3] is None)
 
+
+def test_utils_bgr2bgra():
+    # Test convert bgr2bgra
+    img = np.zeros((1080, 1920, 3), dtype=np.uint8)
+
+    start = time.time()
+    converted_img = bgr2bgra(img)
+    end = time.time()
+    assert end-start < 0.1
+    
+
 def test_utils_bgr2rgba():
     # Test convert bgr2rgba
     img = np.zeros((1080, 1920, 3), dtype=np.uint8)
@@ -90,7 +146,17 @@ def test_utils_bgr2rgba():
     assert (img.shape[2] == 3)
     assert (not converted_img[:,:,3] is None)
 
-#def test_utils_disparity2xyz
+
+def test_utils_bgr2rgba():
+    # Test convert bgr2rgba
+    img = np.zeros((1080, 1920, 3), dtype=np.uint8)
+    
+    start = time.time()
+    converted_img = bgr2rgba(img)
+    end = time.time()
+    assert end-start < 0.1
+
+
 def test_Utils_readImage():
     # Test to read an image and flip
     script_path = os.path.dirname(os.path.realpath(__file__))
@@ -117,6 +183,24 @@ def test_Utils_readImage():
     assert (img[0,0,0] == flip_img1[0,width-1,0])
 
 
+def test_Utils_perf_readFlip():
+    # Test to read an image and flip
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(
+        script_path, "..", "data")
+
+    left_image_file = os.path.join(data_folder, "left.png")
+    start = time.time()
+    img = readImage(left_image_file)
+    end = time.time()
+    assert end-start < 0.1
+    
+    start = time.time()
+    flip_img0 = flip(img, 0)
+    end = time.time()
+    assert end-start < 0.1
+
+
 def test_Utils_checkEqualMat():
     # Test if two matrices are equal
     # Create equal matrices
@@ -131,6 +215,19 @@ def test_Utils_checkEqualMat():
 
     # Check is not equal check is correct
     assert (not cvMatIsEqual(mat_a, mat_b))
+
+
+def test_Utils_perf_checkEqualMat():
+    # Test if two matrices are equal
+    # Create equal matrices
+    mat_a = np.ones((3, 3, 1), dtype=np.float32)
+    mat_b = np.ones((3, 3, 1), dtype=np.float32)
+
+    start = time.time()
+    # Check equal is equal check is correct
+    assert (cvMatIsEqual(mat_a, mat_b))
+    end = time.time()
+    assert end-start < 0.1
 
 
 def test_Utils_savePly():
@@ -253,6 +350,112 @@ def test_Utils_savePly():
     #assert np.any(xyz_depth_empty) == 0
 
     save_success = savePLY(out_ply, xyz, rect.left)
+    assert (save_success)
+
+
+def test_Utils_perf_savePly():
+    # Test of save point cloud
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    test_folder = os.path.join(script_path, "..", ".phase_test")
+    left_yaml = os.path.join(test_folder, "left.yaml")
+    right_yaml = os.path.join(test_folder, "right.yaml")
+    out_ply = os.path.join(test_folder, "out.ply")
+
+    if not os.path.exists(test_folder):
+        os.makedirs(test_folder)
+
+    print("Generating test data...")
+    # Create calibration files
+    left_yaml_data = \
+        "image_width: 2448\n" \
+        "image_height: 2048\n" \
+        "camera_name: leftCamera\n" \
+        "camera_matrix:\n" \
+        "   rows: 3\n" \
+        "   cols: 3\n" \
+        "   data: [ 3.4782608695652175e+03, 0., 1224., 0., 3.4782608695652175e+03, 1024., 0., 0., 1. ]\n" \
+        "distortion_model: plumb_bob\n" \
+        "distortion_coefficients:\n" \
+        "   rows: 1\n" \
+        "   cols: 5\n" \
+        "   data: [ 0., 0., 0., 0., 0. ]\n" \
+        "rectification_matrix:\n" \
+        "   rows: 3\n" \
+        "   cols: 3\n" \
+        "   data: [1., 0., 0., 0., 1., 0., 0., 0., 1.]\n" \
+        "projection_matrix:\n" \
+        "   rows: 3\n" \
+        "   cols: 4\n" \
+        "   data: [ 3.4782608695652175e+03, 0., 1224., 0., 0., 3.4782608695652175e+03, 1024., 0., 0., 0., 1., 0. ]\n"
+    right_yaml_data = \
+        "image_width: 2448\n" \
+        "image_height: 2048\n" \
+        "camera_name: rightCamera\n" \
+        "camera_matrix:\n" \
+        "   rows: 3\n" \
+        "   cols: 3\n" \
+        "   data: [ 3.4782608695652175e+03, 0., 1224., 0., 3.4782608695652175e+03, 1024., 0., 0., 1. ]\n" \
+        "distortion_model: plumb_bob\n" \
+        "distortion_coefficients:\n" \
+        "   rows: 1\n" \
+        "   cols: 5\n" \
+        "   data: [ 0., 0., 0., 0., 0. ]\n" \
+        "rectification_matrix:\n" \
+        "   rows: 3\n" \
+        "   cols: 3\n" \
+        "   data: [1., 0., 0., 0., 1., 0., 0., 0., 1.]\n" \
+        "projection_matrix:\n" \
+        "   rows: 3\n" \
+        "   cols: 4\n" \
+        "   data: [ 3.4782608695652175e+03, 0., 1224., -3.4782608695652175e+02, 0., 3.4782608695652175e+03, 1024., 0., 0., 0., 1., 0. ]\n"
+
+    with open(left_yaml, "w+") as f:
+        f.writelines(left_yaml_data)
+    with open(right_yaml, "w+") as f:
+        f.writelines(right_yaml_data)
+
+    # Create stereo image pair
+    np_left_image = np.zeros((1080, 1920, 3), dtype=np.uint8)
+    np_right_image = np.zeros((1080, 1920, 3), dtype=np.uint8)
+    
+    calibration = StereoCameraCalibration.calibrationFromYAML(
+        left_yaml, right_yaml)
+    
+
+    stereo_params = StereoParams(
+        StereoMatcherType.STEREO_MATCHER_BM,
+        11, 0, 25, False
+    )
+
+    matcher = createStereoMatcher(stereo_params)
+    
+    match_result = matcher.compute(np_left_image, np_right_image)
+
+    start = time.time()
+    np_depth = disparity2depth(match_result.disparity, calibration.getQ())
+    end = time.time()
+    assert end-start < 0.1
+
+    start = time.time()
+    disparity_xyz = disparity2xyz(match_result.disparity, calibration.getQ())
+    end = time.time()
+    assert end-start < 0.1
+
+    start = time.time()
+    xyz = depth2xyz(np_depth, calibration.getHFOV())
+    end = time.time()
+    assert end-start < 0.1
+
+    start = time.time()
+    xyz_depth = xyz2depth(xyz)
+    end = time.time()
+    assert end-start < 0.1
+
+    start = time.time()
+    save_success = savePLY(out_ply, xyz, np_left_image)
+    end = time.time()
+    assert end-start < 0.5
+
     assert (save_success)
 
 

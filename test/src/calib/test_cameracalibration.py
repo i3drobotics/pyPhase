@@ -114,10 +114,10 @@ def test_Rectify():
 
     cal = CameraCalibration(left_ros_yaml)
 
-    rect = cal.rectify(left_image, rect_image)
+    cal.rectify(left_image, rect_image)
     assert rect_image.size > 0
 
-    rect_empty = cal.rectify(0, rect_image)
+    cal.rectify(0, rect_image)
     assert np.any(rect_image) == 0
 
 def test_calibrationFromIdeal():

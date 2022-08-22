@@ -61,6 +61,39 @@ def test_StereoI3DRSGM_params():
     del matcher
 
 
+def test_StereoI3DRSGM_params():
+    # Test setting StereoBM parameters
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(
+        script_path, "..", "..", "data")
+
+    left_image_file = os.path.join(data_folder, "left.png")
+    right_image_file = os.path.join(data_folder, "right.png")
+
+    left_image = readImage(left_image_file)
+    right_image = readImage(right_image_file)
+
+    license_valid = StereoI3DRSGM().isLicenseValid()
+    # Check for I3DRSGM license
+    if license_valid:
+        stereo_params = StereoParams(
+            StereoMatcherType.STEREO_MATCHER_I3DRSGM,
+            9, 0, 49, False
+    )
+    else:
+        stereo_params = StereoParams(
+            StereoMatcherType.STEREO_MATCHER_BM,
+            11, 0, 25, False
+    )
+    matcher = createStereoMatcher(stereo_params)
+    start = time.time()
+    match_result = matcher.compute(left_image, right_image)
+    end = time.time()
+    assert end-start < 0.5
+
+    del matcher
+
+
 def test_StereoI3DRSGM_params_read_callback():
     # Test the StereoBM matcher virtual Pylon stereo camera by read callback
     left_serial = "0815-0000"
@@ -77,7 +110,6 @@ def test_StereoI3DRSGM_params_read_callback():
     cam = createStereoCamera(device_info)
 
     license_valid = StereoI3DRSGM().isLicenseValid()
-    assert license_valid
     # Check for I3DRSGM license
     if license_valid:
         stereo_params = StereoParams(

@@ -296,8 +296,8 @@ def test_Rectify():
     # Test loading of image data from file
     left_image_file = os.path.join(test_folder, "left.png")
     left_image = readImage(left_image_file)
-    right_image_file = os.path.join(test_folder, "right.png")
-    right_image = readImage(right_image_file)
+    rect_image = left_image
+    
 
     if not os.path.exists(test_folder):
         os.makedirs(test_folder)
@@ -305,11 +305,11 @@ def test_Rectify():
     cal = StereoCameraCalibration.calibrationFromYAML(
     left_ros_yaml, right_ros_yaml)
 
-    rect = cal.rectify(left_image, right_image)
-    assert rect.left.size > 0
+    cal.rectify(left_image, rect_image)
+    assert rect_image.size > 0
 
-    rect_empty = cal.rectify(0, 0)
-    assert np.any(rect_empty.left) == 0
+    cal.rectify(0, rect_image)
+    assert np.any(rect_image) == 0
 
 def test_calibrationFromIdeal():
     # Test access to left and right calibration data from StereoCameraCalibration
