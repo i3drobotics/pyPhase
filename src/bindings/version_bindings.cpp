@@ -17,28 +17,28 @@ namespace py = pybind11;
 
 void init_version(py::module_ &m) {
     m.def("getVersionString", &I3DR::Phase::getVersionString, R"(
-        Get version of pyphase
+        Get version of Phase
 
         Returns
         -------
         string : str
         )");
     m.def("getVersionMajor", &I3DR::Phase::getVersionMajor, R"(
-        Get major of pyphase
+        Get major of Phase
 
         Returns
         -------
         value : int
         )");
     m.def("getVersionMinor", &I3DR::Phase::getVersionMinor, R"(
-        Get minor of pyphase
+        Get minor of Phase
 
         Returns
         -------
         value : int
         )");
     m.def("getVersionPatch", &I3DR::Phase::getVersionPatch, R"(
-        Get version patch of pyphase
+        Get version patch of Phase
 
         Returns
         -------

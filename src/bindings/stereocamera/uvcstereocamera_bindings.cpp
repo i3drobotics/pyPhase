@@ -20,28 +20,22 @@ void init_uvcstereocamera(py::module_ &m) {
     NDArrayConverter::init_numpy();
     // All functions and variables of UVCStereoCamera
     py::class_<I3DR::Phase::UVCStereoCamera>(m, "UVCStereoCamera", R"(
-            Variables contain Phobos camera data
+            UVC Stereo Camera class
+            Capture data from a stereo camera using UVC cameras
+            where left and right is transported via green and red channels.
 
             )")
         .def(py::init<I3DR::Phase::CameraDeviceInfo>(), R"(
-            Variable stored unique camera information
+            Initalise UVC Stereo Camera with the given device_info.
 
             Parameters
             ----------
 
-            left_serial     : str
-                Camera left serial ID
-            right_serial    : str
-                Camera right serial ID
-            unique_serial   : str
-                Camera unique serial ID
-            device_type     : enum
-                enum of device type, according to the type of camera
-            interface_type  : enum
-                enum of interface type, according to the type of camera connection
+            device_info     : CameraDeviceInfo
+                Camera device information to use when initalising camera
             )")
         .def("connect", &I3DR::Phase::UVCStereoCamera::connect, R"(
-            Connect camera from reading CameraDeviceInfo
+            Connect to camera
     
             )")
         .def("isConnected", &I3DR::Phase::UVCStereoCamera::isConnected, R"(
@@ -49,11 +43,13 @@ void init_uvcstereocamera(py::module_ &m) {
     
             )")
         .def("startCapture", &I3DR::Phase::UVCStereoCamera::startCapture, R"(
-            To start camera communication
+            Start stereo camera capture
+            Must be started before read() is called
     
             )")
         .def("stopCapture", &I3DR::Phase::UVCStereoCamera::stopCapture, R"(
-            To stop camera communication
+            Stop stereo camera capture
+            Will no longer be able to read() after this is called
 
             )")
         .def("isCapturing", &I3DR::Phase::UVCStereoCamera::isCapturing, R"(
@@ -65,33 +61,33 @@ void init_uvcstereocamera(py::module_ &m) {
     
             )")
         .def("setExposure", &I3DR::Phase::UVCStereoCamera::setExposure, R"(
-            To overwrite the exposure value
+            Set exposure value of camera
 
             Parameters
             ----------
 
             value : int
-                Input desired value of exposure
+                Value of exposure (us)
             )")
         .def("enableHardwareTrigger", &I3DR::Phase::UVCStereoCamera::enableHardwareTrigger, R"(
-            To enable camera trigger
+            To enable camera hardware trigger
 
             Parameters
             ----------
 
             enable : bool
-                Set "True" to enable trigger
+                Set "True" to enable hardware trigger
             )")
         .def("setFrameRate", &I3DR::Phase::UVCStereoCamera::setFrameRate, R"(
-            To overwrite the frame rate
+            Set frame rate of camera
             
             Parameters
             ----------
             value : float
-                Input desired value of frame rate
+                Value of frame rate
             )")
         .def("setLeftAOI", &I3DR::Phase::UVCStereoCamera::setLeftAOI, R"(
-            To set a new area of interest for LEFT image
+            To set an area of interest for left camera
             
             Parameters
             ----------
@@ -105,7 +101,7 @@ void init_uvcstereocamera(py::module_ &m) {
                 y value of bottom right corner of targeted AOI
             )")
         .def("setRightAOI", &I3DR::Phase::UVCStereoCamera::setRightAOI, R"(
-            To set a new area of interest for RIGHT image
+            To set a area of interest for right camera
             
             Parameters
             ----------
@@ -119,7 +115,7 @@ void init_uvcstereocamera(py::module_ &m) {
                 y value of bottom right corner of targeted AOI
             )")
         .def("read", &I3DR::Phase::UVCStereoCamera::read, py::arg("timeout") = 1000, R"(
-            Read image from createStereoCamera
+            Read image frame from camera
 
             Parameters
             ----------
@@ -127,8 +123,8 @@ void init_uvcstereocamera(py::module_ &m) {
                 timeout in millisecond, default timeout is 1000(1s)
             Returns
             -------
-            left : numpy.ndarray, right : numpy.ndarray
-                Return stereo images left, right
+            CameraReadResult
+                result from camera read
             )")
         .def("setTestImagePaths", &I3DR::Phase::UVCStereoCamera::setTestImagePaths, R"(
             Set the path for test images, input both left and right image path
@@ -149,26 +145,41 @@ void init_uvcstereocamera(py::module_ &m) {
             Returns
             -------
             bool
-                True if thread is reading
+                True if thread was started successfully
             )")
         .def("isReadThreadRunning", &I3DR::Phase::UVCStereoCamera::isReadThreadRunning, R"(
-            Check if camera thread is reading
+            Check if camera read thread is running
 
             Returns
             -------
             bool
-                True if thread is reading
+                True if read thread is running
             )")
         .def("getReadThreadResult", &I3DR::Phase::UVCStereoCamera::getReadThreadResult, R"(
-            Get the result of thread read
+            Get results from threaded read process
+            Should be used with startReadThread()
+
+            Returns
+            -------
+            CameraReadResult
+                result from read
     
             )")
         .def("setReadThreadCallback", &I3DR::Phase::UVCStereoCamera::setReadThreadCallback, R"(
-            Set read thread callback from function read
+            Set callback function to run when read thread completes
+            Should be used with startReadThread()
+            Useful as an external trigger that read is complete
+            and results can be retrieved.
+
+            Parameters
+            ----------
+            f : callback
 
             )")
         .def("startContinousReadThread", &I3DR::Phase::UVCStereoCamera::startContinousReadThread, py::arg("timeout") = 1000, R"(
-            Start read thread continuously
+            Start threaded process to read stereo images from cameras
+            Thread will run continously until stopped
+            This is useful for continuous image acquisition
             
             Parameters
             ----------
@@ -178,22 +189,23 @@ void init_uvcstereocamera(py::module_ &m) {
             Returns
             -------
             bool
-                True if thread is reading
+                success of starting continous read thread
             )")
         .def("stopContinousReadThread", &I3DR::Phase::UVCStereoCamera::stopContinousReadThread, R"(
-            Stop read thread continuously after startContinousReadThread
+            Stop continous read thread
     
             )")
         .def("isContinousReadThreadRunning", &I3DR::Phase::UVCStereoCamera::isContinousReadThreadRunning, R"(
-            Check if thread is continuously reading
+            Check if continous read thread is running
+            Should be used with startContinousReadThread()
             
             Returns
             -------
             bool
-                True if thread is reading
+                continous read thread running status
             )")
         .def("getWidth", &I3DR::Phase::UVCStereoCamera::getWidth, R"(
-            Get the width of UVC image
+            Get camera image width
             
             Returns
             -------
@@ -201,7 +213,7 @@ void init_uvcstereocamera(py::module_ &m) {
                 Width of UVC image
             )")
         .def("getHeight", &I3DR::Phase::UVCStereoCamera::getHeight, R"(
-            Get the height of UVC image
+            Get camera image height
             
             Returns
             -------
@@ -209,37 +221,42 @@ void init_uvcstereocamera(py::module_ &m) {
                 Height of UVC image)
             )")
         .def("getDownsampleFactor", &I3DR::Phase::UVCStereoCamera::getDownsampleFactor, R"(
-            Get the value of Downsample Factor
+            Get current downsample factor
             
             Returns
             -------
             value : float
-                Downsampled factor
+                Downsample factor
             )")
         .def("enableDataCapture", &I3DR::Phase::UVCStereoCamera::enableDataCapture, R"(
-            Enable data capture
+            Enable/disable saving captured images to file
+            Use with setDataCapturePath() to set path to save images
 
             Parameters
             ----------
             enable : bool
-                Set "True" to enable data capture
+                enable/disable saving images to file
             )")
         .def("setDataCapturePath", &I3DR::Phase::UVCStereoCamera::setDataCapturePath, R"(
-            Set path of saved directory for capture data
+            Set data capture path to save images
+            Use with enableDataCapture() to toggle saving images to file
 
             path : str
                 directory of desired capture data storage
             )")
         .def("getCaptureCount", &I3DR::Phase::UVCStereoCamera::getCaptureCount, R"(
-            Get the capture count
+            Get number of frames captured since
+            initalisation of the camera or last count reset
+            Use with resetFrameCount() to reset frame count
 
             Returns
             -------
             value : int
-                Value of capture count
+                number of frames captured
             )")
         .def("resetCaptureCount", &I3DR::Phase::UVCStereoCamera::resetCaptureCount, R"(
-            Reset the capture count
+            Reset captured frame count to zero
+            Use with getCaptureCount() to get number of frames captured
 
             )")
         .def("setLeftFlipX", &I3DR::Phase::UVCStereoCamera::setLeftFlipX, R"(
@@ -275,15 +292,15 @@ void init_uvcstereocamera(py::module_ &m) {
                 Set "True" to flip image
             )")
         .def("setDownsampleFactor", &I3DR::Phase::UVCStereoCamera::setDownsampleFactor, R"(
-            To overwrite the downsample factor
+            Set downsample factor
 
             Parameters
             ----------
             float : value
-                Set desired downsample factor
+                downsample factor value
             )")
         .def("disconnect", &I3DR::Phase::UVCStereoCamera::disconnect, R"(
-            Disconnect camera from reading CameraDeviceInfo
+            Disconnect camera
 
             )");
 }

@@ -19,14 +19,14 @@ void init_abstractstereomatcher(py::module_ &m) {
     NDArrayConverter::init_numpy();
 
     py::class_<I3DR::Phase::StereoMatcherComputeResult>(m, "StereoMatcherComputeResult", R"(
-        Structure of StereoMatcherComputeResult
+        Struture to store the result from a stereo match. Used in the stereo matcher classes.
         )")
         .def(py::init<bool,cv::Mat>())
         .def_readwrite("valid", &I3DR::Phase::StereoMatcherComputeResult::valid)
         .def_readwrite("disparity", &I3DR::Phase::StereoMatcherComputeResult::disparity);
 
     py::enum_<I3DR::Phase::StereoMatcherType>(m, "StereoMatcherType", R"(
-        Structure of StereoMatcherType
+        Enum to indicate stereo matcher type. Used in stereo matcher class to select which matcher to use.
 
         )")
         .value("STEREO_MATCHER_BM", I3DR::Phase::StereoMatcherType::STEREO_MATCHER_BM)
@@ -36,7 +36,7 @@ void init_abstractstereomatcher(py::module_ &m) {
 
     // Stereo matcher parameters class
     py::class_<I3DR::Phase::StereoParams>(m, "StereoParams", R"(
-        Class of stereo matcher parameters
+        Struture to store stereo parameters
         )")
         .def(py::init<I3DR::Phase::StereoMatcherType,int,int,int,bool>(), R"(
             Stereo parameters contain matcherType, windowSize, minDisparity, numDisparities, interpolation
@@ -48,10 +48,16 @@ void init_abstractstereomatcher(py::module_ &m) {
         .def_readwrite("interpolation", &I3DR::Phase::StereoParams::interpolation);
     // Stereo matcher class
     py::class_<I3DR::Phase::AbstractStereoMatcher>(m, "AbstractStereoMatcher", R"(
-        Class to set the parameters for stereo matcher
+        Abstract base class for building stereo matcher
+        classes. Includes functions/structures common across
+        all stereo matchers. A stereo matcher takes a two images
+        (left and right) and calculates to pixel disparity of features.
+        The produces a disparity value for each pixel which can be
+        used to generate depth.
         )")
         .def("compute", &I3DR::Phase::AbstractStereoMatcher::compute, R"(
             Compute stereo matching
+            Generates disparity from left and right images
 
             Parameters
             ----------
@@ -62,6 +68,8 @@ void init_abstractstereomatcher(py::module_ &m) {
             )")
         .def("startComputeThread", &I3DR::Phase::AbstractStereoMatcher::startComputeThread, R"(
             Start compute thread
+            Generates disparity from left and right images
+            Use getComputeThreadResult() to get results of compute
 
             Parameters
             ----------
@@ -79,15 +87,24 @@ void init_abstractstereomatcher(py::module_ &m) {
                 True is compute thread is running
             )")
         .def("getComputeThreadResult", &I3DR::Phase::AbstractStereoMatcher::getComputeThreadResult, R"(
-            Get compute thread result 
+            Get results from threaded compute process
+            Should be used with startComputeThread()
+
+            Returns
+            -------
+            StereoMatcherComputeResult
+                result from compute
       
             )")
         .def("setComputeThreadCallback", &I3DR::Phase::AbstractStereoMatcher::setComputeThreadCallback, R"(
-            Set to compute thread callback
+            Set callback function to run when compute thread completes
+            Should be used with startComputeThread()
+            Useful as an external trigger that compute is complete
+            and results can be retrieved.
 
             Parameters
             ----------
-            computeThread_callback : std::function<void __cdecl(void)>
+            f : callback
             )");
 
 }

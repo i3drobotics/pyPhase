@@ -18,8 +18,7 @@ namespace py = pybind11;
 void init_stereo(py::module_ &m) {
     NDArrayConverter::init_numpy();
     py::class_<I3DR::Phase::StereoImagePair>(m, "StereoImagePair", R"(
-        Structure of StereoImagePair
-
+        Struture to store stereo image pair (left, right)
         )")
         .def(py::init<cv::Mat,cv::Mat>())
         .def_readwrite("left", &I3DR::Phase::StereoImagePair::left)
