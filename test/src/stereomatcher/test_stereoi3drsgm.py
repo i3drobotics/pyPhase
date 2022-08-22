@@ -55,9 +55,9 @@ def test_StereoI3DRSGM_params():
     match_result = matcher.compute(left_image, right_image)
 
     if not license_valid:
-        assert match_result.disparity[0,0] == 0
-        assert match_result.disparity[20,20] == 0
-        assert match_result.disparity[222,222] > 0
+        assert match_result.disparity[0,0] == -16
+        assert match_result.disparity[20,20] == -16
+        assert match_result.disparity[222,222] == -16
     else:
         # TODO add disparity element checks for valid license compute
         pass
@@ -117,9 +117,9 @@ def test_StereoI3DRSGM_params_read_callback():
                     break
             assert matcher.getComputeThreadResult().valid
             if not license_valid:
-                assert matcher.getComputeThreadResult().disparity[0,0] == 0
-                assert matcher.getComputeThreadResult().disparity[20,20] == 0
-                assert matcher.getComputeThreadResult().disparity[222,222] == 0
+                assert matcher.getComputeThreadResult().disparity[0,0] == -16
+                assert matcher.getComputeThreadResult().disparity[20,20] == -16
+                assert matcher.getComputeThreadResult().disparity[222,222] == -16
             else:
                 # TODO add disparity element checks for valid license compute
                 pass
