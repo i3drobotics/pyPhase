@@ -4,8 +4,8 @@
  @authors Ben Knight (bknight@i3drobotics.com)
  @date 2021-05-26
  @copyright Copyright (c) I3D Robotics Ltd, 2021
- @file test_pylonstereocamera.py
- @brief Unit tests for Pylon Stereo Camera class
+ @file test_phobosstereocamera.py
+ @brief Unit tests for Phobos Stereo Camera class
  @details Unit tests generated using PyTest
 """
 import os
@@ -20,44 +20,44 @@ from phase.pyphase.stereocamera import CameraDeviceInfo
 from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
 from phase.pyphase.stereocamera import CameraReadResult
 
-
-def test_PylonStereoCamera():
-    # Test initalisation of PylonStereoCamera using CameraDeviceInfo
+def test_PhobosStereoCamera():
+    # Test initalisation of PhobosStereoCamera using CameraDeviceInfo
     device_info = CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
         CameraInterfaceType.INTERFACE_TYPE_USB
     )
     createStereoCamera(device_info)
 
 
-def test_PylonStereoCamera_isConnected_onInit():
-    # Test if Pylon stereo camera is connected
+def test_PhobosStereoCamera_isConnected_onInit():
+    # Test if Phobos stereo camera is connected
     device_info = CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
         CameraInterfaceType.INTERFACE_TYPE_USB
     )
     cam = createStereoCamera(device_info)
     assert cam.isConnected() is False
 
 
-def test_PylonStereoCamera_connect_onInit():
-    # Test to connect Pylon stereo camera
+def test_PhobosStereoCamera_connect_onInit():
+    # Test to connect Phobos stereo camera
     device_info = CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
         CameraInterfaceType.INTERFACE_TYPE_USB
     )
     cam = createStereoCamera(device_info)
     assert cam.connect() is False
 
 
-def test_PylonStereoCamera_connect_virtual_onInit():
-    # Test to connect virtual Pylon stereo camera
+
+def test_PhobosStereoCamera_connect_virtual_onInit():
+    # Test to connect virtual Phobos stereo camera
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        "0815-0000", "0815-0001", "virtualphobos",
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = createStereoCamera(device_info)
@@ -67,11 +67,11 @@ def test_PylonStereoCamera_connect_virtual_onInit():
     assert connected is True
 
 
-def test_PylonStereoCamera_connect_virtual_size():
-    # Test to get the height and width of virtual Pylon stereo camera
+def test_PhobosStereoCamera_connect_virtual_size():
+    # Test to get the height and width of virtual Phobos stereo camera
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        "0815-0000", "0815-0001", "virtualphobos",
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = createStereoCamera(device_info)
@@ -85,8 +85,8 @@ def test_PylonStereoCamera_connect_virtual_size():
     assert connected is True
 
 
-def test_PylonStereoCamera_virtual_data_capture():
-    # Test to get the data capture of virtual Pylon stereo camera
+def test_PhobosStereoCamera_virtual_data_capture():
+    # Test to get the data capture of virtual Phobos stereo camera
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_data_capture")
@@ -103,8 +103,8 @@ def test_PylonStereoCamera_virtual_data_capture():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        "0815-0000", "0815-0001", "virtualphobos",
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = createStereoCamera(device_info)
@@ -124,8 +124,8 @@ def test_PylonStereoCamera_virtual_data_capture():
     assert len(right_glob_files) == 1
 
 
-def test_PylonStereoCamera_virtual_capture_count():
-    # Test to get the capture count of virtual Pylon stereo camera
+def test_PhobosStereoCamera_virtual_capture_count():
+    # Test to get the capture count of virtual Phobos stereo camera
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_capture_count")
@@ -143,8 +143,8 @@ def test_PylonStereoCamera_virtual_capture_count():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        "0815-0000", "0815-0001", "virtualphobos",
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = createStereoCamera(device_info)
@@ -165,8 +165,8 @@ def test_PylonStereoCamera_virtual_capture_count():
     assert connected is True
 
 
-def test_PylonStereoCamera_virtual_continous_read():
-    # Test to read virtual Pylon stereo camera data continuously
+def test_PhobosStereoCamera_virtual_continous_read():
+    # Test to read virtual Phobos stereo camera data continuously
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_continous_read")
@@ -184,8 +184,8 @@ def test_PylonStereoCamera_virtual_continous_read():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        "0815-0000", "0815-0001", "virtualphobos",
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     frames = 3
@@ -235,8 +235,8 @@ def test_PylonStereoCamera_virtual_continous_read():
     assert len(right_glob_files) >= frames
 
 
-def test_PylonStereoCamera_virtual_read_callback():
-    # Test to get the data of virtual Pylon stereo camera by read callback
+def test_PhobosStereoCamera_virtual_read_callback():
+    # Test to get the data of virtual Phobos stereo camera by read callback
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_read_callback")
@@ -254,8 +254,8 @@ def test_PylonStereoCamera_virtual_read_callback():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        "0815-0000", "0815-0001", "virtualphobos",
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     frames = 3
@@ -304,12 +304,11 @@ def test_PylonStereoCamera_virtual_read_callback():
     assert len(left_glob_files) >= frames
     assert len(right_glob_files) >= frames
 
-
-def test_PylonStereoCamera_virtual_camera_params():
-    # Test to get the data capture of virtual Pylon stereo camera
+def test_PhobosStereoCamera_virtual_camera_params():
+    # Test to get the data capture of virtual Phobos stereo camera
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
-        script_path, "..", ".phase_test", "PylonStereoCamera_data_capture")
+        script_path, "..", ".phase_test")
     if os.path.exists(test_folder):
         shutil.rmtree(test_folder)
     os.makedirs(test_folder)
@@ -323,8 +322,8 @@ def test_PylonStereoCamera_virtual_camera_params():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        "0815-0000", "0815-0001", "virtualphobos",
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
 
@@ -334,10 +333,10 @@ def test_PylonStereoCamera_virtual_camera_params():
     connected = cam.connect()
     if connected:
         cam.startCapture()
-        cam.setExposure(5000)
-        cam.setFrameRate(5)
         cam.setLeftAOI(0, 0, 20, 20)
         cam.setRightAOI(0, 0, 20, 20)
+        cam.setExposure(5)
+        cam.setFrameRate(5)
         assert cam.isCapturing() == 1
         while(cam.getCaptureCount() < frames):
             result = cam.read()

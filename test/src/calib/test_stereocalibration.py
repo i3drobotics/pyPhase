@@ -9,7 +9,9 @@
  @details Unit tests generated using PyTest
 """
 import os
+import numpy as np
 from phase.pyphase.calib import StereoCameraCalibration, CalibrationFileType
+from phase.pyphase import readImage
 
 
 def test_lr_access():
@@ -83,7 +85,6 @@ def test_lr_access():
     assert(len(cal_ros.left_calibration.getDistortionCoefficients()) > 0)
     assert(len(cal_ros.left_calibration.getRectificationMatrix()) > 0)
     assert(len(cal_ros.left_calibration.getProjectionMatrix()) > 0)
-
 
 def test_LoadCalibration():
     # Test loading calibration from file
@@ -276,11 +277,43 @@ def test_SaveCalibration():
     cal = StereoCameraCalibration.calibrationFromYAML(left_yaml, right_yaml)
     assert(cal.isValid())
 
-    cal.saveToYAML(
+    assert cal.saveToYAML(
         os.path.join(test_folder, "left_ros.yaml"),
         os.path.join(test_folder, "right_ros.yaml"),
-        CalibrationFileType.ROS_YAML)
-    cal.saveToYAML(
+        CalibrationFileType.ROS_YAML) == 1
+    assert cal.saveToYAML(
         os.path.join(test_folder, "left_cv.yaml"),
         os.path.join(test_folder, "right_cv.yaml"),
-        CalibrationFileType.OPENCV_YAML)
+        CalibrationFileType.OPENCV_YAML) == 1
+
+def test_Rectify():
+    # Test access to left and right calibration data from StereoCameraCalibration
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    test_folder = os.path.join(script_path, "..", "..", ".phase_test")
+    data_folder = os.path.join(script_path, "..", "..", "data")
+    left_ros_yaml = os.path.join(test_folder, "left_ros.yaml")
+    right_ros_yaml = os.path.join(test_folder, "right_ros.yaml")
+    
+    # Test loading of image data from file
+    left_image_file = os.path.join(data_folder, "left.png")
+    left_image = readImage(left_image_file)
+    right_image_file = os.path.join(data_folder, "right.png")
+    right_image = readImage(right_image_file)
+    left_image_empty = np.zeros_like(left_image)
+    right_image_empty = np.zeros_like(right_image)
+
+    cal = StereoCameraCalibration.calibrationFromYAML(
+    left_ros_yaml, right_ros_yaml)
+
+    rect = cal.rectify(left_image, right_image)
+    assert np.count_nonzero(rect.left) > 0
+
+    rect_empty = cal.rectify(left_image_empty, right_image_empty)
+    assert np.any(rect_empty.left) == 0
+
+def test_calibrationFromIdeal():
+    # Test access to left and right calibration data from StereoCameraCalibration
+    cal = StereoCameraCalibration.calibrationFromIdeal(2448, 2048, 2, 2, 2)
+    assert(cal.isValid())
+
+    assert cal.getBaseline() > 0
