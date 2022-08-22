@@ -15,7 +15,7 @@ from glob import glob
 import numpy as np
 import cv2
 
-from phase.pyphase.stereocamera import PylonStereoCamera
+from phase.pyphase.stereocamera import createStereoCamera
 from phase.pyphase.types import CameraDeviceInfo
 from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
 from phase.pyphase.types import CameraReadResult
@@ -28,7 +28,7 @@ def test_PylonStereoCamera():
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
         CameraInterfaceType.INTERFACE_TYPE_USB
     )
-    PylonStereoCamera(device_info)
+    createStereoCamera(device_info)
 
 
 def test_PylonStereoCamera_isConnected_onInit():
@@ -38,7 +38,7 @@ def test_PylonStereoCamera_isConnected_onInit():
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
         CameraInterfaceType.INTERFACE_TYPE_USB
     )
-    cam = PylonStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     assert cam.isConnected() is False
 
 
@@ -49,7 +49,7 @@ def test_PylonStereoCamera_connect_onInit():
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
         CameraInterfaceType.INTERFACE_TYPE_USB
     )
-    cam = PylonStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     assert cam.connect() is False
 
 
@@ -60,7 +60,7 @@ def test_PylonStereoCamera_connect_virtual_onInit():
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = PylonStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     connected = cam.connect()
     if connected:
         cam.disconnect()
@@ -74,7 +74,7 @@ def test_PylonStereoCamera_connect_virtual_size():
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = PylonStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     connected = cam.connect()
     if connected:
         # assumes that default virtual camera image size
@@ -107,7 +107,7 @@ def test_PylonStereoCamera_virtual_data_capture():
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = PylonStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
@@ -147,7 +147,7 @@ def test_PylonStereoCamera_virtual_capture_count():
         CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = PylonStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     frames = 3
     cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
@@ -189,7 +189,7 @@ def test_PylonStereoCamera_virtual_continous_read():
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     frames = 3
-    cam = PylonStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
@@ -217,6 +217,14 @@ def test_PylonStereoCamera_virtual_continous_read():
                 break
         print("Frame capture complete.")
         cam.stopContinousReadThread()
+        stop_start_time = time.time()
+        max_stop_duration = 2
+        while(cam.isContinousReadThreadRunning()):
+            # wait for continous read thread to stop
+            duration = time.time() - stop_start_time
+            assert (duration < max_stop_duration)
+            if (duration > max_stop_duration):
+                break
         assert(cam.getCaptureCount() >= frames)
         cam.resetCaptureCount()
         assert(cam.getCaptureCount() == 0)
@@ -251,7 +259,7 @@ def test_PylonStereoCamera_virtual_read_callback():
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     frames = 3
-    cam = PylonStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
@@ -279,6 +287,14 @@ def test_PylonStereoCamera_virtual_read_callback():
                 break
         print("Frame capture complete.")
         cam.stopContinousReadThread()
+        stop_start_time = time.time()
+        max_stop_duration = 2
+        while(cam.isContinousReadThreadRunning()):
+            # wait for continous read thread to stop
+            duration = time.time() - stop_start_time
+            assert (duration < max_stop_duration)
+            if (duration > max_stop_duration):
+                break
         assert(cam.getCaptureCount() >= frames)
         cam.resetCaptureCount()
         assert(cam.getCaptureCount() == 0)
@@ -313,7 +329,7 @@ def test_PylonStereoCamera_virtual_camera_params():
     )
 
     frames = 10
-    cam = PylonStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
     if connected:
@@ -326,7 +342,8 @@ def test_PylonStereoCamera_virtual_camera_params():
         while(cam.getCaptureCount() < frames):
             result = cam.read()
             assert (result.valid)
-            # TODO cannot set framerate and AOI
+            # TODO test failed because cannot set framerate and AOI
+            # TODO missing getExposure() function
             #assert cam.getFrameRate() == 5
             #assert (result.left.shape == (20,20,3))
         cam.disconnect()
