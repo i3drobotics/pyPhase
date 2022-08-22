@@ -94,7 +94,7 @@ def test_StereoI3DRSGM_params():
     start = time.time()
     match_result = matcher.compute(left_image, right_image)
     end = time.time()
-    assert end-start < 0.5
+    assert end-start < 2
 
     del matcher
 

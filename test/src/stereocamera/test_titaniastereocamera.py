@@ -146,7 +146,7 @@ def test_TitaniaStereoCamera_virtual_data_capture():
         CameraDeviceType.DEVICE_TYPE_TITANIA,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = TitaniaStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)

@@ -146,7 +146,7 @@ def test_PhobosStereoCamera_virtual_perf_data_capture():
         CameraDeviceType.DEVICE_TYPE_PHOBOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = PhobosStereoCamera(device_info)
+    cam = createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
