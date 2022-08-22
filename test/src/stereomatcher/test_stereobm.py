@@ -13,8 +13,6 @@ import os
 import time
 import cv2
 from phase.pyphase.types import StereoMatcherType
-from phase.pyphase.types import CameraDeviceInfo
-from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
 from phase.pyphase.stereocamera import createStereoCamera
 from phase.pyphase.stereomatcher import StereoParams, createStereoMatcher
 from phase.pyphase.stereomatcher import StereoBM
@@ -46,30 +44,6 @@ def test_StereoBM_params():
     assert match_result.disparity[0,0] == -16
     assert match_result.disparity[20,20] == -16
     assert match_result.disparity[222,222] == -16
-
-    del matcher
-
-
-def test_StereoBM_perf_params():
-    # Test setting StereoBM parameters
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    data_folder = os.path.join(
-        script_path, "..", "..", "data")
-
-    left_image_file = os.path.join(data_folder, "left.png")
-    right_image_file = os.path.join(data_folder, "right.png")
-
-    left_image = readImage(left_image_file)
-    right_image = readImage(right_image_file)
-
-    stereo_params = StereoParams(StereoMatcherType.STEREO_MATCHER_BM,
-        11, 0, 25, False)
-
-    matcher = createStereoMatcher(stereo_params)
-    start = time.time()
-    match_result = matcher.compute(left_image, right_image)
-    end = time.time()
-    assert end-start < 2
 
     del matcher
 
@@ -108,3 +82,27 @@ def test_StereoBM_params_read_callback():
     assert matcher.getComputeThreadResult().disparity[0,0] == -16
     assert matcher.getComputeThreadResult().disparity[20,20] == -16
     assert matcher.getComputeThreadResult().disparity[222,222] == -16
+
+
+def test_StereoBM_perf_params():
+    # Test performance of computing StereoBM disparity
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(
+        script_path, "..", "..", "data")
+
+    left_image_file = os.path.join(data_folder, "left.png")
+    right_image_file = os.path.join(data_folder, "right.png")
+
+    left_image = readImage(left_image_file)
+    right_image = readImage(right_image_file)
+
+    stereo_params = StereoParams(StereoMatcherType.STEREO_MATCHER_BM,
+        11, 0, 25, False)
+
+    matcher = createStereoMatcher(stereo_params)
+    start = time.time()
+    match_result = matcher.compute(left_image, right_image)
+    end = time.time()
+    assert end-start < 2
+
+    del matcher

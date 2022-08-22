@@ -9,7 +9,6 @@
  @details Unit tests generated using PyTest
 """
 import os
-import random
 import time
 from phase.pyphase import scaleImage, toMono, normaliseDisparity
 from phase.pyphase import bgra2rgba, bgr2rgba, bgr2bgra
@@ -26,95 +25,62 @@ import numpy as np
 
 def test_utils_scaleImage():
     # Test to scale image by twice the width and height
-    img = np.ones((1080, 1920, 3), dtype=np.uint8)
+    img = np.ones((2048, 2448, 3), dtype=np.uint8)
 
     scaled_img = scaleImage(img, 2.0)
 
-    assert scaled_img.shape[0] == 1080*2
-    assert scaled_img.shape[1] == 1920*2
-
-
-def test_utils_perf_scaleImage():
-    img = np.ones((1080, 1920, 3), dtype=np.uint8)
-    start = time.time()
-
-    scaled_img = scaleImage(img, 2.0)
-
-    end = time.time()
-    assert end-start < 0.1
-
-    img2 = np.ones((1080, 1920, 3), dtype=np.uint8)
-
-    start = time.time()
-
-    scaled_img = scaleImage(img2, 2.0)
-
-    end = time.time()
-    assert end-start < 0.1
-
+    assert scaled_img.shape[0] == 4096
+    assert scaled_img.shape[1] == 4896
 
 
 def test_utils_toMono():
-    img8UC1 = np.ones((1080, 1920, 1), dtype=np.uint8)
-    imgMono = np.zeros((1080, 1920, 1), dtype=np.uint8)
+    # Test to convert 8UC1, 8UC3, 8UC4 into mono channel
+    img8UC1 = np.ones((2048, 2448, 1), dtype=np.uint8)
+    imgMono = np.zeros((2048, 2448, 1), dtype=np.uint8)
     assert (toMono(img8UC1, imgMono) is True)
     
-    img8UC3 = np.ones((1080, 1920, 3), dtype=np.uint8)
+    img8UC3 = np.ones((2048, 2448, 3), dtype=np.uint8)
     assert (toMono(img8UC3, imgMono) is True)
 
-    img8UC4 = np.ones((1080, 1920, 4), dtype=np.uint8)
+    img8UC4 = np.ones((2048, 2448, 4), dtype=np.uint8)
     assert (toMono(img8UC4, imgMono) is True)
-
-
-def test_utils_perf_toMono():
-    imgMono = np.zeros((1080, 1920, 1), dtype=np.uint8)
-    img8UC3 = np.ones((1080, 1920, 3), dtype=np.uint8)
-
-    start = time.time()
-    assert (toMono(img8UC3, imgMono) is True)
-    end = time.time()
-    assert end-start < 0.1
 
 
 def test_utils_normaliseDisparity():
     # Test normalise disparity matrix
-    img = np.ones((1080, 1920, 3), dtype=np.uint8)
+    img = np.ones((2048, 2448, 3), dtype=np.uint8)
 
     assert (not normaliseDisparity(img).shape[2] == 1)
+    assert normaliseDisparity(img)[1,1,0].dtype == np.uint8
 
 
 def test_utils_bgra2rgba():
     # Test convert bgra2rgba
-    img = np.zeros((1080, 1920, 4), dtype=np.uint8)
+    img = np.zeros((2048, 2448, 4), dtype=np.uint8)
+    # Set different channel data in each channel
     img[:,:,1] = 1
     img[:,:,2] = 2
     img[:,:,3] = 3
 
     converted_img = bgra2rgba(img)
+
+    # Check if the data is converted to related channel
     assert (converted_img[0,0,0]==img[0,0,2]).all()
     assert (converted_img[0,0,1]==img[0,0,1]).all()
     assert (converted_img[0,0,2]==img[0,0,0]).all()
     assert (converted_img[0,0,3]==img[0,0,3]).all()
 
 
-def test_utils_perf_bgra2rgba():
-    # Test convert bgra2rgba
-    img = np.zeros((1080, 1920, 4), dtype=np.uint8)
-
-    start = time.time()
-    converted_img = bgra2rgba(img)
-    end = time.time()
-    assert end-start < 0.1
-
-
 def test_utils_bgr2bgra():
     # Test convert bgr2bgra
-    img = np.zeros((1080, 1920, 3), dtype=np.uint8)
+    img = np.zeros((2048, 2448, 3), dtype=np.uint8)
+    # Set different channel data in each channel
     img[:,:,1] = 1
     img[:,:,2] = 2
 
     converted_img = bgr2bgra(img)
 
+    # Check if the data is converted to related channel
     assert (converted_img[0,0,0]==img[0,0,0]).all()
     assert (converted_img[0,0,1]==img[0,0,1]).all()
     assert (converted_img[0,0,2]==img[0,0,2]).all()
@@ -122,39 +88,21 @@ def test_utils_bgr2bgra():
     assert (not converted_img[:,:,3] is None)
 
 
-def test_utils_bgr2bgra():
-    # Test convert bgr2bgra
-    img = np.zeros((1080, 1920, 3), dtype=np.uint8)
-
-    start = time.time()
-    converted_img = bgr2bgra(img)
-    end = time.time()
-    assert end-start < 0.1
-    
-
 def test_utils_bgr2rgba():
     # Test convert bgr2rgba
-    img = np.zeros((1080, 1920, 3), dtype=np.uint8)
+    img = np.zeros((2048, 2448, 3), dtype=np.uint8)
+    # Set different channel data in each channel
     img[:,:,1] = 1
     img[:,:,2] = 2
 
     converted_img = bgr2rgba(img)
 
+    # Check if the data is converted to related channel
     assert (converted_img[0,0,0]==img[0,0,2]).all()
     assert (converted_img[0,0,1]==img[0,0,1]).all()
     assert (converted_img[0,0,2]==img[0,0,0]).all()
     assert (img.shape[2] == 3)
     assert (not converted_img[:,:,3] is None)
-
-
-def test_utils_bgr2rgba():
-    # Test convert bgr2rgba
-    img = np.zeros((1080, 1920, 3), dtype=np.uint8)
-    
-    start = time.time()
-    converted_img = bgr2rgba(img)
-    end = time.time()
-    assert end-start < 0.1
 
 
 def test_Utils_readImage():
@@ -167,45 +115,29 @@ def test_Utils_readImage():
     img = readImage(left_image_file)
     imgEmpty = readImage("empty")
     
+    # Check the img is not empty and load height and width
     assert (not img is None)
     assert (img.shape[0] == 2048)
     assert (img.shape[1] == 2448)
 
+    # Check empty image returns None
     assert (imgEmpty is None)
     height = img.shape[0]
     width = img.shape[1]
-    flip_img0 = flip(img, 0)
 
+    # Check image is flipped
+    flip_img0 = flip(img, 0)
     assert (img[0,0,0] == flip_img0[height-1,0,0])
 
     flip_img1 = flip(img, 1)
-
     assert (img[0,0,0] == flip_img1[0,width-1,0])
-
-
-def test_Utils_perf_readFlip():
-    # Test to read an image and flip
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    data_folder = os.path.join(
-        script_path, "..", "data")
-
-    left_image_file = os.path.join(data_folder, "left.png")
-    start = time.time()
-    img = readImage(left_image_file)
-    end = time.time()
-    assert end-start < 0.1
-    
-    start = time.time()
-    flip_img0 = flip(img, 0)
-    end = time.time()
-    assert end-start < 0.1
 
 
 def test_Utils_checkEqualMat():
     # Test if two matrices are equal
     # Create equal matrices
-    mat_a = np.ones((3, 3, 1), dtype=np.float32)
-    mat_b = np.ones((3, 3, 1), dtype=np.float32)
+    mat_a = np.ones((2048, 2448, 1), dtype=np.float32)
+    mat_b = np.ones((2048, 2448, 1), dtype=np.float32)
 
     # Check equal is equal check is correct
     assert (cvMatIsEqual(mat_a, mat_b))
@@ -215,19 +147,6 @@ def test_Utils_checkEqualMat():
 
     # Check is not equal check is correct
     assert (not cvMatIsEqual(mat_a, mat_b))
-
-
-def test_Utils_perf_checkEqualMat():
-    # Test if two matrices are equal
-    # Create equal matrices
-    mat_a = np.ones((3, 3, 1), dtype=np.float32)
-    mat_b = np.ones((3, 3, 1), dtype=np.float32)
-
-    start = time.time()
-    # Check equal is equal check is correct
-    assert (cvMatIsEqual(mat_a, mat_b))
-    end = time.time()
-    assert end-start < 0.1
 
 
 def test_Utils_savePly():
@@ -356,8 +275,100 @@ def test_Utils_savePly():
     assert (save_success)
 
 
+def test_utils_perf_scaleImage():
+    # Test performance of scaleImage
+    img = np.ones((480, 640, 3), dtype=np.uint8)
+    start = time.time()
+
+    scaled_img = scaleImage(img, 2.0)
+
+    end = time.time()
+    assert end-start < 0.1
+
+    img2 = np.ones((2048, 2448, 3), dtype=np.uint8)
+
+    start = time.time()
+
+    scaled_img = scaleImage(img2, 2.0)
+
+    end = time.time()
+    assert end-start < 0.1
+
+
+def test_utils_perf_toMono():
+    # Test performance of convert toMono
+    imgMono = np.zeros((2048, 2448, 1), dtype=np.uint8)
+    img8UC3 = np.ones((2048, 2448, 3), dtype=np.uint8)
+
+    start = time.time()
+    assert (toMono(img8UC3, imgMono) is True)
+    end = time.time()
+    assert end-start < 0.1
+
+
+def test_utils_perf_bgra2rgba():
+    # Test performance of convert bgra2rgba
+    img = np.zeros((2048, 2448, 4), dtype=np.uint8)
+
+    start = time.time()
+    converted_img = bgra2rgba(img)
+    end = time.time()
+    assert end-start < 0.1
+
+
+def test_utils_perf_bgr2bgra():
+    # Test performance of convert bgr2bgra
+    img = np.zeros((2048, 2448, 3), dtype=np.uint8)
+
+    start = time.time()
+    converted_img = bgr2bgra(img)
+    end = time.time()
+    assert end-start < 0.1
+    
+
+def test_utils_perf_bgr2rgba():
+    # Test performance of convert bgr2rgba
+    img = np.zeros((2048, 2448, 3), dtype=np.uint8)
+    
+    start = time.time()
+    converted_img = bgr2rgba(img)
+    end = time.time()
+    assert end-start < 0.1
+
+
+def test_Utils_perf_readImage():
+    # Test performance of read an image and flip
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(
+        script_path, "..", "data")
+
+    left_image_file = os.path.join(data_folder, "left.png")
+    start = time.time()
+    img = readImage(left_image_file)
+    end = time.time()
+    assert end-start < 0.1
+    
+    start = time.time()
+    flip_img0 = flip(img, 0)
+    end = time.time()
+    assert end-start < 0.1
+
+
+def test_Utils_perf_checkEqualMat():
+    # Test performance of two matrices are equal
+    # Create equal matrices
+    mat_a = np.ones((2048, 2448, 1), dtype=np.float32)
+    mat_b = np.ones((2048, 2448, 1), dtype=np.float32)
+
+    start = time.time()
+    # Check equal is equal check is correct
+    assert (cvMatIsEqual(mat_a, mat_b))
+    end = time.time()
+    assert end-start < 0.1
+
+
 def test_Utils_perf_savePly():
-    # Test of save point cloud
+    # Test performance of save point cloud
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(script_path, "..", ".phase_test")
     left_yaml = os.path.join(test_folder, "left.yaml")
@@ -457,7 +468,7 @@ def test_Utils_perf_savePly():
     start = time.time()
     save_success = savePLY(out_ply, xyz, np_left_image)
     end = time.time()
-    assert end-start < 0.5
+    assert end-start < 1
 
     assert (save_success)
 

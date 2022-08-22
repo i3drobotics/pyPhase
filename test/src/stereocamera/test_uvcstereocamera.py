@@ -374,3 +374,39 @@ def test_UVCStereoCamera_virtual_camera_params():
             #assert (result.left.shape == (20,20,3))
         cam.disconnect()
     assert connected is True
+
+
+def test_UVCStereoCamera_virtual_perf_data_capture():
+    # Test performance of read data of virtual UVC stereo camera
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    test_folder = os.path.join(
+        script_path, "..", ".phase_test", "PylonStereoCamera_data_capture")
+    if os.path.exists(test_folder):
+        shutil.rmtree(test_folder)
+    os.makedirs(test_folder)
+
+    left_image_file = os.path.join(test_folder, "left.png")
+    right_image_file = os.path.join(test_folder, "right.png")
+
+    left_image = np.zeros((100, 100, 3), dtype=np.uint8)
+    right_image = np.zeros((100, 100, 3), dtype=np.uint8)
+    cv2.imwrite(left_image_file, left_image)
+    cv2.imwrite(right_image_file, right_image)
+
+    device_info = CameraDeviceInfo(
+        "0", "0", "virtualuvc",
+        CameraDeviceType.DEVICE_TYPE_GENERIC_UVC,
+        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+    )
+    cam = createStereoCamera(device_info)
+    cam.setTestImagePaths(left_image_file, right_image_file)
+    cam.enableDataCapture(True)
+    cam.setDataCapturePath(test_folder)
+    connected = cam.connect()
+    if connected:
+        cam.startCapture()
+        start = time.time()
+        result = cam.read()
+        end = time.time()
+        assert end - start < 0.1
+        cam.disconnect()

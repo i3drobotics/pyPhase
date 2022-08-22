@@ -46,28 +46,6 @@ def test_StereoSGBM_params():
     del matcher
 
 
-def test_StereoSGBM_perf_params():
-    # Test setting StereoBM parameters
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    data_folder = os.path.join(
-        script_path, "..", "..", "data")
-
-    left_image_file = os.path.join(data_folder, "left.png")
-    right_image_file = os.path.join(data_folder, "right.png")
-
-    left_image = readImage(left_image_file)
-    right_image = readImage(right_image_file)
-
-    stereo_params = StereoParams(StereoMatcherType.STEREO_MATCHER_SGBM,
-        11, 0, 25, False)
-
-    matcher = createStereoMatcher(stereo_params)
-    start = time.time()
-    match_result = matcher.compute(left_image, right_image)
-    end = time.time()
-    assert end-start < 10
-
-
 def test_StereoSGBM_params_read_callback():
     # Test the StereoSGBM matcher virtual Pylon stereo camera by read callback
     script_path = os.path.dirname(os.path.realpath(__file__))
@@ -103,3 +81,25 @@ def test_StereoSGBM_params_read_callback():
     assert matcher.getComputeThreadResult().disparity[0,0] == -16
     assert matcher.getComputeThreadResult().disparity[20,20] == -16
     assert matcher.getComputeThreadResult().disparity[222,222] == -16
+
+
+def test_StereoSGBM_perf_params():
+    # Test performance of computing StereoSGBM disparity
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(
+        script_path, "..", "..", "data")
+
+    left_image_file = os.path.join(data_folder, "left.png")
+    right_image_file = os.path.join(data_folder, "right.png")
+
+    left_image = readImage(left_image_file)
+    right_image = readImage(right_image_file)
+
+    stereo_params = StereoParams(StereoMatcherType.STEREO_MATCHER_SGBM,
+        11, 0, 25, False)
+
+    matcher = createStereoMatcher(stereo_params)
+    start = time.time()
+    match_result = matcher.compute(left_image, right_image)
+    end = time.time()
+    assert end-start < 10
