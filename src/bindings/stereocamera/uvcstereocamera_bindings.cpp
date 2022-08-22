@@ -26,7 +26,7 @@ void init_uvcstereocamera(py::module_ &m) {
 
             )")
         .def(py::init<I3DR::Phase::CameraDeviceInfo>(), R"(
-            Initalise UVC Stereo Camera with the given device_info.
+            Initalise Stereo Camera with the given device_info.
 
             Parameters
             ----------
@@ -70,7 +70,7 @@ void init_uvcstereocamera(py::module_ &m) {
                 Value of exposure (us)
             )")
         .def("enableHardwareTrigger", &I3DR::Phase::UVCStereoCamera::enableHardwareTrigger, R"(
-            To enable camera hardware trigger
+            Enable camera hardware trigger
 
             Parameters
             ----------
@@ -87,7 +87,7 @@ void init_uvcstereocamera(py::module_ &m) {
                 Value of frame rate
             )")
         .def("setLeftAOI", &I3DR::Phase::UVCStereoCamera::setLeftAOI, R"(
-            To set an area of interest for left camera
+            To set area of interest for left camera
             
             Parameters
             ----------
@@ -101,7 +101,7 @@ void init_uvcstereocamera(py::module_ &m) {
                 y value of bottom right corner of targeted AOI
             )")
         .def("setRightAOI", &I3DR::Phase::UVCStereoCamera::setRightAOI, R"(
-            To set a area of interest for right camera
+            To set area of interest for right camera
             
             Parameters
             ----------
@@ -210,7 +210,7 @@ void init_uvcstereocamera(py::module_ &m) {
             Returns
             -------
             value : int
-                Width of UVC image
+                Camera image width
             )")
         .def("getHeight", &I3DR::Phase::UVCStereoCamera::getHeight, R"(
             Get camera image height
@@ -218,7 +218,7 @@ void init_uvcstereocamera(py::module_ &m) {
             Returns
             -------
             value : int
-                Height of UVC image)
+                Camera image height
             )")
         .def("getDownsampleFactor", &I3DR::Phase::UVCStereoCamera::getDownsampleFactor, R"(
             Get current downsample factor

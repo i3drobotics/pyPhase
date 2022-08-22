@@ -19,7 +19,7 @@ void init_stereocalibration(py::module_ &m) {
     NDArrayConverter::init_numpy();
 
     py::enum_<I3DR::Phase::CalibrationSelection>(m, "CalibrationSelection", R"(
-        Structure of CalibrationSelection
+        Enum to indicate calibration from left or right camera/image
 
         )")
         .value("LEFT", I3DR::Phase::CalibrationSelection::LEFT)
@@ -28,10 +28,10 @@ void init_stereocalibration(py::module_ &m) {
 
     // Load in stereo camera calibration file
     py::class_<I3DR::Phase::StereoCameraCalibration>(m, "StereoCameraCalibration", R"(
-            Variables of stereo camera calibration file
+            Store and manipulate stereo camera calibration data.
             )")
         .def(py::init<I3DR::Phase::CameraCalibration, I3DR::Phase::CameraCalibration>(), R"(
-            Load left and right calibration file
+            Initalise stereo camera calibration using left and right calibration.
 
             Parameters
             ----------
@@ -41,7 +41,7 @@ void init_stereocalibration(py::module_ &m) {
                 Right calibration file
             )")
         .def_static("calibrationFromYAML", &I3DR::Phase::StereoCameraCalibration::calibrationFromYAML, R"(
-            Load calibration files in yaml format
+            Load calibration from yaml files
 
             Parameters
             ----------
@@ -51,31 +51,31 @@ void init_stereocalibration(py::module_ &m) {
                 Right side calibration file path directory
             )")
         .def_static("calibrationFromIdeal", &I3DR::Phase::StereoCameraCalibration::calibrationFromIdeal, R"(
-            Load calibration files with ideal variables
+            Create ideal stereo calibration from camera information
 
             Parameters
             ----------
             width : int
-                Image width of calibration file
+                image width of cameras
             height : int
-                Image height of calibration file
+                image height of cameras
             pixel_pitch : float
-                Pixel pitch of calibration file
+                pixel pitch of cameras
             focal_length : float
-                Focal length of calibration file
+                focal length of cameras
             baseline : float
-                Baseline value of calibration file
+                baseline of stereo camera
             )")
         .def_readwrite("left_calibration", &I3DR::Phase::StereoCameraCalibration::left_calibration, R"(
-            Store variables of Left calibration
+            Stores left camera calibration
 
             )")
         .def_readwrite("right_calibration", &I3DR::Phase::StereoCameraCalibration::right_calibration, R"(
-            Store variables of Left calibration
+            Stores right camera calibration
 
             )")
         .def("isValid", &I3DR::Phase::StereoCameraCalibration::isValid, R"(
-            Check if the calibration file is valid
+            Check if loaded calibration is valid
 
             Returns
             -------
@@ -83,7 +83,7 @@ void init_stereocalibration(py::module_ &m) {
                 True if calibration file is valid
             )")
         .def("isValidSize", &I3DR::Phase::StereoCameraCalibration::isValidSize, R"(
-            Check if the calibration file in valid size
+            Check if loaded calibration image width and height match specified values
 
             Returns
             -------
@@ -91,29 +91,27 @@ void init_stereocalibration(py::module_ &m) {
                 True if calibration file is valid in size
             )")
         .def("rectify", static_cast<I3DR::Phase::StereoImagePair(I3DR::Phase::StereoCameraCalibration::*)(cv::Mat, cv::Mat)>(&I3DR::Phase::StereoCameraCalibration::rectify), R"(
-            Rectify stereo image pair from calibration file
+            Rectify stereo images based on calibration
 
             Parameters
             ----------
             left_image : numpy.ndarray
-                Stereo camera left image
+                left image to rectify
             right_image : numpy.ndarray
-                Stereo camera right image
-            left_rect_image : numpy.ndarray
-                numpy.ndarray to store left rectified image
-            right_rect_image : numpy.ndarray
-                numpy.ndarray to store right rectified image
+                right image to rectify
+            rectified_pair : StereoImagePair
+                rectified stereo image pair
             )")
         .def("getQ", &I3DR::Phase::StereoCameraCalibration::getQ, R"(
-            Get the Q matrix in numpy.ndarray
+            Get the Q matrix
 
             Returns
             -------
             Q : numpy.ndarray
-                Q matrix of calibration file
+                Q matrix
             )")
         .def("getBaseline", &I3DR::Phase::StereoCameraCalibration::getBaseline, R"(
-            Get the baseline value of calibration file
+            Get the baseline from calibration
 
             Returns
             -------
@@ -137,15 +135,15 @@ void init_stereocalibration(py::module_ &m) {
                 Desired value of downsample factor
             )")
         .def("getHFOV", &I3DR::Phase::StereoCameraCalibration::getHFOV, R"(
-            Get horitonzal Field Of View of camera from Q matrix
+            Get horitonzal Field Of View of camera from calibration
 
             Returns
             -------
             fov_x : float
-                Horitonzal Field Of View of camera from Q matrix
+                Horitonzal Field Of View of camera
             )")
         .def("saveToYAML", &I3DR::Phase::StereoCameraCalibration::saveToYAML, R"(
-            Flip image horizontally or vertically based on flip code.
+            Save stereo camera calibration to YAML files
 
             Parameters
             ----------
