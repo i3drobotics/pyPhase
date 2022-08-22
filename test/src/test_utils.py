@@ -18,7 +18,8 @@ from phase.pyphase import disparity2xyz, xyz2depth
 from phase.pyphase import disparity2depth, depth2xyz, savePLY
 from phase.pyphase import readImage, flip
 from phase.pyphase.calib import StereoCameraCalibration
-from phase.pyphase.types import MatrixUInt8, StereoMatcherType
+from phase.pyphase.types import MatrixUInt8
+from phase.pyphase.stereomatcher import StereoMatcherType
 from phase.pyphase.stereomatcher import StereoParams, createStereoMatcher
 
 import numpy as np

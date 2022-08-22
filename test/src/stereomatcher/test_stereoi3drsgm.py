@@ -12,9 +12,9 @@
 import os
 import time
 import cv2
-from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
-from phase.pyphase.types import CameraDeviceInfo, CameraReadResult
-from phase.pyphase.types import StereoMatcherType
+from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
+from phase.pyphase.stereocamera import CameraDeviceInfo, CameraReadResult
+from phase.pyphase.stereomatcher import StereoMatcherType
 from phase.pyphase.stereomatcher import StereoParams, createStereoMatcher
 from phase.pyphase.stereocamera import createStereoCamera
 from phase.pyphase.stereomatcher import StereoI3DRSGM
@@ -39,29 +39,24 @@ def test_StereoI3DRSGM_params():
     left_image = readImage(left_image_file)
     right_image = readImage(right_image_file)
 
-    license_valid = StereoI3DRSGM().isLicenseValid()
-    # Check for I3DRSGM license
-    if license_valid:
-        stereo_params = StereoParams(
-            StereoMatcherType.STEREO_MATCHER_I3DRSGM,
-            9, 0, 49, False
-    )
-    else:
-        stereo_params = StereoParams(
-            StereoMatcherType.STEREO_MATCHER_BM,
-            11, 0, 25, False
-    )
+    assert left_image.size > 0
+    assert right_image.size > 0
+    
+    stereo_params = StereoParams(
+        StereoMatcherType.STEREO_MATCHER_I3DRSGM,
+        9, 0, 49, True)
     matcher = createStereoMatcher(stereo_params)
-
     match_result = matcher.compute(left_image, right_image)
 
+    license_valid = StereoI3DRSGM().isLicenseValid()
     if not license_valid:
-        assert match_result.disparity[0,0] == -16
-        assert match_result.disparity[20,20] == -16
-        assert match_result.disparity[222,222] == -16
+        assert not match_result.valid
+        assert match_result.disparity[0,0] == 0.0
+        assert match_result.disparity[20,20] == 0.0
+        assert match_result.disparity[222,222] == 0.0
     else:
+        assert match_result.valid
         # TODO add disparity element checks for valid license compute
-        pass
 
     del matcher
 
@@ -69,28 +64,21 @@ def test_StereoI3DRSGM_params():
 def test_StereoI3DRSGM_params_read_callback():
     # Test the StereoI3DRSGM matcher virtual Pylon stereo camera by read callback
     script_path = os.path.dirname(os.path.realpath(__file__))
-    test_folder = os.path.join(
+    data_folder = os.path.join(
         script_path, "..", "..", "data")
 
-    left_image_file = os.path.join(test_folder, "left.png")
-    right_image_file = os.path.join(test_folder, "right.png")
+    left_image_file = os.path.join(data_folder, "left.png")
+    right_image_file = os.path.join(data_folder, "right.png")
 
     left_image = cv2.imread(left_image_file)
     right_image = cv2.imread(right_image_file)
 
-    license_valid = StereoI3DRSGM().isLicenseValid()
-    # Check for I3DRSGM license
-    if license_valid:
-        stereo_params = StereoParams(
-            StereoMatcherType.STEREO_MATCHER_I3DRSGM,
-            9, 0, 49, False
-    )
-    else:
-        stereo_params = StereoParams(
-            StereoMatcherType.STEREO_MATCHER_BM,
-            11, 0, 25, False
-    )
+    assert left_image.size > 0
+    assert right_image.size > 0
 
+    stereo_params = StereoParams(
+        StereoMatcherType.STEREO_MATCHER_I3DRSGM,
+        9, 0, 49, True)
     matcher = createStereoMatcher(stereo_params)
     max_read_duration = 2
     
@@ -105,11 +93,23 @@ def test_StereoI3DRSGM_params_read_callback():
         assert (duration < max_read_duration)
         if (duration > max_read_duration):
             break
-    assert matcher.getComputeThreadResult().valid
+
+    match_result = matcher.getComputeThreadResult()
+
+    license_valid = StereoI3DRSGM().isLicenseValid()
     if not license_valid:
-        assert matcher.getComputeThreadResult().disparity[0,0] == -16
-        assert matcher.getComputeThreadResult().disparity[20,20] == -16
-        assert matcher.getComputeThreadResult().disparity[222,222] == -16
+        assert not match_result.valid
+        assert match_result.disparity[0,0] == 0.0
+        assert match_result.disparity[20,20] == 0.0
+        assert match_result.disparity[222,222] == 0.0
     else:
-        # TODO add disparity element checks for valid license compute
-        pass
+        assert match_result.valid
+        # TODO adjust disparity element checks for valid license compute
+        # verify known unmatched point
+        assert match_result.disparity[0,0] == -1.0
+        valid_disp_threshold = 0.1
+        # disparity values should match expected within threshold
+        assert match_result.disparity[1024,1224] >= 239.5 - valid_disp_threshold
+        assert match_result.disparity[1024,1224] <= 239.5 + valid_disp_threshold
+        assert match_result.disparity[1400,2200] >= 224.4375 - valid_disp_threshold
+        assert match_result.disparity[1400,2200] <= 224.4375 + valid_disp_threshold
