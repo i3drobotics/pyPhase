@@ -48,4 +48,5 @@ def test_Mat():
     np_empty = np.empty([10, 10, 2], dtype=np.float32)
     #np_empty[:] = 0
     ph_float_empty = MatrixFloat(np_empty)
+    # TODO failed due to np_empty & Q_empty empty matrix often return -0 elements
     #assert ph_float_empty.isEmpty() == 1

@@ -39,7 +39,6 @@ def test_StereoI3DRSGM_params():
     right_image = readImage(right_image_file)
 
     license_valid = StereoI3DRSGM().isLicenseValid()
-    assert license_valid
     # Check for I3DRSGM license
     if license_valid:
         stereo_params = StereoParams(
@@ -77,7 +76,6 @@ def test_StereoI3DRSGM_params_read_callback():
     cam = createStereoCamera(device_info)
 
     license_valid = StereoI3DRSGM().isLicenseValid()
-    assert license_valid
     # Check for I3DRSGM license
     if license_valid:
         stereo_params = StereoParams(
