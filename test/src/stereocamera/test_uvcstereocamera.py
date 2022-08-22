@@ -243,6 +243,14 @@ def test_UVCStereoCamera_virtual_continous_read():
                 break
         print("Frame capture complete.")
         cam.stopContinousReadThread()
+        stop_start_time = time.time()
+        max_stop_duration = 2
+        while(cam.isContinousReadThreadRunning()):
+            # wait for continous read thread to stop
+            duration = time.time() - stop_start_time
+            assert (duration < max_stop_duration)
+            if (duration > max_stop_duration):
+                break
         assert(cam.getCaptureCount() >= frames)
         cam.resetCaptureCount()
         assert(cam.getCaptureCount() == 0)
@@ -305,6 +313,14 @@ def test_UVCStereoCamera_virtual_read_callback():
                 break
         print("Frame capture complete.")
         cam.stopContinousReadThread()
+        stop_start_time = time.time()
+        max_stop_duration = 2
+        while(cam.isContinousReadThreadRunning()):
+            # wait for continous read thread to stop
+            duration = time.time() - stop_start_time
+            assert (duration < max_stop_duration)
+            if (duration > max_stop_duration):
+                break
         assert(cam.getCaptureCount() >= frames)
         cam.resetCaptureCount()
         assert(cam.getCaptureCount() == 0)
