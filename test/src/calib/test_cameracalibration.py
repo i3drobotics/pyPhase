@@ -103,36 +103,28 @@ def test_Rectify():
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(script_path, "..", "..", ".phase_test")
     left_ros_yaml = os.path.join(test_folder, "left_ros.yaml")
+    data_folder = os.path.join(script_path, "..", "..", "data")
     
     # Test loading of image data from file
-    left_image_file = os.path.join(test_folder, "left.png")
+    left_image_file = os.path.join(data_folder, "left.png")
     left_image = readImage(left_image_file)
-    rect_image = left_image
+    rect_image = np.zeros_like(left_image)
+    left_image_empty = np.zeros_like(left_image)
 
     if not os.path.exists(test_folder):
         os.makedirs(test_folder)
 
     cal = CameraCalibration(left_ros_yaml)
 
-    rect = cal.rectify(left_image, rect_image)
-    assert rect_image.size > 0
+    cal.rectify(left_image, rect_image)
+    assert np.count_nonzero(rect_image) > 0
 
-    rect_empty = cal.rectify(0, rect_image)
+    cal.rectify(left_image_empty, rect_image)
     assert np.any(rect_image) == 0
 
 def test_calibrationFromIdeal():
     # Test access to left and right calibration data from StereoCameraCalibration
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    test_folder = os.path.join(script_path, "..", "..", ".phase_test")
-    
-    # Test loading of image data from file
-    left_image_file = os.path.join(test_folder, "left.png")
-    left_image = readImage(left_image_file)
-    rect_image = left_image
     cal = CameraCalibration.calibrationFromIdeal(2448, 2048, 2, 2, 2, 2)
     assert(cal.isValid())
     
     assert cal.getImageHeight() > 0
-
-    rect = cal.rectify(left_image, rect_image)
-    assert rect_image.size > 0
