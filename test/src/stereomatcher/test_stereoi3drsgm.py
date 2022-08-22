@@ -126,6 +126,10 @@ def test_StereoI3DRSGM_perf_params():
     left_image = readImage(left_image_file)
     right_image = readImage(right_image_file)
 
+    stereo_params = StereoParams(
+        StereoMatcherType.STEREO_MATCHER_I3DRSGM,
+        9, 0, 49, True)
+
     matcher = createStereoMatcher(stereo_params)
     start = time.time()
     match_result = matcher.compute(left_image, right_image)
