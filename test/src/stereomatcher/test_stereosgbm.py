@@ -11,8 +11,6 @@
 
 import os
 import time
-from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
-from phase.pyphase.types import CameraDeviceInfo, CameraReadResult
 from phase.pyphase.types import StereoMatcherType
 from phase.pyphase.stereomatcher import StereoParams, createStereoMatcher
 from phase.pyphase.stereocamera import createStereoCamera
@@ -28,18 +26,16 @@ def test_StereoSGBM_params():
     # Test setting StereoBM parameters
     script_path = os.path.dirname(os.path.realpath(__file__))
     data_folder = os.path.join(
-        script_path, "..", "..", "data")
+        script_path, "..", "..", ".phase_test")
 
     left_image_file = os.path.join(data_folder, "left.png")
-    right_image_file = os.path.join(data_folder, "right.png")
-
     left_image = readImage(left_image_file)
+    right_image_file = os.path.join(data_folder, "right.png")
     right_image = readImage(right_image_file)
 
     stereo_params = StereoParams(StereoMatcherType.STEREO_MATCHER_SGBM,
         11, 0, 25, False)
 
-    capture_count = 20
     matcher = createStereoMatcher(stereo_params)
 
     match_result = matcher.compute(left_image, right_image)
@@ -50,47 +46,37 @@ def test_StereoSGBM_params():
     del matcher
 
 def test_StereoSGBM_params_read_callback():
-    # Test the StereoBM matcher virtual Pylon stereo camera by read callback
-    left_serial = "0815-0000"
-    right_serial = "0815-0001"
-    device_type = CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON  # DEVICE_TYPE_TITANIA / DEVICE_TYPE_PHOBOS
-    interface_type = CameraInterfaceType.INTERFACE_TYPE_VIRTUAL  # INTERFACE_TYPE_USB / INTERFACE_TYPE_GIGE
+    # Test the StereoSGBM matcher virtual Pylon stereo camera by read callback
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    test_folder = os.path.join(
+        script_path, "..", "..", "data")
 
-    device_info = CameraDeviceInfo(
-        left_serial, right_serial, "virtual-camera",
-        device_type,
-        interface_type
-    )
+    left_image_file = os.path.join(test_folder, "left.png")
+    right_image_file = os.path.join(test_folder, "right.png")
 
-    cam = createStereoCamera(device_info)
+    left_image = readImage(left_image_file)
+    right_image = readImage(right_image_file)
 
-    matcher = StereoSGBM()
-    matcher.setWindowSize(11)
-    matcher.setMinDisparity(0)
-    matcher.setNumDisparities(16*300)
+    stereo_params = StereoParams(StereoMatcherType.STEREO_MATCHER_SGBM,
+        11, 0, 25, False)
 
-    frames = 3
-    connected = cam.connect()
-    max_read_duration = 1
-    assert connected is True
-    if connected:
-        print("Capturing continous frames...")
-        cam.startCapture()
-        while(cam.getCaptureCount() < frames):
-            result = cam.read()
-            matcher.startComputeThread(result.left, result.right)
-            read_start = time.time()
-            while matcher.isComputeThreadRunning():
-                # To make sure function run something
-                print("Thread is computing")
-                # check read is not taking too long
-                read_end = time.time()
-                duration = read_end - read_start
-                assert (duration < max_read_duration)
-                if (duration > max_read_duration):
-                    break
-            assert matcher.getComputeThreadResult().valid
+    matcher = createStereoMatcher(stereo_params)
+    max_read_duration = 10
+    
+    matcher.startComputeThread(left_image, right_image)
+    read_start = time.time()
+    while matcher.isComputeThreadRunning():
+        # To make sure function run something
+        #print("Thread is computing")
+        # check read is not taking too long
+        read_end = time.time()
+        duration = read_end - read_start
+        assert (duration < max_read_duration)
+        if (duration > max_read_duration):
+            break
+    
+    assert matcher.getComputeThreadResult().valid
 
-            assert matcher.getComputeThreadResult().disparity[0,0] == -16
-            assert matcher.getComputeThreadResult().disparity[20,20] == -16
-            assert matcher.getComputeThreadResult().disparity[222,222] == -16
+    assert matcher.getComputeThreadResult().disparity[0,0] == -16
+    assert matcher.getComputeThreadResult().disparity[20,20] == -16
+    assert matcher.getComputeThreadResult().disparity[222,222] == -16
