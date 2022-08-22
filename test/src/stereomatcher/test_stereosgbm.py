@@ -74,7 +74,7 @@ def test_StereoSGBM_params_read_callback():
         11, 0, 25, True)
 
     matcher = createStereoMatcher(stereo_params)
-    max_read_duration = 10
+    max_compute_duration = 10
     
     matcher.startComputeThread(left_image, right_image)
     read_start = time.time()
@@ -84,8 +84,8 @@ def test_StereoSGBM_params_read_callback():
         # check read is not taking too long
         read_end = time.time()
         duration = read_end - read_start
-        assert (duration < max_read_duration)
-        if (duration > max_read_duration):
+        assert (duration < max_compute_duration)
+        if (duration > max_compute_duration):
             break
     
     match_result = matcher.getComputeThreadResult()
