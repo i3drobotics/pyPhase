@@ -76,10 +76,18 @@ make -j$(nproc)
 
 ## Test
 ### Unit tests
-Test using pytest by running the following commands:
+Run unit tests using pytest by running the following commands:
 ```bash
 cd build/lib
-python3 -m pytest ../../test/src/
+python3 -m pytest ../../test/unit/
+```
+*Note: Make sure to run this from the repository root directory*
+
+### Performance tests
+Run performance tests using pytest by running the following commands:
+```bash
+cd build/lib
+python3 -m pytest ../../test/perf/
 ```
 *Note: Make sure to run this from the repository root directory*
 

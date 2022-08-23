@@ -4,29 +4,38 @@
  @authors Ben Knight (bknight@i3drobotics.com)
  @date 2021-05-26
  @copyright Copyright (c) I3D Robotics Ltd, 2021
- @file test_stereobm.py
- @brief Unit tests for Stereo Block Matcher class
- @details Unit tests generated using PyTest
+ @file test_stereosgbm.py
+ @brief Unit tests for Stereo Semi-Global Block Matcher class
+ @details Unit tests for use with PyTest
 """
-
 import os
 import time
-import cv2
-from phase.pyphase.stereomatcher import StereoMatcherType
-from phase.pyphase.stereocamera import CameraDeviceInfo
-from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
-from phase.pyphase.stereocamera import createStereoCamera
-from phase.pyphase.stereomatcher import StereoParams, createStereoMatcher
-from phase.pyphase.stereomatcher import StereoBM
-from phase.pyphase import readImage, normaliseDisparity
+from phase.pyphase.stereomatcher import StereoSGBM, StereoParams
+from phase.pyphase.stereomatcher import createStereoMatcher, StereoMatcherType
+from phase.pyphase import readImage
 
-def test_StereoBM():
-    # Test initalisation of StereoBM
-    matcher = StereoBM()
-    del matcher
 
-def test_StereoBM_params():
-    # Test setting StereoBM parameters
+def test_StereoSGBM_get_set_params():
+    # Test matcher parameters can be set and get functions return expected values
+    matcher = StereoSGBM()
+    matcher.setWindowSize(11)
+    matcher.setMinDisparity(0)
+    matcher.setNumDisparities(25)
+
+    # TODO add get functions to matcher to verify values are set
+
+def test_StereoSGBM_init_params():
+    # Test matcher parameters defined at initialisation respond with correct values when using get functions 
+    stereo_params = StereoParams(
+        StereoMatcherType.STEREO_MATCHER_SGBM, 11, 0, 25, True)
+    matcher = StereoSGBM(stereo_params)
+
+    # TODO add get functions to matcher to verify values are set
+
+def test_StereoSGBM_compute():
+    # Test disparity image can be computed from ‘compute’ function
+    # when given known sample stereo image pair.
+    # Will verify 3 pixel locations in the disparity image.
     script_path = os.path.dirname(os.path.realpath(__file__))
     data_folder = os.path.join(
         script_path, "..", "..", "data")
@@ -40,9 +49,8 @@ def test_StereoBM_params():
     assert left_image.size > 0
     assert right_image.size > 0
 
-    stereo_params = StereoParams(StereoMatcherType.STEREO_MATCHER_BM,
+    stereo_params = StereoParams(StereoMatcherType.STEREO_MATCHER_SGBM,
         11, 0, 25, True)
-
     matcher = createStereoMatcher(stereo_params)
 
     match_result = matcher.compute(left_image, right_image)
@@ -59,22 +67,24 @@ def test_StereoBM_params():
     del matcher
 
 
-def test_StereoBM_params_read_callback():
-    # Test the StereoBM matcher virtual Pylon stereo camera by read callback
+def test_StereoSGBM_threaded_compute():
+    # Test disparity image can be computed in thread from ‘startThreadedCompute’ function
+    # when given known sample stereo image pair.
+    # Will verify 3 pixel locations in the disparity image.
     script_path = os.path.dirname(os.path.realpath(__file__))
-    test_folder = os.path.join(
+    data_folder = os.path.join(
         script_path, "..", "..", "data")
 
-    left_image_file = os.path.join(test_folder, "left.png")
-    right_image_file = os.path.join(test_folder, "right.png")
+    left_image_file = os.path.join(data_folder, "left.png")
+    right_image_file = os.path.join(data_folder, "right.png")
 
-    left_image = cv2.imread(left_image_file)
-    right_image = cv2.imread(right_image_file)
+    left_image = readImage(left_image_file)
+    right_image = readImage(right_image_file)
 
     assert left_image.size > 0
     assert right_image.size > 0
 
-    stereo_params = StereoParams(StereoMatcherType.STEREO_MATCHER_BM,
+    stereo_params = StereoParams(StereoMatcherType.STEREO_MATCHER_SGBM,
         11, 0, 25, True)
 
     matcher = createStereoMatcher(stereo_params)
@@ -91,9 +101,8 @@ def test_StereoBM_params_read_callback():
         assert (duration < max_compute_duration)
         if (duration > max_compute_duration):
             break
-
+    
     match_result = matcher.getComputeThreadResult()
-
     assert match_result.valid
     # verify known unmatched point
     assert match_result.disparity[0,0] == -1.0
@@ -103,29 +112,3 @@ def test_StereoBM_params_read_callback():
     assert match_result.disparity[1024,1224] <= 239.5 + valid_disp_threshold
     assert match_result.disparity[1400,2200] >= 224.4375 - valid_disp_threshold
     assert match_result.disparity[1400,2200] <= 224.4375 + valid_disp_threshold
-
-
-def test_StereoBM_perf_params():
-    # Test performance of computing StereoBM disparity
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    data_folder = os.path.join(
-        script_path, "..", "..", "data")
-
-    left_image_file = os.path.join(data_folder, "left.png")
-    right_image_file = os.path.join(data_folder, "right.png")
-
-    left_image = readImage(left_image_file)
-    right_image = readImage(right_image_file)
-
-    stereo_params = StereoParams(StereoMatcherType.STEREO_MATCHER_BM,
-        11, 0, 25, False)
-
-    matcher = createStereoMatcher(stereo_params)
-    start = time.time()
-    match_result = matcher.compute(left_image, right_image)
-    end = time.time()
-    duration = end - start
-    # TODO investigate why StereoBM matching is slow
-    assert duration < 3
-
-    del matcher

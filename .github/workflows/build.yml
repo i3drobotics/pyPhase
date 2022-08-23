@@ -60,7 +60,13 @@ jobs:
         shell: bash
         run: |
           cd build/lib
-          python3 -m pytest ../../test/src/
+          python3 -m pytest ../../test/unit/
+      # Performance Test
+      - name: Perf Test
+        shell: bash
+        run: |
+          cd build/lib
+          python3 -m pytest ../../test/perf/
 
 # Build / test
   build-windows:
@@ -102,6 +108,11 @@ jobs:
       - name: Unit Test
         shell: bash
         run: |
-          export PHASE_DIR="$(pwd)/phase_install"
           cd build/lib
-          python -m pytest ../../test/src/
+          python3 -m pytest ../../test/unit/
+      # Performance Test
+      - name: Perf Test
+        shell: bash
+        run: |
+          cd build/lib
+          python3 -m pytest ../../test/perf/

@@ -6,29 +6,37 @@
  @copyright Copyright (c) I3D Robotics Ltd, 2021
  @file test_stereoi3drsgm.py
  @brief Unit tests for I3DR's Semi-Global Stereo Matcher class
- @details Unit tests generated using PyTest
+ @details Unit tests for use with PyTest
 """
-
 import os
 import time
-import cv2
-from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
-from phase.pyphase.stereocamera import CameraDeviceInfo, CameraReadResult
-from phase.pyphase.stereomatcher import StereoMatcherType
-from phase.pyphase.stereomatcher import StereoParams, createStereoMatcher
-from phase.pyphase.stereocamera import createStereoCamera
-from phase.pyphase.stereomatcher import StereoI3DRSGM
+from phase.pyphase.stereomatcher import StereoI3DRSGM, StereoParams
+from phase.pyphase.stereomatcher import createStereoMatcher, StereoMatcherType
 from phase.pyphase import readImage
 
 
-def test_StereoI3DRSGM():
-    # Test initalisation of StereoI3DRSGM
+def test_StereoI3DRSGM_get_set_params():
+    # Test matcher parameters can be set and get functions return expected values
     matcher = StereoI3DRSGM()
-    del matcher
+    matcher.setWindowSize(11)
+    matcher.setMinDisparity(0)
+    matcher.setNumDisparities(25)
+
+    # TODO add get functions to matcher to verify values are set
+
+def test_StereoI3DRSGM_init_params():
+    # Test matcher parameters defined at initialisation respond with correct values when using get functions 
+    stereo_params = StereoParams(
+        StereoMatcherType.STEREO_MATCHER_I3DRSGM, 11, 0, 25, True)
+    matcher = StereoI3DRSGM(stereo_params)
+
+    # TODO add get functions to matcher to verify values are set
 
 
-def test_StereoI3DRSGM_params():
-    # Test setting StereoBM parameters
+def test_StereoI3DRSGM_compute():
+    # Test disparity image can be computed from ‘compute’ function
+    # when given known sample stereo image pair.
+    # Will verify 3 pixel locations in the disparity image.
     script_path = os.path.dirname(os.path.realpath(__file__))
     data_folder = os.path.join(
         script_path, "..", "..", "data")
@@ -61,8 +69,10 @@ def test_StereoI3DRSGM_params():
     del matcher
 
 
-def test_StereoI3DRSGM_params_read_callback():
-    # Test the StereoI3DRSGM matcher virtual Pylon stereo camera by read callback
+def test_StereoI3DRSGM_compute_threaded():
+    # Test disparity image can be computed in thread from ‘startThreadedCompute’ function
+    # when given known sample stereo image pair.
+    # Will verify 3 pixel locations in the disparity image.
     script_path = os.path.dirname(os.path.realpath(__file__))
     data_folder = os.path.join(
         script_path, "..", "..", "data")
@@ -70,8 +80,8 @@ def test_StereoI3DRSGM_params_read_callback():
     left_image_file = os.path.join(data_folder, "left.png")
     right_image_file = os.path.join(data_folder, "right.png")
 
-    left_image = cv2.imread(left_image_file)
-    right_image = cv2.imread(right_image_file)
+    left_image = readImage(left_image_file)
+    right_image = readImage(right_image_file)
 
     assert left_image.size > 0
     assert right_image.size > 0
@@ -113,28 +123,3 @@ def test_StereoI3DRSGM_params_read_callback():
         assert match_result.disparity[1024,1224] <= 239.5 + valid_disp_threshold
         assert match_result.disparity[1400,2200] >= 224.4375 - valid_disp_threshold
         assert match_result.disparity[1400,2200] <= 224.4375 + valid_disp_threshold
-
-def test_StereoI3DRSGM_perf_params():
-    # Test performance of computing StereoI3DRSGM disparity
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    data_folder = os.path.join(
-        script_path, "..", "..", "data")
-
-    left_image_file = os.path.join(data_folder, "left.png")
-    right_image_file = os.path.join(data_folder, "right.png")
-
-    left_image = readImage(left_image_file)
-    right_image = readImage(right_image_file)
-
-    stereo_params = StereoParams(
-        StereoMatcherType.STEREO_MATCHER_I3DRSGM,
-        9, 0, 49, True)
-
-    matcher = createStereoMatcher(stereo_params)
-    start = time.time()
-    match_result = matcher.compute(left_image, right_image)
-    end = time.time()
-    duration = end - start
-    assert duration < 2
-
-    del matcher

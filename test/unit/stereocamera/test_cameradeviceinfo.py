@@ -6,11 +6,11 @@
  @copyright Copyright (c) I3D Robotics Ltd, 2021
  @file test_cameradeviceinfo.py
  @brief Unit tests for Camera Device Info class
- @details Unit tests generated using PyTest
+ @details Unit tests for use with PyTest
 """
-
 from phase.pyphase.stereocamera import CameraDeviceInfo
 from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
+
 
 def test_CameraDeviceInfo():
     # Test initalisation of camera device info

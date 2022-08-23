@@ -4,9 +4,9 @@
  @authors Ben Knight (bknight@i3drobotics.com)
  @date 2021-05-26
  @copyright Copyright (c) I3D Robotics Ltd, 2021
- @file test_deimosstereocamera.py
- @brief Unit tests for Deimos Stereo Camera class
- @details Unit tests generated using PyTest
+ @file test_pylonstereocamera.py
+ @brief Unit tests for Pylon Stereo Camera class
+ @details Unit tests for use with PyTest
 """
 import os
 import time
@@ -14,106 +14,76 @@ import shutil
 from glob import glob
 import numpy as np
 import cv2
-
-from phase.pyphase.stereocamera import createStereoCamera
-from phase.pyphase.stereocamera import CameraDeviceInfo
+from phase.pyphase.stereocamera import CameraDeviceInfo, createStereoCamera
 from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
-from phase.pyphase.stereocamera import CameraReadResult
 
-def test_DeimosStereoCamera():
-    # Test initalisation of DeimosStereoCamera using CameraDeviceInfo
+
+def test_PylonStereoCamera():
+    # Test initalisation of PylonStereoCamera using CameraDeviceInfo
     device_info = CameraDeviceInfo(
-        "0", "1", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
-        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+        "abc123left", "abc123right", "abc123unique",
+        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        CameraInterfaceType.INTERFACE_TYPE_USB
     )
     createStereoCamera(device_info)
 
 
-def test_DeimosStereoCamera_isConnected_onInit():
-    # Test if Deimos stereo camera is connected
+def test_PylonStereoCamera_isConnected_onInit():
+    # Test if Pylon stereo camera is connected
     device_info = CameraDeviceInfo(
-        "0", "1", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
-        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+        "abc123left", "abc123right", "abc123unique",
+        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        CameraInterfaceType.INTERFACE_TYPE_USB
     )
     cam = createStereoCamera(device_info)
     assert cam.isConnected() is False
 
 
-def test_DeimosStereoCamera_connect_onInit():
-    # Test to connect Deimos stereo camera
+def test_PylonStereoCamera_connect_onInit():
+    # Test to connect Pylon stereo camera
     device_info = CameraDeviceInfo(
-        "0", "1", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
-        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+        "abc123left", "abc123right", "abc123unique",
+        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        CameraInterfaceType.INTERFACE_TYPE_USB
     )
     cam = createStereoCamera(device_info)
     assert cam.connect() is False
 
 
-
-def test_DeimosStereoCamera_connect_virtual_onInit():
-    # Test to connect virtual Deimos stereo camera
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    test_folder = os.path.join(script_path, "..", "..", ".phase_test")
-    left_image_file = os.path.join(test_folder, "left.png")
-    right_image_file = os.path.join(test_folder, "right.png")
-
-    if not os.path.exists(test_folder):
-        os.makedirs(test_folder)
-
-    np_left_image = np.zeros((2048, 2448), dtype=np.uint8)
-    np_right_image = np.zeros((2048, 2448), dtype=np.uint8)
-    cv2.imwrite(left_image_file, np_left_image)
-    cv2.imwrite(right_image_file, np_right_image)
+def test_PylonStereoCamera_connect_virtual_onInit():
+    # Test to connect virtual Pylon stereo camera
     device_info = CameraDeviceInfo(
-        "0", "1", "virtualdeimos",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
+        "0815-0000", "0815-0001", "virtualpylon",
+        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = createStereoCamera(device_info)
-    cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
     if connected:
         cam.disconnect()
     assert connected is True
 
 
-def test_DeimosStereoCamera_connect_virtual_size():
-    # Test to get the height and width of virtual Deimos stereo camera
-
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    test_folder = os.path.join(script_path, "..", "..", ".phase_test")
-    left_image_file = os.path.join(test_folder, "left.png")
-    right_image_file = os.path.join(test_folder, "right.png")
-
-    if not os.path.exists(test_folder):
-        os.makedirs(test_folder)
-
-    np_left_image = np.zeros((480, 752), dtype=np.uint8)
-    np_right_image = np.zeros((480, 752), dtype=np.uint8)
-    cv2.imwrite(left_image_file, np_left_image)
-    cv2.imwrite(right_image_file, np_right_image)
+def test_PylonStereoCamera_connect_virtual_size():
+    # Test to get the height and width of virtual Pylon stereo camera
     device_info = CameraDeviceInfo(
-        "0", "1", "virtualdeimos",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
+        "0815-0000", "0815-0001", "virtualpylon",
+        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = createStereoCamera(device_info)
-    cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
     if connected:
         # assumes that default virtual camera image size
         # has not been modified before connecting
-        assert(cam.getWidth() == 752)
-        assert(cam.getHeight() == 480)
+        assert(cam.getWidth() == 1024)
+        assert(cam.getHeight() == 1040)
         cam.disconnect()
     assert connected is True
 
 
-def test_DeimosStereoCamera_virtual_data_capture():
-    # Test to get the data capture of virtual Deimos stereo camera
+def test_PylonStereoCamera_virtual_data_capture():
+    # Test to get the data capture of virtual Pylon stereo camera
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_data_capture")
@@ -130,8 +100,8 @@ def test_DeimosStereoCamera_virtual_data_capture():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualdeimos",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
+        "0815-0000", "0815-0001", "virtualpylon",
+        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = createStereoCamera(device_info)
@@ -151,8 +121,8 @@ def test_DeimosStereoCamera_virtual_data_capture():
     assert len(right_glob_files) == 1
 
 
-def test_DeimosStereoCamera_virtual_capture_count():
-    # Test to get the capture count of virtual Deimos stereo camera
+def test_PylonStereoCamera_virtual_capture_count():
+    # Test to get the capture count of virtual Pylon stereo camera
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_capture_count")
@@ -170,8 +140,8 @@ def test_DeimosStereoCamera_virtual_capture_count():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualdeimos",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
+        "0815-0000", "0815-0001", "virtualpylon",
+        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = createStereoCamera(device_info)
@@ -192,8 +162,8 @@ def test_DeimosStereoCamera_virtual_capture_count():
     assert connected is True
 
 
-def test_DeimosStereoCamera_virtual_continous_read():
-    # Test to read virtual Deimos stereo camera data continuously
+def test_PylonStereoCamera_virtual_continous_read():
+    # Test to read virtual Pylon stereo camera data continuously
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_continous_read")
@@ -211,8 +181,8 @@ def test_DeimosStereoCamera_virtual_continous_read():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualdeimos",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
+        "0815-0000", "0815-0001", "virtualpylon",
+        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     frames = 3
@@ -262,8 +232,8 @@ def test_DeimosStereoCamera_virtual_continous_read():
     assert len(right_glob_files) >= frames
 
 
-def test_DeimosStereoCamera_virtual_read_callback():
-    # Test to get the data of virtual Deimos stereo camera by read callback
+def test_PylonStereoCamera_virtual_read_callback():
+    # Test to get the data of virtual Pylon stereo camera by read callback
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_read_callback")
@@ -281,8 +251,8 @@ def test_DeimosStereoCamera_virtual_read_callback():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0", "1", "virtualdeimos",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
+        "0815-0000", "0815-0001", "virtualpylon",
+        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     frames = 3
@@ -331,8 +301,9 @@ def test_DeimosStereoCamera_virtual_read_callback():
     assert len(left_glob_files) >= frames
     assert len(right_glob_files) >= frames
 
-def test_DeimosStereoCamera_virtual_camera_params():
-    # Test to get the data capture of virtual Deimos stereo camera
+
+def test_PylonStereoCamera_virtual_camera_params():
+    # Test to get the data capture of virtual Pylon stereo camera
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_data_capture")
@@ -349,8 +320,8 @@ def test_DeimosStereoCamera_virtual_camera_params():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualdeimos",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
+        "0815-0000", "0815-0001", "virtualpylon",
+        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
 
@@ -360,10 +331,10 @@ def test_DeimosStereoCamera_virtual_camera_params():
     connected = cam.connect()
     if connected:
         cam.startCapture()
+        cam.setExposure(5000)
+        cam.setFrameRate(5)
         cam.setLeftAOI(0, 0, 20, 20)
         cam.setRightAOI(0, 0, 20, 20)
-        cam.setExposure(5)
-        cam.setFrameRate(5)
         assert cam.isCapturing() == 1
         while(cam.getCaptureCount() < frames):
             result = cam.read()
@@ -374,40 +345,3 @@ def test_DeimosStereoCamera_virtual_camera_params():
             #assert (result.left.shape == (20,20,3))
         cam.disconnect()
     assert connected is True
-
-
-def test_DeimosStereoCamera_virtual_perf_data_capture():
-    # Test performance of read data of virtual Deimos stereo camera
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    test_folder = os.path.join(
-        script_path, "..", ".phase_test", "PylonStereoCamera_data_capture")
-    if os.path.exists(test_folder):
-        shutil.rmtree(test_folder)
-    os.makedirs(test_folder)
-
-    left_image_file = os.path.join(test_folder, "left.png")
-    right_image_file = os.path.join(test_folder, "right.png")
-
-    left_image = np.zeros((1024, 1040, 3), dtype=np.uint8)
-    right_image = np.zeros((1024, 1040, 3), dtype=np.uint8)
-    cv2.imwrite(left_image_file, left_image)
-    cv2.imwrite(right_image_file, right_image)
-
-    device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualdeimos",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
-        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
-    )
-    cam = createStereoCamera(device_info)
-    cam.setTestImagePaths(left_image_file, right_image_file)
-    cam.enableDataCapture(True)
-    cam.setDataCapturePath(test_folder)
-    connected = cam.connect()
-    if connected:
-        cam.startCapture()
-        start = time.time()
-        result = cam.read()
-        end = time.time()
-        duration = end - start
-        assert duration < 0.1
-        cam.disconnect()
