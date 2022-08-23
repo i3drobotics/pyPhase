@@ -59,4 +59,10 @@ jobs:
         shell: bash
         run: |
           cd build/lib
-          python3 -m pytest ../../test/src/
+          python3 -m pytest ../../test/unit/
+      # Performance Test
+      - name: Perf Test
+        shell: bash
+        run: |
+          cd build/lib
+          python3 -m pytest ../../test/perf/

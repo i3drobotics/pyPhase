@@ -6,11 +6,9 @@
  @copyright Copyright (c) I3D Robotics Ltd, 2021
  @file test_stereocamera.py
  @brief Unit tests for Stereo Camera class
- @details Unit tests generated using PyTest
+ @details Unit tests for use with PyTest
 """
-
-from phase.pyphase.stereocamera import createStereoCamera
-from phase.pyphase.stereocamera import CameraDeviceInfo
+from phase.pyphase.stereocamera import CameraDeviceInfo, createStereoCamera
 from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
 
 

@@ -6,7 +6,7 @@
  @copyright Copyright (c) I3D Robotics Ltd, 2021
  @file test_pylonstereocamera.py
  @brief Unit tests for Pylon Stereo Camera class
- @details Unit tests generated using PyTest
+ @details Unit tests for use with PyTest
 """
 import os
 import time
@@ -14,11 +14,8 @@ import shutil
 from glob import glob
 import numpy as np
 import cv2
-
-from phase.pyphase.stereocamera import createStereoCamera
-from phase.pyphase.stereocamera import CameraDeviceInfo
+from phase.pyphase.stereocamera import CameraDeviceInfo, createStereoCamera
 from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
-from phase.pyphase.stereocamera import CameraReadResult
 
 
 def test_PylonStereoCamera():

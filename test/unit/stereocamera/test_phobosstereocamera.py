@@ -4,9 +4,9 @@
  @authors Ben Knight (bknight@i3drobotics.com)
  @date 2021-05-26
  @copyright Copyright (c) I3D Robotics Ltd, 2021
- @file test_deimosstereocamera.py
- @brief Unit tests for Deimos Stereo Camera class
- @details Unit tests generated using PyTest
+ @file test_phobosstereocamera.py
+ @brief Unit tests for Phobos Stereo Camera class
+ @details Unit tests for use with PyTest
 """
 import os
 import time
@@ -14,106 +14,77 @@ import shutil
 from glob import glob
 import numpy as np
 import cv2
-
-from phase.pyphase.stereocamera import createStereoCamera
-from phase.pyphase.stereocamera import CameraDeviceInfo
+from phase.pyphase.stereocamera import CameraDeviceInfo, createStereoCamera
 from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
-from phase.pyphase.stereocamera import CameraReadResult
 
-def test_DeimosStereoCamera():
-    # Test initalisation of DeimosStereoCamera using CameraDeviceInfo
+
+def test_PhobosStereoCamera():
+    # Test initalisation of PhobosStereoCamera using CameraDeviceInfo
     device_info = CameraDeviceInfo(
-        "0", "1", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
-        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+        "abc123left", "abc123right", "abc123unique",
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
+        CameraInterfaceType.INTERFACE_TYPE_USB
     )
     createStereoCamera(device_info)
 
 
-def test_DeimosStereoCamera_isConnected_onInit():
-    # Test if Deimos stereo camera is connected
+def test_PhobosStereoCamera_isConnected_onInit():
+    # Test if Phobos stereo camera is connected
     device_info = CameraDeviceInfo(
-        "0", "1", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
-        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+        "abc123left", "abc123right", "abc123unique",
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
+        CameraInterfaceType.INTERFACE_TYPE_USB
     )
     cam = createStereoCamera(device_info)
     assert cam.isConnected() is False
 
 
-def test_DeimosStereoCamera_connect_onInit():
-    # Test to connect Deimos stereo camera
+def test_PhobosStereoCamera_connect_onInit():
+    # Test to connect Phobos stereo camera
     device_info = CameraDeviceInfo(
-        "0", "1", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
-        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+        "abc123left", "abc123right", "abc123unique",
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
+        CameraInterfaceType.INTERFACE_TYPE_USB
     )
     cam = createStereoCamera(device_info)
     assert cam.connect() is False
 
 
 
-def test_DeimosStereoCamera_connect_virtual_onInit():
-    # Test to connect virtual Deimos stereo camera
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    test_folder = os.path.join(script_path, "..", "..", ".phase_test")
-    left_image_file = os.path.join(test_folder, "left.png")
-    right_image_file = os.path.join(test_folder, "right.png")
-
-    if not os.path.exists(test_folder):
-        os.makedirs(test_folder)
-
-    np_left_image = np.zeros((2048, 2448), dtype=np.uint8)
-    np_right_image = np.zeros((2048, 2448), dtype=np.uint8)
-    cv2.imwrite(left_image_file, np_left_image)
-    cv2.imwrite(right_image_file, np_right_image)
+def test_PhobosStereoCamera_connect_virtual_onInit():
+    # Test to connect virtual Phobos stereo camera
     device_info = CameraDeviceInfo(
-        "0", "1", "virtualdeimos",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
+        "0815-0000", "0815-0001", "virtualphobos",
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = createStereoCamera(device_info)
-    cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
     if connected:
         cam.disconnect()
     assert connected is True
 
 
-def test_DeimosStereoCamera_connect_virtual_size():
-    # Test to get the height and width of virtual Deimos stereo camera
-
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    test_folder = os.path.join(script_path, "..", "..", ".phase_test")
-    left_image_file = os.path.join(test_folder, "left.png")
-    right_image_file = os.path.join(test_folder, "right.png")
-
-    if not os.path.exists(test_folder):
-        os.makedirs(test_folder)
-
-    np_left_image = np.zeros((480, 752), dtype=np.uint8)
-    np_right_image = np.zeros((480, 752), dtype=np.uint8)
-    cv2.imwrite(left_image_file, np_left_image)
-    cv2.imwrite(right_image_file, np_right_image)
+def test_PhobosStereoCamera_connect_virtual_size():
+    # Test to get the height and width of virtual Phobos stereo camera
     device_info = CameraDeviceInfo(
-        "0", "1", "virtualdeimos",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
+        "0815-0000", "0815-0001", "virtualphobos",
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = createStereoCamera(device_info)
-    cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
     if connected:
         # assumes that default virtual camera image size
         # has not been modified before connecting
-        assert(cam.getWidth() == 752)
-        assert(cam.getHeight() == 480)
+        assert(cam.getWidth() == 1024)
+        assert(cam.getHeight() == 1040)
         cam.disconnect()
     assert connected is True
 
 
-def test_DeimosStereoCamera_virtual_data_capture():
-    # Test to get the data capture of virtual Deimos stereo camera
+def test_PhobosStereoCamera_virtual_data_capture():
+    # Test to get the data capture of virtual Phobos stereo camera
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_data_capture")
@@ -130,8 +101,8 @@ def test_DeimosStereoCamera_virtual_data_capture():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualdeimos",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
+        "0815-0000", "0815-0001", "virtualphobos",
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = createStereoCamera(device_info)
@@ -151,8 +122,8 @@ def test_DeimosStereoCamera_virtual_data_capture():
     assert len(right_glob_files) == 1
 
 
-def test_DeimosStereoCamera_virtual_capture_count():
-    # Test to get the capture count of virtual Deimos stereo camera
+def test_PhobosStereoCamera_virtual_capture_count():
+    # Test to get the capture count of virtual Phobos stereo camera
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_capture_count")
@@ -170,8 +141,8 @@ def test_DeimosStereoCamera_virtual_capture_count():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualdeimos",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
+        "0815-0000", "0815-0001", "virtualphobos",
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = createStereoCamera(device_info)
@@ -192,8 +163,8 @@ def test_DeimosStereoCamera_virtual_capture_count():
     assert connected is True
 
 
-def test_DeimosStereoCamera_virtual_continous_read():
-    # Test to read virtual Deimos stereo camera data continuously
+def test_PhobosStereoCamera_virtual_continous_read():
+    # Test to read virtual Phobos stereo camera data continuously
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_continous_read")
@@ -211,8 +182,8 @@ def test_DeimosStereoCamera_virtual_continous_read():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualdeimos",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
+        "0815-0000", "0815-0001", "virtualphobos",
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     frames = 3
@@ -262,8 +233,8 @@ def test_DeimosStereoCamera_virtual_continous_read():
     assert len(right_glob_files) >= frames
 
 
-def test_DeimosStereoCamera_virtual_read_callback():
-    # Test to get the data of virtual Deimos stereo camera by read callback
+def test_PhobosStereoCamera_virtual_read_callback():
+    # Test to get the data of virtual Phobos stereo camera by read callback
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
         script_path, "..", ".phase_test", "PylonStereoCamera_read_callback")
@@ -281,8 +252,8 @@ def test_DeimosStereoCamera_virtual_read_callback():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0", "1", "virtualdeimos",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
+        "0815-0000", "0815-0001", "virtualphobos",
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     frames = 3
@@ -331,11 +302,11 @@ def test_DeimosStereoCamera_virtual_read_callback():
     assert len(left_glob_files) >= frames
     assert len(right_glob_files) >= frames
 
-def test_DeimosStereoCamera_virtual_camera_params():
-    # Test to get the data capture of virtual Deimos stereo camera
+def test_PhobosStereoCamera_virtual_camera_params():
+    # Test to get the data capture of virtual Phobos stereo camera
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(
-        script_path, "..", ".phase_test", "PylonStereoCamera_data_capture")
+        script_path, "..", ".phase_test")
     if os.path.exists(test_folder):
         shutil.rmtree(test_folder)
     os.makedirs(test_folder)
@@ -349,8 +320,8 @@ def test_DeimosStereoCamera_virtual_camera_params():
     cv2.imwrite(right_image_file, right_image)
 
     device_info = CameraDeviceInfo(
-        "0815-0000", "0815-0001", "virtualdeimos",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
+        "0815-0000", "0815-0001", "virtualphobos",
+        CameraDeviceType.DEVICE_TYPE_PHOBOS,
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
 

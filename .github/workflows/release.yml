@@ -111,7 +111,13 @@ jobs:
         shell: bash
         run: |
           cd build/lib
-          python3 -m pytest ../../test/src/
+          python3 -m pytest ../../test/unit/
+      # Performance Test
+      - name: Perf Test
+        shell: bash
+        run: |
+          cd build/lib
+          python3 -m pytest ../../test/perf/
       # Build deployment wheel
       - name: Build wheel
         shell: bash
@@ -180,9 +186,13 @@ jobs:
         shell: bash
         run: |
           cd build/lib
-          python -m pytest ../../test/src/
-        env:
-          PHASE_DIR: "${{ github.workspace }}/phase_install"
+          python3 -m pytest ../../test/unit/
+      # Performance Test
+      - name: Perf Test
+        shell: bash
+        run: |
+          cd build/lib
+          python3 -m pytest ../../test/perf/
       # Build deployment wheel
       - name: Build wheel
         shell: bash

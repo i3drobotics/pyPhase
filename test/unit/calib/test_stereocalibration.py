@@ -6,12 +6,13 @@
  @copyright Copyright (c) I3D Robotics Ltd, 2021
  @file test_stereocalibration.py
  @brief Unit tests for StereoCameraCalibration class
- @details Unit tests generated using PyTest
+ @details Unit tests for use with PyTest
 """
 import os
 import numpy as np
-from phase.pyphase.calib import StereoCameraCalibration, CalibrationFileType
 from phase.pyphase import readImage
+from phase.pyphase.calib import StereoCameraCalibration
+from phase.pyphase.calib import CalibrationFileType
 
 
 def test_lr_access():

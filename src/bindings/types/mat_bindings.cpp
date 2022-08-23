@@ -49,6 +49,10 @@ void init_mat(py::module_ &m) {
         Matrix data (float) storage. Targeted towards storing image data.
         
         )")
+    .def(py::init<>(), R"(
+        Matrix empty assignment contructor
+
+        )")
     .def(py::init<int, int, int>(), R"(
         Matrix assignment contructor
         Initalise Matrix at provided size
@@ -148,6 +152,10 @@ void init_mat(py::module_ &m) {
 
     py::class_<I3DR::Phase::MatrixUInt8>(m, "MatrixUInt8", py::buffer_protocol(), R"(
         Matrix data (uint8) storage. Targeted towards storing image data.
+
+        )")
+    .def(py::init<>(), R"(
+        Matrix empty assignment contructor
 
         )")
     .def(py::init<int, int, int>(), R"(

@@ -6,13 +6,12 @@
  @copyright Copyright (c) I3D Robotics Ltd, 2021
  @file test_cameracalibration.py
  @brief Unit tests for CameraCalibration class
- @details Unit tests generated using PyTest
+ @details Unit tests for use with PyTest
 """
 import os
-from pickletools import uint8
 import numpy as np
-from phase.pyphase.calib import CameraCalibration, StereoCameraCalibration
 from phase.pyphase import readImage
+from phase.pyphase.calib import CameraCalibration
 
 
 def test_CameraCalibration():
