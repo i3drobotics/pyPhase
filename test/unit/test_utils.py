@@ -204,6 +204,7 @@ def test_Utils_disparity2depth():
     # TODO failed due to np_empty & Q_empty empty matrix often return -0 elements
     #assert np.all((np_depth_empty == 0))
 
+
 def test_Utils_disparity2xyz():
     # Test to convert disparity to 3D xyz points
     script_path = os.path.dirname(os.path.realpath(__file__))
@@ -245,6 +246,7 @@ def test_Utils_disparity2xyz():
     disparity_xyz_empty = disparity2xyz(np_empty,Q_empty)
     # TODO failed due to np_empty & Q_empty empty matrix often return -0 elements
     #assert np.any(disparity_xyz_empty) == 0
+
 
 def test_Utils_depth2xyz():
     # Test to convert depth to 3D xyz points
@@ -289,6 +291,7 @@ def test_Utils_depth2xyz():
     xyz_empty = depth2xyz(np_empty, calibration.getHFOV())
     # TODO failed due to np_empty & Q_empty empty matrix often return -0 elements
     #assert np.any(xyz_empty) == 0
+
 
 def test_Utils_xyz2depth():
     # Test to convert 3D xyz points to depth

@@ -24,6 +24,7 @@ def test_StereoI3DRSGM_get_set_params():
 
     # TODO add get functions to matcher to verify values are set
 
+
 def test_StereoI3DRSGM_init_params():
     # Test matcher parameters defined at initialisation respond with correct values when using get functions 
     stereo_params = StereoParams(

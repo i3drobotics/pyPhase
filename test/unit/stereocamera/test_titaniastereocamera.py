@@ -302,6 +302,7 @@ def test_TitaniaStereoCamera_virtual_read_callback():
     assert len(left_glob_files) >= frames
     assert len(right_glob_files) >= frames
 
+
 def test_TitaniaStereoCamera_virtual_camera_params():
     # Test to get the data capture of virtual Titania stereo camera
     script_path = os.path.dirname(os.path.realpath(__file__))

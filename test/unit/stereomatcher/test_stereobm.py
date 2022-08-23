@@ -24,6 +24,7 @@ def test_StereoBM_get_set_params():
 
     # TODO add get functions to matcher to verify values are set
 
+
 def test_StereoBM_init_params():
     # Test matcher parameters defined at initialisation respond with correct values when using get functions 
     stereo_params = StereoParams(
@@ -31,6 +32,7 @@ def test_StereoBM_init_params():
     matcher = StereoBM(stereo_params)
 
     # TODO add get functions to matcher to verify values are set
+
 
 def test_StereoBM_compute():
     # Test disparity image can be computed from ‘compute’ function

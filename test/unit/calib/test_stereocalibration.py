@@ -87,6 +87,7 @@ def test_lr_access():
     assert(len(cal_ros.left_calibration.getRectificationMatrix()) > 0)
     assert(len(cal_ros.left_calibration.getProjectionMatrix()) > 0)
 
+
 def test_LoadCalibration():
     # Test loading calibration from file
     script_path = os.path.dirname(os.path.realpath(__file__))
@@ -287,6 +288,7 @@ def test_SaveCalibration():
         os.path.join(test_folder, "right_cv.yaml"),
         CalibrationFileType.OPENCV_YAML) == 1
 
+
 def test_Rectify():
     # Test access to left and right calibration data from StereoCameraCalibration
     script_path = os.path.dirname(os.path.realpath(__file__))
@@ -311,6 +313,7 @@ def test_Rectify():
 
     rect_empty = cal.rectify(left_image_empty, right_image_empty)
     assert np.any(rect_empty.left) == 0
+
 
 def test_calibrationFromIdeal():
     # Test access to left and right calibration data from StereoCameraCalibration

@@ -97,6 +97,7 @@ def test_CameraCalibration():
     assert(len(cal_cv.getRectificationMatrix()) > 0)
     assert(len(cal_cv.getProjectionMatrix()) > 0)
 
+
 def test_Rectify():
     # Test access to left and right calibration data from StereoCameraCalibration
     script_path = os.path.dirname(os.path.realpath(__file__))
@@ -120,6 +121,7 @@ def test_Rectify():
 
     cal.rectify(left_image_empty, rect_image)
     assert np.any(rect_image) == 0
+
 
 def test_calibrationFromIdeal():
     # Test access to left and right calibration data from StereoCameraCalibration

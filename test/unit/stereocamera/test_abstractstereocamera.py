@@ -11,6 +11,7 @@
 import numpy as np
 from phase.pyphase.stereocamera import CameraReadResult
 
+
 def test_CameraReadResult_init():
     # Test initalisation of CameraReadResult
     left = np.zeros((10, 10, 3), dtype=np.uint8)

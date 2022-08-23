@@ -11,6 +11,7 @@
 import numpy as np
 from phase.pyphase.stereomatcher import StereoMatcherComputeResult
 
+
 def test_StereoMatcherComputeResult_init():
     # Test initalisation of StereoMatcherComputeResult
     disparity = np.zeros((10, 10, 1), dtype=np.float32)

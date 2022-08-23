@@ -116,6 +116,7 @@ def test_Utils_perf_flip():
     duration = end - start
     assert duration < 0.1
 
+
 def test_Utils_perf_checkEqualMat():
     # Test performance of two matrices are equal
     # Create equal matrices
@@ -196,6 +197,7 @@ def test_Utils_perf_disparity2xyz():
     end = time.time()
     duration = end - start
     assert duration < 0.3
+
 
 def test_Utils_perf_depth2xyz():
     script_path = os.path.dirname(os.path.realpath(__file__))

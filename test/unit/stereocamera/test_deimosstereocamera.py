@@ -50,7 +50,6 @@ def test_DeimosStereoCamera_connect_onInit():
     assert cam.connect() is False
 
 
-
 def test_DeimosStereoCamera_connect_virtual_onInit():
     # Test to connect virtual Deimos stereo camera
     script_path = os.path.dirname(os.path.realpath(__file__))
@@ -328,6 +327,7 @@ def test_DeimosStereoCamera_virtual_read_callback():
     right_glob_files = glob(os.path.join(test_folder, "*_r.png"))
     assert len(left_glob_files) >= frames
     assert len(right_glob_files) >= frames
+
 
 def test_DeimosStereoCamera_virtual_camera_params():
     # Test to get the data capture of virtual Deimos stereo camera
