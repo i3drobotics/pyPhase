@@ -49,6 +49,10 @@ void init_mat(py::module_ &m) {
         Class to access data float type matrix
         
         )")
+    .def(py::init<>(), R"(
+        Matrix empty assignment contructor
+
+        )")
     .def(py::init<int, int, int>(), R"(
         Access float type matrix data
 
@@ -145,6 +149,10 @@ void init_mat(py::module_ &m) {
 
     py::class_<I3DR::Phase::MatrixUInt8>(m, "MatrixUInt8", py::buffer_protocol(), R"(
         Class to access data UInt8 type matrix
+
+        )")
+    .def(py::init<>(), R"(
+        Matrix empty assignment contructor
 
         )")
     .def(py::init<int, int, int>(), R"(
