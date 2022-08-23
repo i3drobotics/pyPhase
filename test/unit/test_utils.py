@@ -122,6 +122,18 @@ def test_Utils_readImage():
 
     # Check empty image returns None
     assert (imgEmpty is None)
+
+
+def test_Utils_flip():
+    # Test image flipped horizontally using ‘flip’ function has
+    # pixel values that matching input in opposite side on the image.
+    # E.g. pixel from top left corner in input matches pixel from top right corner in output image 
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(
+        script_path, "..", "data")
+    image_file = os.path.join(data_folder, "left.png")
+    img = readImage(image_file)
+
     height = img.shape[0]
     width = img.shape[1]
 
