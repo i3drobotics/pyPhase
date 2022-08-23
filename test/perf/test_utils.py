@@ -99,7 +99,7 @@ def test_Utils_perf_readImage():
     img = readImage(left_image_file)
     end = time.time()
     duration = end - start
-    assert duration < 0.1
+    assert duration < 0.2
     
     start = time.time()
     flip_img0 = flip(img, 0)
