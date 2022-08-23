@@ -19,11 +19,11 @@ void init_stereomatcher(py::module_ &m) {
     NDArrayConverter::init_numpy();
     // Create stereo matcher caccording to type or params
     m.def("createStereoMatcher", static_cast<I3DR::Phase::AbstractStereoMatcher* (*)(I3DR::Phase::StereoMatcherType)>(&I3DR::Phase::createStereoMatcher), py::return_value_policy::reference, R"(
-        Stereo matcher type ROS, OpenCV etc.
+        Create stereo matching from stereo matcher type
 
         )");
     m.def("createStereoMatcher", static_cast<I3DR::Phase::AbstractStereoMatcher* (*)(I3DR::Phase::StereoParams)>(&I3DR::Phase::createStereoMatcher), py::return_value_policy::reference, R"(
-        Stereo parameters contain matcherType, windowSize, minDisparity, numDisparities, interpolation
+        Create stereo matching from stereo matcher parameters
 
         )");
 }

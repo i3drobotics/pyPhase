@@ -20,7 +20,7 @@ void init_abstractstereocamera(py::module_ &m) {
     NDArrayConverter::init_numpy();
 
     py::class_<I3DR::Phase::CameraReadResult>(m, "CameraReadResult", R"(
-        Structure of CameraReadResult
+        Struture to store the result from reading a camera frame. Used in the stereo camera classes.
         )")
         .def(py::init<bool,cv::Mat,cv::Mat>())
         .def_readwrite("valid", &I3DR::Phase::CameraReadResult::valid)
@@ -29,11 +29,13 @@ void init_abstractstereocamera(py::module_ &m) {
 
     // All functions and variables of AbstractStereoCamera
     py::class_<I3DR::Phase::AbstractStereoCamera>(m, "AbstractStereoCamera", R"(
-            Variables contain camera data
+            Abstract base class for building stereo camera
+            classes. Includes functions/structures common across
+            all stereo cameras.
 
             )")
         .def("connect", &I3DR::Phase::AbstractStereoCamera::connect, R"(
-            Connect camera from reading CameraDeviceInfo
+            Connect to camera
             
             )")
         .def("isConnected", &I3DR::Phase::AbstractStereoCamera::isConnected, R"(
@@ -41,11 +43,13 @@ void init_abstractstereocamera(py::module_ &m) {
 
             )")
         .def("startCapture", &I3DR::Phase::AbstractStereoCamera::startCapture, R"(
-            To start camera communication
+            Start stereo camera capture
+            Must be started before read() is called
     
             )")
         .def("stopCapture", &I3DR::Phase::AbstractStereoCamera::stopCapture, R"(
-            To stop camera communication
+            Stop stereo camera capture
+            Will no longer be able to read() after this is called
 
             )")
         .def("isCapturing", &I3DR::Phase::AbstractStereoCamera::isCapturing, R"(
@@ -57,33 +61,33 @@ void init_abstractstereocamera(py::module_ &m) {
 
             )")
         .def("setExposure", &I3DR::Phase::AbstractStereoCamera::setExposure, R"(
-            To overwrite the exposure value
+            Set exposure value of camera
 
             Parameters
             ----------
 
             value : int
-                Input desired value of exposure
+                Value of exposure (us)
             )")
         .def("enableHardwareTrigger", &I3DR::Phase::AbstractStereoCamera::enableHardwareTrigger, R"(
-            To enable camera trigger
+            Enable camera hardware trigger
 
             Parameters
             ----------
 
             enable : bool
-                Set "True" to enable trigger
+                Set "True" to enable hardware trigger
             )")
         .def("setFrameRate", &I3DR::Phase::AbstractStereoCamera::setFrameRate, R"(
-            To overwrite the frame rate
+            Set frame rate of camera
             
             Parameters
             ----------
             value : float
-                Input desired value of frame rate
+                Value of frame rate
             )")
         .def("setLeftAOI", &I3DR::Phase::AbstractStereoCamera::setLeftAOI, R"(
-            To set a new area of interest for LEFT image
+            To set area of interest for left camera
             
             Parameters
             ----------
@@ -97,7 +101,7 @@ void init_abstractstereocamera(py::module_ &m) {
                 y value of bottom right corner of targeted AOI
             )")
         .def("setRightAOI", &I3DR::Phase::AbstractStereoCamera::setRightAOI, R"(
-            To set a new area of interest for RIGHT image
+            To set area of interest for right camera
             
             Parameters
             ----------
@@ -111,7 +115,7 @@ void init_abstractstereocamera(py::module_ &m) {
                 y value of bottom right corner of targeted AOI
             )")
         .def("read", &I3DR::Phase::AbstractStereoCamera::read, py::arg("timeout") = 1000, R"(
-            Read image from createStereoCamera
+            Read image frame from camera
 
             Parameters
             ----------
@@ -142,26 +146,41 @@ void init_abstractstereocamera(py::module_ &m) {
             Returns
             -------
             bool
-                True if thread is reading
+                True if thread was started successfully
             )")
         .def("isReadThreadRunning", &I3DR::Phase::AbstractStereoCamera::isReadThreadRunning, R"(
-            Check if camera thread is reading
+            Check if camera read thread is running
 
             Returns
             -------
             bool
-                True if thread is reading
+                True if read thread is running
             )")
         .def("getReadThreadResult", &I3DR::Phase::AbstractStereoCamera::getReadThreadResult, R"(
-            Get the result of thread read
+            Get results from threaded read process
+            Should be used with startReadThread()
+
+            Returns
+            -------
+            CameraReadResult
+                result from read
         
             )")
         .def("setReadThreadCallback", &I3DR::Phase::AbstractStereoCamera::setReadThreadCallback, R"(
-            Set read thread callback from function read
+            Set callback function to run when read thread completes
+            Should be used with startReadThread()
+            Useful as an external trigger that read is complete
+            and results can be retrieved.
+
+            Parameters
+            ----------
+            f : callback
         
             )")
         .def("startContinousReadThread", &I3DR::Phase::AbstractStereoCamera::startContinousReadThread, py::arg("timeout") = 1000, R"(
-            Start read thread continuously
+            Start threaded process to read stereo images from cameras
+            Thread will run continously until stopped
+            This is useful for continuous image acquisition
             
             Parameters
             ----------
@@ -171,67 +190,74 @@ void init_abstractstereocamera(py::module_ &m) {
             Returns
             -------
             bool
-                True if thread is reading
+                success of starting continous read thread
             )")
         .def("stopContinousReadThread", &I3DR::Phase::AbstractStereoCamera::stopContinousReadThread, R"(
-            Stop read thread continuously after startContinousReadThread
+            Stop continous read thread
 
             )")
         .def("isContinousReadThreadRunning", &I3DR::Phase::AbstractStereoCamera::isContinousReadThreadRunning, R"(
-            Check if thread is continuously reading
+            Check if continous read thread is running
+            Should be used with startContinousReadThread()
             
             Returns
             -------
             bool
-                True if thread is reading
+                continous read thread running status
             )")
         .def("getWidth", &I3DR::Phase::AbstractStereoCamera::getWidth, R"(
-            Get the width of image
+            Get camera image width
             
             Returns
             -------
             value : int
-                Width of image
+                Camera image width
             )")
         .def("getHeight", &I3DR::Phase::AbstractStereoCamera::getHeight, R"(
-            Get the height of image
+            Get camera image height
             
             Returns
             -------
             value : int
-                Height of image
+                Camera image height
             )")
         .def("getDownsampleFactor", &I3DR::Phase::AbstractStereoCamera::getDownsampleFactor, R"(Get the value of Downsample Factor
+            Get current downsample factor
             
             Returns
             -------
             value : float
-                Downsampled factor
+                Downsample factor
             )")
         .def("enableDataCapture", &I3DR::Phase::AbstractStereoCamera::enableDataCapture, R"(
-            Enable data capture
+            Enable/disable saving captured images to file
+            Use with setDataCapturePath() to set path to save images
 
             Parameters
             ----------
             enable : bool
-                Set "True" to enable data capture
+                enable/disable saving images to file
             )")
         .def("setDataCapturePath", &I3DR::Phase::AbstractStereoCamera::setDataCapturePath, R"(
-            Set path of saved directory for capture data
+            Set data capture path to save images
+            Use with enableDataCapture() to toggle saving images to file
 
             path : str
                 directory of desired capture data storage
             )")
         .def("getCaptureCount", &I3DR::Phase::AbstractStereoCamera::getCaptureCount, R"(
-            Get the capture count
+            Get number of frames captured since
+            initalisation of the camera or last count reset
+            Use with resetFrameCount() to reset frame count
 
             Returns
             -------
             value : int
-                Value of capture count
+                number of frames captured
             )")
         .def("resetCaptureCount", &I3DR::Phase::AbstractStereoCamera::resetCaptureCount, R"(
-            Reset the capture count
+            Reset captured frame count to zero
+            Use with getCaptureCount() to get number of frames captured
 
             )")
         .def("setLeftFlipX", &I3DR::Phase::AbstractStereoCamera::setLeftFlipX, R"(
@@ -267,18 +293,16 @@ void init_abstractstereocamera(py::module_ &m) {
                 Set "True" to flip image
             )")
         .def("setDownsampleFactor", &I3DR::Phase::AbstractStereoCamera::setDownsampleFactor, R"(
-            To overwrite the downsample factor
+            Set downsample factor
 
             Parameters
             ----------
             float : value
-                Set desired downsample factor
+                downsample factor value
             )")
         .def("disconnect", &I3DR::Phase::AbstractStereoCamera::disconnect, R"(
-            Disconnect camera from reading CameraDeviceInfo
+            Disconnect camera
 
             )");
-
-    //TODO add callback funtion for read results (https://pybind11.readthedocs.io/en/stable/advanced/cast/functional.html)
 
 }

@@ -19,26 +19,26 @@ void init_cameracalibration(py::module_ &m) {
     NDArrayConverter::init_numpy();
     // Determine the type of stereo calibration file
     py::enum_<I3DR::Phase::CalibrationFileType>(m, "CalibrationFileType", R"(
-            Check the format of calibration files
+            Enum to indicate calibration file type. OpenCV uses different YAML standard from ROS.
             )")
         .value("ROS_YAML", I3DR::Phase::CalibrationFileType::ROS_YAML, R"(
-            Format of ROS stereo calibration yaml
+            ROS YAML calibration file type (YAML v1.2 used by ROS)
 
             )")
         .value("OPENCV_YAML", I3DR::Phase::CalibrationFileType::OPENCV_YAML, R"(
-            Format of OpenCV stereo calibration yaml
+            OpenCV YAML calibration file type (YAML v1.0 used by OpenCV)
             
             )")
         .value("INVALID", I3DR::Phase::CalibrationFileType::INVALID, R"(
-               Invalid stereo calibration format 
+               Invalid calibration file type
             )")
         .export_values();
     // Load in stereo camera calibration file
     py::class_<I3DR::Phase::CameraCalibration>(m, "CameraCalibration", R"(
-            Variables of stereo camera calibration file
+            Store and manipulate mono camera calibration data.
             )")
         .def(py::init<const char*>(), R"(
-            Get stereo camera calibration file location
+            Initalise camera calibration from calibration file.
 
             Parameters
             ----------
@@ -46,58 +46,58 @@ void init_cameracalibration(py::module_ &m) {
                 Stereo calibration file path location
             )")
         .def(py::init<int, int, cv::Mat, cv::Mat, cv::Mat, cv::Mat>(), R"(
-            Load calibration file detail
+            Initalise camera calibration using the values provided.
             
             Parameters
             ----------
             width : int
-                Image width of calibration file
+                image width of camera
             height : int
-                Image height of calibration file
+                image height of camera
             camera_matrix : numpy.ndarray
-                Camera Matrix of calibration file
+                camera matrix of camera
             distortion_coefficients : numpy.ndarray
-                Distortion coefficients of calibration file
+                distortion coefficients of camera
             rectification_matrix : numpy.ndarray
-                Rectification matrix of calibration file
+                rectification matrix of camera
             projection_matrix : numpy.ndarray
-                Projection Matrix of calibration file
+                projection matrix of camera
             )")
         .def_static("calibrationFromIdeal", &I3DR::Phase::CameraCalibration::calibrationFromIdeal, R"(
-            Load calibration files from ideal, i.e. without distortion
+            Create ideal calibration from camera information
             
             Parameters
             ----------
             width : int
-                Image width of calibration file
+                image width of camera
             height : int
-                Image height of calibration file
+                image height of camera
             pixel_pitch : float
-                Pixel pitch of calibration file
+                pixel pitch of camera
             focal_length : float
-                Focal length of calibration file
+                focal length of camera
             translation_x : float
-                Translation in x axis of calibration file
+                translation of principle point in X
             translation_y : float
-                Translation in y axis of calibration file
+                translation of principle point in Y
             )")
         .def("rectify", &I3DR::Phase::CameraCalibration::rectify, R"(
-            Rectify stereo image pair from calibration file
+            Rectify image based on calibration
 
             Parameters
             ----------
             left_image : numpy.ndarray
-                Stereo camera left image
+                image to rectify
             right_image : numpy.ndarray
-                Stereo camera right image
+                image to store rectified image
             )")
         .def("isValid", &I3DR::Phase::CameraCalibration::isValid, R"(
-            Check if the calibration file pair is valid 
+            Check if loaded calibration is valid 
 
             Returns
             -------
             bool
-                True is calibration is valid
+                True if calibration is valid
         )")
         .def("setDownsampleFactor", &I3DR::Phase::CameraCalibration::setDownsampleFactor, R"(
             Set the downsample factor
@@ -120,7 +120,7 @@ void init_cameracalibration(py::module_ &m) {
             Returns
             -------
             height : int
-                Value of image height from calibration file
+                Value of image height from calibration
             )")
         .def("getImageWidth", &I3DR::Phase::CameraCalibration::getImageWidth, R"(
             Get the image width from calibration
@@ -128,7 +128,7 @@ void init_cameracalibration(py::module_ &m) {
             Returns
             -------
             width : int
-                Value of image width from calibration file
+                Value of image width from calibration
             )")
         .def("getCameraMatrix", &I3DR::Phase::CameraCalibration::getCameraMatrix, R"(
             Get the camera matrix of calibration file
@@ -136,15 +136,15 @@ void init_cameracalibration(py::module_ &m) {
             Returns
             -------
             camera_matrix : numpy.ndarray                
-                Camera matrix of calibration file
+                Camera matrix of calibration
             )")
         .def("getDistortionCoefficients", &I3DR::Phase::CameraCalibration::getDistortionCoefficients, R"(
-            Get the distortion coefficients of calibration file
+            Get the distortion coefficients of calibration
 
             Returns
             -------
             distortion_coefficients : numpy.ndarray  
-                Distortion coefficients of calibration file
+                Distortion coefficients of calibration
             )")
         .def("getRectificationMatrix", &I3DR::Phase::CameraCalibration::getRectificationMatrix, R"(
             Get the rectification matrix of calibration file
@@ -152,86 +152,86 @@ void init_cameracalibration(py::module_ &m) {
             Returns
             -------
             rectification_matrix : numpy.ndarray  
-                Rectification matrix of calibration file
+                Rectification matrix of calibration
             )")
         .def("getProjectionMatrix", &I3DR::Phase::CameraCalibration::getProjectionMatrix, R"(
-            Get the projection matrix of calibration file
+            Get the projection matrix of calibration
 
             Returns
             -------
             projection_matrix : numpy.ndarray  
-                Projection matrix of calibration file
+                Projection matrix of calibration
             )")
         .def("getCameraFX", &I3DR::Phase::CameraCalibration::getCameraFX, R"(
-            Get the cameraFX of calibration file
+            Get camera focal length in X in calibration (in pixels)
 
             Returns
             -------
             cameraFX : float
-                CameraFX of calibration file
+                focal length in X
             )")
         .def("getCameraFY", &I3DR::Phase::CameraCalibration::getCameraFY, R"(
-            Get the cameraFY of calibration file
+            Get camera focal length in Y in calibration (in pixels)
 
             Returns
             -------
             cameraFY : float
-                CameraFY of calibration file
+                focal length in Y
             )")
         .def("getCameraCX", &I3DR::Phase::CameraCalibration::getCameraCX, R"(
-            Get the cameraCX of calibration file
+            Get camera principle point in X in calibration (in pixels)
 
             Returns
             -------
             cameraCX : float
-                CameraCX of calibration file
+                principle point in X
             )")
         .def("getCameraCY", &I3DR::Phase::CameraCalibration::getCameraCY, R"(
-            Get the cameraCY of calibration file
+            Get camera principle point in Y in calibration (in pixels)
 
             Returns
             -------
             cameraCY : float
-                CameraCY of calibration file
+                principle point in Y
             )")
         .def("getProjectionFX", &I3DR::Phase::CameraCalibration::getProjectionFX, R"(
-            Get the productionFX of calibration file
+            Get camera focal length in X in calibration projection (in pixels)
 
             Returns
             -------
             projectionFX : float
-                ProductionFX of calibration file
+                focal length in X
             )")
         .def("getProjectionFY", &I3DR::Phase::CameraCalibration::getProjectionFY, R"(
-            Get the productionFY of calibration file
+            Get camera focal length in Y in calibration projection (in pixels)
 
             Returns
             -------
             projectionFY : float
-                ProductionFY of calibration file
+                focal length in Y
             )")
         .def("getProjectionCX", &I3DR::Phase::CameraCalibration::getProjectionCX, R"(
-            Get the productionCX of calibration file
+            Get camera principle point in X in calibration projection (in pixels)
 
             Returns
             -------
             projectionCX : float
-                ProductionCX of calibration file
+                principle point in X
             )")
         .def("getProjectionCY", &I3DR::Phase::CameraCalibration::getProjectionCY, R"(
-            Get the productionCY of calibration file
+            Get camera principle point in Y in calibration projection (in pixels)
 
             Returns
             -------
             projectionCY : float
-                ProductionCY of calibration file
+                principle point in Y
             )")
         .def("getProjectionTX", &I3DR::Phase::CameraCalibration::getProjectionTX, R"(
-            Get the productionTX of calibration file
+            Get camera baseline in calibration projection (in pixels)
 
             Returns
             -------
             projectionTX : float
-                ProductionTX of calibration file
+                baseline
             )");
 }
