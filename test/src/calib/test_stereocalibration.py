@@ -342,4 +342,5 @@ def test_perf_Rectify():
     start = time.time()
     rect = cal.rectify(left_image, right_image)
     end = time.time()
-    assert end - start < 0.1
+    duration = end - start
+    assert duration < 0.1

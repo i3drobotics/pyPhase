@@ -408,5 +408,6 @@ def test_DeimosStereoCamera_virtual_perf_data_capture():
         start = time.time()
         result = cam.read()
         end = time.time()
-        assert end - start < 0.1
+        duration = end - start
+        assert duration < 0.1
         cam.disconnect()
