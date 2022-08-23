@@ -161,6 +161,151 @@ def test_Utils_checkEqualMat():
     assert (not cvMatIsEqual(mat_a, mat_b))
 
 
+def test_Utils_disparity2depth():
+    # Test to convert disparity to depth
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(script_path, "..", "data")
+    left_yaml = os.path.join(data_folder, "left.yaml")
+    right_yaml = os.path.join(data_folder, "right.yaml")
+    left_image_file = os.path.join(data_folder, "left.png")
+    right_image_file = os.path.join(data_folder, "right.png")
+
+    # Load test images
+    left_image = readImage(left_image_file)
+    right_image = readImage(right_image_file)
+
+    # Load calibration
+    calibration = StereoCameraCalibration.calibrationFromYAML(
+        left_yaml, right_yaml)
+
+    # Rectify images
+    rect = calibration.rectify(left_image, right_image)
+    # Compute disparity
+    stereo_params = StereoParams(
+        StereoMatcherType.STEREO_MATCHER_BM,
+        11, 0, 25, False
+    )
+     
+    # Create stereo matcher and compute disparity
+    matcher = createStereoMatcher(stereo_params)
+    match_result = matcher.compute(rect.left, rect.right)
+
+    # Convert disparity to depth
+    np_depth = disparity2depth(match_result.disparity, calibration.getQ())
+    assert np_depth.size != 0
+    assert np_depth[int(left_image.shape[0]/2),int(right_image.shape[1]/2)] > 0
+
+    # Create an empty matrix for testing purpose
+    np_empty = np.zeros((2048, 2448, 3), dtype=np.uint8)
+    Q_empty = np.zeros((4, 4), dtype=np.uint8)
+
+    # Convert an empty disparity to depth
+    np_depth_empty = disparity2depth(np_empty, Q_empty)
+    # TODO failed due to np_empty & Q_empty empty matrix often return -0 elements
+    #assert np.all((np_depth_empty == 0))
+
+def test_Utils_disparity2xyz():
+    # Test to convert disparity to 3D xyz points
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(script_path, "..", "data")
+    left_yaml = os.path.join(data_folder, "left.yaml")
+    right_yaml = os.path.join(data_folder, "right.yaml")
+    left_image_file = os.path.join(data_folder, "left.png")
+    right_image_file = os.path.join(data_folder, "right.png")
+
+    # Load test images
+    left_image = readImage(left_image_file)
+    right_image = readImage(right_image_file)
+
+    # Load calibration
+    calibration = StereoCameraCalibration.calibrationFromYAML(
+        left_yaml, right_yaml)
+
+    # Rectify images
+    rect = calibration.rectify(left_image, right_image)
+    # Compute disparity
+    stereo_params = StereoParams(
+        StereoMatcherType.STEREO_MATCHER_BM,
+        11, 0, 25, False
+    )
+
+    # Create stereo matcher and compute disparity
+    matcher = createStereoMatcher(stereo_params)
+    match_result = matcher.compute(rect.left, rect.right)
+
+    # Convert disparity to 3D xyz points
+    disparity_xyz = disparity2xyz(match_result.disparity, calibration.getQ())
+    assert disparity_xyz[int(left_image.shape[0]/2),int(left_image.shape[1]/2),2] > 0
+
+    # Create an empty matrix for testing purpose
+    np_empty = np.zeros((2048, 2448, 3), dtype=np.uint8)
+    Q_empty = np.zeros((4, 4), dtype=np.uint8)
+
+    # Convert an empty disparity to 3D xyz points
+    disparity_xyz_empty = disparity2xyz(np_empty,Q_empty)
+    # TODO failed due to np_empty & Q_empty empty matrix often return -0 elements
+    #assert np.any(disparity_xyz_empty) == 0
+
+def test_Utils_depth2xyz():
+    # Test to convert depth to 3D xyz points
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(script_path, "..", "data")
+    left_yaml = os.path.join(data_folder, "left.yaml")
+    right_yaml = os.path.join(data_folder, "right.yaml")
+    left_image_file = os.path.join(data_folder, "left.png")
+    right_image_file = os.path.join(data_folder, "right.png")
+
+    # Load test images
+    left_image = readImage(left_image_file)
+    right_image = readImage(right_image_file)
+
+    # Load calibration
+    calibration = StereoCameraCalibration.calibrationFromYAML(
+        left_yaml, right_yaml)
+
+    # Rectify images
+    rect = calibration.rectify(left_image, right_image)
+    # Compute disparity
+    stereo_params = StereoParams(
+        StereoMatcherType.STEREO_MATCHER_BM,
+        11, 0, 25, False
+    )
+
+    # Create stereo matcher and compute disparity
+    matcher = createStereoMatcher(stereo_params)
+    match_result = matcher.compute(rect.left, rect.right)
+
+    # Calculate the depth for conversion use
+    np_depth = disparity2depth(match_result.disparity, calibration.getQ())
+
+    # Convert depth to 3D xyz points
+    xyz = depth2xyz(np_depth, calibration.getHFOV())
+    assert np_depth[int(np_depth.shape[0]/2),int(np_depth.shape[1]/2)] > 0
+
+    # Create an empty matrix for testing purpose
+    np_empty = np.zeros((2048, 2448, 3), dtype=np.uint8)
+
+    # Convert an empty depth to 3D xyz points
+    xyz_empty = depth2xyz(np_empty, calibration.getHFOV())
+    # TODO failed due to np_empty & Q_empty empty matrix often return -0 elements
+    #assert np.any(xyz_empty) == 0
+
+def test_Utils_xyz2depth():
+    # Test to convert 3D xyz points to depth
+    np_xyz = np.ones((2048, 2448, 3), dtype=np.float32)
+    
+    # Convert 3D xyz points to depth
+    xyz_depth = xyz2depth(np_xyz)
+    assert xyz_depth[int(np_xyz.shape[0]/2),int(np_xyz.shape[1]/2)] > 0
+
+    # Create an empty matrix for testing purpose
+    np_empty = np.zeros((2048, 2448, 3), dtype=np.uint8)
+
+    xyz_depth_empty = xyz2depth(np_empty)
+    # TODO missing empty matrix check in xyz2depth
+    #assert np.any(xyz_depth_empty) == 0
+
+
 def test_Utils_savePly():
     # Test of save point cloud
     script_path = os.path.dirname(os.path.realpath(__file__))
@@ -189,45 +334,14 @@ def test_Utils_savePly():
         StereoMatcherType.STEREO_MATCHER_BM,
         11, 0, 25, False
     )
+
+    # Create stereo matcher and compute disparity
     matcher = createStereoMatcher(stereo_params)
     match_result = matcher.compute(rect.left, rect.right)
 
-    # Create stereo image pair
-    np_left_image = np.zeros((2048, 2448, 3), dtype=np.uint8)
-    np_right_image = np.zeros((2048, 2448, 3), dtype=np.uint8)
+    # Convert disparity to 3D xyz points
+    xyz = disparity2xyz(match_result.disparity, calibration.getQ())
 
-    # Create an empty matrix for testing purpose
-    np_empty = np.zeros((2048, 2448, 3), dtype=np.uint8)
-    Q_empty = np.zeros((4, 4), dtype=np.uint8)
-
-    np_depth = disparity2depth(match_result.disparity, calibration.getQ())
-    assert np_depth.size != 0
-    assert np_depth[int(left_image.shape[0]/2),int(left_image.shape[1]/2)] > 0
-
-    np_depth_empty = disparity2depth(match_result.disparity, Q_empty)
-    # TODO failed due to np_empty & Q_empty empty matrix often return -0 elements
-    #assert np.all((np_depth_empty == 0))
-
-    disparity_xyz = disparity2xyz(match_result.disparity, calibration.getQ())
-    assert disparity_xyz[int(left_image.shape[0]/2),int(left_image.shape[1]/2),2] > 0
-
-    disparity_xyz_empty = disparity2xyz(np_empty,Q_empty)
-    # TODO failed due to np_empty & Q_empty empty matrix often return -0 elements
-    #assert np.any(disparity_xyz_empty) == 0
-
-    xyz = depth2xyz(np_depth, calibration.getHFOV())
-    assert np_depth[int(left_image.shape[0]/2),int(left_image.shape[1]/2)] > 0
-
-    xyz_empty = depth2xyz(np_empty, calibration.getHFOV())
-    # TODO failed due to np_empty & Q_empty empty matrix often return -0 elements
-    #assert np.any(xyz_empty) == 0
-
-    xyz_depth = xyz2depth(xyz)
-    assert xyz_depth[int(left_image.shape[0]/2),int(left_image.shape[1]/2)] > 0
-
-    xyz_depth_empty = xyz2depth(np_empty)
-    # TODO missing empty matrix check in xyz2depth
-    #assert np.any(xyz_depth_empty) == 0
-
+    # Save the pointcloud
     save_success = savePLY(out_ply, xyz, rect.left)
     assert (save_success)
