@@ -50,7 +50,6 @@ def test_PhobosStereoCamera_connect_onInit():
     assert cam.connect() is False
 
 
-
 def test_PhobosStereoCamera_connect_virtual_onInit():
     # Test to connect virtual Phobos stereo camera
     device_info = CameraDeviceInfo(
@@ -301,6 +300,7 @@ def test_PhobosStereoCamera_virtual_read_callback():
     right_glob_files = glob(os.path.join(test_folder, "*_r.png"))
     assert len(left_glob_files) >= frames
     assert len(right_glob_files) >= frames
+
 
 def test_PhobosStereoCamera_virtual_camera_params():
     # Test to get the data capture of virtual Phobos stereo camera

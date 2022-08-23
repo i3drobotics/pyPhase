@@ -27,6 +27,7 @@ def test_UVCStereoCamera():
     )
     createStereoCamera(device_info)
 
+
 def test_UVCStereoCamera_isConnected_onInit():
     # Test if UVC stereo camera is connected
     device_info = CameraDeviceInfo(

@@ -101,6 +101,15 @@ def test_Utils_perf_readImage():
     duration = end - start
     assert duration < 0.2
     
+    
+def test_Utils_perf_flip():
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(
+        script_path, "..", "data")
+    image_file = os.path.join(data_folder, "left.png")
+    img = readImage(image_file)
+
+    # Flip image
     start = time.time()
     flip_img0 = flip(img, 0)
     end = time.time()
@@ -117,6 +126,120 @@ def test_Utils_perf_checkEqualMat():
     start = time.time()
     # Check equal is equal check is correct
     assert (cvMatIsEqual(mat_a, mat_b))
+    end = time.time()
+    duration = end - start
+    assert duration < 0.1
+
+
+def test_Utils_perf_disparity2depth():
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(script_path, "..", "data")
+    left_yaml = os.path.join(data_folder, "left.yaml")
+    right_yaml = os.path.join(data_folder, "right.yaml")
+    left_image_file = os.path.join(data_folder, "left.png")
+    right_image_file = os.path.join(data_folder, "right.png")
+
+    # Load test images
+    left_image = readImage(left_image_file)
+    right_image = readImage(right_image_file)
+
+    # Load calibration
+    calibration = StereoCameraCalibration.calibrationFromYAML(
+        left_yaml, right_yaml)
+
+    # Rectify images
+    rect = calibration.rectify(left_image, right_image)
+    # Compute disparity
+    stereo_params = StereoParams(
+        StereoMatcherType.STEREO_MATCHER_BM,
+        11, 0, 25, False
+    )
+
+    matcher = createStereoMatcher(stereo_params)
+    match_result = matcher.compute(rect.left, rect.right)
+
+    start = time.time()
+    np_depth = disparity2depth(match_result.disparity, calibration.getQ())
+    end = time.time()
+    duration = end - start
+    assert duration < 0.1
+
+
+def test_Utils_perf_disparity2xyz():
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(script_path, "..", "data")
+    left_yaml = os.path.join(data_folder, "left.yaml")
+    right_yaml = os.path.join(data_folder, "right.yaml")
+    left_image_file = os.path.join(data_folder, "left.png")
+    right_image_file = os.path.join(data_folder, "right.png")
+
+    # Load test images
+    left_image = readImage(left_image_file)
+    right_image = readImage(right_image_file)
+
+    # Load calibration
+    calibration = StereoCameraCalibration.calibrationFromYAML(
+        left_yaml, right_yaml)
+
+    # Rectify images
+    rect = calibration.rectify(left_image, right_image)
+    # Compute disparity
+    stereo_params = StereoParams(
+        StereoMatcherType.STEREO_MATCHER_BM,
+        11, 0, 25, False
+    )
+
+    matcher = createStereoMatcher(stereo_params)
+    match_result = matcher.compute(rect.left, rect.right)
+
+    start = time.time()
+    disparity_xyz = disparity2xyz(match_result.disparity, calibration.getQ())
+    end = time.time()
+    duration = end - start
+    assert duration < 0.3
+
+
+def test_Utils_perf_depth2xyz():
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(script_path, "..", "data")
+    left_yaml = os.path.join(data_folder, "left.yaml")
+    right_yaml = os.path.join(data_folder, "right.yaml")
+    left_image_file = os.path.join(data_folder, "left.png")
+    right_image_file = os.path.join(data_folder, "right.png")
+
+    # Load test images
+    left_image = readImage(left_image_file)
+    right_image = readImage(right_image_file)
+
+    # Load calibration
+    calibration = StereoCameraCalibration.calibrationFromYAML(
+        left_yaml, right_yaml)
+
+    # Rectify images
+    rect = calibration.rectify(left_image, right_image)
+    # Compute disparity
+    stereo_params = StereoParams(
+        StereoMatcherType.STEREO_MATCHER_BM,
+        11, 0, 25, False
+    )
+
+    matcher = createStereoMatcher(stereo_params)
+    match_result = matcher.compute(rect.left, rect.right)
+
+    np_depth = disparity2depth(match_result.disparity, calibration.getQ())
+
+    start = time.time()
+    xyz = depth2xyz(np_depth, calibration.getHFOV())
+    end = time.time()
+    duration = end - start
+    assert duration < 0.5
+
+
+def test_Utils_perf_xyz2depth():
+    np_xyz = np.ones((2048, 2448, 3), dtype=np.float32)
+
+    start = time.time()
+    xyz_depth = xyz2depth(np_xyz)
     end = time.time()
     duration = end - start
     assert duration < 0.1
@@ -199,30 +322,7 @@ def test_Utils_perf_savePly():
     matcher = createStereoMatcher(stereo_params)
     
     match_result = matcher.compute(np_left_image, np_right_image)
-
-    start = time.time()
-    np_depth = disparity2depth(match_result.disparity, calibration.getQ())
-    end = time.time()
-    duration = end - start
-    assert duration < 0.1
-
-    start = time.time()
-    disparity_xyz = disparity2xyz(match_result.disparity, calibration.getQ())
-    end = time.time()
-    duration = end - start
-    assert duration < 0.3
-
-    start = time.time()
-    xyz = depth2xyz(np_depth, calibration.getHFOV())
-    end = time.time()
-    duration = end - start
-    assert duration < 0.2
-
-    start = time.time()
-    xyz_depth = xyz2depth(xyz)
-    end = time.time()
-    duration = end - start
-    assert duration < 0.1
+    xyz = disparity2xyz(match_result.disparity, calibration.getQ())
 
     start = time.time()
     save_success = savePLY(out_ply, xyz, np_left_image)
