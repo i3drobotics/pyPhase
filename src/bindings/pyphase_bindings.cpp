@@ -48,7 +48,7 @@ PYBIND11_MODULE(pyphase, m) {
     NDArrayConverter::init_numpy();
 
     m.doc() = R"(
-        pyPhase is a python wrapper package over I3DR's Phase C++ library.
+        pyPhase is a python wrapper package over I3DR's Phase library.
     )";
     
     // pyphase

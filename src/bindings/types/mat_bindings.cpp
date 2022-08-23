@@ -46,7 +46,7 @@ void init_mat(py::module_ &m) {
     NDArrayConverter::init_numpy();
     // Class of accessing buffer matrix data
     py::class_<I3DR::Phase::MatrixFloat>(m, "MatrixFloat", py::buffer_protocol(), R"(
-        Class to access data float type matrix
+        Matrix data (float) storage. Targeted towards storing image data.
         
         )")
     .def(py::init<>(), R"(
@@ -54,7 +54,8 @@ void init_mat(py::module_ &m) {
 
         )")
     .def(py::init<int, int, int>(), R"(
-        Access float type matrix data
+        Matrix assignment contructor
+        Initalise Matrix at provided size
 
         Parameters
         ----------
@@ -64,11 +65,11 @@ void init_mat(py::module_ &m) {
 
         )")
     .def(py::init<const I3DR::Phase::MatrixFloat&>(), R"(
-        Access float type matrix data
+        Matrix copy contructor
 
         )")
     .def("getRows", &I3DR::Phase::MatrixFloat::getRows, R"(
-        Get rows of the float type matrix
+        Get number of rows in Matrix
         
         Returns
         -------
@@ -76,7 +77,7 @@ void init_mat(py::module_ &m) {
             Row of the matrix
         )")
     .def("getColumns", &I3DR::Phase::MatrixFloat::getColumns, R"(
-        Get columns of the float type matrix
+        Get number of columns in Matrix
         
         Returns
         -------
@@ -84,7 +85,7 @@ void init_mat(py::module_ &m) {
             Column of the matrix
         )")
     .def("getLayers", &I3DR::Phase::MatrixFloat::getLayers, R"(
-        Get layers of the float type matrix
+        Get number of layers in Matrix
         
         Returns
         -------
@@ -92,7 +93,7 @@ void init_mat(py::module_ &m) {
             Layer of the matrix
         )")
     .def("setAt", &I3DR::Phase::MatrixFloat::setAt, R"(
-        Set the data value to the desired index of matrix
+        Set the value of an element in the Matrix
 
         Parameters
         ----------
@@ -103,7 +104,7 @@ void init_mat(py::module_ &m) {
 
     )")
     .def("getAt", &I3DR::Phase::MatrixFloat::getAt, R"(
-        Get the data of the desired index of matrix
+        Get the value of an element in the Matrix
 
         Parameters
         ----------
@@ -117,7 +118,8 @@ void init_mat(py::module_ &m) {
             The value of data in float
         )")
     .def("getLength", &I3DR::Phase::MatrixFloat::getLength, R"(
-        Get length of the float type matrix, defines as rows X columns X layer
+        Get length of Matrix
+        (rows * columns * layers)
         
         Returns
         -------
@@ -125,7 +127,8 @@ void init_mat(py::module_ &m) {
             Length of the matrix
         )")
     .def("getSize", &I3DR::Phase::MatrixFloat::getSize, R"(
-        Get size of the float type matrix
+        Get size of Matrix in bytes
+        (element_byte_size * matrix_length)
         
         Returns
         -------
@@ -142,13 +145,13 @@ void init_mat(py::module_ &m) {
         )")
     .def(py::init([](py::array_t<float, py::array::c_style> const b) {
         return init_mat_buffer(b);
-    }), R"(Access float type matrix data)")
+    }), R"(Matrix data assignment contructor)")
     .def_buffer([](I3DR::Phase::MatrixFloat &m) -> py::buffer_info {
         return get_mat_buffer_info(m);
     });
 
     py::class_<I3DR::Phase::MatrixUInt8>(m, "MatrixUInt8", py::buffer_protocol(), R"(
-        Class to access data UInt8 type matrix
+        Matrix data (uint8) storage. Targeted towards storing image data.
 
         )")
     .def(py::init<>(), R"(
@@ -156,7 +159,8 @@ void init_mat(py::module_ &m) {
 
         )")
     .def(py::init<int, int, int>(), R"(
-        Access UInt8 type matrix data
+         Matrix assignment contructor
+        Initalise Matrix at provided size
 
         Parameters
         ----------
@@ -165,11 +169,11 @@ void init_mat(py::module_ &m) {
         channels : int
         )")
     .def(py::init<const I3DR::Phase::MatrixUInt8&>(), R"(
-        Access UInt8 type matrix data
+        Matrix copy contructor
 
         )")
     .def("getRows", &I3DR::Phase::MatrixUInt8::getRows, R"(
-        Get rows of the UInt8 type matrix
+        Get number of rows in Matrix
         
         Returns
         -------
@@ -177,7 +181,7 @@ void init_mat(py::module_ &m) {
             Row of the matrix
         )")
     .def("getColumns", &I3DR::Phase::MatrixUInt8::getColumns, R"(
-        Get columns of the UInt8 type matrix
+        Get number of columns in Matrix
         
         Returns
         -------
@@ -185,7 +189,7 @@ void init_mat(py::module_ &m) {
             Column of the matrix
         )")
     .def("getLayers", &I3DR::Phase::MatrixUInt8::getLayers, R"(
-        Get layers of the UInt8 type matrix
+        Get number of layers in Matrix
         
         Returns
         -------
@@ -193,7 +197,7 @@ void init_mat(py::module_ &m) {
             Layer of the matrix
         )")
     .def("setAt", &I3DR::Phase::MatrixUInt8::setAt, R"(
-        Set the data value to the desired index of matrix
+        Set the value of an element in the Matrix
 
         Parameters
         ----------
@@ -203,7 +207,7 @@ void init_mat(py::module_ &m) {
         value : int
         )")
     .def("getAt", &I3DR::Phase::MatrixUInt8::getAt, R"(
-        Get the data of the desired index of matrix
+        Get the value of an element in the Matrix
 
         Parameters
         ----------
@@ -217,7 +221,8 @@ void init_mat(py::module_ &m) {
             The value of data in float
         )")
     .def("getLength", &I3DR::Phase::MatrixUInt8::getLength, R"(
-        Get length of the UInt8 type matrix, defines as rows X columns X layer
+        Get length of Matrix
+        (rows * columns * layers)
         
         Returns
         -------
@@ -225,7 +230,8 @@ void init_mat(py::module_ &m) {
             Length of the matrix
         )")
     .def("getSize", &I3DR::Phase::MatrixUInt8::getSize, R"(
-        Get size of the UInt8 type matrix
+        Get size of Matrix in bytes
+        (element_byte_size * matrix_length)
         
         Returns
         -------
@@ -242,7 +248,7 @@ void init_mat(py::module_ &m) {
         )")
     .def(py::init([](py::array_t<uint8_t, py::array::c_style> const b) {
         return init_mat_buffer(b);
-    }), R"(Access UInt8 type matrix data)")
+    }), R"(Matrix data assignment contructor)")
     .def_buffer([](I3DR::Phase::MatrixUInt8 &m) -> py::buffer_info {
         return get_mat_buffer_info(m);
     });

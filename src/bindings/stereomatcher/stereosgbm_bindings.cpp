@@ -19,15 +19,18 @@ namespace py = pybind11;
 void init_stereosgbm(py::module_ &m) {
     NDArrayConverter::init_numpy();
     py::class_<I3DR::Phase::StereoSGBM>(m, "StereoSGBM", R"(
-        Class to set the parameters for stereoSGBM matcher
+        OpenCV's semi-global block matcher for generting disparity from stereo images
         )")
-        .def(py::init<>())
+        .def(py::init<>(), R"(
+            Initalise Stereo matcher and set default matching parameters
+        )")
         .def(py::init<I3DR::Phase::StereoParams>(), R"(
-            Stereo parameters contain matcherType, windowSize, minDisparity, numDisparities, interpolation
+            Initalise Stereo matcher and use provided StereoParams to set matching parameters
             
             )")
         .def("compute", &I3DR::Phase::StereoSGBM::compute, R"(
             Compute stereo matching
+            Generates disparity from left and right images
 
             Parameters
             ----------
@@ -38,6 +41,8 @@ void init_stereosgbm(py::module_ &m) {
             )")
         .def("startComputeThread", &I3DR::Phase::StereoSGBM::startComputeThread, R"(
             Start compute thread
+            Generates disparity from left and right images
+            Use getComputeThreadResult() to get results of compute
 
             Parameters
             ----------
@@ -47,11 +52,14 @@ void init_stereosgbm(py::module_ &m) {
                 Right image of stereo pair
             )")
         .def("setComputeThreadCallback", &I3DR::Phase::StereoSGBM::setComputeThreadCallback, R"(
-            Set to compute thread callback
+            Set callback function to run when compute thread completes
+            Should be used with startComputeThread()
+            Useful as an external trigger that compute is complete
+            and results can be retrieved.
 
             Parameters
             ----------
-            computeThread_callback : std::function<void __cdecl(void)>
+            f : callback
             )")
         .def("isComputeThreadRunning", &I3DR::Phase::StereoSGBM::isComputeThreadRunning, R"(
             Check if compute thread is running
@@ -62,7 +70,13 @@ void init_stereosgbm(py::module_ &m) {
                 True is compute thread is running
             )")
         .def("getComputeThreadResult", &I3DR::Phase::StereoSGBM::getComputeThreadResult, R"(
-            Get compute thread result
+            Get results from threaded compute process
+            Should be used with startComputeThread()
+
+            Returns
+            -------
+            StereoMatcherComputeResult
+                result from compute
 
             )")
         .def("setWindowSize", &I3DR::Phase::StereoSGBM::setWindowSize, R"(
