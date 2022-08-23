@@ -230,7 +230,7 @@ def test_Utils_perf_depth2xyz():
     xyz = depth2xyz(np_depth, calibration.getHFOV())
     end = time.time()
     duration = end - start
-    assert duration < 0.2
+    assert duration < 0.5
 
 
 def test_Utils_perf_xyz2depth():
