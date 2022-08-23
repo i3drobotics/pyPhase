@@ -87,6 +87,8 @@ if (ret):
             depth = disparity2depth(match_result.disparity, calibration.getQ())
             if depth.size == 0:
                 print("Failed to convert disparity to depth")
+
+            # Display downsampled stereo images and disparity map
             if display_downsample != 1.0:
                 img_left = scaleImage(
                     rect.left, display_downsample)

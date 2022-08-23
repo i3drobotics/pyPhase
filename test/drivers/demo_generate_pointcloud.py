@@ -9,12 +9,13 @@
 """
 # Demo program of 3D pointcloud generation from stereo images
 import os
+import cv2
 from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
-from phase.pyphase.types import CameraDeviceInfo
+from phase.pyphase.types import CameraDeviceInfo, StereoMatcherType
 from phase.pyphase.stereocamera import createStereoCamera
+from phase.pyphase import scaleImage, normaliseDisparity
 from phase.pyphase import disparity2xyz, savePLY
 from phase.pyphase.calib import StereoCameraCalibration
-from phase.pyphase.stereomatcher import StereoMatcherType
 from phase.pyphase.stereomatcher import StereoParams, createStereoMatcher
 from phase.pyphase.stereomatcher import StereoI3DRSGM
 
@@ -86,7 +87,26 @@ if (ret):
             match_result = matcher.compute(rect.left, rect.right)
             # Convert disparity to 3D xyz pointcloud
             xyz = disparity2xyz(
-                match_result. disparity, calibration.getQ())
+                match_result.disparity, calibration.getQ())
+
+            # Display downsampled stereo images and disparity map
+            if display_downsample != 1.0:
+                img_left = scaleImage(
+                    rect.left, display_downsample)
+                img_right = scaleImage(
+                    rect.right, display_downsample)
+                img_disp = scaleImage(
+                    normaliseDisparity(
+                        match_result.disparity), display_downsample)
+            else:
+                img_left = rect.left
+                img_right = rect.right
+                img_disp = normaliseDisparity(match_result.disparity)
+            cv2.imshow("left", img_left)
+            cv2.imshow("right", img_right)
+            cv2.imshow("disparity", img_disp)
+            cv2.waitKey(1)
+
             # Save the pointcloud
             save_success = savePLY(out_ply, xyz, rect.left)
             

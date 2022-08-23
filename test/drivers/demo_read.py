@@ -48,6 +48,8 @@ if (ret):
         if (read_result.valid):
             print("Stereo result received")
             print("Framerate: {}".format(cam.getFrameRate()))
+
+            # Display downsampled stereo images and disparity map
             if display_downsample != 1.0:
                 img_left = scaleImage(
                     read_result.left, display_downsample)

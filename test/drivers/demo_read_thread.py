@@ -40,6 +40,8 @@ cam = createStereoCamera(device_info)
 
 # A callback function of camera frames
 def read_callback(read_result: CameraReadResult):
+    # If CameraReadResult has image pair
+    # Display downsampled stereo images and disparity map
     if read_result.valid:
         print("Stereo result received")
         disp_image_left = scaleImage(read_result.left, 0.25)
