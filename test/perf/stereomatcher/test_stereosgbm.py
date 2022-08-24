@@ -35,4 +35,4 @@ def test_StereoSGBM_perf_compute():
     match_result = matcher.compute(left_image, right_image)
     end = time.time()
     duration = end - start
-    assert duration < 10
+    assert duration < 30
