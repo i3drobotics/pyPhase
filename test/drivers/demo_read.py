@@ -9,8 +9,8 @@
 """
 # Demo program read and display 20 frames of virtual Pylon camera
 import cv2
-from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
-from phase.pyphase.types import CameraDeviceInfo
+from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
+from phase.pyphase.stereocamera import CameraDeviceInfo
 from phase.pyphase.stereocamera import createStereoCamera
 from phase.pyphase import scaleImage
 
@@ -60,7 +60,9 @@ if (ret):
                 img_right = read_result.right
             cv2.imshow("left", img_left)
             cv2.imshow("right", img_right)
-            cv2.waitKey(1)
+            c = cv2.waitKey(1)
+            if c == ord('q'):
+                break
         else:
             cam.disconnect()
             raise Exception("Failed to read stereo result")
