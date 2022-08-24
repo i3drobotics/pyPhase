@@ -61,6 +61,7 @@ if (ret):
             cv2.imshow("left", img_left)
             cv2.imshow("right", img_right)
             c = cv2.waitKey(1)
+            # If q is pressed, stop camera read
             if c == ord('q'):
                 break
         else:
