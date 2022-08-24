@@ -90,7 +90,7 @@ def test_StereoSGBM_threaded_compute():
         11, 0, 25, True)
 
     matcher = createStereoMatcher(stereo_params)
-    max_compute_duration = 10
+    max_compute_duration = 30
     
     matcher.startComputeThread(left_image, right_image)
     read_start = time.time()
