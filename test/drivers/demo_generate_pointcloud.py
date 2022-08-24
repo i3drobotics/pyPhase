@@ -10,14 +10,14 @@
 # Demo program of 3D pointcloud generation from stereo images
 import os
 import cv2
-from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
-from phase.pyphase.types import CameraDeviceInfo, StereoMatcherType
+from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
+from phase.pyphase.stereocamera import CameraDeviceInfo
 from phase.pyphase.stereocamera import createStereoCamera
 from phase.pyphase import scaleImage, normaliseDisparity
 from phase.pyphase import disparity2xyz, savePLY
 from phase.pyphase.calib import StereoCameraCalibration
 from phase.pyphase.stereomatcher import StereoParams, createStereoMatcher
-from phase.pyphase.stereomatcher import StereoI3DRSGM
+from phase.pyphase.stereomatcher import StereoI3DRSGM, StereoMatcherType
 
 # Information of the virtual camera
 left_serial = "0815-0000"
@@ -28,7 +28,6 @@ interface_type = CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
 # Parameters for read and display 20 frames
 downsample_factor = 1.0
 display_downsample = 0.25
-capture_count = 20
 
 # Create a stereo camera type variable for camera connection
 device_info = CameraDeviceInfo(
@@ -77,41 +76,43 @@ ret = cam.connect()
 if (ret):
     cam.startCapture()
     print("Running non-threaded camera capture...")
-    for i in range(0, capture_count):
-        # Read function to read stereo pair
-        read_result = cam.read()
-        # Check if the stereo image pair is valid, computer matcher if valid
-        if (read_result.valid):
-            print("Stereo result received")
-            rect = calibration.rectify(read_result.left, read_result.right)
-            match_result = matcher.compute(rect.left, rect.right)
-            # Convert disparity to 3D xyz pointcloud
-            xyz = disparity2xyz(
-                match_result.disparity, calibration.getQ())
+    # Read function to read stereo pair
+    read_result = cam.read()
+    # Check if the stereo image pair is valid, computer matcher if valid
+    if (read_result.valid):
+        print("Stereo result received")
+        rect = calibration.rectify(read_result.left, read_result.right)
+        match_result = matcher.compute(rect.left, rect.right)
+        # Convert disparity to 3D xyz pointcloud
+        xyz = disparity2xyz(
+            match_result.disparity, calibration.getQ())
 
-            # Display downsampled stereo images and disparity map
-            if display_downsample != 1.0:
-                img_left = scaleImage(
-                    rect.left, display_downsample)
-                img_right = scaleImage(
-                    rect.right, display_downsample)
-                img_disp = scaleImage(
-                    normaliseDisparity(
-                        match_result.disparity), display_downsample)
-            else:
-                img_left = rect.left
-                img_right = rect.right
-                img_disp = normaliseDisparity(match_result.disparity)
-            cv2.imshow("left", img_left)
-            cv2.imshow("right", img_right)
-            cv2.imshow("disparity", img_disp)
-            cv2.waitKey(1)
-
-            # Save the pointcloud
-            save_success = savePLY(out_ply, xyz, rect.left)
-            
+        # Display downsampled stereo images and disparity map
+        if display_downsample != 1.0:
+            img_left = scaleImage(
+                rect.left, display_downsample)
+            img_right = scaleImage(
+                rect.right, display_downsample)
+            img_disp = scaleImage(
+                normaliseDisparity(
+                    match_result.disparity), display_downsample)
         else:
-            cam.disconnect()
-            raise Exception("Failed to read stereo result")
+            img_left = rect.left
+            img_right = rect.right
+            img_disp = normaliseDisparity(match_result.disparity)
+        cv2.imshow("left", img_left)
+        cv2.imshow("right", img_right)
+        cv2.imshow("disparity", img_disp)
+        c = cv2.waitKey(1)
+
+        # Save the pointcloud
+        save_success = savePLY(out_ply, xyz, rect.left)
+        if save_success:
+            print("Pointcloud saved to " + out_ply)
+        
+    else:
+        cam.disconnect()
+        raise Exception("Failed to read stereo result")
+    
 
     

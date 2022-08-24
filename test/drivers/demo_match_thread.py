@@ -11,12 +11,12 @@
 import os
 import datetime
 import cv2
-from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
-from phase.pyphase.types import CameraDeviceInfo, StereoMatcherType
+from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
+from phase.pyphase.stereocamera import CameraDeviceInfo
 from phase.pyphase.stereocamera import createStereoCamera
 from phase.pyphase.calib import StereoCameraCalibration
 from phase.pyphase.stereomatcher import StereoParams, createStereoMatcher
-from phase.pyphase.stereomatcher import StereoI3DRSGM
+from phase.pyphase.stereomatcher import StereoI3DRSGM, StereoMatcherType
 from phase.pyphase import scaleImage, normaliseDisparity
 
 # Information of the virtual camera
@@ -118,7 +118,9 @@ if (ret):
         cv2.imshow("left", img_left)
         cv2.imshow("right", img_right)
         cv2.imshow("disparity", img_disp)
-        cv2.waitKey(1)
+        c = cv2.waitKey(1)
+        if c == ord('q'):
+            break
 
     # Once finished, stop to read thread
     cam.stopContinousReadThread()

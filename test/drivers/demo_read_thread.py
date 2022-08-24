@@ -11,8 +11,8 @@
 import time
 import datetime
 import cv2
-from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
-from phase.pyphase.types import CameraDeviceInfo, CameraReadResult
+from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
+from phase.pyphase.stereocamera import CameraDeviceInfo, CameraReadResult
 from phase.pyphase.stereocamera import createStereoCamera
 from phase.pyphase import scaleImage
 

@@ -1,9 +1,9 @@
 import cv2
 import os
-from phase.pyphase.stereocamera import TitaniaStereoCamera
-from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
-from phase.pyphase.types import CameraDeviceInfo, StereoMatcherType
+from phase.pyphase.stereocamera import CameraDeviceInfo, TitaniaStereoCamera
+from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
 from phase.pyphase.calib import StereoCameraCalibration
+from phase.pyphase.stereomatcher import StereoMatcherType
 from phase.pyphase.stereomatcher import StereoI3DRSGM, StereoParams
 from phase.pyphase.stereomatcher import createStereoMatcher
 from phase.pyphase import scaleImage, normaliseDisparity
@@ -47,7 +47,7 @@ else:
 if license_valid:
     stereo_params = StereoParams(
         StereoMatcherType.STEREO_MATCHER_I3DRSGM,
-        9, 0, 49, True
+        9, 0, 49, False
     )
 else:
     stereo_params = StereoParams(
@@ -73,7 +73,7 @@ ret = tinaniaCam.connect()
 if (ret):
     tinaniaCam.startCapture()
     tinaniaCam.setExposure(exposure_value)
-    for i in range(0, capture_count):
+    while True:
         if (not tinaniaCam.isConnected()):
             break
         read_result = tinaniaCam.read()
