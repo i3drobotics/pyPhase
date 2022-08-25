@@ -13,9 +13,9 @@ from phase.pyphase import disparity2xyz, savePLY
 # Define camera info
 # Replace camera_name, left_serial & right serial
 # with unique camera serials
-camera_name = "746974616e24322"#"746974616e24317"
-left_serial = "40136578"#"40098272"
-right_serial = "40098277"#"40098282"
+camera_name = "746974616e24317"
+left_serial = "40098272"
+right_serial = "40098282"
 device_type = CameraDeviceType.DEVICE_TYPE_TITANIA
 interface_type = CameraInterfaceType.INTERFACE_TYPE_USB
 
