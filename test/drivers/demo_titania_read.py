@@ -29,10 +29,9 @@ left_yaml = os.path.join(data_folder, "titania_left.yaml")
 right_yaml = os.path.join(data_folder, "titania_right.yaml")
 out_ply = os.path.join(test_folder, "titania_out.ply")
 
-# Parameters for read and display 20 frames
+# Parameters for display downsample factor and desire exposure value
 downsample_factor = 1.0
 display_downsample = 0.25
-capture_count = 20
 exposure_value = 10000
 
 # Check for license
@@ -88,9 +87,9 @@ if (ret):
 
             match_result = matcher.compute(rect_img_left, rect_img_right)
 
+            # If matcher compute failed, print message
             if not match_result.valid:
-                print("Failed to process stereo")
-                continue
+                print("Failed to compute match")
 
             # Find the disparity from matcher
             disparity = match_result.disparity
