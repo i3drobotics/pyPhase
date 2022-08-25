@@ -13,9 +13,9 @@ from phase.pyphase import disparity2xyz, savePLY
 # Define camera info
 # Replace camera_name, left_serial & right serial
 # with unique camera serials
-camera_name = "746974616e24317"
-left_serial = "40098272"
-right_serial = "40098282"
+camera_name = "746974616e24322"#"746974616e24317"
+left_serial = "40136578"#"40098272"
+right_serial = "40098277"#"40098282"
 device_type = CameraDeviceType.DEVICE_TYPE_TITANIA
 interface_type = CameraInterfaceType.INTERFACE_TYPE_USB
 
@@ -68,10 +68,12 @@ device_info = CameraDeviceInfo(
     interface_type)
 tinaniaCam = TitaniaStereoCamera(device_info)
 
-
+# Connect Titania
 ret = tinaniaCam.connect()
 if (ret):
+    # If Titania is connected, start capture
     tinaniaCam.startCapture()
+    # Set new exposure value
     tinaniaCam.setExposure(exposure_value)
     while True:
         if (not tinaniaCam.isConnected()):
@@ -79,6 +81,7 @@ if (ret):
         read_result = tinaniaCam.read()
 
         if read_result.valid:
+            # Rectify stereo image pair
             rect_image_pair = calibration.rectify(read_result.left, read_result.right)
             rect_img_left = rect_image_pair.left
             rect_img_right = rect_image_pair.right
@@ -89,11 +92,14 @@ if (ret):
                 print("Failed to process stereo")
                 continue
 
+            # Find the disparity from matcher
             disparity = match_result.disparity
 
+            # Convert disparity into 3D pointcloud
             xyz = disparity2xyz(
                 disparity, calibration.getQ())
 
+            # Display left, right and disparity image with downsample option
             if display_downsample != 1.0:
                 img_left = scaleImage(
                         rect_img_left, display_downsample)
@@ -112,10 +118,16 @@ if (ret):
             cv2.imshow("Right", img_right)
             cv2.imshow("Disparity", img_disp)
             c = cv2.waitKey(1)
+
+            # If p key is pressed, save the pointcloud of current frame
             if c == ord('p'):
                 save_success = savePLY(out_ply, xyz, rect_img_left)
                 if save_success:
                     print("Pointcloud saved to " + out_ply)
+                else:
+                    print("Unable to save pointcloud")
+            
+            #if q key is pressed, quit Titania capture
             if c == ord('q'):
                 break
         else:
