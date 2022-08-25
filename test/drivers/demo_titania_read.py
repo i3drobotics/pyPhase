@@ -125,7 +125,7 @@ if (ret):
                 if save_success:
                     print("Pointcloud saved to " + out_ply)
                 else:
-                    print("Unable to save pointcloud")
+                    print("Failed to save pointcloud")
             
             #if q key is pressed, quit Titania capture
             if c == ord('q'):
