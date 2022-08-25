@@ -82,7 +82,7 @@ if (ret):
         read_result = cam.read()
         rect = calibration.rectify(read_result.left, read_result.right)
         #print("Running threaded stereo matcher...")
-        # Start computer threaded stereo matcher
+        # Start compute threaded stereo matcher
         matcher.startComputeThread(rect.left, rect.right)
         start = datetime.datetime.now()
         capture_count = cam.getCaptureCount()
@@ -123,5 +123,4 @@ if (ret):
             break
 
     # Once finished, stop to read thread
-    cam.stopContinousReadThread()
     cam.disconnect()
