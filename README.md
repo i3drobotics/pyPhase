@@ -91,15 +91,15 @@ python3 -m pytest ../../test/perf/
 ```
 *Note: Make sure to run this from the repository root directory*
 
-### Drivers
+### Demos
 ```bash
 export PYTHONPATH=./build/lib
-python3 test/drivers/demo_read.py
-python3 test/drivers/demo_read_thread.py
-python3 test/drivers/demo_match.py
-python3 test/drivers/demo_match_thread.py
-python3 test/drivers/demo_generate_pointcloud.py
-python3 test/drivers/demo_titania_read.py
+python3 test/demo/demo_read.py
+python3 test/demo/demo_read_thread.py
+python3 test/demo/demo_match.py
+python3 test/demo/demo_match_thread.py
+python3 test/demo/demo_generate_pointcloud.py
+python3 test/demo/demo_titania_read.py
 ```
 
 *Note: Make sure to run this from the repository root directory*
