@@ -16,6 +16,52 @@ import numpy as np
 import cv2
 from phase.pyphase.stereocamera import CameraDeviceInfo, createStereoCamera
 from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
+from phase.pyphase import readImage
+
+
+def test_UVCStereoCamera_set_flip():
+    # Test to set UVC stereo camera flip frame
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(script_path, "..", "..", "data")
+    left_image_file = os.path.join(data_folder, "left.png")
+    right_image_file = os.path.join(data_folder, "right.png")
+
+    np_left_image = readImage(left_image_file)
+    np_right_image = readImage(right_image_file)
+    
+    device_info = CameraDeviceInfo(
+        "0", "0", "virtualuvc",
+        CameraDeviceType.DEVICE_TYPE_GENERIC_UVC,
+        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+    )
+
+    cam = createStereoCamera(device_info)
+    cam.setTestImagePaths(left_image_file, right_image_file)
+    
+    connected = cam.connect()
+    if connected:
+        # Read function to read stereo pair
+        cam.setLeftFlipX(True)
+        read_result = cam.read()
+        read_result_left = read_result.left
+        assert np_left_image[0,0,0] == read_result_left[2047,0,0]
+
+        cam.setRightFlipX(True)
+        read_result = cam.read()
+        read_result_right = read_result.right
+        assert np_right_image[0,0,0] == read_result_right[2047,0,0]
+
+        cam.setLeftFlipY(True)
+        read_result = cam.read()
+        read_result_left = read_result.left
+        assert np_left_image[0,0,0] == read_result_left[2047,2447,0]
+
+        cam.setRightFlipY(True)
+        read_result = cam.read()
+        read_result_right = read_result.right
+        assert np_right_image[0,0,0] == read_result_right[2047,2447,0]
+
+        cam.disconnect()
 
 
 def test_UVCStereoCamera():

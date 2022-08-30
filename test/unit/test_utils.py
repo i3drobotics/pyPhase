@@ -36,14 +36,17 @@ def test_utils_toMono():
     imgMono = np.zeros((2048, 2448, 1), dtype=np.uint8)
     assert (toMono(img8UC1, imgMono) is True)
     assert (imgMono.shape[2] == 1)
+    assert imgMono.dtype == np.uint8
     
     img8UC3 = np.ones((2048, 2448, 3), dtype=np.uint8)
     assert (toMono(img8UC3, imgMono) is True)
     assert (imgMono.shape[2] == 1)
+    assert imgMono.dtype == np.uint8
 
     img8UC4 = np.ones((2048, 2448, 4), dtype=np.uint8)
     assert (toMono(img8UC4, imgMono) is True)
     assert (imgMono.shape[2] == 1)
+    assert imgMono.dtype == np.uint8
 
 
 def test_utils_normaliseDisparity():
@@ -71,23 +74,6 @@ def test_utils_bgra2rgba():
     assert (converted_img[0,0,3]==img[0,0,3]).all()
 
 
-def test_utils_bgr2bgra():
-    # Test convert bgr2bgra
-    img = np.zeros((2048, 2448, 3), dtype=np.uint8)
-    # Set different channel data in each channel
-    img[:,:,1] = 1
-    img[:,:,2] = 2
-
-    converted_img = bgr2bgra(img)
-
-    # Check if the data is converted to related channel
-    assert (converted_img[0,0,0]==img[0,0,0]).all()
-    assert (converted_img[0,0,1]==img[0,0,1]).all()
-    assert (converted_img[0,0,2]==img[0,0,2]).all()
-    assert (img.shape[2] == 3)
-    assert (converted_img[:,:,3] is not None)
-
-
 def test_utils_bgr2rgba():
     # Test convert bgr2rgba
     img = np.zeros((2048, 2448, 3), dtype=np.uint8)
@@ -105,60 +91,21 @@ def test_utils_bgr2rgba():
     assert (converted_img[:,:,3] is not None)
 
 
-def test_Utils_readImage():
-    # Test to read an image and flip
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    data_folder = os.path.join(
-        script_path, "..", "data")
+def test_utils_bgr2bgra():
+    # Test convert bgr2bgra
+    img = np.zeros((2048, 2448, 3), dtype=np.uint8)
+    # Set different channel data in each channel
+    img[:,:,1] = 1
+    img[:,:,2] = 2
 
-    left_image_file = os.path.join(data_folder, "left.png")
-    img = readImage(left_image_file)
-    imgEmpty = readImage("empty")
-    
-    # Check the img is not empty and load height and width
-    assert (img is not None)
-    assert (img.shape[0] == 2048)
-    assert (img.shape[1] == 2448)
+    converted_img = bgr2bgra(img)
 
-    # Check empty image returns None
-    assert (imgEmpty is None)
-
-
-def test_Utils_flip():
-    # Test image flipped horizontally using ‘flip’ function has
-    # pixel values that matching input in opposite side on the image.
-    # E.g. pixel from top left corner in input matches pixel from top right corner in output image 
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    data_folder = os.path.join(
-        script_path, "..", "data")
-    image_file = os.path.join(data_folder, "left.png")
-    img = readImage(image_file)
-
-    height = img.shape[0]
-    width = img.shape[1]
-
-    # Check image is flipped
-    flip_img0 = flip(img, 0)
-    assert (img[0,0,0] == flip_img0[height-1,0,0])
-
-    flip_img1 = flip(img, 1)
-    assert (img[0,0,0] == flip_img1[0,width-1,0])
-
-
-def test_Utils_checkEqualMat():
-    # Test if two matrices are equal
-    # Create equal matrices
-    mat_a = np.ones((2048, 2448, 1), dtype=np.float32)
-    mat_b = np.ones((2048, 2448, 1), dtype=np.float32)
-
-    # Check equal is equal check is correct
-    assert (cvMatIsEqual(mat_a, mat_b))
-
-    # Change one element to make it not equal
-    mat_a[0, 0] = 0.0
-
-    # Check is not equal check is correct
-    assert (not cvMatIsEqual(mat_a, mat_b))
+    # Check if the data is converted to related channel
+    assert (converted_img[0,0,0]==img[0,0,0]).all()
+    assert (converted_img[0,0,1]==img[0,0,1]).all()
+    assert (converted_img[0,0,2]==img[0,0,2]).all()
+    assert (img.shape[2] == 3)
+    assert (converted_img[:,:,3] is not None)
 
 
 def test_Utils_disparity2depth():
@@ -202,7 +149,7 @@ def test_Utils_disparity2depth():
     # Convert an empty disparity to depth
     np_depth_empty = disparity2depth(np_empty, Q_empty)
     # TODO failed due to np_empty & Q_empty empty matrix often return -0 elements
-    #assert np.all((np_depth_empty == 0))
+    assert np.all((np_depth_empty == 0))
 
 
 def test_Utils_disparity2xyz():
@@ -245,7 +192,7 @@ def test_Utils_disparity2xyz():
     # Convert an empty disparity to 3D xyz points
     disparity_xyz_empty = disparity2xyz(np_empty,Q_empty)
     # TODO failed due to np_empty & Q_empty empty matrix often return -0 elements
-    #assert np.any(disparity_xyz_empty) == 0
+    assert np.any(disparity_xyz_empty) == 0
 
 
 def test_Utils_depth2xyz():
@@ -290,7 +237,7 @@ def test_Utils_depth2xyz():
     # Convert an empty depth to 3D xyz points
     xyz_empty = depth2xyz(np_empty, calibration.getHFOV())
     # TODO failed due to np_empty & Q_empty empty matrix often return -0 elements
-    #assert np.any(xyz_empty) == 0
+    assert np.any(xyz_empty) == 0
 
 
 def test_Utils_xyz2depth():
@@ -306,7 +253,47 @@ def test_Utils_xyz2depth():
 
     xyz_depth_empty = xyz2depth(np_empty)
     # TODO missing empty matrix check in xyz2depth
-    #assert np.any(xyz_depth_empty) == 0
+    assert np.any(xyz_depth_empty) == 0
+
+
+def test_Utils_readImage():
+    # Test to read an image and flip
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(
+        script_path, "..", "data")
+
+    left_image_file = os.path.join(data_folder, "left.png")
+    img = readImage(left_image_file)
+    imgEmpty = readImage("empty")
+    
+    # Check the img is not empty and load height and width
+    assert img is not None
+    assert img.shape[0] == 2048
+    assert img.shape[1] == 2448
+
+    # Check empty image returns None
+    assert imgEmpty is None
+
+
+def test_Utils_flip():
+    # Test image flipped horizontally using ‘flip’ function has
+    # pixel values that matching input in opposite side on the image.
+    # E.g. pixel from top left corner in input matches pixel from top right corner in output image 
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(
+        script_path, "..", "data")
+    image_file = os.path.join(data_folder, "left.png")
+    img = readImage(image_file)
+
+    height = img.shape[0]
+    width = img.shape[1]
+
+    # Check image is flipped
+    flip_img0 = flip(img, 0)
+    assert img[0,0,0] == flip_img0[height-1,0,0]
+
+    flip_img1 = flip(img, 1)
+    assert img[0,0,0] == flip_img1[0,width-1,0]
 
 
 def test_Utils_savePly():
@@ -345,6 +332,24 @@ def test_Utils_savePly():
     # Convert disparity to 3D xyz points
     xyz = disparity2xyz(match_result.disparity, calibration.getQ())
 
+    assert xyz[0,0,:].size == 3
+
     # Save the pointcloud
     save_success = savePLY(out_ply, xyz, rect.left)
     assert (save_success)
+
+
+def test_Utils_checkEqualMat():
+    # Test if two matrices are equal
+    # Create equal matrices
+    mat_a = np.ones((2048, 2448, 1), dtype=np.float32)
+    mat_b = np.ones((2048, 2448, 1), dtype=np.float32)
+
+    # Check equal is equal check is correct
+    assert (cvMatIsEqual(mat_a, mat_b))
+
+    # Change one element to make it not equal
+    mat_a[0, 0] = 0.0
+
+    # Check is not equal check is correct
+    assert (not cvMatIsEqual(mat_a, mat_b))
