@@ -88,7 +88,7 @@ def test_utils_perf_bgr2rgba():
     assert duration < 0.5
 
 
-def test_Utils_perf_readImage():
+def test_utils_perf_readImage():
     # Test performance of read an image and flip
     script_path = os.path.dirname(os.path.realpath(__file__))
     data_folder = os.path.join(
@@ -102,7 +102,7 @@ def test_Utils_perf_readImage():
     assert duration < 0.2
     
     
-def test_Utils_perf_flip():
+def test_utils_perf_flip():
     script_path = os.path.dirname(os.path.realpath(__file__))
     data_folder = os.path.join(
         script_path, "..", "data")
@@ -117,7 +117,7 @@ def test_Utils_perf_flip():
     assert duration < 0.1
 
 
-def test_Utils_perf_checkEqualMat():
+def test_utils_perf_checkEqualMat():
     # Test performance of two matrices are equal
     # Create equal matrices
     mat_a = np.ones((2048, 2448, 1), dtype=np.float32)
@@ -131,7 +131,7 @@ def test_Utils_perf_checkEqualMat():
     assert duration < 0.1
 
 
-def test_Utils_perf_disparity2depth():
+def test_utils_perf_disparity2depth():
     script_path = os.path.dirname(os.path.realpath(__file__))
     data_folder = os.path.join(script_path, "..", "data")
     left_yaml = os.path.join(data_folder, "left.yaml")
@@ -165,7 +165,7 @@ def test_Utils_perf_disparity2depth():
     assert duration < 0.1
 
 
-def test_Utils_perf_disparity2xyz():
+def test_utils_perf_disparity2xyz():
     script_path = os.path.dirname(os.path.realpath(__file__))
     data_folder = os.path.join(script_path, "..", "data")
     left_yaml = os.path.join(data_folder, "left.yaml")
@@ -199,7 +199,7 @@ def test_Utils_perf_disparity2xyz():
     assert duration < 0.3
 
 
-def test_Utils_perf_depth2xyz():
+def test_utils_perf_depth2xyz():
     script_path = os.path.dirname(os.path.realpath(__file__))
     data_folder = os.path.join(script_path, "..", "data")
     left_yaml = os.path.join(data_folder, "left.yaml")
@@ -235,7 +235,7 @@ def test_Utils_perf_depth2xyz():
     assert duration < 0.5
 
 
-def test_Utils_perf_xyz2depth():
+def test_utils_perf_xyz2depth():
     np_xyz = np.ones((2048, 2448, 3), dtype=np.float32)
 
     start = time.time()
@@ -245,7 +245,7 @@ def test_Utils_perf_xyz2depth():
     assert duration < 0.1
 
 
-def test_Utils_perf_savePly():
+def test_utils_perf_savePly():
     # Test performance of save point cloud
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(script_path, "..", ".phase_test")
