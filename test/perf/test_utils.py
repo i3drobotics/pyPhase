@@ -21,8 +21,10 @@ from phase.pyphase.stereomatcher import StereoParams, StereoMatcherType
 from phase.pyphase.stereomatcher import createStereoMatcher
 
 
-def test_utils_perf_scaleImage():
-    # Test performance of scaleImage
+def test_utils_perf_scaleImage_small():
+    # Test image with size 640x480 scaled by ‘scaleImage’ function
+    # with a scaling factor of 2 in less than 0.1s
+    timeout = 0.1 #second
     img = np.ones((480, 640, 3), dtype=np.uint8)
     start = time.time()
 
@@ -30,8 +32,13 @@ def test_utils_perf_scaleImage():
 
     end = time.time()
     duration = end - start
-    assert duration < 0.1
+    assert duration < timeout
 
+
+def test_utils_perf_scaleImage_large():
+    # Test image with size 2448x2048 scaled by ‘scaleImage’ function
+    # with a scaling factor of 2 in less than 0.2s
+    timeout = 0.2 #second
     img2 = np.ones((2048, 2448, 3), dtype=np.uint8)
 
     start = time.time()
@@ -40,11 +47,13 @@ def test_utils_perf_scaleImage():
 
     end = time.time()
     duration = end - start
-    assert duration < 0.5
+    assert duration < timeout
 
 
 def test_utils_perf_toMono():
-    # Test performance of convert toMono
+    # Test image of type CV_8UC3 converted to mono
+    # by ‘toMono’ function in less than 0.1s
+    timeout = 0.1 #second
     imgMono = np.zeros((2048, 2448, 1), dtype=np.uint8)
     img8UC3 = np.ones((2048, 2448, 3), dtype=np.uint8)
 
@@ -52,86 +61,49 @@ def test_utils_perf_toMono():
     assert (toMono(img8UC3, imgMono) is True)
     end = time.time()
     duration = end - start
-    assert duration < 0.1
+    assert duration < timeout
 
 
 def test_utils_perf_bgra2rgba():
-    # Test performance of convert bgra2rgba
+    # Test BGRA image converted to RGBA using ‘bgra2rgba’ function in less than 1.0s
+    timeout = 1 #second
     img = np.zeros((2048, 2448, 4), dtype=np.uint8)
 
     start = time.time()
     converted_img = bgra2rgba(img)
     end = time.time()
     duration = end - start
-    assert duration < 0.1
+    assert duration < timeout
 
-
-def test_utils_perf_bgr2bgra():
-    # Test performance of convert bgr2bgra
-    img = np.zeros((2048, 2448, 3), dtype=np.uint8)
-
-    start = time.time()
-    converted_img = bgr2bgra(img)
-    end = time.time()
-    duration = end - start
-    assert duration < 0.5
-    
 
 def test_utils_perf_bgr2rgba():
-    # Test performance of convert bgr2rgba
+    # Test BGR image converted to RGBA using ‘bgr2rgba’ function in less than 1.0s
+    timeout = 1 #second
     img = np.zeros((2048, 2448, 3), dtype=np.uint8)
     
     start = time.time()
     converted_img = bgr2rgba(img)
     end = time.time()
     duration = end - start
-    assert duration < 0.5
+    assert duration < timeout
 
 
-def test_utils_perf_readImage():
-    # Test performance of read an image and flip
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    data_folder = os.path.join(
-        script_path, "..", "data")
-
-    left_image_file = os.path.join(data_folder, "left.png")
-    start = time.time()
-    img = readImage(left_image_file)
-    end = time.time()
-    duration = end - start
-    assert duration < 0.2
-    
-    
-def test_utils_perf_flip():
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    data_folder = os.path.join(
-        script_path, "..", "data")
-    image_file = os.path.join(data_folder, "left.png")
-    img = readImage(image_file)
-
-    # Flip image
-    start = time.time()
-    flip_img0 = flip(img, 0)
-    end = time.time()
-    duration = end - start
-    assert duration < 0.1
-
-
-def test_utils_perf_checkEqualMat():
-    # Test performance of two matrices are equal
-    # Create equal matrices
-    mat_a = np.ones((2048, 2448, 1), dtype=np.float32)
-    mat_b = np.ones((2048, 2448, 1), dtype=np.float32)
+def test_utils_perf_bgr2bgra():
+    # Test BGR image converted to BGRA using ‘bgr2bgra’ function in less than 1.0s
+    timeout = 1 #second
+    img = np.zeros((2048, 2448, 3), dtype=np.uint8)
 
     start = time.time()
-    # Check equal is equal check is correct
-    assert (cvMatIsEqual(mat_a, mat_b))
+    converted_img = bgr2bgra(img)
     end = time.time()
     duration = end - start
-    assert duration < 0.1
+    assert duration < timeout
 
 
 def test_utils_perf_disparity2depth():
+    # Test disparity image of size 2448x2048 converted to depth
+    # by ‘disparity2Depth’ function in less than 1.0s
+    timeout = 1 #second
     script_path = os.path.dirname(os.path.realpath(__file__))
     data_folder = os.path.join(script_path, "..", "data")
     left_yaml = os.path.join(data_folder, "left.yaml")
@@ -162,10 +134,13 @@ def test_utils_perf_disparity2depth():
     np_depth = disparity2depth(match_result.disparity, calibration.getQ())
     end = time.time()
     duration = end - start
-    assert duration < 0.1
+    assert duration < timeout
 
 
 def test_utils_perf_disparity2xyz():
+    # Test disparity image of size 2448x2048 converted to xyz image
+    # by ‘disparity2xyz’ function in less than 2.0s
+    timeout = 2 #second
     script_path = os.path.dirname(os.path.realpath(__file__))
     data_folder = os.path.join(script_path, "..", "data")
     left_yaml = os.path.join(data_folder, "left.yaml")
@@ -196,10 +171,13 @@ def test_utils_perf_disparity2xyz():
     disparity_xyz = disparity2xyz(match_result.disparity, calibration.getQ())
     end = time.time()
     duration = end - start
-    assert duration < 0.3
+    assert duration < timeout
 
 
 def test_utils_perf_depth2xyz():
+    # Test depth image of size 2448x2048 converted to xyz image
+    # by ‘depth2xyz’ function in less than 1.0s
+    timeout = 1 #second
     script_path = os.path.dirname(os.path.realpath(__file__))
     data_folder = os.path.join(script_path, "..", "data")
     left_yaml = os.path.join(data_folder, "left.yaml")
@@ -232,102 +210,83 @@ def test_utils_perf_depth2xyz():
     xyz = depth2xyz(np_depth, calibration.getHFOV())
     end = time.time()
     duration = end - start
-    assert duration < 0.5
+    assert duration < timeout
 
 
 def test_utils_perf_xyz2depth():
+    # Test XYZ image of size 2448x2048 converted to depth image
+    # by ‘xyz2depth’ function in less than 0.1s
+    timeout = 0.1 #second
     np_xyz = np.ones((2048, 2448, 3), dtype=np.float32)
 
     start = time.time()
     xyz_depth = xyz2depth(np_xyz)
     end = time.time()
     duration = end - start
-    assert duration < 0.1
+    assert duration < timeout
+
+
+def test_utils_perf_readImage():
+    # Test read image of size 2448x2048 using ‘readImage’ function in less than 0.2s
+    timeout = 0.2 #second
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(
+        script_path, "..", "data")
+
+    left_image_file = os.path.join(data_folder, "left.png")
+    start = time.time()
+    img = readImage(left_image_file)
+    end = time.time()
+    duration = end - start
+    assert duration < timeout
+    
+    
+def test_utils_perf_flip():
+    # Test flip image of size 2448x2048 horizontally using ‘flip’ function in less than 0.1s
+    timeout = 0.1 #second
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(
+        script_path, "..", "data")
+    image_file = os.path.join(data_folder, "left.png")
+    img = readImage(image_file)
+
+    # Flip image
+    start = time.time()
+    flip_img0 = flip(img, 0)
+    end = time.time()
+    duration = end - start
+    assert duration < timeout
 
 
 def test_utils_perf_savePly():
-    # Test performance of save point cloud
+    # Test save RGB and XYZ image of size 2448x2048 as point cloud
+    # in PLY format using ‘savePLY’ function in less than 5s
+    timeout = 5 #second
+    xyz1 = np.ones((2048, 2448, 3), dtype=float)
+    rgb = np.ones((2048, 2448, 3), dtype=np.uint8)
     script_path = os.path.dirname(os.path.realpath(__file__))
     test_folder = os.path.join(script_path, "..", ".phase_test")
-    left_yaml = os.path.join(test_folder, "left.yaml")
-    right_yaml = os.path.join(test_folder, "right.yaml")
     out_ply = os.path.join(test_folder, "out.ply")
 
-    if not os.path.exists(test_folder):
-        os.makedirs(test_folder)
-
-    print("Generating test data...")
-    # Create calibration files
-    left_yaml_data = \
-        "image_width: 2448\n" \
-        "image_height: 2048\n" \
-        "camera_name: leftCamera\n" \
-        "camera_matrix:\n" \
-        "   rows: 3\n" \
-        "   cols: 3\n" \
-        "   data: [ 3.4782608695652175e+03, 0., 1224., 0., 3.4782608695652175e+03, 1024., 0., 0., 1. ]\n" \
-        "distortion_model: plumb_bob\n" \
-        "distortion_coefficients:\n" \
-        "   rows: 1\n" \
-        "   cols: 5\n" \
-        "   data: [ 0., 0., 0., 0., 0. ]\n" \
-        "rectification_matrix:\n" \
-        "   rows: 3\n" \
-        "   cols: 3\n" \
-        "   data: [1., 0., 0., 0., 1., 0., 0., 0., 1.]\n" \
-        "projection_matrix:\n" \
-        "   rows: 3\n" \
-        "   cols: 4\n" \
-        "   data: [ 3.4782608695652175e+03, 0., 1224., 0., 0., 3.4782608695652175e+03, 1024., 0., 0., 0., 1., 0. ]\n"
-    right_yaml_data = \
-        "image_width: 2448\n" \
-        "image_height: 2048\n" \
-        "camera_name: rightCamera\n" \
-        "camera_matrix:\n" \
-        "   rows: 3\n" \
-        "   cols: 3\n" \
-        "   data: [ 3.4782608695652175e+03, 0., 1224., 0., 3.4782608695652175e+03, 1024., 0., 0., 1. ]\n" \
-        "distortion_model: plumb_bob\n" \
-        "distortion_coefficients:\n" \
-        "   rows: 1\n" \
-        "   cols: 5\n" \
-        "   data: [ 0., 0., 0., 0., 0. ]\n" \
-        "rectification_matrix:\n" \
-        "   rows: 3\n" \
-        "   cols: 3\n" \
-        "   data: [1., 0., 0., 0., 1., 0., 0., 0., 1.]\n" \
-        "projection_matrix:\n" \
-        "   rows: 3\n" \
-        "   cols: 4\n" \
-        "   data: [ 3.4782608695652175e+03, 0., 1224., -3.4782608695652175e+02, 0., 3.4782608695652175e+03, 1024., 0., 0., 0., 1., 0. ]\n"
-
-    with open(left_yaml, "w+") as f:
-        f.writelines(left_yaml_data)
-    with open(right_yaml, "w+") as f:
-        f.writelines(right_yaml_data)
-
-    # Create stereo image pair
-    np_left_image = np.zeros((1080, 1920, 3), dtype=np.uint8)
-    np_right_image = np.zeros((1080, 1920, 3), dtype=np.uint8)
-    
-    calibration = StereoCameraCalibration.calibrationFromYAML(
-        left_yaml, right_yaml)
-    
-
-    stereo_params = StereoParams(
-        StereoMatcherType.STEREO_MATCHER_BM,
-        11, 0, 25, False
-    )
-
-    matcher = createStereoMatcher(stereo_params)
-    
-    match_result = matcher.compute(np_left_image, np_right_image)
-    xyz = disparity2xyz(match_result.disparity, calibration.getQ())
-
     start = time.time()
-    save_success = savePLY(out_ply, xyz, np_left_image)
+    save_success = savePLY(out_ply, xyz1, rgb)
     end = time.time()
     duration = end - start
-    assert duration < 2
+    assert duration < timeout
 
     assert (save_success)
+
+
+def test_utils_perf_checkEqualMat():
+    # Test performance of two matrices are equal
+    # Create equal matrices
+    timeout = 0.1 #second
+    mat_a = np.ones((2048, 2448, 1), dtype=np.float32)
+    mat_b = np.ones((2048, 2448, 1), dtype=np.float32)
+
+    start = time.time()
+    # Check equal is equal check is correct
+    assert (cvMatIsEqual(mat_a, mat_b))
+    end = time.time()
+    duration = end - start
+    assert duration < timeout

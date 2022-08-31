@@ -17,26 +17,16 @@ from phase.pyphase.calib import StereoCameraCalibration
 
 def test_perf_Rectify():
     # Test performance of rectify 
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    test_folder = os.path.join(script_path, "..", "..", ".phase_test")
-    data_folder = os.path.join(script_path, "..", "..", "data")
-    left_ros_yaml = os.path.join(test_folder, "left_ros.yaml")
-    right_ros_yaml = os.path.join(test_folder, "right_ros.yaml")
-    
-    # Test loading of image data from file
-    left_image_file = os.path.join(data_folder, "left.png")
-    left_image = readImage(left_image_file)
-    right_image_file = os.path.join(data_folder, "right.png")
-    right_image = readImage(right_image_file)
-    left_image_empty = np.zeros_like(left_image)
-    right_image_empty = np.zeros_like(right_image)
+    timeout = 0.3 #seconds
+    left_img = np.ones((2048, 2448, 3), dtype=np.uint8)
+    right_img = np.ones((2048, 2448, 3), dtype=np.uint8)
 
-    cal = StereoCameraCalibration.calibrationFromYAML(
-    left_ros_yaml, right_ros_yaml)
+    cal = StereoCameraCalibration.calibrationFromIdeal(2448, 2048, 0.00000345, 0.012, 0.1)
+    if cal.isValid():
 
-    start = time.time()
-    rect = cal.rectify(left_image, right_image)
-    end = time.time()
-    duration = end - start
-    # TODO investigate why rectification is slow
-    assert duration < 0.3
+        start = time.time()
+        rect = cal.rectify(left_img, right_img)
+        end = time.time()
+        duration = end - start
+
+        assert duration < timeout
