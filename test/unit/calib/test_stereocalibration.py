@@ -291,7 +291,7 @@ def test_SaveCalibration():
 
 def test_calibrationFromIdeal():
     # Test access to left and right calibration data from StereoCameraCalibration
-    cal = StereoCameraCalibration.calibrationFromIdeal(2448, 2048, 2, 2, 2)
+    cal = StereoCameraCalibration.calibrationFromIdeal(2448, 2048, 0.00000345, 0.012, 0.1)
     assert(cal.isValid())
 
     assert cal.getBaseline() > 0
