@@ -44,21 +44,25 @@ def test_DeimosStereoCamera_setflip():
         cam.setLeftFlipX(True)
         read_result = cam.read()
         read_result_left = read_result.left
+        assert np_left_image[0,0,0] != read_result_left[0,0,0]
         assert np_left_image[0,0,0] == read_result_left[2047,0,0]
 
         cam.setRightFlipX(True)
         read_result = cam.read()
         read_result_right = read_result.right
+        assert np_right_image[0,0,0] != read_result_right[0,0,0]
         assert np_right_image[0,0,0] == read_result_right[2047,0,0]
 
         cam.setLeftFlipY(True)
         read_result = cam.read()
         read_result_left = read_result.left
+        assert np_left_image[0,0,0] != read_result_left[0,0,0]
         assert np_left_image[0,0,0] == read_result_left[2047,2447,0]
 
         cam.setRightFlipY(True)
         read_result = cam.read()
         read_result_right = read_result.right
+        assert np_right_image[0,0,0] != read_result_right[0,0,0]
         assert np_right_image[0,0,0] == read_result_right[2047,2447,0]
 
         cam.disconnect()
