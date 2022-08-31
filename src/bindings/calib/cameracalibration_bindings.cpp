@@ -29,7 +29,7 @@ void init_cameracalibration(py::module_ &m) {
             OpenCV YAML calibration file type (YAML v1.0 used by OpenCV)
             
             )")
-        .value("INVALID", I3DR::Phase::CalibrationFileType::INVALID, R"(
+        .value("INVALID", I3DR::Phase::CalibrationFileType::INVALID_YAML, R"(
                Invalid calibration file type
             )")
         .export_values();

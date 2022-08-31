@@ -158,15 +158,15 @@ def test_Utils_disparity2depth_empty():
     # Create an empty matrix for testing purpose
     empty = np.array([])
     disparity = np.zeros((2048, 2448), dtype=np.uint8)
-    Q = np.zeros((4, 4), dtype=float)
+    Q = np.zeros((4, 4), dtype=np.float32)
 
     # Convert an empty disparity/ empty Q matrix to depth
     depth1 = disparity2depth(disparity, empty)
     depth2 = disparity2depth(empty, Q)
     depth3 = disparity2depth(empty, empty)
-    assert not np.all(depth1)
-    assert not np.all(depth2)
-    assert not np.all(depth3)
+    assert depth1 == None
+    assert depth2 == None
+    assert depth3 == None
 
 
 def test_Utils_disparity2xyz():
@@ -211,15 +211,15 @@ def test_Utils_disparity2xyz_empty():
     # Create an empty matrix for testing purpose
     empty = np.array([])
     disparity = np.zeros((2048, 2448), dtype=np.uint8)
-    Q = np.zeros((4, 4), dtype=float)
+    Q = np.zeros((4, 4), dtype=np.float32)
 
     # Convert an empty disparity/ empty Q matrix to 3D xyz points
-    depth1 = disparity2xyz(disparity, empty)
-    depth2 = disparity2xyz(empty, Q)
-    depth3 = disparity2xyz(empty, empty)
-    assert not np.all(depth1)
-    assert not np.all(depth2)
-    assert not np.all(depth3)
+    xyz1 = disparity2xyz(disparity, empty)
+    xyz2 = disparity2xyz(empty, Q)
+    xyz3 = disparity2xyz(empty, empty)
+    assert xyz1 == None
+    assert xyz2 == None
+    assert xyz3 == None
 
 
 def test_Utils_depth2xyz():
@@ -260,7 +260,7 @@ def test_Utils_depth2xyz_empty():
 
     # Convert an empty depth to 3D xyz points
     xyz = depth2xyz(empty, 20)
-    assert not np.all(xyz)
+    assert xyz == None
 
 
 def test_Utils_xyz2depth():
@@ -288,10 +288,10 @@ def test_Utils_xyz2depth_empty():
     empty = np.array([])
 
     depth = xyz2depth(empty)
-    assert not np.all(depth)
+    assert depth == None
 
 
-def test_Utils_readImage():
+
     # Test trying to read image that does not exist
     # using ‘readImage’ function results in empty image
     script_path = os.path.dirname(os.path.realpath(__file__))
@@ -299,16 +299,21 @@ def test_Utils_readImage():
         script_path, "..", "data")
 
     left_image_file = os.path.join(data_folder, "left.png")
-    img = readImage(left_image_file)
-    imgEmpty = readImage("empty")
+    image = readImage(left_image_file)
     
     # Check the img is not empty and load height and width
-    assert img is not None
-    assert img.shape[0] == 2048
-    assert img.shape[1] == 2448
+    assert image is not None
+    assert image.shape[0] == 2048
+    assert image.shape[1] == 2448
+
+    
+def test_Utils_readImage_empty():
+    # Test trying to read image that does not exist
+    # using ‘readImage’ function results in empty image
+    image = readImage("invalid/file/path")
 
     # Check empty image returns None
-    assert imgEmpty is None
+    assert image is None
 
 
 def test_Utils_flip_horizontal():

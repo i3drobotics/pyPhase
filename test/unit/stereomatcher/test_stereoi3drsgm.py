@@ -18,26 +18,30 @@ from phase.pyphase import readImage
 def test_StereoI3DRSGM_get_set_params():
     # Test matcher parameters can be set and get functions return expected values
     matcher = StereoI3DRSGM()
-    matcher.setWindowSize(10)
-    matcher.setMinDisparity(1)
-    matcher.setNumDisparities(24)
+    matcher.setWindowSize(11)
+    matcher.setMinDisparity(0)
+    matcher.setNumDisparities(25)
 
     # TODO get functions missing in pyphase binding
-    #assert matcher.getWindowSize() == 10
-    #assert matcher.setMinDisparity() == 1
-    #assert matcher.setNumDisparities() == 24
+    assert matcher.getWindowSize() == 11
+    assert matcher.getMinDisparity() == 0
+    assert matcher.getNumDisparities() == 25
 
 
 def test_StereoI3DRSGM_init_params():
     # Test matcher parameters defined at initialisation respond with correct values when using get functions 
+    window_size = 11
+    min_disparity = 0
+    num_disparities = 25
+    stereo_params = StereoParams(
+        StereoMatcherType.STEREO_MATCHER_I3DRSGM, window_size, min_disparity, num_disparities, True)
     stereo_params = StereoParams(
         StereoMatcherType.STEREO_MATCHER_I3DRSGM, 11, 0, 25, True)
     matcher = StereoI3DRSGM(stereo_params)
 
-    # TODO get functions missing in pyphase binding
-    #assert matcher.getWindowSize() == 11
-    #assert matcher.setMinDisparity(0)
-    #assert matcher.setNumDisparities(25)
+    assert matcher.getWindowSize() == 11
+    assert matcher.getMinDisparity() == 0
+    assert matcher.getNumDisparities() == 25
 
 
 def test_StereoI3DRSGM_compute():

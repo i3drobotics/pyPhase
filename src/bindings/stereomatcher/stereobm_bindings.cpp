@@ -87,6 +87,14 @@ void init_stereobm(py::module_ &m) {
             value : int
                 Desired value of window size value
             )")
+        .def("getWindowSize", &I3DR::Phase::StereoBM::getWindowSize, R"(
+            Get window size value
+
+            Returns
+            ----------
+            value : int
+                Value of window size
+            )")
         .def("setMinDisparity", &I3DR::Phase::StereoBM::setMinDisparity, R"(
             Set minimum disparity value
 
@@ -94,7 +102,15 @@ void init_stereobm(py::module_ &m) {
             ----------
             value : int
                 Desired value of minimum disparity value
-        )")
+            )")
+        .def("getMinDisparity", &I3DR::Phase::StereoBM::getMinDisparity, R"(
+            Get minimum disparity value
+
+            Returns
+            ----------
+            value : int
+                Value of minimum disparity
+            )")
         .def("setNumDisparities", &I3DR::Phase::StereoBM::setNumDisparities, R"(
             Set number of disparities
 
@@ -102,5 +118,13 @@ void init_stereobm(py::module_ &m) {
             ----------
             value : int
                 Desired value of number of disparities
+            )")
+        .def("getNumDisparities", &I3DR::Phase::StereoBM::getNumDisparities, R"(
+            Get number of disparities
+
+            Returns
+            ----------
+            value : int
+                Value of number of disparities
             )");
 }
