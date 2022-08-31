@@ -109,18 +109,14 @@ def test_calibrationFromIdeal():
 def test_Rectify():
     # Test access to left and right calibration data from StereoCameraCalibration
     script_path = os.path.dirname(os.path.realpath(__file__))
-    test_folder = os.path.join(script_path, "..", "..", ".phase_test")
-    left_ros_yaml = os.path.join(test_folder, "left_ros.yaml")
     data_folder = os.path.join(script_path, "..", "..", "data")
+    left_ros_yaml = os.path.join(data_folder, "left.yaml")
     
     # Test loading of image data from file
     left_image_file = os.path.join(data_folder, "left.png")
     left_image = readImage(left_image_file)
     rect_image = np.zeros_like(left_image)
     left_image_empty = np.zeros_like(left_image)
-
-    if not os.path.exists(test_folder):
-        os.makedirs(test_folder)
 
     cal = CameraCalibration(left_ros_yaml)
 
