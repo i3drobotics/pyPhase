@@ -421,25 +421,3 @@ def test_DeimosStereoCamera_virtual_read_callback():
     right_glob_files = glob(os.path.join(test_folder, "*_r.png"))
     assert len(left_glob_files) >= frames
     assert len(right_glob_files) >= frames
-
-
-def test_DeimosStereoCamera_setAOI():
-    # Test to get the data capture of virtual Deimos stereo camera
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    data_folder = os.path.join(script_path, "..", "..", "data")
-    left_image_file = os.path.join(data_folder, "left.png")
-    right_image_file = os.path.join(data_folder, "right.png")
-
-    device_info = CameraDeviceInfo(
-        "0", "1", "virtualdeimos",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
-        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
-    )
-
-    cam = createStereoCamera(device_info)
-    cam.setTestImagePaths(left_image_file, right_image_file)
-    connected = cam.connect()
-    if connected:
-        cam.setLeftAOI(0,0,20,20)
-        #assert cam.getWidth() == 20
-        cam.disconnect()
