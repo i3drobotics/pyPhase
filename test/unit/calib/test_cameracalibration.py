@@ -21,6 +21,9 @@ def test_CameraCalibration():
     left_ros_yaml = os.path.join(test_folder, "left_ros.yaml")
     left_cv_yaml = os.path.join(test_folder, "left_cv.yaml")
 
+    if not os.path.exists(test_folder):
+        os.makedirs(test_folder)
+
     print("Generating test data...")
     # Create calibration files
     left_ros_yaml_data = \

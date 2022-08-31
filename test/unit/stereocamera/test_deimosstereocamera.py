@@ -19,61 +19,15 @@ from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
 from phase.pyphase import readImage
 
 
-def test_DeimosStereoCamera_setflip():
-    # Test to set Deimos stereo camera flip frame
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    data_folder = os.path.join(script_path, "..", "..", "data")
-    left_image_file = os.path.join(data_folder, "left.png")
-    right_image_file = os.path.join(data_folder, "right.png")
-
-    np_left_image = readImage(left_image_file)
-    np_right_image = readImage(right_image_file)
-
-    device_info = CameraDeviceInfo(
-        "0", "1", "virtualdeimos",
-        CameraDeviceType.DEVICE_TYPE_DEIMOS,
-        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
-    )
-
-    cam = createStereoCamera(device_info)
-    cam.setTestImagePaths(left_image_file, right_image_file)
-    
-    connected = cam.connect()
-    if connected:
-        # Read function to read stereo pair
-        cam.setLeftFlipX(True)
-        read_result = cam.read()
-        read_result_left = read_result.left
-        assert np_left_image[0,0,0] != read_result_left[0,0,0]
-        assert np_left_image[0,0,0] == read_result_left[2047,0,0]
-
-        cam.setRightFlipX(True)
-        read_result = cam.read()
-        read_result_right = read_result.right
-        assert np_right_image[0,0,0] != read_result_right[0,0,0]
-        assert np_right_image[0,0,0] == read_result_right[2047,0,0]
-
-        cam.setLeftFlipY(True)
-        read_result = cam.read()
-        read_result_left = read_result.left
-        assert np_left_image[0,0,0] != read_result_left[0,0,0]
-        assert np_left_image[0,0,0] == read_result_left[2047,2447,0]
-
-        cam.setRightFlipY(True)
-        read_result = cam.read()
-        read_result_right = read_result.right
-        assert np_right_image[0,0,0] != read_result_right[0,0,0]
-        assert np_right_image[0,0,0] == read_result_right[2047,2447,0]
-
-        cam.disconnect()
-
-
 def test_DeimosStereoCamera_setparams():
     # Test to set Deimos stereo camera flip frame
     script_path = os.path.dirname(os.path.realpath(__file__))
     data_folder = os.path.join(script_path, "..", "..", "data")
     left_image_file = os.path.join(data_folder, "left.png")
     right_image_file = os.path.join(data_folder, "right.png")
+
+    left_image = readImage(left_image_file)
+    right_image = readImage(right_image_file)
 
     device_info = CameraDeviceInfo(
         "0", "1", "virtualdeimos",
@@ -102,16 +56,42 @@ def test_DeimosStereoCamera_setparams():
         cam.setFrameRate(frame_rate)
         cam.setLeftAOI(x_min, x_max, y_min, y_max)
         cam.setRightAOI(x_min, x_max, y_min, y_max)
+        
         for _ in range(frames):
             read_result = cam.read()
             # TODO fix setting frame rate for Deimos Cameras
             # assert cam.getFrameRate() == frame_rate
 
-            # TODO fix getting frame rate for virtual camera
-            # assert read_result.left.shape[0] == x_max - x_min
-            # assert read_result.left.shape[1] == y_max - y_min
-            # assert read_result.right.shape[0] == x_max - x_min
-            # assert read_result.right.shape[1] == y_max - y_min
+            # Test to check the AOI size
+            #assert read_result.left.shape[0] == x_max - x_min
+            #assert read_result.left.shape[1] == y_max - y_min
+            #assert read_result.right.shape[0] == x_max - x_min
+            #assert read_result.right.shape[1] == y_max - y_min
+
+            # Test to check the flip functions
+            # cam.setLeftFlipX(True)
+            # read_result = cam.read()
+            # read_result_left = read_result.left
+            # assert left_image[0,0,0] != read_result_left[0,0,0]
+            # assert left_image[0,0,0] == read_result_left[2047,0,0]
+
+            # cam.setRightFlipX(True)
+            # read_result = cam.read()
+            # read_result_right = read_result.right
+            # assert right_image[0,0,0] != read_result_right[0,0,0]
+            # assert right_image[0,0,0] == read_result_right[2047,0,0]
+
+            # cam.setLeftFlipY(True)
+            # read_result = cam.read()
+            # read_result_left = read_result.left
+            # assert left_image[0,0,0] != read_result_left[0,0,0]
+            # assert left_image[0,0,0] == read_result_left[2047,2447,0]
+
+            # cam.setRightFlipY(True)
+            # read_result = cam.read()
+            # read_result_right = read_result.right
+            # assert right_image[0,0,0] != read_result_right[0,0,0]
+            # assert right_image[0,0,0] == read_result_right[2047,2447,0]
 
         cam.disconnect()
 
