@@ -29,13 +29,13 @@ Documentation is available [here](https://i3drobotics.github.io/pyphase/)
 - Added documentation for all classes [#31](https://github.com/i3drobotics/pyphase/pull/31)
 - Improved gitpod development speed [#32](https://github.com/i3drobotics/pyphase/pull/32)
 - Improved unit tests [#41](https://github.com/i3drobotics/pyphase/pull/41)
-- Upgrade to Phase v0.1.2-10 [#42](https://github.com/i3drobotics/pyphase/pull/42)
+- Upgrade to Phase v0.1.2-15 [#42](https://github.com/i3drobotics/pyphase/pull/42)
     - Improved placement of types in modules
 - Added performance tests [#43](https://github.com/i3drobotics/pyphase/pull/43)
 - Added Titania demo script [#47](https://github.com/i3drobotics/pyphase/pull/47)
 
 ### Breaking changes
-- Phase v0.1.2-10 upgrade has breaking changes [#42](https://github.com/i3drobotics/pyphase/pull/42)
+- Phase v0.1.2-15 upgrade has breaking changes [#42](https://github.com/i3drobotics/pyphase/pull/42)
     - Removed StereoProcess and StereoVision
     - Removed RGBDVideoStreamer and RGBDVideoWriter
     - Moved CameraDeviceInfo from 'types' to 'stereocamera' folder
