@@ -125,12 +125,13 @@ def test_StereoI3DRSGM_compute_threaded():
         assert match_result.disparity[222,222] == 0.0
     else:
         assert match_result.valid
-        # TODO adjust disparity element checks for valid license compute
-        # verify known unmatched point
-        assert match_result.disparity[0,0] == -1.0
         valid_disp_threshold = 0.1
+        # verify known unmatched point
+        assert match_result.disparity[0,0] >= 150.27219 - valid_disp_threshold
+        assert match_result.disparity[0,0] <= 150.27219 + valid_disp_threshold
+        
         # disparity values should match expected within threshold
-        assert match_result.disparity[1024,1224] >= 239.5 - valid_disp_threshold
-        assert match_result.disparity[1024,1224] <= 239.5 + valid_disp_threshold
+        assert match_result.disparity[1024,1224] >= 239.3522 - valid_disp_threshold
+        assert match_result.disparity[1024,1224] <= 239.3522 + valid_disp_threshold
         assert match_result.disparity[1400,2200] >= 224.4375 - valid_disp_threshold
         assert match_result.disparity[1400,2200] <= 224.4375 + valid_disp_threshold
