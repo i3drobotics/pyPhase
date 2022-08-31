@@ -19,7 +19,7 @@ from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
 from phase.pyphase import readImage
 
 
-def test_TitaniaStereoCamera_set_flip():
+def test_TitaniaStereoCamera_setflip():
     # Test to set Titania stereo camera flip frame
     script_path = os.path.dirname(os.path.realpath(__file__))
     data_folder = os.path.join(script_path, "..", "..", "data")
@@ -60,6 +60,54 @@ def test_TitaniaStereoCamera_set_flip():
         read_result = cam.read()
         read_result_right = read_result.right
         assert np_right_image[0,0,0] == read_result_right[2047,2447,0]
+
+        cam.disconnect()
+
+
+def test_TitaniaStereoCamera_setparams():
+    # Test to set Titania stereo camera flip frame
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(script_path, "..", "..", "data")
+    left_image_file = os.path.join(data_folder, "left.png")
+    right_image_file = os.path.join(data_folder, "right.png")
+
+    device_info = CameraDeviceInfo(
+        "abc123left", "abc123right", "abc123unique",
+        CameraDeviceType.DEVICE_TYPE_TITANIA,
+        CameraInterfaceType.INTERFACE_TYPE_USB
+    )
+
+    cam = createStereoCamera(device_info)
+    cam.setTestImagePaths(left_image_file, right_image_file)
+
+    frame_rate = 5
+    exposure = 500
+    hardware_trigger = False
+    x_min = 10
+    x_max = 100
+    y_min = 10
+    y_max = 100
+
+    frames = 10
+
+    connected = cam.connect()
+    if connected:
+        cam.startCapture()
+        cam.setExposure(exposure)
+        cam.enableHardwareTrigger(hardware_trigger)
+        cam.setFrameRate(frame_rate)
+        cam.setLeftAOI(x_min, x_max, y_min, y_max)
+        cam.setRightAOI(x_min, x_max, y_min, y_max)
+        for _ in range(frames):
+            read_result = cam.read()
+            # TODO fix setting frame rate for Deimos Cameras
+            # assert cam.getFrameRate() == frame_rate
+
+            # TODO fix getting frame rate for virtual camera
+            # assert read_result.left.shape[0] == x_max - x_min
+            # assert read_result.left.shape[1] == y_max - y_min
+            # assert read_result.right.shape[0] == x_max - x_min
+            # assert read_result.right.shape[1] == y_max - y_min
 
         cam.disconnect()
 
