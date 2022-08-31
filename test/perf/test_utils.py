@@ -162,7 +162,7 @@ def test_Utils_perf_disparity2depth():
     np_depth = disparity2depth(match_result.disparity, calibration.getQ())
     end = time.time()
     duration = end - start
-    assert duration < 0.1
+    assert duration < 1
 
 
 def test_Utils_perf_disparity2xyz():
@@ -196,7 +196,7 @@ def test_Utils_perf_disparity2xyz():
     disparity_xyz = disparity2xyz(match_result.disparity, calibration.getQ())
     end = time.time()
     duration = end - start
-    assert duration < 0.3
+    assert duration < 2
 
 
 def test_Utils_perf_depth2xyz():
@@ -232,7 +232,7 @@ def test_Utils_perf_depth2xyz():
     xyz = depth2xyz(np_depth, calibration.getHFOV())
     end = time.time()
     duration = end - start
-    assert duration < 0.5
+    assert duration < 1
 
 
 def test_Utils_perf_xyz2depth():
