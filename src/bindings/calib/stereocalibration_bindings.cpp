@@ -46,6 +46,16 @@ void init_stereocalibration(py::module_ &m) {
 
             Parameters
             ----------
+            left_calibration_filepath : str
+                Left side calibration file path directory
+            right_calibration_filepath : str
+                Right side calibration file path directory
+            )")
+        .def_static("calibrationFromIdeal", &I3DR::Phase::StereoCameraCalibration::calibrationFromIdeal, R"(
+            Create ideal stereo calibration from camera information
+
+            Parameters
+            ----------
             width : int
                 image width of cameras
             height : int
@@ -56,16 +66,6 @@ void init_stereocalibration(py::module_ &m) {
                 focal length of cameras
             baseline : float
                 baseline of stereo camera
-            )")
-        .def_static("calibrationFromIdeal", &I3DR::Phase::StereoCameraCalibration::calibrationFromIdeal, R"(
-            Create ideal stereo calibration from camera information
-
-            Parameters
-            ----------
-            left_calibration_filepath : str
-                Left side calibration file path directory
-            right_calibration_filepath : str
-                Right side calibration file path directory
             )")
         .def_static("calibrationFromImages", &I3DR::Phase::StereoCameraCalibration::calibrationFromImages, R"(
             Create ideal stereo calibration from camera information
