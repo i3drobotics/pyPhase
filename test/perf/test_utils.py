@@ -58,7 +58,7 @@ def test_utils_perf_toMono():
     img8UC3 = np.ones((2048, 2448, 3), dtype=np.uint8)
 
     start = time.time()
-    assert (toMono(img8UC3, imgMono) is True)
+    assert toMono(img8UC3, imgMono)
     end = time.time()
     duration = end - start
     assert duration < timeout

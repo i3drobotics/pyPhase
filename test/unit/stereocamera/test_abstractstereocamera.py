@@ -8,16 +8,3 @@
  @brief Unit tests for AbstractStereoCamera
  @details Unit tests for use with PyTest
 """
-import numpy as np
-from phase.pyphase.stereocamera import CameraReadResult
-
-
-def test_CameraReadResult_init():
-    # Test initalisation of CameraReadResult
-    left = np.zeros((10, 10, 3), dtype=np.uint8)
-    right = np.zeros((10, 10, 3), dtype=np.uint8)
-    valid = True
-    result = CameraReadResult(valid, left, right)
-    assert(result.left.shape == left.shape)
-    assert(result.right.shape == right.shape)
-    assert(result.valid == valid)

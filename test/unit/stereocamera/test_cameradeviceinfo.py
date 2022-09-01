@@ -8,14 +8,3 @@
  @brief Unit tests for Camera Device Info class
  @details Unit tests for use with PyTest
 """
-from phase.pyphase.stereocamera import CameraDeviceInfo
-from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
-
-
-def test_CameraDeviceInfo():
-    # Test initalisation of camera device info
-    CameraDeviceInfo(
-        "abc123left", "abc123right", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
-        CameraInterfaceType.INTERFACE_TYPE_USB
-    )

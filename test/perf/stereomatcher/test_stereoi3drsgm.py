@@ -48,7 +48,7 @@ def test_StereoI3DRSGM_perf_compute():
         assert match_result.valid
         assert duration < licensed_timeout
     else:
-        assert match_result.valid == False
+        assert not match_result.valid
         assert duration < unlicensed_timeout
 
     del matcher

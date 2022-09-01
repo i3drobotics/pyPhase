@@ -43,8 +43,9 @@ def test_perf_Calibration_from_images():
     assert duration < timeout
 
 def test_perf_Rectify():
-    # Test performance of rectify
-    # Rectify stereo image pair with size 2048X2448 in less than 0.3 s
+    # Test rectification of image of size 2448x2048
+    # using ‘rectify’ function is completed in less than 0.3s 
+
     timeout = 0.3 #second
     left_img = np.ones((2048, 2448, 3), dtype=np.uint8)
     right_img = np.ones((2048, 2448, 3), dtype=np.uint8)

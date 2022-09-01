@@ -8,7 +8,6 @@
  @brief Performance tests for CameraCalibration class
  @details Performance tests generated using PyTest
 """
-from pickletools import uint8
 import time
 import os
 import numpy as np
