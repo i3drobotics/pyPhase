@@ -13,15 +13,20 @@ from phase.pyphase.calib import StereoCameraCalibration, CalibrationBoardType
 from phase.pyphase.calib import CalibrationFileType
 
 script_path = os.path.dirname(os.path.realpath(__file__))
+test_folder = os.path.join(script_path, "..", ".phase_test")
 data_folder = os.path.join(
     script_path, "..", "data", "checker_sample")
 
 left_cal_folder = data_folder
 right_cal_folder = data_folder
 
-output_folder = "cal"
-left_yaml = output_folder + "/left.yaml"
-right_yaml = output_folder + "/right.yaml"
+output_folder = os.path.join(test_folder, "cal")
+
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
+
+left_yaml = os.path.join(output_folder, "left.yaml")
+right_yaml = os.path.join(output_folder, "right.yaml")
 left_img_wildcard = "*_l.png"
 right_img_wildcard = "*_r.png"
 image_type = CalibrationBoardType.CHECKERBOARD
