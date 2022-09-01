@@ -20,7 +20,7 @@ from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
 def test_PhobosStereoCamera_virtual_perf_data_capture():
     # Test reading of frame from virtual camera
     # using ‘read’ function is completed in less than 0.1s
-    timeout = 0.1
+    timeout = 0.1 #second
     device_info = CameraDeviceInfo(
         "0815-0000", "0815-0001", "virtualphobos",
         CameraDeviceType.DEVICE_TYPE_PHOBOS,

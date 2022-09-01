@@ -140,7 +140,7 @@ def test_utils_perf_disparity2depth():
 def test_utils_perf_disparity2xyz():
     # Test disparity image of size 2448x2048 converted to xyz image
     # by ‘disparity2xyz’ function in less than 2.0s
-    timeout = 2 #second
+    timeout = 2 #seconds
     script_path = os.path.dirname(os.path.realpath(__file__))
     data_folder = os.path.join(script_path, "..", "data")
     left_yaml = os.path.join(data_folder, "left.yaml")
@@ -261,7 +261,7 @@ def test_utils_perf_flip():
 def test_utils_perf_savePly():
     # Test save RGB and XYZ image of size 2448x2048 as point cloud
     # in PLY format using ‘savePLY’ function in less than 5s
-    timeout = 5 #second
+    timeout = 5 #seconds
     xyz1 = np.ones((2048, 2448, 3), dtype=float)
     rgb = np.ones((2048, 2448, 3), dtype=np.uint8)
     script_path = os.path.dirname(os.path.realpath(__file__))

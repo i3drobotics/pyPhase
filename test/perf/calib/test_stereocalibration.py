@@ -17,7 +17,7 @@ from phase.pyphase.calib import StereoCameraCalibration
 
 def test_perf_Rectify():
     # Test performance of rectify 
-    timeout = 0.3 #seconds
+    timeout = 0.3 #second
     left_img = np.ones((2048, 2448, 3), dtype=np.uint8)
     right_img = np.ones((2048, 2448, 3), dtype=np.uint8)
 

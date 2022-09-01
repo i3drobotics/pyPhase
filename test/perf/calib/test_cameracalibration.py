@@ -19,7 +19,7 @@ from phase.pyphase.calib import CameraCalibration
 def test_perf_Rectify():
     # Test rectification of image of size 2448x2048
     # using ‘rectify’ function is completed in less than 0.2s
-    timeout = 0.3 # seconds
+    timeout = 0.3 # second
     img = np.ones((2048, 2448, 3), dtype=np.uint8)
 
     cal = CameraCalibration.calibrationFromIdeal(2448, 2048, 0.00000345, 0.012, 0.1, 0.0)
