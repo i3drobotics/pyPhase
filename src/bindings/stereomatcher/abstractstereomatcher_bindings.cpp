@@ -93,7 +93,7 @@ void init_abstractstereomatcher(py::module_ &m) {
             Returns
             -------
             StereoMatcherComputeResult
-                result from compute
+                Result from compute
       
             )")
         .def("setComputeThreadCallback", &I3DR::Phase::AbstractStereoMatcher::setComputeThreadCallback, R"(

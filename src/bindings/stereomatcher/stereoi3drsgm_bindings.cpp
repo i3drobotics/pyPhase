@@ -77,7 +77,7 @@ void init_stereoi3drsgm(py::module_ &m) {
             Returns
             -------
             StereoMatcherComputeResult
-                result from compute
+                Result from compute
 
             )")
         .def("setWindowSize", &I3DR::Phase::StereoI3DRSGM::setWindowSize, R"(

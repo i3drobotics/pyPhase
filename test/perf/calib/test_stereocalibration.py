@@ -11,13 +11,41 @@
 import time
 import os
 import numpy as np
-from phase.pyphase import readImage
-from phase.pyphase.calib import StereoCameraCalibration
+from phase.pyphase.calib import StereoCameraCalibration, CalibrationBoardType
 
+
+def test_perf_Calibration_from_images():
+    # Test performance of calibrate stereo camera from 13 image pairs
+    # calibrate completed in less than 5s
+    timeout = 5 #second
+
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(
+        script_path, "..", "..", "data", "checker_sample")
+
+    left_cal_folder = data_folder
+    right_cal_folder = data_folder
+
+    left_img_wildcard = "*_l.png"
+    right_img_wildcard = "*_r.png"
+    image_type = CalibrationBoardType.CHECKERBOARD
+
+    start = time.time()
+    # Load calibration from images
+    cal = StereoCameraCalibration.calibrationFromImages(
+        left_cal_folder, right_cal_folder,
+        left_img_wildcard, right_img_wildcard,
+        image_type, 10, 6, 0.039)
+    end = time.time()
+    duration = end - start
+
+    assert cal.isValid()
+    assert duration < timeout
 
 def test_perf_Rectify():
     # Test rectification of image of size 2448x2048
     # using ‘rectify’ function is completed in less than 0.3s 
+
     timeout = 0.3 #second
     left_img = np.ones((2048, 2448, 3), dtype=np.uint8)
     right_img = np.ones((2048, 2448, 3), dtype=np.uint8)
