@@ -113,7 +113,7 @@ def test_UVCStereoCamera_isConnected_onInit():
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = createStereoCamera(device_info)
-    assert cam.isConnected() is False
+    assert not cam.isConnected()
 
 
 def test_UVCStereoCamera_connect_onInit():
@@ -123,7 +123,7 @@ def test_UVCStereoCamera_connect_onInit():
         CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     cam = createStereoCamera(device_info)
-    assert cam.connect() is False
+    assert not cam.connect()
 
 
 def test_UVCStereoCamera_connect_virtual_onInit():
@@ -151,7 +151,7 @@ def test_UVCStereoCamera_connect_virtual_onInit():
     connected = cam.connect()
     if connected:
         cam.disconnect()
-    assert connected is True
+    assert connected
 
 
 def test_UVCStereoCamera_connect_virtual_size():
@@ -183,7 +183,7 @@ def test_UVCStereoCamera_connect_virtual_size():
         assert(cam.getWidth() == 2448)
         assert(cam.getHeight() == 2048)
         cam.disconnect()
-    assert connected is True
+    assert connected
     
 
 def test_UVCStereoCamera_virtual_data_capture():
@@ -218,7 +218,7 @@ def test_UVCStereoCamera_virtual_data_capture():
         result = cam.read()
         assert (result.valid)
         cam.disconnect()
-    assert connected is True
+    assert connected
     left_glob_files = glob(os.path.join(test_folder, "*_l.png"))
     right_glob_files = glob(os.path.join(test_folder, "*_r.png"))
     assert len(left_glob_files) == 1
@@ -263,7 +263,7 @@ def test_UVCStereoCamera_virtual_capture_count():
         cam.resetCaptureCount()
         assert cam.getCaptureCount() == 0
         cam.disconnect()
-    assert connected is True
+    assert connected
 
 
 def test_UVCStereoCamera_virtual_continous_read():
@@ -295,7 +295,7 @@ def test_UVCStereoCamera_virtual_continous_read():
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
     connected = cam.connect()
-    assert connected is True
+    assert connected
     if connected:
         print("Capturing continous frames...")
         cam.startCapture()
@@ -370,7 +370,7 @@ def test_UVCStereoCamera_virtual_read_callback():
 
     cam.setReadThreadCallback(read_callback)
     connected = cam.connect()
-    assert connected is True
+    assert connected
     if connected:
         print("Capturing continous frames...")
         cam.startCapture()

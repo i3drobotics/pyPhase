@@ -34,8 +34,8 @@ def test_utils_convert_mono_to_mono():
     # has output image type of CV_8UC1
     img8UC1 = np.ones((2048, 2448, 1), dtype=np.uint8)
     imgMono = np.zeros((2048, 2448, 1), dtype=np.uint8)
-    assert (toMono(img8UC1, imgMono) is True)
-    assert (imgMono.shape[2] == 1)
+    assert toMono(img8UC1, imgMono)
+    assert imgMono.shape[2] == 1
     assert imgMono.dtype == np.uint8
     
 def test_utils_valid_bgr2rgba():
@@ -43,8 +43,8 @@ def test_utils_valid_bgr2rgba():
     # has output image type of CV_8UC1
     img8UC3 = np.ones((2048, 2448, 3), dtype=np.uint8)
     imgMono = np.zeros((2048, 2448, 1), dtype=np.uint8)
-    assert (toMono(img8UC3, imgMono) is True)
-    assert (imgMono.shape[2] == 1)
+    assert toMono(img8UC3, imgMono)
+    assert imgMono.shape[2] == 1
     assert imgMono.dtype == np.uint8
 
 def test_utils_convert_bgra_to_mono():
@@ -52,8 +52,8 @@ def test_utils_convert_bgra_to_mono():
     # has output image type of CV_8UC1
     img8UC4 = np.ones((2048, 2448, 4), dtype=np.uint8)
     imgMono = np.zeros((2048, 2448, 1), dtype=np.uint8)
-    assert (toMono(img8UC4, imgMono) is True)
-    assert (imgMono.shape[2] == 1)
+    assert toMono(img8UC4, imgMono)
+    assert imgMono.shape[2] == 1
     assert imgMono.dtype == np.uint8
 
 
