@@ -61,12 +61,12 @@ def test_MatrixUInt8_set_element():
 
 
 def test_MatrixFloat_empty():
-    # Test A MatrixFloat that is empty reports as empty using ‘isEmpty’ function 
+    # Test a MatrixFloat that is empty reports as empty using ‘isEmpty’ function 
     mat = MatrixFloat()
     assert mat.isEmpty()
 
 
 def test_MatrixUInt8_empty():
-    # Test A MatrixUInt8 that is empty reports as empty using ‘isEmpty’ function 
+    # Test a MatrixUInt8 that is empty reports as empty using ‘isEmpty’ function 
     mat = MatrixUInt8()
     assert mat.isEmpty()

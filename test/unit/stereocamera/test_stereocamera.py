@@ -8,37 +8,3 @@
  @brief Unit tests for Stereo Camera class
  @details Unit tests for use with PyTest
 """
-from phase.pyphase.stereocamera import CameraDeviceInfo, createStereoCamera
-from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
-
-
-def test_StereoCamera():
-    # Test initalisation of stereo camera using CameraDeviceInfo
-    device_info = CameraDeviceInfo(
-        "abc123left", "abc123right", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
-        CameraInterfaceType.INTERFACE_TYPE_USB
-    )
-    createStereoCamera(device_info)
-
-
-def test_StereoCamera_isConnected_onInit():
-    # Test if stereo camera is connected
-    device_info = CameraDeviceInfo(
-        "abc123left", "abc123right", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
-        CameraInterfaceType.INTERFACE_TYPE_USB
-    )
-    cam = createStereoCamera(device_info)
-    assert cam.isConnected() is False
-
-
-def test_StereoCamera_connect_onInit():
-    # Test to connect stereo camera
-    device_info = CameraDeviceInfo(
-        "abc123left", "abc123right", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
-        CameraInterfaceType.INTERFACE_TYPE_USB
-    )
-    cam = createStereoCamera(device_info)
-    assert cam.connect() is False

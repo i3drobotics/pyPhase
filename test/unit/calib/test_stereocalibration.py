@@ -289,13 +289,20 @@ def test_SaveCalibration():
         CalibrationFileType.OPENCV_YAML) == 1
 
 
+def test_calibrationFromIdeal():
+    # Test access to left and right calibration data from StereoCameraCalibration
+    cal = StereoCameraCalibration.calibrationFromIdeal(2448, 2048, 0.00000345, 0.012, 0.1)
+    assert(cal.isValid())
+
+    assert cal.getBaseline() > 0
+    
+
 def test_Rectify():
     # Test access to left and right calibration data from StereoCameraCalibration
     script_path = os.path.dirname(os.path.realpath(__file__))
-    test_folder = os.path.join(script_path, "..", "..", ".phase_test")
     data_folder = os.path.join(script_path, "..", "..", "data")
-    left_ros_yaml = os.path.join(test_folder, "left_ros.yaml")
-    right_ros_yaml = os.path.join(test_folder, "right_ros.yaml")
+    left_ros_yaml = os.path.join(data_folder, "left.yaml")
+    right_ros_yaml = os.path.join(data_folder, "right.yaml")
     
     # Test loading of image data from file
     left_image_file = os.path.join(data_folder, "left.png")
@@ -313,11 +320,3 @@ def test_Rectify():
 
     rect_empty = cal.rectify(left_image_empty, right_image_empty)
     assert np.any(rect_empty.left) == 0
-
-
-def test_calibrationFromIdeal():
-    # Test access to left and right calibration data from StereoCameraCalibration
-    cal = StereoCameraCalibration.calibrationFromIdeal(2448, 2048, 2, 2, 2)
-    assert(cal.isValid())
-
-    assert cal.getBaseline() > 0
