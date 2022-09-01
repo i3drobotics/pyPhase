@@ -119,11 +119,11 @@ void init_titaniastereocamera(py::module_ &m) {
             Parameters
             ----------
             timeout : int
-                timeout in millisecond, default timeout is 1000(1s)
+                Timeout in millisecond, default timeout is 1000(1s)
             Returns
             -------
             CameraReadResult
-                result from camera read
+                Result from camera read
             )")
         .def("setTestImagePaths", &I3DR::Phase::TitaniaStereoCamera::setTestImagePaths, R"(
             Set the path for test images, input both left and right image path
@@ -139,7 +139,7 @@ void init_titaniastereocamera(py::module_ &m) {
             Parameters
             ----------
             timeout : int
-                timeout in millisecond, default timeout is 1000(1s)
+                Timeout in millisecond, default timeout is 1000(1s)
 
             Returns
             -------
@@ -161,7 +161,7 @@ void init_titaniastereocamera(py::module_ &m) {
             Returns
             -------
             CameraReadResult
-                result from read
+                Result from read
 
             )")
         .def("setReadThreadCallback", &I3DR::Phase::TitaniaStereoCamera::setReadThreadCallback, R"(
@@ -183,7 +183,7 @@ void init_titaniastereocamera(py::module_ &m) {
             Parameters
             ----------
             timeout : int
-                timeout in millisecond, default timeout is 1000(1s)
+                Timeout in millisecond, default timeout is 1000(1s)
 
             Returns
             -------
@@ -201,7 +201,7 @@ void init_titaniastereocamera(py::module_ &m) {
             Returns
             -------
             bool
-                continous read thread running status
+                Continous read thread running status
             )")
         .def("getWidth", &I3DR::Phase::TitaniaStereoCamera::getWidth, R"(
             Get camera image width
@@ -234,14 +234,14 @@ void init_titaniastereocamera(py::module_ &m) {
             Parameters
             ----------
             enable : bool
-                enable/disable saving images to file
+                Enable/disable saving images to file
             )")
         .def("setDataCapturePath", &I3DR::Phase::TitaniaStereoCamera::setDataCapturePath, R"(
             Set data capture path to save images
             Use with enableDataCapture() to toggle saving images to file
 
             path : str
-                directory of desired capture data storage
+                Directory of desired capture data storage
             )")
         .def("getCaptureCount", &I3DR::Phase::TitaniaStereoCamera::getCaptureCount, R"(
             Get number of frames captured since
@@ -251,7 +251,7 @@ void init_titaniastereocamera(py::module_ &m) {
             Returns
             -------
             value : int
-                number of frames captured
+                Number of frames captured
             )")
         .def("resetCaptureCount", &I3DR::Phase::TitaniaStereoCamera::resetCaptureCount, R"(
             Reset captured frame count to zero
@@ -296,7 +296,7 @@ void init_titaniastereocamera(py::module_ &m) {
             Parameters
             ----------
             float : value
-                downsample factor value
+                Downsample factor value
             )")
         .def("disconnect", &I3DR::Phase::TitaniaStereoCamera::disconnect, R"(
             Disconnect camera

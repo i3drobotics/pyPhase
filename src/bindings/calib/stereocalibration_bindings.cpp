@@ -57,15 +57,15 @@ void init_stereocalibration(py::module_ &m) {
             Parameters
             ----------
             width : int
-                image width of cameras
+                Image width of cameras
             height : int
-                image height of cameras
+                Image height of cameras
             pixel_pitch : float
-                pixel pitch of cameras
+                Pixel pitch of cameras
             focal_length : float
-                focal length of cameras
+                Focal length of cameras
             baseline : float
-                baseline of stereo camera
+                Baseline of stereo camera
             )")
         .def_static("calibrationFromImages", &I3DR::Phase::StereoCameraCalibration::calibrationFromImages, R"(
             Create ideal stereo calibration from camera information
@@ -114,7 +114,7 @@ void init_stereocalibration(py::module_ &m) {
             Parameters
             ----------
             width : int
-                Image width to change against
+                Image width to check against
             height : int
                 Image height to check against
 
@@ -130,13 +130,13 @@ void init_stereocalibration(py::module_ &m) {
             Parameters
             ----------
             left_image : numpy.ndarray
-                left image to rectify
+                Left image to rectify
             right_image : numpy.ndarray
-                right image to rectify
+                Right image to rectify
             left_rect_image : numpy.ndarray
-                rectified left stereo image
+                Rectified left stereo image
             right_rect_image : numpy.ndarray
-                rectified right stereo image
+                Rectified right stereo image
             )")
         .def("getQ", &I3DR::Phase::StereoCameraCalibration::getQ, R"(
             Get the Q matrix

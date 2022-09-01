@@ -113,7 +113,7 @@ void init_deimosstereocamera(py::module_ &m) {
             Parameters
             ----------
             timeout : int
-                timeout in millisecond, default timeout is 1000(1s)
+                Timeout in millisecond, default timeout is 1000(1s)
             Returns
             -------
             CameraReadResult
@@ -133,7 +133,7 @@ void init_deimosstereocamera(py::module_ &m) {
             Parameters
             ----------
             timeout : int
-                timeout in millisecond, default timeout is 1000(1s)
+                Timeout in millisecond, default timeout is 1000(1s)
 
             Returns
             -------
@@ -155,7 +155,7 @@ void init_deimosstereocamera(py::module_ &m) {
             Returns
             -------
             CameraReadResult
-                result from read
+                Result from read
 
             )")
         .def("setReadThreadCallback", &I3DR::Phase::DeimosStereoCamera::setReadThreadCallback, R"(
@@ -177,12 +177,12 @@ void init_deimosstereocamera(py::module_ &m) {
             Parameters
             ----------
             timeout : int
-                timeout in millisecond, default timeout is 1000(1s)
+                Timeout in millisecond, default timeout is 1000(1s)
 
             Returns
             -------
             bool
-                success of starting continous read thread
+                Success of starting continous read thread
             )")
         .def("stopContinousReadThread", &I3DR::Phase::DeimosStereoCamera::stopContinousReadThread, R"(
             Stop continous read thread
@@ -195,7 +195,7 @@ void init_deimosstereocamera(py::module_ &m) {
             Returns
             -------
             bool
-                continous read thread running status
+                Continous read thread running status
             )")
         .def("getWidth", &I3DR::Phase::DeimosStereoCamera::getWidth, R"(
             Get camera image width
@@ -228,13 +228,13 @@ void init_deimosstereocamera(py::module_ &m) {
             Parameters
             ----------
             enable : bool
-                enable/disable saving images to file
+                Enable/disable saving images to file
             )")
         .def("setDataCapturePath", &I3DR::Phase::DeimosStereoCamera::setDataCapturePath, R"(
             Set path of saved directory for capture data
 
             path : str
-                directory of desired capture data storage
+                Directory of desired capture data storage
             )")
         .def("getCaptureCount", &I3DR::Phase::DeimosStereoCamera::getCaptureCount, R"(
             Get number of frames captured since
@@ -244,7 +244,7 @@ void init_deimosstereocamera(py::module_ &m) {
             Returns
             -------
             value : int
-                number of frames captured
+                Number of frames captured
             )")
         .def("resetCaptureCount", &I3DR::Phase::DeimosStereoCamera::resetCaptureCount, R"(
             Reset captured frame count to zero
@@ -289,7 +289,7 @@ void init_deimosstereocamera(py::module_ &m) {
             Parameters
             ----------
             float : value
-                downsample factor value
+                Downsample factor value
             )")
         .def("disconnect", &I3DR::Phase::DeimosStereoCamera::disconnect, R"(
             Disconnect camera

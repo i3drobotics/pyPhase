@@ -76,7 +76,7 @@ void init_stereosgbm(py::module_ &m) {
             Returns
             -------
             StereoMatcherComputeResult
-                result from compute
+                Result from compute
 
             )")
         .def("setWindowSize", &I3DR::Phase::StereoSGBM::setWindowSize, R"(

@@ -15,7 +15,8 @@ from phase.pyphase.calib import StereoCameraCalibration, CalibrationBoardType
 
 
 def test_perf_Calibration_from_images():
-
+    # Test performance of calibrate stereo camera from 13 image pairs
+    # calibrate completed in less than 5s
     timeout = 5 #second
 
     script_path = os.path.dirname(os.path.realpath(__file__))
@@ -42,7 +43,8 @@ def test_perf_Calibration_from_images():
     assert duration < timeout
 
 def test_perf_Rectify():
-    # Test performance of rectify 
+    # Test performance of rectify
+    # Rectify stereo image pair with size 2048X2448 in less than 0.3 s
     timeout = 0.3 #second
     left_img = np.ones((2048, 2448, 3), dtype=np.uint8)
     right_img = np.ones((2048, 2448, 3), dtype=np.uint8)

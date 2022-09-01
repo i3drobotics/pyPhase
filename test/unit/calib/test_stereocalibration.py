@@ -16,6 +16,8 @@ from phase.pyphase.calib import CalibrationFileType
 
 
 def test_Calibration_from_images():
+    # Test if calibrate stereo camera from a serie of images is valid
+    # load 13 checkerboard image pairs from folder
     script_path = os.path.dirname(os.path.realpath(__file__))
     data_folder = os.path.join(
         script_path, "..", "..", "data", "checker_sample")
