@@ -29,8 +29,20 @@ void init_cameracalibration(py::module_ &m) {
             OpenCV YAML calibration file type (YAML v1.0 used by OpenCV)
             
             )")
-        .value("INVALID", I3DR::Phase::CalibrationFileType::INVALID_YAML, R"(
+        .value("INVALID_YAML", I3DR::Phase::CalibrationFileType::INVALID_YAML, R"(
                Invalid calibration file type
+            )")
+        .export_values();
+    py::enum_<I3DR::Phase::CalibrationBoardType>(m, "CalibrationBoardType", R"(
+            Enum to indicate calibration board type.
+            )")
+        .value("CHECKERBOARD", I3DR::Phase::CalibrationBoardType::CHECKERBOARD, R"(
+            Checkerboard calibration board type
+
+            )")
+        .value("INVALID_BOARD", I3DR::Phase::CalibrationBoardType::INVALID_BOARD, R"(
+            Invalid calibration board type
+
             )")
         .export_values();
     // Load in stereo camera calibration file

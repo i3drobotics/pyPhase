@@ -29,6 +29,7 @@ void init_stereocalibration(py::module_ &m) {
     // Load in stereo camera calibration file
     py::class_<I3DR::Phase::StereoCameraCalibration>(m, "StereoCameraCalibration", R"(
             Store and manipulate stereo camera calibration data.
+
             )")
         .def(py::init<I3DR::Phase::CameraCalibration, I3DR::Phase::CameraCalibration>(), R"(
             Initalise stereo camera calibration using left and right calibration.
@@ -45,16 +46,6 @@ void init_stereocalibration(py::module_ &m) {
 
             Parameters
             ----------
-            left_calibration_filepath : str
-                Left side calibration file path directory
-            right_calibration_filepath : str
-                Right side calibration file path directory
-            )")
-        .def_static("calibrationFromIdeal", &I3DR::Phase::StereoCameraCalibration::calibrationFromIdeal, R"(
-            Create ideal stereo calibration from camera information
-
-            Parameters
-            ----------
             width : int
                 image width of cameras
             height : int
@@ -65,6 +56,41 @@ void init_stereocalibration(py::module_ &m) {
                 focal length of cameras
             baseline : float
                 baseline of stereo camera
+            )")
+        .def_static("calibrationFromIdeal", &I3DR::Phase::StereoCameraCalibration::calibrationFromIdeal, R"(
+            Create ideal stereo calibration from camera information
+
+            Parameters
+            ----------
+            left_calibration_filepath : str
+                Left side calibration file path directory
+            right_calibration_filepath : str
+                Right side calibration file path directory
+            )")
+        .def_static("calibrationFromImages", &I3DR::Phase::StereoCameraCalibration::calibrationFromImages, R"(
+            Create ideal stereo calibration from camera information
+
+            Parameters
+            ----------
+            left_cal_folder : str
+                Path to folder with left calibration images
+            right_cal_folder : str
+                Path to folder with right calibration images
+            left_img_wildcard : str
+                Wildcard to use for identifying left images
+            right_img_wildcard : str
+                Wildcard to use for identifying right images
+            board_type : enum
+                Calibration board type used in calibration images
+            pattern_size_x : int
+                Number of rows in calibration board pattern
+            pattern_size_y : int
+                Number of columns in calibration board pattern
+            square_size : float
+                Width of single square in calibration board pattern (in meters)
+            
+            Returns
+                Stereo camera calibration
             )")
         .def_readwrite("left_calibration", &I3DR::Phase::StereoCameraCalibration::left_calibration, R"(
             Stores left camera calibration
@@ -85,6 +111,14 @@ void init_stereocalibration(py::module_ &m) {
         .def("isValidSize", &I3DR::Phase::StereoCameraCalibration::isValidSize, R"(
             Check if loaded calibration image width and height match specified values
 
+            Parameters
+            ----------
+            width : int
+                Image width to change against
+            height : int
+                Image height to check against
+
+            
             Returns
             -------
             bool
@@ -99,8 +133,10 @@ void init_stereocalibration(py::module_ &m) {
                 left image to rectify
             right_image : numpy.ndarray
                 right image to rectify
-            rectified_pair : StereoImagePair
-                rectified stereo image pair
+            left_rect_image : numpy.ndarray
+                rectified left stereo image
+            right_rect_image : numpy.ndarray
+                rectified right stereo image
             )")
         .def("getQ", &I3DR::Phase::StereoCameraCalibration::getQ, R"(
             Get the Q matrix
