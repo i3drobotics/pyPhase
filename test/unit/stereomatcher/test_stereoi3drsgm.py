@@ -22,7 +22,6 @@ def test_StereoI3DRSGM_get_set_params():
     matcher.setMinDisparity(0)
     matcher.setNumDisparities(25)
 
-    # TODO get functions missing in pyphase binding
     assert matcher.getWindowSize() == 11
     assert matcher.getMinDisparity() == 0
     assert matcher.getNumDisparities() == 25

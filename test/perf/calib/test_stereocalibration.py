@@ -38,5 +38,5 @@ def test_perf_Rectify():
     rect = cal.rectify(left_image, right_image)
     end = time.time()
     duration = end - start
-    # TODO investigate why rectification is slow
+
     assert duration < 0.3

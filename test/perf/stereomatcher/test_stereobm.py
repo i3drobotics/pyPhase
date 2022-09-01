@@ -35,7 +35,7 @@ def test_StereoBM_perf_compute():
     match_result = matcher.compute(left_image, right_image)
     end = time.time()
     duration = end - start
-    # TODO investigate why StereoBM matching is slow
+    
     assert duration < 3
 
     del matcher
