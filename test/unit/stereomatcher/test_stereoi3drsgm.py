@@ -74,7 +74,6 @@ def test_StereoI3DRSGM_compute():
         assert match_result.disparity[222,222] == 0.0
     else:
         assert match_result.valid
-        # TODO add disparity element checks for valid license compute
 
     del matcher
 
@@ -106,7 +105,6 @@ def test_StereoI3DRSGM_compute_threaded():
     read_start = time.time()
     while matcher.isComputeThreadRunning():
         # To make sure function run something
-        #print("Thread is computing")
         # check read is not taking too long
         read_end = time.time()
         duration = read_end - read_start
