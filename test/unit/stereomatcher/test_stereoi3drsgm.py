@@ -22,16 +22,25 @@ def test_StereoI3DRSGM_get_set_params():
     matcher.setMinDisparity(0)
     matcher.setNumDisparities(25)
 
-    # TODO add get functions to matcher to verify values are set
+    assert matcher.getWindowSize() == 11
+    assert matcher.getMinDisparity() == 0
+    assert matcher.getNumDisparities() == 25
 
 
 def test_StereoI3DRSGM_init_params():
     # Test matcher parameters defined at initialisation respond with correct values when using get functions 
+    window_size = 11
+    min_disparity = 0
+    num_disparities = 25
+    stereo_params = StereoParams(
+        StereoMatcherType.STEREO_MATCHER_I3DRSGM, window_size, min_disparity, num_disparities, True)
     stereo_params = StereoParams(
         StereoMatcherType.STEREO_MATCHER_I3DRSGM, 11, 0, 25, True)
     matcher = StereoI3DRSGM(stereo_params)
 
-    # TODO add get functions to matcher to verify values are set
+    assert matcher.getWindowSize() == 11
+    assert matcher.getMinDisparity() == 0
+    assert matcher.getNumDisparities() == 25
 
 
 def test_StereoI3DRSGM_compute():
@@ -115,12 +124,13 @@ def test_StereoI3DRSGM_compute_threaded():
         assert match_result.disparity[222,222] == 0.0
     else:
         assert match_result.valid
-        # TODO adjust disparity element checks for valid license compute
-        # verify known unmatched point
-        assert match_result.disparity[0,0] == -1.0
         valid_disp_threshold = 0.1
+        # verify known unmatched point
+        assert match_result.disparity[0,0] >= 150.27219 - valid_disp_threshold
+        assert match_result.disparity[0,0] <= 150.27219 + valid_disp_threshold
+        
         # disparity values should match expected within threshold
-        assert match_result.disparity[1024,1224] >= 239.5 - valid_disp_threshold
-        assert match_result.disparity[1024,1224] <= 239.5 + valid_disp_threshold
+        assert match_result.disparity[1024,1224] >= 239.3522 - valid_disp_threshold
+        assert match_result.disparity[1024,1224] <= 239.3522 + valid_disp_threshold
         assert match_result.disparity[1400,2200] >= 224.4375 - valid_disp_threshold
         assert match_result.disparity[1400,2200] <= 224.4375 + valid_disp_threshold

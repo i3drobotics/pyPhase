@@ -88,6 +88,14 @@ void init_stereoi3drsgm(py::module_ &m) {
             value : int
                 Desired value of window size value
             )")
+        .def("getWindowSize", &I3DR::Phase::StereoI3DRSGM::getWindowSize, R"(
+            Get window size value
+
+            Returns
+            ----------
+            value : int
+                Value of window size
+            )")
         .def("setMinDisparity", &I3DR::Phase::StereoI3DRSGM::setMinDisparity, R"(
             Set minimum disparity value
 
@@ -96,6 +104,14 @@ void init_stereoi3drsgm(py::module_ &m) {
             value : int
                 Desired value of minimum disparity value
             )")
+        .def("getMinDisparity", &I3DR::Phase::StereoI3DRSGM::getMinDisparity, R"(
+            Get minimum disparity value
+
+            Returns
+            ----------
+            value : int
+                Value of minimum disparity
+            )")
         .def("setNumDisparities", &I3DR::Phase::StereoI3DRSGM::setNumDisparities, R"(
             Set number of disparities
 
@@ -103,6 +119,14 @@ void init_stereoi3drsgm(py::module_ &m) {
             ----------
             value : int
                 Desired value of number of disparities
+            )")
+        .def("getNumDisparities", &I3DR::Phase::StereoI3DRSGM::getNumDisparities, R"(
+            Get number of disparities
+
+            Returns
+            ----------
+            value : int
+                Value of number of disparities
             )")
         .def("setSpeckleMaxSize", &I3DR::Phase::StereoI3DRSGM::setSpeckleMaxSize, R"(
             To enable speckle maximum size

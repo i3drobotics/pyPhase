@@ -8,8 +8,21 @@
  @brief Unit tests for Stereo Camera class
  @details Unit tests for use with PyTest
 """
+import os
+import numpy as np
 from phase.pyphase.stereocamera import CameraDeviceInfo, createStereoCamera
 from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
+from phase.pyphase import readImage
+
+
+def test_StereoCamera():
+    # Test initalisation of UVCStereoCamera using CameraDeviceInfo
+    device_info = CameraDeviceInfo(
+        "0", "0", "virtualuvc",
+        CameraDeviceType.DEVICE_TYPE_GENERIC_UVC,
+        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+    )
+    createStereoCamera(device_info)
 
 
 def test_StereoCamera():

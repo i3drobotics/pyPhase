@@ -5,35 +5,37 @@ Documenation for developers of pyPhase. pyPhase is a python wrapper over I3DR's 
 ***This contains private code that should not be shared publicly.***
 
 ## Install
-Phase library is required to be installed to use pyPhase.  
->### Linux
->Download debian package from [v0.1.2-10 release](https://github.com/i3drobotics/phase/releases/tag/v0.1.2-10).  
->Install debian package using apt package manager:
->```
->sudo apt install -f ./phase_vx.x.x-amd64.deb
->```
->This should install to `/opt/i3dr/phase`
->### Windows
->Download Windows installer from the [v0.1.2-10 release](https://github.com/i3drobotics/phase/releases/tag/v0.1.2-10).  
->Install using the installer GUI, this should install to `C:\Program Files\i3DR\Phase`
->
-
-Then install pyPhase using pip:
+### Windows
+Install pyPhase from pypi using pip:
 ```
 pip install phase
+```
+### Linux
+Install dependencies
+```
+sudo apt install -y libavcodec-dev libavformat-dev libswscale-dev
+sudo apt install -y libgl-dev liblapack-dev libblas-dev libgtk2.0-dev
+sudo apt install -y libgstreamer1.0-0 libgstreamer-plugins-base1.0-0
+sudo apt install -y zlib1g libstdc++6
+sudo apt install -y libc6 libgcc1
+```
+Package is not yet available on pypi for Linux.  
+Please download the wheel for your version of python from the release and install using:
+```
+pip install ./phase-X.X.X-cpXXX-cpXXX-linux_x86_64.whl
 ```
 
 ## Dependencies
 Phase library is required to be installed for use in the build process.  
 ### Linux
-Download debian package from [v0.1.2-10 release](https://github.com/i3drobotics/phase/releases/tag/v0.1.2-10).  
+Download debian package from [v0.1.2-15 release](https://github.com/i3drobotics/phase/releases/tag/v0.1.2-15).  
 Install debian package using apt package manager:
 ```
 sudo apt install -f ./phase_vx.x.x-amd64.deb
 ```
 This should install to `/opt/i3dr/phase`
 ### Windows
-Download Windows installer from the [v0.1.2-10 release](https://github.com/i3drobotics/phase/releases/tag/v0.1.2-10).  
+Download Windows installer from the [v0.1.2-15 release](https://github.com/i3drobotics/phase/releases/tag/v0.1.2-15).  
 Install using the installer GUI, this should install to `C:\Program Files\i3DR\Phase`
 
 The following libraries are used to build pyPhase:
@@ -68,25 +70,34 @@ cmake --build . --config Release
 cmake -DPhase_DIR="/opt/i3dr/phase/lib/cmake" ..
 make -j$(nproc)
 ```
-*Note: Make sure to run this from the repository root directory*
+*Note: Make sure to run this from the repository root directory*  
 
 ## Test
 ### Unit tests
-Test using pytest by running the following commands:
+Run unit tests using pytest by running the following commands:
 ```bash
 cd build/lib
-python3 -m pytest ../../test/src/
+python3 -m pytest ../../test/unit/
 ```
 *Note: Make sure to run this from the repository root directory*
 
-### Drivers
+### Performance tests
+Run performance tests using pytest by running the following commands:
 ```bash
-# [windows]
 cd build/lib
-python ../../test/drivers/demo_3d_from_image_files.py
-python ../../test/drivers/demo_cam_read.py
-python ../../test/drivers/demo_mat_numpy_conversion.py
-python ../../test/drivers/demo_rgbd.py
+python3 -m pytest ../../test/perf/
+```
+*Note: Make sure to run this from the repository root directory*
+
+### Demos
+```bash
+export PYTHONPATH=./build/lib
+python3 test/demo/demo_read.py
+python3 test/demo/demo_read_thread.py
+python3 test/demo/demo_match.py
+python3 test/demo/demo_match_thread.py
+python3 test/demo/demo_generate_pointcloud.py
+python3 test/demo/demo_titania_read.py
 ```
 
 *Note: Make sure to run this from the repository root directory*

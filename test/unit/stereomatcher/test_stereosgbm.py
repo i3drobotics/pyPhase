@@ -22,16 +22,23 @@ def test_StereoSGBM_get_set_params():
     matcher.setMinDisparity(0)
     matcher.setNumDisparities(25)
 
-    # TODO add get functions to matcher to verify values are set
+    assert matcher.getWindowSize() == 11
+    assert matcher.getMinDisparity() == 0
+    assert matcher.getNumDisparities() == 25
 
 
 def test_StereoSGBM_init_params():
     # Test matcher parameters defined at initialisation respond with correct values when using get functions 
+    window_size = 11
+    min_disparity = 0
+    num_disparities = 25
     stereo_params = StereoParams(
-        StereoMatcherType.STEREO_MATCHER_SGBM, 11, 0, 25, True)
+        StereoMatcherType.STEREO_MATCHER_SGBM, window_size, min_disparity, num_disparities, True)
     matcher = StereoSGBM(stereo_params)
 
-    # TODO add get functions to matcher to verify values are set
+    assert matcher.getWindowSize() == 11
+    assert matcher.getMinDisparity() == 0
+    assert matcher.getNumDisparities() == 25
 
 
 def test_StereoSGBM_compute():
