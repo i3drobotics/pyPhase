@@ -10,16 +10,12 @@
 """
 import os
 import math
-import cv2
 import numpy as np
 from phase.pyphase import scaleImage, toMono, normaliseDisparity
 from phase.pyphase import bgra2rgba, bgr2bgra, bgr2rgba
 from phase.pyphase import readImage, cvMatIsEqual, flip
 from phase.pyphase import disparity2depth, disparity2xyz, depth2xyz
 from phase.pyphase import xyz2depth, savePLY
-from phase.pyphase.calib import StereoCameraCalibration
-from phase.pyphase.stereomatcher import StereoParams, StereoMatcherType
-from phase.pyphase.stereomatcher import createStereoMatcher
 
 
 def test_utils_scaled_image_size():
@@ -42,7 +38,7 @@ def test_utils_convert_mono_to_mono():
     assert (imgMono.shape[2] == 1)
     assert imgMono.dtype == np.uint8
     
-def test_utils_toMono_8UC3():
+def test_utils_valid_bgr2rgba():
     # Test image of type CV_8UC3 converted to mono by ‘toMono’ function
     # has output image type of CV_8UC1
     img8UC3 = np.ones((2048, 2448, 3), dtype=np.uint8)
@@ -61,7 +57,7 @@ def test_utils_convert_bgra_to_mono():
     assert imgMono.dtype == np.uint8
 
 
-def test_utils_normaliseDisparity():
+def test_utils_norm_disparity_output_type():
     # Test disparity image normalised by ‘normaliseDisparity’ function
     # has output image type of CV_8UC3
     img = np.ones((2048, 2448, 3), dtype=np.float32)
@@ -126,7 +122,7 @@ def test_utils_valid_bgr2bgra():
     assert (converted_img[:,:,3] is not None)
 
 
-def test_Utils_disparity2depth():
+def test_utils_valid_disparity2depth():
     # Test disparity image converted to depth by ‘disparity2Depth’ function
     # has output depth values that match expected values
     disparity = np.ones((2048, 2448, 1), dtype=np.float32)
@@ -152,7 +148,7 @@ def test_Utils_disparity2depth():
     assert depth[1400, 2200] <= 1.54977 + valid_depth_threshold
 
 
-def test_Utils_disparity2depth_empty():
+def test_utils_empty_disparity2depth():
     # Test providing empty disparity or q matrix to ‘disparity2Depth’ function
     # will return an empty depth image
     # Create an empty matrix for testing purpose
@@ -169,7 +165,7 @@ def test_Utils_disparity2depth_empty():
     assert depth3 == None
 
 
-def test_Utils_disparity2xyz():
+def test_utils_valid_disparity2xyz():
     # Test disparity image converted to depth by ‘disparity2Xyz’ function
     # has output xyz values that match expected values
     disparity = np.ones((2048, 2448, 1), dtype=np.float32)
@@ -205,7 +201,7 @@ def test_Utils_disparity2xyz():
     assert xyz[1400,2200,2] <= 1.54977 + valid_xyz_threshold
 
 
-def test_Utils_disparity2xyz_empty():
+def test_utils_empty_disparity2xyz():
     # Test providing empty disparity or q matrix to ‘disparity2xyz’ function
     # will return an empty xyz image
     # Create an empty matrix for testing purpose
@@ -222,7 +218,7 @@ def test_Utils_disparity2xyz_empty():
     assert xyz3 == None
 
 
-def test_Utils_depth2xyz():
+def test_utils_valid_depth2xyz():
     # Test depth image converted to depth by ‘depth2Xyz’ function
     # has output xyz values that match expected values
     depth = np.ones((2048, 2448, 1), dtype=np.float32)
@@ -253,7 +249,7 @@ def test_Utils_depth2xyz():
     assert xyz[1400,2200,2] <= 1.54977 + valid_xyz_threshold
 
 
-def test_Utils_depth2xyz_empty():
+def test_utils_empty_depth2xyz():
     # Test providing empty depth or q matrix to ‘depth2Xyz’ function
     # will return an empty xyz image
     empty = np.array([])
@@ -263,7 +259,7 @@ def test_Utils_depth2xyz_empty():
     assert xyz == None
 
 
-def test_Utils_xyz2depth():
+def test_utils_valid_xyz2depth():
     # Test xyz image converted to depth by ‘xyz2Depth’ function
     # has output depth values that match expected values
     xyz = np.ones((2048, 2448, 3), dtype=np.float32)
@@ -282,7 +278,7 @@ def test_Utils_xyz2depth():
     assert depth[1400, 2200] <= 1.54977 + valid_depth_threshold
 
 
-def test_Utils_xyz2depth_empty():
+def test_utils_empty_xyz2depth():
     # Test providing empty xyz to ‘xyz2Depth’ function
     # will return an empty depth image
     empty = np.array([])
@@ -291,7 +287,7 @@ def test_Utils_xyz2depth_empty():
     assert depth == None
 
 
-
+def test_utils_valid_readImage():
     # Test trying to read image that does not exist
     # using ‘readImage’ function results in empty image
     script_path = os.path.dirname(os.path.realpath(__file__))
@@ -307,7 +303,7 @@ def test_Utils_xyz2depth_empty():
     assert image.shape[1] == 2448
 
     
-def test_Utils_readImage_empty():
+def test_utils_empty_readImage():
     # Test trying to read image that does not exist
     # using ‘readImage’ function results in empty image
     image = readImage("invalid/file/path")
@@ -316,7 +312,7 @@ def test_Utils_readImage_empty():
     assert image is None
 
 
-def test_Utils_flip_horizontal():
+def test_utils_flip_horizontal():
     # Test image flipped horizontally using ‘flip’ function has
     # pixel values that matching input in opposite side on the image.
     # E.g. pixel from top left corner in input matches pixel from top right corner in output image 
@@ -329,7 +325,7 @@ def test_Utils_flip_horizontal():
     assert orig_top_left == flipped_top_right
 
 
-def test_Utils_flip_vertical():
+def test_utils_flip_vertical():
     # Test image flipped vertically using ‘flip’ function has pixel values pixel values
     # that matching input in opposite side on the image.
     # E.g. pixel from top left corner in input matches pixel from cornerbottom left in output image 
@@ -357,7 +353,7 @@ def test_utils_savePly():
     assert (save_success)
 
 
-def test_Utils_checkEqualMat():
+def test_utils_checkEqualMat():
     # Test two cv::Mat’s that are equal are reported as equal by ‘cvMatIsEqual’ function
     # Create equal matrices
     mat_a = np.ones((2048, 2448, 1), dtype=np.float32)
