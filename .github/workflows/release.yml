@@ -13,7 +13,7 @@ on:
           - prerelease
 
 env:
-  PHASE_VERSION: v0.1.2-15
+  PHASE_VERSION: v0.2.0
   PHASE_REPO: i3drobotics/phase
 
 jobs:
@@ -373,15 +373,6 @@ jobs:
         with:
           type: now
           target_branch: ${{ steps.release-branch.outputs.branch_name }}
-          github_token: ${{ github.token }}
-          message: merged ${{ steps.commit-vars.outputs.sha_short }}
-      # Merge main back to production
-      - name: Merge prod -> main
-        uses: devmasx/merge-branch@master
-        with:
-          type: now
-          from_branch: ${{ steps.release-branch.outputs.branch_name }}
-          target_branch: main
           github_token: ${{ github.token }}
           message: merged ${{ steps.commit-vars.outputs.sha_short }}
       # Add wheels to release
