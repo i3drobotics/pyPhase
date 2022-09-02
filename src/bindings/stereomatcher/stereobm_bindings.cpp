@@ -18,16 +18,113 @@ namespace py = pybind11;
 
 void init_stereobm(py::module_ &m) {
     NDArrayConverter::init_numpy();
+    py::class_<I3DR::Phase::StereoBM>(m, "StereoBM", R"(
+        OpenCV's block matcher for generting disparity from stereo images.
+        )")
+        .def(py::init<>(), R"(
+            Initalise Stereo matcher and set default matching parameters
+        )")
+        .def(py::init<I3DR::Phase::StereoParams>(), R"(
+            Initalise Stereo matcher and use provided StereoParams to set matching parameters
+            
+            )")
+        .def("compute", &I3DR::Phase::StereoBM::compute, R"(
+            Compute stereo matching
+            Generates disparity from left and right images
 
-    py::class_<I3DR::Phase::StereoBM>(m, "StereoBM")
-        .def(py::init<>())
-        .def(py::init<I3DR::Phase::StereoParams>())
-        .def("compute", &I3DR::Phase::StereoBM::compute)
-        .def("startComputeThread", &I3DR::Phase::StereoBM::startComputeThread)
-        .def("setComputeThreadCallback", &I3DR::Phase::StereoBM::setComputeThreadCallback)
-        .def("isComputeThreadRunning", &I3DR::Phase::StereoBM::isComputeThreadRunning)
-        .def("getComputeThreadResult", &I3DR::Phase::StereoBM::getComputeThreadResult)
-        .def("setWindowSize", &I3DR::Phase::StereoBM::setWindowSize)
-        .def("setMinDisparity", &I3DR::Phase::StereoBM::setMinDisparity)
-        .def("setNumDisparities", &I3DR::Phase::StereoBM::setNumDisparities);
+            Parameters
+            ----------
+            left_image : numpy.ndarray
+                Left image of stereo pair
+            right_image : numpy.ndarray
+                Right image of stereo pair
+            )")
+        .def("startComputeThread", &I3DR::Phase::StereoBM::startComputeThread, R"(
+            Start compute thread
+            Generates disparity from left and right images
+            Use getComputeThreadResult() to get results of compute
+
+            Parameters
+            ----------
+            left_image : numpy.ndarray
+                Left image of stereo pair
+            right_image : numpy.ndarray
+                Right image of stereo pair
+            )")
+        .def("setComputeThreadCallback", &I3DR::Phase::StereoBM::setComputeThreadCallback, R"(
+            Set callback function to run when compute thread completes
+            Should be used with startComputeThread()
+            Useful as an external trigger that compute is complete
+            and results can be retrieved.
+
+            Parameters
+            ----------
+            f : callback
+            )")
+        .def("isComputeThreadRunning", &I3DR::Phase::StereoBM::isComputeThreadRunning, R"(
+            Check if compute thread is running
+
+            Returns
+            -------
+            bool
+                True is compute thread is running
+            )")
+        .def("getComputeThreadResult", &I3DR::Phase::StereoBM::getComputeThreadResult, R"(
+            Get results from threaded compute process
+            Should be used with startComputeThread()
+
+            Returns
+            -------
+            StereoMatcherComputeResult
+                Result from compute
+
+            )")
+        .def("setWindowSize", &I3DR::Phase::StereoBM::setWindowSize, R"(
+            Set window size value
+
+            Parameters
+            ----------
+            value : int
+                Desired value of window size value
+            )")
+        .def("getWindowSize", &I3DR::Phase::StereoBM::getWindowSize, R"(
+            Get window size value
+
+            Returns
+            ----------
+            value : int
+                Value of window size
+            )")
+        .def("setMinDisparity", &I3DR::Phase::StereoBM::setMinDisparity, R"(
+            Set minimum disparity value
+
+            Parameters
+            ----------
+            value : int
+                Desired value of minimum disparity value
+            )")
+        .def("getMinDisparity", &I3DR::Phase::StereoBM::getMinDisparity, R"(
+            Get minimum disparity value
+
+            Returns
+            ----------
+            value : int
+                Value of minimum disparity
+            )")
+        .def("setNumDisparities", &I3DR::Phase::StereoBM::setNumDisparities, R"(
+            Set number of disparities
+
+            Parameters
+            ----------
+            value : int
+                Desired value of number of disparities
+            )")
+        .def("getNumDisparities", &I3DR::Phase::StereoBM::getNumDisparities, R"(
+            Get number of disparities
+
+            Returns
+            ----------
+            value : int
+                Value of number of disparities
+            )");
 }

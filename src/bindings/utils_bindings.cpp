@@ -35,7 +35,20 @@ void init_utils(py::module_ &m) {
         numpy.ndarray
             Scaled image
         )");
-    // m.def("toMono", &I3DR::Phase::toMono);
+    m.def("toMono", &I3DR::Phase::toMono, R"(
+        Convert numpy.narray types to 8UC
+
+        Parameters
+        ----------
+        image_in : numpy.ndarray
+            Input image
+
+        Returns
+        -------
+        image_out : numpy.ndarray
+            8UC image
+
+    )");
     m.def("normaliseDisparity", &I3DR::Phase::normaliseDisparity, R"(
         Normalise disparity image.
 
@@ -202,14 +215,14 @@ void init_utils(py::module_ &m) {
             True if successful
         )");
     m.def("cvMatIsEqual", &I3DR::Phase::cvMatIsEqual, R"(
-        Check if two cv::Mat objects are equal.
+        Check if two numpy.ndarray objects are equal.
 
         Parameters
         ----------
-        mat1 : cv::Mat
-            First cv::Mat object
-        mat2 : cv::Mat
-            Second cv::Mat object
+        mat1 : numpy.ndarray
+            First numpy.ndarray object
+        mat2 : numpy.ndarray
+            Second numpy.ndarray object
 
         Returns
         -------

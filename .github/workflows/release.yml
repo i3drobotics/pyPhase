@@ -10,9 +10,10 @@ on:
           - patch
           - minor
           - major
+          - prerelease
 
 env:
-  PHASE_VERSION: v0.0.27
+  PHASE_VERSION: v0.1.2-15
   PHASE_REPO: i3drobotics/phase
 
 jobs:
@@ -110,7 +111,13 @@ jobs:
         shell: bash
         run: |
           cd build/lib
-          python3 -m pytest ../../test/src/
+          python3 -m pytest ../../test/unit/
+      # Performance Test
+      - name: Perf Test
+        shell: bash
+        run: |
+          cd build/lib
+          python3 -m pytest ../../test/perf/
       # Build deployment wheel
       - name: Build wheel
         shell: bash
@@ -179,9 +186,13 @@ jobs:
         shell: bash
         run: |
           cd build/lib
-          python -m pytest ../../test/src/
-        env:
-          PHASE_DIR: "${{ github.workspace }}/phase_install"
+          python3 -m pytest ../../test/unit/
+      # Performance Test
+      - name: Perf Test
+        shell: bash
+        run: |
+          cd build/lib
+          python3 -m pytest ../../test/perf/
       # Build deployment wheel
       - name: Build wheel
         shell: bash
@@ -289,7 +300,7 @@ jobs:
         shell: bash
         run: |
           sudo apt update && sudo apt install doxygen
-          python3 -m pip install sphinx sphinx-rtd-theme pybind11-stubgen
+          python3 -m pip install sphinx sphinx-rtd-theme pybind11-stubgen numpydoc
           ./docs/gen_docs.sh
       # Zip developer docs
       - uses: papeloto/action-zip@v1
@@ -304,6 +315,7 @@ jobs:
       # Publish python wheels to pip (Windows only)
       # TODO publish linux wheels to pip when manylinux support is complete
       - name: Publish wheels to testpypi
+        if: ${{ github.event.inputs.release_level != 'prerelease' }}
         shell: bash
         run: |
           python -m pip install twine
@@ -312,6 +324,7 @@ jobs:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.TestPYPI_API_TOKEN }}
       - name: Publish wheels to pypi
+        if: ${{ github.event.inputs.release_level != 'prerelease' }}
         shell: bash
         run: |
           python -m twine upload deployment/phase*win_amd64.whl
@@ -322,7 +335,8 @@ jobs:
       - name: GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          draft: false
+          draft: true
+          prerelease: ${{ github.event.inputs.release_level == 'prerelease' }}
           body_path: release.md
           tag_name: v${{ env.PROJ_VER }}
           files: |
@@ -330,6 +344,7 @@ jobs:
             docs-dev.zip
       # Update public docs
       - name: Deploy public docs
+        if: ${{ github.event.inputs.release_level != 'prerelease' }}
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: docs # The branch the action should deploy to.
@@ -342,12 +357,22 @@ jobs:
         run: |
           echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
           echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      # Get release branch name
+      # 'preprod' for pre-release
+      # 'prod' for production release
+      - name: Get release branch
+        id: release-branch
+        shell: bash
+        run: |
+          export RELEASE_BRANCH="prod"
+          [[ ${{ github.event.inputs.release_level == 'prerelease' }} ]] && export RELEASE_BRANCH="preprod"
+          echo "::set-output name=branch_name::${RELEASE_BRANCH}"
       # Merge branch into production
       - name: Merge main -> prod
         uses: devmasx/merge-branch@master
         with:
           type: now
-          target_branch: prod
+          target_branch: ${{ steps.release-branch.outputs.branch_name }}
           github_token: ${{ github.token }}
           message: merged ${{ steps.commit-vars.outputs.sha_short }}
       # Merge main back to production
@@ -355,7 +380,7 @@ jobs:
         uses: devmasx/merge-branch@master
         with:
           type: now
-          from_branch: prod
+          from_branch: ${{ steps.release-branch.outputs.branch_name }}
           target_branch: main
           github_token: ${{ github.token }}
           message: merged ${{ steps.commit-vars.outputs.sha_short }}

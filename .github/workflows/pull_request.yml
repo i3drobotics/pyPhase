@@ -6,7 +6,7 @@ on:
     types: [ opened, synchronize, reopened ]
 
 env:
-  PHASE_VERSION: v0.0.27
+  PHASE_VERSION: v0.1.2-15
   PHASE_REPO: i3drobotics/phase
 
 jobs:
@@ -59,4 +59,10 @@ jobs:
         shell: bash
         run: |
           cd build/lib
-          python3 -m pytest ../../test/src/
+          python3 -m pytest ../../test/unit/
+      # Performance Test
+      - name: Perf Test
+        shell: bash
+        run: |
+          cd build/lib
+          python3 -m pytest ../../test/perf/

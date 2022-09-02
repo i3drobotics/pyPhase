@@ -36,7 +36,15 @@ pygments_style = 'sphinx'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.autosectionlabel']
+    'sphinx.ext.autosectionlabel',
+    'sphinx.ext.mathjax',
+    'sphinx.ext.viewcode',
+    'numpydoc',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.doctest',
+    'sphinx.ext.inheritance_diagram']
+
+numpydoc_class_members_toctree = False
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

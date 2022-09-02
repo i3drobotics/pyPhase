@@ -16,23 +16,19 @@
 namespace py = pybind11;
 
 // pyphase
-void init_phaseversion(py::module &);
-void init_stereovision(py::module &);
+void init_version(py::module &);
 void init_utils(py::module &);
-void init_stereoprocess(py::module &);
-void init_rgbdvideostream(py::module &);
-void init_rgbdvideowriter(py::module &);
 
 // types
 void init_mat(py::module &);
-void init_common(py::module &);
-void init_cameradeviceinfo(py::module &);
+void init_stereo(py::module &);
 
 // calib
 void init_cameracalibration(py::module &);
 void init_stereocalibration(py::module &);
 
 // stereo camera
+void init_cameradeviceinfo(py::module &);
 void init_abstractstereocamera(py::module &);
 void init_stereocamera(py::module &);
 void init_pylonstereocamera(py::module &);
@@ -47,28 +43,22 @@ void init_stereomatcher(py::module &);
 void init_stereobm(py::module &);
 void init_stereosgbm(py::module &);
 void init_stereoi3drsgm(py::module &);
-void init_stereohobm(py::module &);
 
 PYBIND11_MODULE(pyphase, m) {
     NDArrayConverter::init_numpy();
 
     m.doc() = R"(
-        pyPhase is a python wrapper package over I3DR's Phase C++ library.
+        pyPhase is a python wrapper package over I3DR's Phase library.
     )";
     
     // pyphase
-    init_phaseversion(m);
-    init_stereovision(m);
+    init_version(m);
     init_utils(m);
-    init_stereoprocess(m);
-    init_rgbdvideostream(m);
-    init_rgbdvideowriter(m);
 
     // types
     py::module_ types_module = m.def_submodule("types", "custom Phase types");
     init_mat(types_module);
-    init_common(types_module);
-    init_cameradeviceinfo(types_module);
+    init_stereo(types_module);
 
     // calib
     py::module_ calib_module = m.def_submodule("calib", "camera calibration");
@@ -77,6 +67,7 @@ PYBIND11_MODULE(pyphase, m) {
 
     // stereo camera
     py::module_ stereocamera_module = m.def_submodule("stereocamera", "stereo camera");
+    init_cameradeviceinfo(stereocamera_module);
     init_abstractstereocamera(stereocamera_module);
     init_stereocamera(stereocamera_module);
     init_pylonstereocamera(stereocamera_module);
@@ -92,5 +83,4 @@ PYBIND11_MODULE(pyphase, m) {
     init_stereobm(stereomatcher_module);
     init_stereosgbm(stereomatcher_module);
     init_stereoi3drsgm(stereomatcher_module);
-    init_stereohobm(stereomatcher_module);
 }
