@@ -14,5 +14,5 @@
 namespace py = pybind11;
 
 void init_pyphase_version(py::module_ &m) {
-    m.attr("__version__") = @PROJECT_VERSION@;
+    m.attr("__version__") = "@PROJECT_VERSION@";
 }
