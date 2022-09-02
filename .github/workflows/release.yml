@@ -375,15 +375,6 @@ jobs:
           target_branch: ${{ steps.release-branch.outputs.branch_name }}
           github_token: ${{ github.token }}
           message: merged ${{ steps.commit-vars.outputs.sha_short }}
-      # Merge main back to production
-      - name: Merge prod -> main
-        uses: devmasx/merge-branch@master
-        with:
-          type: now
-          from_branch: ${{ steps.release-branch.outputs.branch_name }}
-          target_branch: main
-          github_token: ${{ github.token }}
-          message: merged ${{ steps.commit-vars.outputs.sha_short }}
       # Add wheels to release
       # Placed after everything to avoid issues if failure (see issue #19)
       - name: Upload Windows wheel release assets
