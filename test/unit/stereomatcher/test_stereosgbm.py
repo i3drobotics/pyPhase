@@ -103,7 +103,6 @@ def test_StereoSGBM_threaded_compute():
     read_start = time.time()
     while matcher.isComputeThreadRunning():
         # To make sure function run something
-        #print("Thread is computing")
         # check read is not taking too long
         read_end = time.time()
         duration = read_end - read_start

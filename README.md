@@ -100,6 +100,7 @@ python3 test/demo/demo_match.py
 python3 test/demo/demo_match_thread.py
 python3 test/demo/demo_generate_pointcloud.py
 python3 test/demo/demo_titania_read.py
+python3 test/demo/demo_calibrate_from_images.py
 ```
 
 *Note: Make sure to run this from the repository root directory*
