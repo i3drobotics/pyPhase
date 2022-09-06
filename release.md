@@ -25,3 +25,5 @@ pip install ./phase-X.X.X-cpXXX-cpXXX-linux_x86_64.whl
 Documentation is available [here](https://i3drobotics.github.io/pyphase/)
 
 ## Changelog
+### Improvements
+ - Changed the suggested way to import pyPhase [#63](https://github.com/i3drobotics/pyphase/pull/63)
