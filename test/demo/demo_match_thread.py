@@ -41,8 +41,7 @@ left_yaml = os.path.join(data_folder, "left.yaml")
 right_yaml = os.path.join(data_folder, "right.yaml")
 
 # Check for I3DRSGM license
-i3drsgm = phase.stereomatcher.StereoI3DRSGM()
-license_valid = i3drsgm.isLicenseValid()
+license_valid = phase.stereomatcher.StereoI3DRSGM().isLicenseValid()
 if license_valid:
     print("I3DRSGM license accepted")
     stereo_params = phase.stereomatcher.StereoParams(
