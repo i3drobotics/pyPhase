@@ -1,0 +1,18 @@
+/*!
+ * @authors Ben Knight (bknight@i3drobotics.com)
+ * @date 2021-05-26
+ * @copyright Copyright (c) I3D Robotics Ltd, 2021
+ * 
+ * @file pyphase_version_bindings.cpp
+ * @brief pyPhase version bindings
+ * @details Python bindings generated using pybind11
+ */
+
+#include "pybind11/pybind11.h"
+#include "ndarray_converter.h"
+
+namespace py = pybind11;
+
+void init_pyphase_version(py::module_ &m) {
+    m.attr("__version__") = "@PROJECT_VERSION@";
+}

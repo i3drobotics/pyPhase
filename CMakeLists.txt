@@ -33,6 +33,12 @@ project(pyphase LANGUAGES ${PROJECT_LANGS} VERSION ${VER})
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 string(TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
 
+# create configure file (for version number as defines)
+configure_file(
+    src/bindings/cmake/pyphase_version_bindings.cpp.in
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/bindings/pyphase_version_bindings.cpp @ONLY
+)
+
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)

@@ -38,9 +38,9 @@ def import_phase():
 
 def check_phase_version(phase_version):
     # check Phase library included version matches expected version
-    from phase.pyphase import getVersionString
+    from phase.pyphase import getAPIVersionString
 
-    m_phase_version = getVersionString()
+    m_phase_version = getAPIVersionString()
     if m_phase_version != phase_version:
         error_msg = \
             "Phase library version mismatch. Expected v{} but got v{}.\n" \
