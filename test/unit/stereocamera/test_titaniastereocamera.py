@@ -14,9 +14,7 @@ import shutil
 from glob import glob
 import numpy as np
 import cv2
-from phase.pyphase.stereocamera import CameraDeviceInfo, createStereoCamera
-from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
-from phase.pyphase import readImage
+import phase.pyphase as phase
 
 
 def test_TitaniaStereoCamera_setparams():

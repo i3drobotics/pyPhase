@@ -10,8 +10,7 @@
 """
 import os
 import numpy as np
-from phase.pyphase import readImage
-from phase.pyphase.calib import CameraCalibration
+import phase.pyphase as phase
 
 
 def test_CameraCalibration():

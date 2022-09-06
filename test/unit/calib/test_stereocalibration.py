@@ -10,9 +10,7 @@
 """
 import os
 import numpy as np
-from phase.pyphase import readImage
-from phase.pyphase.calib import StereoCameraCalibration, CalibrationBoardType
-from phase.pyphase.calib import CalibrationFileType
+import phase.pyphase as phase
 
 
 def test_Calibration_from_images():
