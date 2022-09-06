@@ -54,14 +54,14 @@ def test_StereoBM_compute():
     left_image_file = os.path.join(data_folder, "left.png")
     right_image_file = os.path.join(data_folder, "right.png")
 
-    left_image = readImage(left_image_file)
-    right_image = readImage(right_image_file)
+    left_image = phase.readImage(left_image_file)
+    right_image = phase.readImage(right_image_file)
 
     assert left_image.size > 0
     assert right_image.size > 0
 
     stereo_params = phase.stereomatcher.StereoParams(
-        StereoMatcherType.STEREO_MATCHER_BM,
+        phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_BM,
         11, 0, 25, True)
 
     matcher = phase.stereomatcher.createStereoMatcher(stereo_params)
@@ -91,8 +91,8 @@ def test_StereoBM_compute_threaded():
     left_image_file = os.path.join(test_folder, "left.png")
     right_image_file = os.path.join(test_folder, "right.png")
 
-    left_image = readImage(left_image_file)
-    right_image = readImage(right_image_file)
+    left_image = phase.readImage(left_image_file)
+    right_image = phase.readImage(right_image_file)
 
     assert left_image.size > 0
     assert right_image.size > 0

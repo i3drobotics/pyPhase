@@ -18,7 +18,7 @@ def test_MatrixFloat_creation():
     rows = 10
     cols = 10
     layers = 2
-    mat = phase.MatrixFloat(rows, cols, layers)
+    mat = phase.types.MatrixFloat(rows, cols, layers)
     assert mat.getColumns() == rows
     assert mat.getRows() == cols
     assert mat.getLayers() == layers
@@ -30,7 +30,7 @@ def test_MatrixUInt8_creation():
     rows = 10
     cols = 10
     layers = 2
-    mat = phase.MatrixUInt8(rows, cols, layers)
+    mat = phase.types.MatrixUInt8(rows, cols, layers)
     assert mat.getColumns() == rows
     assert mat.getRows() == cols
     assert mat.getLayers() == layers
@@ -39,7 +39,7 @@ def test_MatrixUInt8_creation():
 def test_MatrixFloat_set_element():
     # Test MatrixFloat element can be set to specific value
     # and value can be read back and responds with new value 
-    mat = phase.MatrixFloat(10, 10, 2)
+    mat = phase.types.MatrixFloat(10, 10, 2)
     value = 5
     row = 3
     col = 3
@@ -51,7 +51,7 @@ def test_MatrixFloat_set_element():
 def test_MatrixUInt8_set_element():
     # Test MatrixUInt8 element can be set to specific value
     # and value can be read back and responds with new value 
-    mat = phase.MatrixUInt8(10, 10, 2)
+    mat = phase.types.MatrixUInt8(10, 10, 2)
     value = 5
     row = 3
     col = 3
@@ -62,11 +62,11 @@ def test_MatrixUInt8_set_element():
 
 def test_MatrixFloat_empty():
     # Test a MatrixFloat that is empty reports as empty using ‘isEmpty’ function 
-    mat = phase.MatrixFloat()
+    mat = phase.types.MatrixFloat()
     assert mat.isEmpty()
 
 
 def test_MatrixUInt8_empty():
     # Test a MatrixUInt8 that is empty reports as empty using ‘isEmpty’ function 
-    mat = phase.MatrixUInt8()
+    mat = phase.types.MatrixUInt8()
     assert mat.isEmpty()

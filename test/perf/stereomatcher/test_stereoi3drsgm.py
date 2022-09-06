@@ -10,10 +10,7 @@
 """
 import time
 import os
-from phase.pyphase import readImage
-from phase.pyphase.stereomatcher import StereoParams, StereoMatcherType
-from phase.pyphase.stereomatcher import createStereoMatcher
-from phase.pyphase.stereomatcher import StereoI3DRSGM
+import phase.pyphase as phase
 
 
 def test_StereoI3DRSGM_perf_compute():
@@ -26,24 +23,24 @@ def test_StereoI3DRSGM_perf_compute():
     data_folder = os.path.join(
         script_path, "..", "..", "data")
 
-    stereo_params = StereoParams(
-        StereoMatcherType.STEREO_MATCHER_I3DRSGM,
+    stereo_params = phase.stereomatcher.StereoParams(
+        phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_I3DRSGM,
         9, 0, 49, True)
 
-    matcher = createStereoMatcher(stereo_params)
+    matcher = phase.stereomatcher.createStereoMatcher(stereo_params)
 
     left_image_file = os.path.join(data_folder, "left.png")
     right_image_file = os.path.join(data_folder, "right.png")
 
-    left_image = readImage(left_image_file)
-    right_image = readImage(right_image_file)
+    left_image = phase.readImage(left_image_file)
+    right_image = phase.readImage(right_image_file)
 
     start = time.time()
     match_result = matcher.compute(left_image, right_image)
     end = time.time()
     duration = end - start
 
-    license_valid = StereoI3DRSGM().isLicenseValid()
+    license_valid = phase.stereomatcher.StereoI3DRSGM().isLicenseValid()
     if license_valid:
         assert match_result.valid
         assert duration < licensed_timeout

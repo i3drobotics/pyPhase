@@ -79,13 +79,13 @@ def test_CameraCalibration():
     with open(left_ros_yaml, 'w') as f:
         f.writelines(left_ros_yaml_data)
 
-    cal_ros = CameraCalibration(left_ros_yaml)
+    cal_ros = phase.calib.CameraCalibration(left_ros_yaml)
     assert(cal_ros.isValid())
 
     with open(left_cv_yaml, "w+") as f:
         f.writelines(left_cv_yaml_data)
 
-    cal_cv = CameraCalibration(left_cv_yaml)
+    cal_cv = phase.calib.CameraCalibration(left_cv_yaml)
     assert(cal_cv.isValid())
 
     # Test calibration access
@@ -102,7 +102,8 @@ def test_CameraCalibration():
 
 def test_calibrationFromIdeal():
     # Test access to left and right calibration data from StereoCameraCalibration
-    cal = CameraCalibration.calibrationFromIdeal(2448, 2048, 0.00000345, 0.012, 0.1, 0.0)
+    cal = phase.calib.CameraCalibration.calibrationFromIdeal(
+        2448, 2048, 0.00000345, 0.012, 0.1, 0.0)
     assert(cal.isValid())
     
     assert cal.getImageHeight() > 0
@@ -116,11 +117,11 @@ def test_Rectify():
     
     # Test loading of image data from file
     left_image_file = os.path.join(data_folder, "left.png")
-    left_image = readImage(left_image_file)
+    left_image = phase.readImage(left_image_file)
     rect_image = np.zeros_like(left_image)
     left_image_empty = np.zeros_like(left_image)
 
-    cal = CameraCalibration(left_ros_yaml)
+    cal = phase.calib.CameraCalibration(left_ros_yaml)
 
     cal.rectify(left_image, rect_image)
     assert np.count_nonzero(rect_image) > 0

@@ -60,7 +60,8 @@ def test_StereoSGBM_compute():
     assert left_image.size > 0
     assert right_image.size > 0
 
-    stereo_params = phase.stereomatcher.StereoParams(StereoMatcherType.STEREO_MATCHER_SGBM,
+    stereo_params = phase.stereomatcher.StereoParams(
+        phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_SGBM,
         11, 0, 25, True)
     matcher = phase.stereomatcher.createStereoMatcher(stereo_params)
 
@@ -95,7 +96,8 @@ def test_StereoSGBM_threaded_compute():
     assert left_image.size > 0
     assert right_image.size > 0
 
-    stereo_params = phase.stereomatcher.StereoParams(StereoMatcherType.STEREO_MATCHER_SGBM,
+    stereo_params = phase.stereomatcher.StereoParams(
+        phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_SGBM,
         11, 0, 25, True)
 
     matcher = phase.stereomatcher.createStereoMatcher(stereo_params)
