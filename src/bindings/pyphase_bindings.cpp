@@ -3,7 +3,7 @@
  * @date 2021-05-26
  * @copyright Copyright (c) I3D Robotics Ltd, 2021
  * 
- * @file bindings.cpp
+ * @file pyphase_bindings.cpp
  * @brief Python bindings module
  * @details Python bindings generated using pybind11.
  * Bindings for classes defined in other '_bindings' files
