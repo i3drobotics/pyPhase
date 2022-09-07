@@ -92,7 +92,7 @@ void init_stereoi3drsgm(py::module_ &m) {
             Get window size value
 
             Returns
-            ----------
+            -------
             value : int
                 Value of window size
             )")
@@ -108,7 +108,7 @@ void init_stereoi3drsgm(py::module_ &m) {
             Get minimum disparity value
 
             Returns
-            ----------
+            -------
             value : int
                 Value of minimum disparity
             )")
@@ -124,7 +124,7 @@ void init_stereoi3drsgm(py::module_ &m) {
             Get number of disparities
 
             Returns
-            ----------
+            -------
             value : int
                 Value of number of disparities
             )")
