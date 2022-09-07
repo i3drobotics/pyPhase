@@ -34,7 +34,7 @@ void init_utils(py::module_ &m) {
         -------
         numpy.ndarray
             Scaled image
-        )");
+        )", py::arg("image"), py::arg("scale_factor"));
     m.def("toMono", &I3DR::Phase::toMono, R"(
         Convert numpy.narray types to 8UC
 
@@ -48,7 +48,7 @@ void init_utils(py::module_ &m) {
         image_out : numpy.ndarray
             8UC image
 
-    )");
+    )", py::arg("image_in"));
     m.def("normaliseDisparity", &I3DR::Phase::normaliseDisparity, R"(
         Normalise disparity image.
 
@@ -61,7 +61,7 @@ void init_utils(py::module_ &m) {
         -------
         numpy.ndarray
             Normalised disparity image
-        )");
+        )", py::arg("disparity"));
     m.def("bgra2rgba", &I3DR::Phase::bgra2rgba, R"(
         Convert BGRA image to RGBA.
 
@@ -74,7 +74,7 @@ void init_utils(py::module_ &m) {
         -------
         numpy.ndarray
             RGBA image
-        )");
+        )", py::arg("bgra"));
     m.def("bgr2rgba", &I3DR::Phase::bgr2rgba, R"(
         Convert BGR image to RGBA.
 
@@ -87,7 +87,7 @@ void init_utils(py::module_ &m) {
         -------
         numpy.ndarray
             RGBA image
-        )");
+        )", py::arg("bgr"));
     m.def("bgr2bgra", &I3DR::Phase::bgr2bgra, R"(
         Convert BGR image to BGRA.
 
@@ -100,7 +100,7 @@ void init_utils(py::module_ &m) {
         -------
         numpy.ndarray
             BGRA image
-        )");
+        )", py::arg("bgr"));
     m.def("disparity2xyz", &I3DR::Phase::disparity2xyz, R"(
         Calculate point cloud (xyz) from disparity image.
 
@@ -115,7 +115,7 @@ void init_utils(py::module_ &m) {
         -------
         numpy.ndarray
             Point clouds (xyz)
-        )");
+        )", py::arg("disparity"), py::arg("Q"));
     m.def("disparity2depth", &I3DR::Phase::disparity2depth, R"(
         Calculate depth image from disparity image.
 
@@ -130,7 +130,7 @@ void init_utils(py::module_ &m) {
         -------
         numpy.ndarray
             Depth image
-        )");
+        )", py::arg("disparity"), py::arg("Q"));
     m.def("xyz2depth", &I3DR::Phase::xyz2depth, R"(
         Calculate depth image from point cloud (xyz).
 
@@ -143,7 +143,7 @@ void init_utils(py::module_ &m) {
         -------
         numpy.ndarray
             Depth image
-        )");
+        )", py::arg("xyz"));
     m.def("depth2xyz", &I3DR::Phase::depth2xyz, R"(
         Calculate Point cloud (xyz) from depth image.
 
@@ -158,7 +158,7 @@ void init_utils(py::module_ &m) {
         -------
         numpy.ndarray
             Point cloud (xyz)
-        )");
+        )", py::arg("xyz"), py::arg("hfov"));
     m.def("showImage", &I3DR::Phase::showImage, R"(
         Display image in GUI window.
 
@@ -168,7 +168,7 @@ void init_utils(py::module_ &m) {
             Name of window
         image : numpy.ndarray
             Point cloud (xyz)
-        )");
+        )", py::arg("window_name"), py::arg("image"));
     m.def("readImage", &I3DR::Phase::readImage, R"(
         Read image from file.
 
@@ -181,7 +181,7 @@ void init_utils(py::module_ &m) {
         -------
         numpy.ndarray
             Image
-        )");
+        )", py::arg("image_filepath"));
     m.def("flip", &I3DR::Phase::flip, R"(
         Flip image horizontally or vertically based on flip code.
 
@@ -196,7 +196,7 @@ void init_utils(py::module_ &m) {
         -------
         numpy.ndarray
             Flipped image
-        )");
+        )", py::arg("image"), py::arg("flip_code"));
     m.def("savePLY", &I3DR::Phase::savePLY, R"(
         Save point cloud to PLY file.
 
@@ -213,7 +213,7 @@ void init_utils(py::module_ &m) {
         -------
         bool
             True if successful
-        )");
+        )", py::arg("ply_filepath"), py::arg("xyz"), py::arg("rgb"));
     m.def("cvMatIsEqual", &I3DR::Phase::cvMatIsEqual, R"(
         Check if two numpy.ndarray objects are equal.
 
@@ -228,5 +228,5 @@ void init_utils(py::module_ &m) {
         -------
         bool
             True if equal
-        )");
+        )", py::arg("mat1"), py::arg("mat2"));
 }
