@@ -10,21 +10,22 @@
 """
 import os
 import time
-from phase.pyphase.stereomatcher import StereoI3DRSGM, StereoParams
-from phase.pyphase.stereomatcher import createStereoMatcher, StereoMatcherType
-from phase.pyphase import readImage
+import phase.pyphase as phase
 
 
 def test_StereoI3DRSGM_get_set_params():
     # Test matcher parameters can be set and get functions return expected values
-    matcher = StereoI3DRSGM()
-    matcher.setWindowSize(11)
-    matcher.setMinDisparity(0)
-    matcher.setNumDisparities(25)
+    window_size = 11
+    min_disparity = 0
+    num_disparities = 25
+    matcher = phase.stereomatcher.StereoI3DRSGM()
+    matcher.setWindowSize(window_size)
+    matcher.setMinDisparity(min_disparity)
+    matcher.setNumDisparities(num_disparities)
 
-    assert matcher.getWindowSize() == 11
-    assert matcher.getMinDisparity() == 0
-    assert matcher.getNumDisparities() == 25
+    assert matcher.getWindowSize() == window_size
+    assert matcher.getMinDisparity() == min_disparity
+    assert matcher.getNumDisparities() == num_disparities
 
 
 def test_StereoI3DRSGM_init_params():
@@ -32,15 +33,14 @@ def test_StereoI3DRSGM_init_params():
     window_size = 11
     min_disparity = 0
     num_disparities = 25
-    stereo_params = StereoParams(
-        StereoMatcherType.STEREO_MATCHER_I3DRSGM, window_size, min_disparity, num_disparities, True)
-    stereo_params = StereoParams(
-        StereoMatcherType.STEREO_MATCHER_I3DRSGM, 11, 0, 25, True)
-    matcher = StereoI3DRSGM(stereo_params)
+    stereo_params = phase.stereomatcher.StereoParams(
+        phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_I3DRSGM,
+        window_size, min_disparity, num_disparities, True)
+    matcher = phase.stereomatcher.StereoI3DRSGM(stereo_params)
 
-    assert matcher.getWindowSize() == 11
-    assert matcher.getMinDisparity() == 0
-    assert matcher.getNumDisparities() == 25
+    assert matcher.getWindowSize() == window_size
+    assert matcher.getMinDisparity() == min_disparity
+    assert matcher.getNumDisparities() == num_disparities
 
 
 def test_StereoI3DRSGM_compute():
@@ -54,19 +54,19 @@ def test_StereoI3DRSGM_compute():
     left_image_file = os.path.join(data_folder, "left.png")
     right_image_file = os.path.join(data_folder, "right.png")
 
-    left_image = readImage(left_image_file)
-    right_image = readImage(right_image_file)
+    left_image = phase.readImage(left_image_file)
+    right_image = phase.readImage(right_image_file)
 
     assert left_image.size > 0
     assert right_image.size > 0
     
-    stereo_params = StereoParams(
-        StereoMatcherType.STEREO_MATCHER_I3DRSGM,
+    stereo_params = phase.stereomatcher.StereoParams(
+        phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_I3DRSGM,
         9, 0, 49, True)
-    matcher = createStereoMatcher(stereo_params)
+    matcher = phase.stereomatcher.createStereoMatcher(stereo_params)
     match_result = matcher.compute(left_image, right_image)
 
-    license_valid = StereoI3DRSGM().isLicenseValid()
+    license_valid = phase.stereomatcher.StereoI3DRSGM().isLicenseValid()
     if not license_valid:
         assert not match_result.valid
         assert match_result.disparity[0,0] == 0.0
@@ -89,16 +89,16 @@ def test_StereoI3DRSGM_compute_threaded():
     left_image_file = os.path.join(data_folder, "left.png")
     right_image_file = os.path.join(data_folder, "right.png")
 
-    left_image = readImage(left_image_file)
-    right_image = readImage(right_image_file)
+    left_image = phase.readImage(left_image_file)
+    right_image = phase.readImage(right_image_file)
 
     assert left_image.size > 0
     assert right_image.size > 0
 
-    stereo_params = StereoParams(
-        StereoMatcherType.STEREO_MATCHER_I3DRSGM,
+    stereo_params = phase.stereomatcher.StereoParams(
+        phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_I3DRSGM,
         9, 0, 49, True)
-    matcher = createStereoMatcher(stereo_params)
+    matcher = phase.stereomatcher.createStereoMatcher(stereo_params)
     max_compute_duration = 10
     
     matcher.startComputeThread(left_image, right_image)
@@ -114,7 +114,7 @@ def test_StereoI3DRSGM_compute_threaded():
 
     match_result = matcher.getComputeThreadResult()
 
-    license_valid = StereoI3DRSGM().isLicenseValid()
+    license_valid = phase.stereomatcher.StereoI3DRSGM().isLicenseValid()
     if not license_valid:
         assert not match_result.valid
         assert match_result.disparity[0,0] == 0.0

@@ -14,9 +14,7 @@ import shutil
 from glob import glob
 import numpy as np
 import cv2
-from phase.pyphase.stereocamera import CameraDeviceInfo, createStereoCamera
-from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
-from phase.pyphase import readImage
+import phase.pyphase as phase
 
 
 def test_PylonStereoCamera_setparams():
@@ -26,16 +24,16 @@ def test_PylonStereoCamera_setparams():
     left_image_file = os.path.join(data_folder, "left.png")
     right_image_file = os.path.join(data_folder, "right.png")
 
-    left_image = readImage(left_image_file)
-    right_image = readImage(right_image_file)
+    left_image = phase.readImage(left_image_file)
+    right_image = phase.readImage(right_image_file)
 
-    device_info = CameraDeviceInfo(
+    device_info = phase.stereocamera.CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
-        CameraInterfaceType.INTERFACE_TYPE_USB
+        phase.stereocamera.CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        phase.stereocamera.CameraInterfaceType.INTERFACE_TYPE_USB
     )
 
-    cam = createStereoCamera(device_info)
+    cam = phase.stereocamera.createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
 
     frame_rate = 5
@@ -95,44 +93,44 @@ def test_PylonStereoCamera_setparams():
 
 def test_PylonStereoCamera():
     # Test initalisation of PylonStereoCamera using CameraDeviceInfo
-    device_info = CameraDeviceInfo(
+    device_info = phase.stereocamera.CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
-        CameraInterfaceType.INTERFACE_TYPE_USB
+        phase.stereocamera.CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        phase.stereocamera.CameraInterfaceType.INTERFACE_TYPE_USB
     )
-    createStereoCamera(device_info)
+    phase.stereocamera.createStereoCamera(device_info)
 
 
 def test_PylonStereoCamera_isConnected_onInit():
     # Test if Pylon stereo camera is connected
-    device_info = CameraDeviceInfo(
+    device_info = phase.stereocamera.CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
-        CameraInterfaceType.INTERFACE_TYPE_USB
+        phase.stereocamera.CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        phase.stereocamera.CameraInterfaceType.INTERFACE_TYPE_USB
     )
-    cam = createStereoCamera(device_info)
+    cam = phase.stereocamera.createStereoCamera(device_info)
     assert not cam.isConnected()
 
 
 def test_PylonStereoCamera_connect_onInit():
     # Test to connect Pylon stereo camera
-    device_info = CameraDeviceInfo(
+    device_info = phase.stereocamera.CameraDeviceInfo(
         "abc123left", "abc123right", "abc123unique",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
-        CameraInterfaceType.INTERFACE_TYPE_USB
+        phase.stereocamera.CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        phase.stereocamera.CameraInterfaceType.INTERFACE_TYPE_USB
     )
-    cam = createStereoCamera(device_info)
+    cam = phase.stereocamera.createStereoCamera(device_info)
     assert not cam.connect()
 
 
 def test_PylonStereoCamera_connect_virtual_onInit():
     # Test to connect virtual Pylon stereo camera
-    device_info = CameraDeviceInfo(
+    device_info = phase.stereocamera.CameraDeviceInfo(
         "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
-        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+        phase.stereocamera.CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        phase.stereocamera.CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = createStereoCamera(device_info)
+    cam = phase.stereocamera.createStereoCamera(device_info)
     connected = cam.connect()
     if connected:
         cam.disconnect()
@@ -141,12 +139,12 @@ def test_PylonStereoCamera_connect_virtual_onInit():
 
 def test_PylonStereoCamera_connect_virtual_size():
     # Test to get the height and width of virtual Pylon stereo camera
-    device_info = CameraDeviceInfo(
+    device_info = phase.stereocamera.CameraDeviceInfo(
         "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
-        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+        phase.stereocamera.CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        phase.stereocamera.CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = createStereoCamera(device_info)
+    cam = phase.stereocamera.createStereoCamera(device_info)
     connected = cam.connect()
     if connected:
         # assumes that default virtual camera image size
@@ -174,12 +172,12 @@ def test_PylonStereoCamera_virtual_data_capture():
     cv2.imwrite(left_image_file, left_image)
     cv2.imwrite(right_image_file, right_image)
 
-    device_info = CameraDeviceInfo(
+    device_info = phase.stereocamera.CameraDeviceInfo(
         "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
-        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+        phase.stereocamera.CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        phase.stereocamera.CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = createStereoCamera(device_info)
+    cam = phase.stereocamera.createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
@@ -214,12 +212,12 @@ def test_PylonStereoCamera_virtual_capture_count():
     cv2.imwrite(left_image_file, left_image)
     cv2.imwrite(right_image_file, right_image)
 
-    device_info = CameraDeviceInfo(
+    device_info = phase.stereocamera.CameraDeviceInfo(
         "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
-        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+        phase.stereocamera.CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        phase.stereocamera.CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
-    cam = createStereoCamera(device_info)
+    cam = phase.stereocamera.createStereoCamera(device_info)
     frames = 3
     cam.setTestImagePaths(left_image_file, right_image_file)
     connected = cam.connect()
@@ -255,13 +253,13 @@ def test_PylonStereoCamera_virtual_continous_read():
     cv2.imwrite(left_image_file, left_image)
     cv2.imwrite(right_image_file, right_image)
 
-    device_info = CameraDeviceInfo(
+    device_info = phase.stereocamera.CameraDeviceInfo(
         "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
-        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+        phase.stereocamera.CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        phase.stereocamera.CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     frames = 3
-    cam = createStereoCamera(device_info)
+    cam = phase.stereocamera.createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)
@@ -325,13 +323,13 @@ def test_PylonStereoCamera_virtual_read_callback():
     cv2.imwrite(left_image_file, left_image)
     cv2.imwrite(right_image_file, right_image)
 
-    device_info = CameraDeviceInfo(
+    device_info = phase.stereocamera.CameraDeviceInfo(
         "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
-        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+        phase.stereocamera.CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        phase.stereocamera.CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
     frames = 3
-    cam = createStereoCamera(device_info)
+    cam = phase.stereocamera.createStereoCamera(device_info)
     cam.setTestImagePaths(left_image_file, right_image_file)
     cam.enableDataCapture(True)
     cam.setDataCapturePath(test_folder)

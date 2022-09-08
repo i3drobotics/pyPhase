@@ -11,7 +11,7 @@
 import time
 import os
 import numpy as np
-from phase.pyphase.calib import StereoCameraCalibration, CalibrationBoardType
+import phase.pyphase as phase
 
 
 def test_perf_Calibration_from_images():
@@ -28,11 +28,11 @@ def test_perf_Calibration_from_images():
 
     left_img_wildcard = "*_l.png"
     right_img_wildcard = "*_r.png"
-    image_type = CalibrationBoardType.CHECKERBOARD
+    image_type = phase.calib.CalibrationBoardType.CHECKERBOARD
 
     start = time.time()
     # Load calibration from images
-    cal = StereoCameraCalibration.calibrationFromImages(
+    cal = phase.calib.StereoCameraCalibration.calibrationFromImages(
         left_cal_folder, right_cal_folder,
         left_img_wildcard, right_img_wildcard,
         image_type, 10, 6, 0.039)
@@ -50,7 +50,8 @@ def test_perf_Rectify():
     left_img = np.ones((2048, 2448, 3), dtype=np.uint8)
     right_img = np.ones((2048, 2448, 3), dtype=np.uint8)
 
-    cal = StereoCameraCalibration.calibrationFromIdeal(2448, 2048, 0.00000345, 0.012, 0.1)
+    cal = phase.calib.StereoCameraCalibration.calibrationFromIdeal(
+        2448, 2048, 0.00000345, 0.012, 0.1)
     if cal.isValid():
 
         start = time.time()

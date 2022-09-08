@@ -11,14 +11,7 @@
 import time
 import os
 import numpy as np
-from phase.pyphase import toMono, cvMatIsEqual, scaleImage
-from phase.pyphase import bgra2rgba, bgr2bgra, bgr2rgba
-from phase.pyphase import disparity2depth, disparity2xyz, depth2xyz
-from phase.pyphase import xyz2depth, savePLY
-from phase.pyphase import readImage, flip
-from phase.pyphase.calib import StereoCameraCalibration
-from phase.pyphase.stereomatcher import StereoParams, StereoMatcherType
-from phase.pyphase.stereomatcher import createStereoMatcher
+import phase.pyphase as phase
 
 
 def test_utils_perf_scaleImage_small():
@@ -28,7 +21,7 @@ def test_utils_perf_scaleImage_small():
     img = np.ones((480, 640, 3), dtype=np.uint8)
     start = time.time()
 
-    scaled_img = scaleImage(img, 2.0)
+    scaled_img = phase.scaleImage(img, 2.0)
 
     end = time.time()
     duration = end - start
@@ -43,7 +36,7 @@ def test_utils_perf_scaleImage_large():
 
     start = time.time()
 
-    scaled_img = scaleImage(img2, 2.0)
+    scaled_img = phase.scaleImage(img2, 2.0)
 
     end = time.time()
     duration = end - start
@@ -58,7 +51,7 @@ def test_utils_perf_toMono():
     img8UC3 = np.ones((2048, 2448, 3), dtype=np.uint8)
 
     start = time.time()
-    assert toMono(img8UC3, imgMono)
+    assert phase.toMono(img8UC3, imgMono)
     end = time.time()
     duration = end - start
     assert duration < timeout
@@ -70,7 +63,7 @@ def test_utils_perf_bgra2rgba():
     img = np.zeros((2048, 2448, 4), dtype=np.uint8)
 
     start = time.time()
-    converted_img = bgra2rgba(img)
+    converted_img = phase.bgra2rgba(img)
     end = time.time()
     duration = end - start
     assert duration < timeout
@@ -82,7 +75,7 @@ def test_utils_perf_bgr2rgba():
     img = np.zeros((2048, 2448, 3), dtype=np.uint8)
     
     start = time.time()
-    converted_img = bgr2rgba(img)
+    converted_img = phase.bgr2rgba(img)
     end = time.time()
     duration = end - start
     assert duration < timeout
@@ -94,7 +87,7 @@ def test_utils_perf_bgr2bgra():
     img = np.zeros((2048, 2448, 3), dtype=np.uint8)
 
     start = time.time()
-    converted_img = bgr2bgra(img)
+    converted_img = phase.bgr2bgra(img)
     end = time.time()
     duration = end - start
     assert duration < timeout
@@ -112,26 +105,26 @@ def test_utils_perf_disparity2depth():
     right_image_file = os.path.join(data_folder, "right.png")
 
     # Load test images
-    left_image = readImage(left_image_file)
-    right_image = readImage(right_image_file)
+    left_image = phase.readImage(left_image_file)
+    right_image = phase.readImage(right_image_file)
 
     # Load calibration
-    calibration = StereoCameraCalibration.calibrationFromYAML(
+    calibration = phase.calib.StereoCameraCalibration.calibrationFromYAML(
         left_yaml, right_yaml)
 
     # Rectify images
     rect = calibration.rectify(left_image, right_image)
     # Compute disparity
-    stereo_params = StereoParams(
-        StereoMatcherType.STEREO_MATCHER_BM,
+    stereo_params = phase.stereomatcher.StereoParams(
+        phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_BM,
         11, 0, 25, False
     )
 
-    matcher = createStereoMatcher(stereo_params)
+    matcher = phase.stereomatcher.createStereoMatcher(stereo_params)
     match_result = matcher.compute(rect.left, rect.right)
 
     start = time.time()
-    np_depth = disparity2depth(match_result.disparity, calibration.getQ())
+    np_depth = phase.disparity2depth(match_result.disparity, calibration.getQ())
     end = time.time()
     duration = end - start
     assert duration < timeout
@@ -149,26 +142,26 @@ def test_utils_perf_disparity2xyz():
     right_image_file = os.path.join(data_folder, "right.png")
 
     # Load test images
-    left_image = readImage(left_image_file)
-    right_image = readImage(right_image_file)
+    left_image = phase.readImage(left_image_file)
+    right_image = phase.readImage(right_image_file)
 
     # Load calibration
-    calibration = StereoCameraCalibration.calibrationFromYAML(
+    calibration = phase.calib.StereoCameraCalibration.calibrationFromYAML(
         left_yaml, right_yaml)
 
     # Rectify images
     rect = calibration.rectify(left_image, right_image)
     # Compute disparity
-    stereo_params = StereoParams(
-        StereoMatcherType.STEREO_MATCHER_BM,
+    stereo_params = phase.stereomatcher.StereoParams(
+        phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_BM,
         11, 0, 25, False
     )
 
-    matcher = createStereoMatcher(stereo_params)
+    matcher = phase.stereomatcher.createStereoMatcher(stereo_params)
     match_result = matcher.compute(rect.left, rect.right)
 
     start = time.time()
-    disparity_xyz = disparity2xyz(match_result.disparity, calibration.getQ())
+    disparity_xyz = phase.disparity2xyz(match_result.disparity, calibration.getQ())
     end = time.time()
     duration = end - start
     assert duration < timeout
@@ -186,28 +179,28 @@ def test_utils_perf_depth2xyz():
     right_image_file = os.path.join(data_folder, "right.png")
 
     # Load test images
-    left_image = readImage(left_image_file)
-    right_image = readImage(right_image_file)
+    left_image = phase.readImage(left_image_file)
+    right_image = phase.readImage(right_image_file)
 
     # Load calibration
-    calibration = StereoCameraCalibration.calibrationFromYAML(
+    calibration = phase.calib.StereoCameraCalibration.calibrationFromYAML(
         left_yaml, right_yaml)
 
     # Rectify images
     rect = calibration.rectify(left_image, right_image)
     # Compute disparity
-    stereo_params = StereoParams(
-        StereoMatcherType.STEREO_MATCHER_BM,
+    stereo_params = phase.stereomatcher.StereoParams(
+        phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_BM,
         11, 0, 25, False
     )
 
-    matcher = createStereoMatcher(stereo_params)
+    matcher = phase.stereomatcher.createStereoMatcher(stereo_params)
     match_result = matcher.compute(rect.left, rect.right)
 
-    np_depth = disparity2depth(match_result.disparity, calibration.getQ())
+    np_depth = phase.disparity2depth(match_result.disparity, calibration.getQ())
 
     start = time.time()
-    xyz = depth2xyz(np_depth, calibration.getHFOV())
+    xyz = phase.depth2xyz(np_depth, calibration.getHFOV())
     end = time.time()
     duration = end - start
     assert duration < timeout
@@ -220,7 +213,7 @@ def test_utils_perf_xyz2depth():
     np_xyz = np.ones((2048, 2448, 3), dtype=np.float32)
 
     start = time.time()
-    xyz_depth = xyz2depth(np_xyz)
+    xyz_depth = phase.xyz2depth(np_xyz)
     end = time.time()
     duration = end - start
     assert duration < timeout
@@ -235,7 +228,7 @@ def test_utils_perf_readImage():
 
     left_image_file = os.path.join(data_folder, "left.png")
     start = time.time()
-    img = readImage(left_image_file)
+    img = phase.readImage(left_image_file)
     end = time.time()
     duration = end - start
     assert duration < timeout
@@ -248,11 +241,11 @@ def test_utils_perf_flip():
     data_folder = os.path.join(
         script_path, "..", "data")
     image_file = os.path.join(data_folder, "left.png")
-    img = readImage(image_file)
+    img = phase.readImage(image_file)
 
     # Flip image
     start = time.time()
-    flip_img0 = flip(img, 0)
+    flip_img0 = phase.flip(img, 0)
     end = time.time()
     duration = end - start
     assert duration < timeout
@@ -269,7 +262,7 @@ def test_utils_perf_savePly():
     out_ply = os.path.join(test_folder, "out.ply")
 
     start = time.time()
-    save_success = savePLY(out_ply, xyz1, rgb)
+    save_success = phase.savePLY(out_ply, xyz1, rgb)
     end = time.time()
     duration = end - start
     assert duration < timeout
@@ -286,7 +279,7 @@ def test_utils_perf_checkEqualMat():
 
     start = time.time()
     # Check equal is equal check is correct
-    assert (cvMatIsEqual(mat_a, mat_b))
+    assert (phase.cvMatIsEqual(mat_a, mat_b))
     end = time.time()
     duration = end - start
     assert duration < timeout
