@@ -25,3 +25,5 @@ pip install ./phase-X.X.X-cpXXX-cpXXX-linux_x86_64.whl
 Documentation is available [here](https://i3drobotics.github.io/pyphase/)
 
 ## Changelog
+### Bug fixes
+ - Fix docstrings missing parameter names [#66](https://github.com/i3drobotics/pyphase/pull/66)
