@@ -42,7 +42,7 @@ void init_stereocalibration(py::module_ &m) {
                 Left calibration file
             right_calibration : phase.pyphase.calib.CameraCalibration
                 Right calibration file
-            )")
+            )", py::arg("left_calibration"), py::arg("right_calibration"))
         .def_static("calibrationFromYAML", &I3DR::Phase::StereoCameraCalibration::calibrationFromYAML, R"(
             Load calibration from yaml files
 
@@ -52,7 +52,7 @@ void init_stereocalibration(py::module_ &m) {
                 Left side calibration file path directory
             right_calibration_filepath : str
                 Right side calibration file path directory
-            )")
+            )", py::arg("left_calibration"), py::arg("right_calibration"))
         .def_static("calibrationFromIdeal", &I3DR::Phase::StereoCameraCalibration::calibrationFromIdeal, R"(
             Create ideal stereo calibration from camera information
 
@@ -68,7 +68,7 @@ void init_stereocalibration(py::module_ &m) {
                 Focal length of cameras
             baseline : float
                 Baseline of stereo camera
-            )")
+            )", py::arg("width"), py::arg("height"), py::arg("pixel_pitch"), py::arg("focal_length"), py::arg("baseline"))
         .def_static("calibrationFromImages", &I3DR::Phase::StereoCameraCalibration::calibrationFromImages, R"(
             Create ideal stereo calibration from camera information
 
@@ -82,7 +82,7 @@ void init_stereocalibration(py::module_ &m) {
                 Wildcard to use for identifying left images
             right_img_wildcard : str
                 Wildcard to use for identifying right images
-            board_type : enum
+            board_type : phase.pyphase.calib.CalibrationBoardType
                 Calibration board type used in calibration images
             pattern_size_x : int
                 Number of rows in calibration board pattern
@@ -93,7 +93,9 @@ void init_stereocalibration(py::module_ &m) {
             
             Returns
                 Stereo camera calibration
-            )")
+            )", py::arg("left_cal_folder"), py::arg("right_cal_folder"),
+                py::arg("left_img_wildcard"), py::arg("right_img_wildcard"),
+                py::arg("board_type"), py::arg("pattern_size_x"), py::arg("pattern_size_y"), py::arg("square_size"))
         .def_readwrite("left_calibration", &I3DR::Phase::StereoCameraCalibration::left_calibration, R"(
             Stores left camera calibration
 
@@ -125,7 +127,7 @@ void init_stereocalibration(py::module_ &m) {
             -------
             bool
                 True if calibration file is valid in size
-            )")
+            )", py::arg("width"), py::arg("height"))
         .def("rectify", static_cast<I3DR::Phase::StereoImagePair(I3DR::Phase::StereoCameraCalibration::*)(cv::Mat, cv::Mat)>(&I3DR::Phase::StereoCameraCalibration::rectify), R"(
             Rectify stereo images based on calibration
 
@@ -135,11 +137,12 @@ void init_stereocalibration(py::module_ &m) {
                 Left image to rectify
             right_image : numpy.ndarray
                 Right image to rectify
-            left_rect_image : numpy.ndarray
-                Rectified left stereo image
-            right_rect_image : numpy.ndarray
-                Rectified right stereo image
-            )")
+
+            Returns
+            -------
+            rect_pair : phase.pyphase.types.StereoImagePair
+                Rectified stereo image pair
+            )", py::arg("left_image"), py::arg("right_image"))
         .def("getQ", &I3DR::Phase::StereoCameraCalibration::getQ, R"(
             Get the Q matrix
 
@@ -171,7 +174,7 @@ void init_stereocalibration(py::module_ &m) {
             ----------
             value : float
                 Desired value of downsample factor
-            )")
+            )", py::arg("value"))
         .def("getHFOV", &I3DR::Phase::StereoCameraCalibration::getHFOV, R"(
             Get horitonzal Field Of View of camera from calibration
 
@@ -189,12 +192,12 @@ void init_stereocalibration(py::module_ &m) {
                 Desired path directory to save calibration file
             right_calibration_filepath : str
                 Desired path directory to save calibration file
-            cal_file_type : enum
+            cal_file_type : phase.pyphase.calib.CalibrationFileType
                 Type of calibration file, e.g. ROS_YAML/OPENCV_YAML
             
             Returns
             -------
             bool
                 True if calibration yaml files are saved
-            )");
+            )", py::arg("left_calibration_filepath"), py::arg("right_calibration_filepath"), py::arg("cal_file_type"));
 }

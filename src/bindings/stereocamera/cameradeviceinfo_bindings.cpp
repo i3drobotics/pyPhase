@@ -53,8 +53,8 @@ void init_cameradeviceinfo(py::module_ &m) {
             left_camera_serial : str
             right_camera_serial : str
             unique_serial : str
-            device_type : enum
-            interface_type : enum
+            device_type : phase.pyphase.stereocamera.CameraDeviceType
+            interface_type : phase.pyphase.stereocamera.CameraInterfaceType
 
             )", py::arg("left_camera_serial"), py::arg("right_camera_serial"),
                 py::arg("unique_serial"), py::arg("device_type"), py::arg("interface_type"))
