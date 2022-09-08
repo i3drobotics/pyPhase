@@ -28,7 +28,7 @@ void init_stereobm(py::module_ &m) {
         .def(py::init<I3DR::Phase::StereoParams>(), R"(
             Initalise Stereo matcher and use provided StereoParams to set matching parameters
             
-            )")
+            )", py::arg("stereo_params"))
         .def("compute", &I3DR::Phase::StereoBM::compute, R"(
             Compute stereo matching
             Generates disparity from left and right images
@@ -39,7 +39,7 @@ void init_stereobm(py::module_ &m) {
                 Left image of stereo pair
             right_image : numpy.ndarray
                 Right image of stereo pair
-            )")
+            )", py::arg("left_image"), py::arg("right_image"))
         .def("startComputeThread", &I3DR::Phase::StereoBM::startComputeThread, R"(
             Start compute thread
             Generates disparity from left and right images
@@ -51,7 +51,7 @@ void init_stereobm(py::module_ &m) {
                 Left image of stereo pair
             right_image : numpy.ndarray
                 Right image of stereo pair
-            )")
+            )", py::arg("left_image"), py::arg("right_image"))
         .def("setComputeThreadCallback", &I3DR::Phase::StereoBM::setComputeThreadCallback, R"(
             Set callback function to run when compute thread completes
             Should be used with startComputeThread()
@@ -61,7 +61,7 @@ void init_stereobm(py::module_ &m) {
             Parameters
             ----------
             f : callback
-            )")
+            )", py::arg("callback"))
         .def("isComputeThreadRunning", &I3DR::Phase::StereoBM::isComputeThreadRunning, R"(
             Check if compute thread is running
 
@@ -87,7 +87,7 @@ void init_stereobm(py::module_ &m) {
             ----------
             value : int
                 Desired value of window size value
-            )")
+            )", py::arg("value"))
         .def("getWindowSize", &I3DR::Phase::StereoBM::getWindowSize, R"(
             Get window size value
 
@@ -103,7 +103,7 @@ void init_stereobm(py::module_ &m) {
             ----------
             value : int
                 Desired value of minimum disparity value
-            )")
+            )", py::arg("value"))
         .def("getMinDisparity", &I3DR::Phase::StereoBM::getMinDisparity, R"(
             Get minimum disparity value
 
@@ -119,7 +119,7 @@ void init_stereobm(py::module_ &m) {
             ----------
             value : int
                 Desired value of number of disparities
-            )")
+            )", py::arg("value"))
         .def("getNumDisparities", &I3DR::Phase::StereoBM::getNumDisparities, R"(
             Get number of disparities
 
