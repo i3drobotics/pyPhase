@@ -10,9 +10,7 @@
 """
 import os
 import numpy as np
-from phase.pyphase import readImage
-from phase.pyphase.calib import StereoCameraCalibration, CalibrationBoardType
-from phase.pyphase.calib import CalibrationFileType
+import phase.pyphase as phase
 
 
 def test_Calibration_from_images():
@@ -27,10 +25,10 @@ def test_Calibration_from_images():
 
     left_img_wildcard = "*_l.png"
     right_img_wildcard = "*_r.png"
-    image_type = CalibrationBoardType.CHECKERBOARD
+    image_type = phase.calib.CalibrationBoardType.CHECKERBOARD
 
     # Load calibration from images
-    cal = StereoCameraCalibration.calibrationFromImages(
+    cal = phase.calib.StereoCameraCalibration.calibrationFromImages(
         left_cal_folder, right_cal_folder,
         left_img_wildcard, right_img_wildcard,
         image_type, 10, 6, 0.039)
@@ -98,7 +96,7 @@ def test_lr_access():
     with open(right_ros_yaml, 'w') as f:
         f.writelines(right_ros_yaml_data)
 
-    cal_ros = StereoCameraCalibration.calibrationFromYAML(
+    cal_ros = phase.calib.StereoCameraCalibration.calibrationFromYAML(
         left_ros_yaml, right_ros_yaml)
     assert(cal_ros.isValid())
 
@@ -233,11 +231,11 @@ def test_LoadCalibration():
     with open(right_cv_yaml, "w+") as f:
         f.writelines(right_cv_yaml_data)
 
-    cal_ros = StereoCameraCalibration.calibrationFromYAML(
+    cal_ros = phase.calib.StereoCameraCalibration.calibrationFromYAML(
         left_ros_yaml, right_ros_yaml)
     assert(cal_ros.isValid())
 
-    cal_cv = StereoCameraCalibration.calibrationFromYAML(
+    cal_cv = phase.calib.StereoCameraCalibration.calibrationFromYAML(
         left_cv_yaml, right_cv_yaml)
     assert(cal_cv.isValid())
 
@@ -299,22 +297,22 @@ def test_SaveCalibration():
     with open(right_yaml, "w+") as f:
         f.writelines(right_yaml_data)
 
-    cal = StereoCameraCalibration.calibrationFromYAML(left_yaml, right_yaml)
+    cal = phase.calib.StereoCameraCalibration.calibrationFromYAML(left_yaml, right_yaml)
     assert(cal.isValid())
 
     assert cal.saveToYAML(
         os.path.join(test_folder, "left_ros.yaml"),
         os.path.join(test_folder, "right_ros.yaml"),
-        CalibrationFileType.ROS_YAML) == 1
+        phase.calib.CalibrationFileType.ROS_YAML) == 1
     assert cal.saveToYAML(
         os.path.join(test_folder, "left_cv.yaml"),
         os.path.join(test_folder, "right_cv.yaml"),
-        CalibrationFileType.OPENCV_YAML) == 1
+        phase.calib.CalibrationFileType.OPENCV_YAML) == 1
 
 
 def test_calibrationFromIdeal():
     # Test access to left and right calibration data from StereoCameraCalibration
-    cal = StereoCameraCalibration.calibrationFromIdeal(2448, 2048, 0.00000345, 0.012, 0.1)
+    cal = phase.calib.StereoCameraCalibration.calibrationFromIdeal(2448, 2048, 0.00000345, 0.012, 0.1)
     assert(cal.isValid())
 
     assert cal.getBaseline() > 0
@@ -329,13 +327,13 @@ def test_Rectify():
     
     # Test loading of image data from file
     left_image_file = os.path.join(data_folder, "left.png")
-    left_image = readImage(left_image_file)
+    left_image = phase.readImage(left_image_file)
     right_image_file = os.path.join(data_folder, "right.png")
-    right_image = readImage(right_image_file)
+    right_image = phase.readImage(right_image_file)
     left_image_empty = np.zeros_like(left_image)
     right_image_empty = np.zeros_like(right_image)
 
-    cal = StereoCameraCalibration.calibrationFromYAML(
+    cal = phase.calib.StereoCameraCalibration.calibrationFromYAML(
     left_ros_yaml, right_ros_yaml)
 
     rect = cal.rectify(left_image, right_image)
