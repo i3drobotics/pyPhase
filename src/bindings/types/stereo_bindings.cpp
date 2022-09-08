@@ -9,6 +9,8 @@
  */
 
 #include "pybind11/pybind11.h"
+#include <pybind11/stl.h>
+#include <pybind11/numpy.h>
 #include "ndarray_converter.h"
 
 #include <phase/types/stereo.h>
@@ -20,7 +22,7 @@ void init_stereo(py::module_ &m) {
     py::class_<I3DR::Phase::StereoImagePair>(m, "StereoImagePair", R"(
         Struture to store stereo image pair (left, right)
         )")
-        .def(py::init<cv::Mat,cv::Mat>())
+        .def(py::init<cv::Mat,cv::Mat>(), R"(StereoImagePair constructor)", py::arg("left"), py::arg("right"))
         .def_readwrite("left", &I3DR::Phase::StereoImagePair::left)
         .def_readwrite("right", &I3DR::Phase::StereoImagePair::right);
 

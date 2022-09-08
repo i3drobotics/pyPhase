@@ -9,6 +9,8 @@
  */
 
 #include "pybind11/pybind11.h"
+#include <pybind11/stl.h>
+#include <pybind11/numpy.h>
 #include <pybind11/functional.h>
 #include "ndarray_converter.h"
 
@@ -22,7 +24,8 @@ void init_abstractstereocamera(py::module_ &m) {
     py::class_<I3DR::Phase::CameraReadResult>(m, "CameraReadResult", R"(
         Struture to store the result from reading a camera frame. Used in the stereo camera classes.
         )")
-        .def(py::init<bool,cv::Mat,cv::Mat>())
+        .def(py::init<bool,cv::Mat,cv::Mat>(), R"(CameraReadResult Constructor)",
+            py::arg("valid"), py::arg("left"), py::arg("right"))
         .def_readwrite("valid", &I3DR::Phase::CameraReadResult::valid)
         .def_readwrite("left", &I3DR::Phase::CameraReadResult::left)
         .def_readwrite("right", &I3DR::Phase::CameraReadResult::right);
@@ -68,7 +71,7 @@ void init_abstractstereocamera(py::module_ &m) {
 
             value : int
                 Value of exposure (us)
-            )")
+            )", py::arg("value"))
         .def("enableHardwareTrigger", &I3DR::Phase::AbstractStereoCamera::enableHardwareTrigger, R"(
             Enable camera hardware trigger
 
@@ -77,7 +80,7 @@ void init_abstractstereocamera(py::module_ &m) {
 
             enable : bool
                 Set "True" to enable hardware trigger
-            )")
+            )", py::arg("enable"))
         .def("setFrameRate", &I3DR::Phase::AbstractStereoCamera::setFrameRate, R"(
             Set frame rate of camera
             
@@ -85,7 +88,7 @@ void init_abstractstereocamera(py::module_ &m) {
             ----------
             value : float
                 Value of frame rate
-            )")
+            )", py::arg("value"))
         .def("setLeftAOI", &I3DR::Phase::AbstractStereoCamera::setLeftAOI, R"(
             To set area of interest for left camera
             
@@ -99,7 +102,7 @@ void init_abstractstereocamera(py::module_ &m) {
                 x value of bottom right corner of targeted AOI
             y_max : int
                 y value of bottom right corner of targeted AOI
-            )")
+            )", py::arg("x_min"), py::arg("y_min"), py::arg("x_max"), py::arg("y_max"))
         .def("setRightAOI", &I3DR::Phase::AbstractStereoCamera::setRightAOI, R"(
             To set area of interest for right camera
             
@@ -113,7 +116,7 @@ void init_abstractstereocamera(py::module_ &m) {
                 x value of bottom right corner of targeted AOI
             y_max : int
                 y value of bottom right corner of targeted AOI
-            )")
+            )", py::arg("x_min"), py::arg("y_min"), py::arg("x_max"), py::arg("y_max"))
         .def("read", &I3DR::Phase::AbstractStereoCamera::read, py::arg("timeout") = 1000, R"(
             Read image frame from camera
 
@@ -134,7 +137,7 @@ void init_abstractstereocamera(py::module_ &m) {
             ----------
             left_test_image_path    : str
             right_test_image_path   : str
-            )")
+            )", py::arg("left_test_image_path"), py::arg("right_test_image_path"))
         .def("startReadThread", &I3DR::Phase::AbstractStereoCamera::startReadThread, py::arg("timeout") = 1000, R"(
             Read camera thread
             
@@ -176,7 +179,7 @@ void init_abstractstereocamera(py::module_ &m) {
             ----------
             f : callback
         
-            )")
+            )", py::arg("callback"))
         .def("startContinousReadThread", &I3DR::Phase::AbstractStereoCamera::startContinousReadThread, py::arg("timeout") = 1000, R"(
             Start threaded process to read stereo images from cameras
             Thread will run continously until stopped
@@ -237,14 +240,14 @@ void init_abstractstereocamera(py::module_ &m) {
             ----------
             enable : bool
                 Enable/disable saving images to file
-            )")
+            )", py::arg("enable"))
         .def("setDataCapturePath", &I3DR::Phase::AbstractStereoCamera::setDataCapturePath, R"(
             Set data capture path to save images
             Use with enableDataCapture() to toggle saving images to file
 
             path : str
                 Directory of desired storage of captured data
-            )")
+            )", py::arg("path"))
         .def("getCaptureCount", &I3DR::Phase::AbstractStereoCamera::getCaptureCount, R"(
             Get number of frames captured since
             initalisation of the camera or last count reset
@@ -267,7 +270,7 @@ void init_abstractstereocamera(py::module_ &m) {
             ----------
             enable : bool
                 Set "True" to flip image
-            )")
+            )", py::arg("enable"))
         .def("setLeftFlipY", &I3DR::Phase::AbstractStereoCamera::setLeftFlipY, R"(
             Flip left image in y axis
 
@@ -275,7 +278,7 @@ void init_abstractstereocamera(py::module_ &m) {
             ----------
             enable : bool
                 Set "True" to flip image
-            )")
+            )", py::arg("enable"))
         .def("setRightFlipX", &I3DR::Phase::AbstractStereoCamera::setRightFlipX, R"(
             Flip right image in x axis
 
@@ -283,7 +286,7 @@ void init_abstractstereocamera(py::module_ &m) {
             ----------
             enable : bool
                 Set "True" to flip image
-            )")
+            )", py::arg("enable"))
         .def("setRightFlipY", &I3DR::Phase::AbstractStereoCamera::setRightFlipY, R"(
             Flip right image in y axis
 
@@ -291,15 +294,15 @@ void init_abstractstereocamera(py::module_ &m) {
             ----------
             enable : bool
                 Set "True" to flip image
-            )")
+            )", py::arg("enable"))
         .def("setDownsampleFactor", &I3DR::Phase::AbstractStereoCamera::setDownsampleFactor, R"(
             Set downsample factor
 
             Parameters
             ----------
-            float : value
+            value : float
                 Downsample factor value
-            )")
+            )", py::arg("value"))
         .def("disconnect", &I3DR::Phase::AbstractStereoCamera::disconnect, R"(
             Disconnect camera
 

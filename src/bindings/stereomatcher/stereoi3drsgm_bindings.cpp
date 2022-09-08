@@ -9,7 +9,8 @@
  */
 
 #include "pybind11/pybind11.h"
-#include "pybind11/functional.h"
+#include <pybind11/stl.h>
+#include <pybind11/numpy.h>
 #include "ndarray_converter.h"
 
 #include <phase/stereomatcher/stereoi3drsgm.h>
@@ -28,7 +29,7 @@ void init_stereoi3drsgm(py::module_ &m) {
         .def(py::init<I3DR::Phase::StereoParams>(), R"(
             Initalise Stereo matcher and use provided StereoParams to set matching parameters
             
-            )")
+            )", py::arg("stereo_params"))
         .def("compute", &I3DR::Phase::StereoI3DRSGM::compute, R"(
             Compute stereo matching
             Generates disparity from left and right images
@@ -39,7 +40,7 @@ void init_stereoi3drsgm(py::module_ &m) {
                 Left image of stereo pair
             right_image : numpy.ndarray
                 Right image of stereo pair
-            )")
+            )", py::arg("left_image"), py::arg("right_image"))
         .def("startComputeThread", &I3DR::Phase::StereoI3DRSGM::startComputeThread, R"(
             Start compute thread
             Generates disparity from left and right images
@@ -51,7 +52,7 @@ void init_stereoi3drsgm(py::module_ &m) {
                 Left image of stereo pair
             right_image : numpy.ndarray
                 Right image of stereo pair
-            )")
+            )", py::arg("left_image"), py::arg("right_image"))
         .def("setComputeThreadCallback", &I3DR::Phase::StereoI3DRSGM::setComputeThreadCallback, R"(
             Set callback function to run when compute thread completes
             Should be used with startComputeThread()
@@ -61,7 +62,7 @@ void init_stereoi3drsgm(py::module_ &m) {
             Parameters
             ----------
             f : callback
-            )")
+            )", py::arg("callback"))
         .def("isComputeThreadRunning", &I3DR::Phase::StereoI3DRSGM::isComputeThreadRunning, R"(
             Check if compute thread is running
 
@@ -87,12 +88,12 @@ void init_stereoi3drsgm(py::module_ &m) {
             ----------
             value : int
                 Desired value of window size value
-            )")
+            )", py::arg("value"))
         .def("getWindowSize", &I3DR::Phase::StereoI3DRSGM::getWindowSize, R"(
             Get window size value
 
             Returns
-            ----------
+            -------
             value : int
                 Value of window size
             )")
@@ -103,12 +104,12 @@ void init_stereoi3drsgm(py::module_ &m) {
             ----------
             value : int
                 Desired value of minimum disparity value
-            )")
+            )", py::arg("value"))
         .def("getMinDisparity", &I3DR::Phase::StereoI3DRSGM::getMinDisparity, R"(
             Get minimum disparity value
 
             Returns
-            ----------
+            -------
             value : int
                 Value of minimum disparity
             )")
@@ -119,30 +120,46 @@ void init_stereoi3drsgm(py::module_ &m) {
             ----------
             value : int
                 Desired value of number of disparities
-            )")
+            )", py::arg("value"))
         .def("getNumDisparities", &I3DR::Phase::StereoI3DRSGM::getNumDisparities, R"(
             Get number of disparities
 
             Returns
-            ----------
+            -------
             value : int
                 Value of number of disparities
             )")
         .def("setSpeckleMaxSize", &I3DR::Phase::StereoI3DRSGM::setSpeckleMaxSize, R"(
-            To enable speckle maximum size
+            Set speckle maximum size
             
             Parameters
             ----------
-            enable : bool
-                Set True to enable speckle maximum size
+            value : int
+                Value of speckle maximum size
+            )", py::arg("value"))
+        .def("getSpeckleMaxSize", &I3DR::Phase::StereoI3DRSGM::getSpeckleMaxSize, R"(
+            Get speckle maximum size
+
+            Returns
+            -------
+            value : int
+                Value of speckle maximum size
             )")
         .def("setSpeckleMaxDiff", &I3DR::Phase::StereoI3DRSGM::setSpeckleMaxDiff, R"(
-            To enable speckle maximum difference
+            Set speckle maximum difference
             
             Parameters
             ----------
-            enable : bool
-                Set True to enable speckle maximum difference
+            value : float
+                Value of speckle maximum difference
+            )", py::arg("value"))
+        .def("getSpeckleMaxDiff", &I3DR::Phase::StereoI3DRSGM::getSpeckleMaxDiff, R"(
+            Get speckle maximum difference
+
+            Returns
+            -------
+            value : int
+                Value of speckle maximum difference
             )")
         .def("enableSubpixel", &I3DR::Phase::StereoI3DRSGM::enableSubpixel, R"(
             To enable subpixel
@@ -151,6 +168,14 @@ void init_stereoi3drsgm(py::module_ &m) {
             ----------
             enable : bool
                 Set True to enable subpixel
+            )", py::arg("enable"))
+        .def("isSubpixelEnabled", &I3DR::Phase::StereoI3DRSGM::isSubpixelEnabled, R"(
+            Get enable/disable status of subpixel refinement
+            
+            Returns
+            -------
+            bool
+                true if enabled
             )")
         .def("enableInterpolation", &I3DR::Phase::StereoI3DRSGM::enableInterpolation, R"(
             To enable interpolation
@@ -159,6 +184,46 @@ void init_stereoi3drsgm(py::module_ &m) {
             ----------
             enable : bool
                 Set True to enable interpolation
+            )", py::arg("enable"))
+        .def("isInterpolationEnabled", &I3DR::Phase::StereoI3DRSGM::isInterpolationEnabled, R"(
+            Get enable/disable status of interpolation
+            
+            Returns
+            -------
+            bool
+                true if enabled
+            )")
+        .def("enableOcclusionDetection", &I3DR::Phase::StereoI3DRSGM::enableOcclusionDetection, R"(
+            To enable occlusion detection
+            
+            Parameters
+            ----------
+            enable : bool
+                Set True to enable occlusion detection
+            )", py::arg("enable"))
+        .def("isOcclusionDetectionEnabled", &I3DR::Phase::StereoI3DRSGM::isOcclusionDetectionEnabled, R"(
+            Get enable/disable status of occlusion detection
+            
+            Returns
+            -------
+            bool
+                true if enabled
+            )")
+        .def("enableOcclusionInterpolation", &I3DR::Phase::StereoI3DRSGM::enableOcclusionInterpolation, R"(
+            To enable occlusion interpolation
+            
+            Parameters
+            ----------
+            enable : bool
+                Set True to enable occlusion interpolation
+            )", py::arg("enable"))
+        .def("isOcclusionInterpolationEnabled", &I3DR::Phase::StereoI3DRSGM::isOcclusionInterpolationEnabled, R"(
+            Get enable/disable status of occlusion interpolation
+            
+            Returns
+            -------
+            bool
+                true if enabled
             )")
         .def_static("isLicenseValid", &I3DR::Phase::StereoI3DRSGM::isLicenseValid, R"(
             Check if the I3DRSGM license is valid
