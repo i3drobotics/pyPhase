@@ -27,3 +27,6 @@ Documentation is available [here](https://i3drobotics.github.io/pyphase/)
 ## Changelog
 ### Bug fixes
  - Fix docstrings missing parameter names [#66](https://github.com/i3drobotics/pyphase/pull/66)
+
+### Known issues
+ - Cannot to add docstring parameters for callback functions [pybind11 #4173](https://github.com/pybind/pybind11/issues/4173)
