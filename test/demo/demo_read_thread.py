@@ -2,70 +2,65 @@
 
 """!
  @authors Ben Knight (bknight@i3drobotics.com)
- @date 2022-05-05
+ @date 2022-09-06
  @copyright Copyright (c) I3D Robotics Ltd, 2021
  @file demo_read_thread.py
- @brief Example application using pyPhase
+ @brief Example application using pyPhase to read camera data in thread
 """
-# Demo program read and display 20 threaded frames of virtual Pylon camera
 import time
 import datetime
 import cv2
-from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
-from phase.pyphase.stereocamera import CameraDeviceInfo, CameraReadResult
-from phase.pyphase.stereocamera import createStereoCamera
-from phase.pyphase import scaleImage
+import phase.pyphase as phase
 
-# Information of the virtual camera
+
+# Define information about the virtual camera
 left_serial = "0815-0000"
 right_serial = "0815-0001"
-device_type = CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON
-interface_type = CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+device_type = phase.stereocamera.CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON
+interface_type = phase.stereocamera.CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
 
-# Parameters for read and display 20 frames
+# Define parameters for read process
 downsample_factor = 1.0
 display_downsample = 0.25
 frames = 20
 timeout = 30
 waitkey_delay = 1
 
-# Create a stereo camera type variable for camera connection
-device_info = CameraDeviceInfo(
+# Create stereo camera device information from parameters
+device_info = phase.stereocamera.CameraDeviceInfo(
     left_serial, right_serial, "virtual-camera",
     device_type,
     interface_type
 )
 
-cam = createStereoCamera(device_info)
+# Create stereo camera
+cam = phase.stereocamera.createStereoCamera(device_info)
 
-# A callback function of camera frames
-def read_callback(read_result: CameraReadResult):
-    # If CameraReadResult has image pair
-    # Display downsampled stereo images and disparity map
+# Callback funtion to run when a frame is read from the camera
+def read_callback(read_result: phase.stereocamera.CameraReadResult):
+    # Display stereo and disparity images
     if read_result.valid:
         print("Stereo result received")
-        disp_image_left = scaleImage(read_result.left, 0.25)
-        disp_image_right = scaleImage(read_result.right, 0.25)
+        disp_image_left = phase.scaleImage(read_result.left, 0.25)
+        disp_image_right = phase.scaleImage(read_result.right, 0.25)
         cv2.imshow("left", disp_image_left)
         cv2.imshow("right", disp_image_right)
         cv2.waitKey(waitkey_delay)
     else:
         print("Failed to read stereo result")
 
-# Set the camera to read frames as threads
+# Set the callback function to call on new frame
 cam.setReadThreadCallback(read_callback)
 
 # Connect camera and start data capture
 print("Connecting to camera...")
 ret = cam.connect()
-# If camera is connected, start data capture
 if (ret):
     cam.startCapture()
     print("Running threaded camera capture...")
     cam.startContinousReadThread()
     start = datetime.datetime.now()
     capture_count = cam.getCaptureCount()
-    # While camera read frames does not read 20, keep reading thread
     while capture_count < frames:
         capture_count = cam.getCaptureCount()
         frame_rate = cam.getFrameRate()
