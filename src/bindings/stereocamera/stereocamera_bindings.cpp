@@ -24,4 +24,13 @@ void init_stereocamera(py::module_ &m) {
             Read device type and return in related camera variable
             
     )");
+
+    m.def("availableDevices", &I3DR::Phase::availableDevices, R"(
+            Get the list of connected cameras
+
+            Returns
+            -------
+            numpy.array
+                List of connected camera in CameraDeviceInfo type
+    )");
 }

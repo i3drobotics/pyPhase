@@ -34,6 +34,14 @@ void init_phobosstereocamera(py::module_ &m) {
             device_info     : CameraDeviceInfo
                 Camera device information to use when initalising camera
             )", py::arg("device_info"))
+        .def("availableDevices", &I3DR::Phase::PhobosStereoCamera::availableDevices, R"(
+            Get the list of connected Phobos cameras
+
+            Returns
+            -------
+            numpy.array
+                List of connected camera in CameraDeviceInfo type
+            )")
         .def("connect", &I3DR::Phase::PhobosStereoCamera::connect, R"(
             Connect to camera
 

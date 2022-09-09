@@ -27,6 +27,7 @@ Documentation is available [here](https://i3drobotics.github.io/pyphase/)
 ## Changelog
 ### Improvements
  - Changed the suggested way to import pyPhase [#63](https://github.com/i3drobotics/pyphase/pull/63)
+ - Added ability to list available cameras using `phase.stereocamera.availableDevices` [#67](https://github.com/i3drobotics/pyphase/pull/67)
 
 ### Bug fixes
  - Fix docstrings missing parameter names [#66](https://github.com/i3drobotics/pyphase/pull/66)

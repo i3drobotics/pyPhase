@@ -30,14 +30,14 @@ pip install ./phase-X.X.X-cpXXX-cpXXX-linux_x86_64.whl
 ## Dependencies
 Phase library is required to be installed for use in the build process.  
 ### Linux
-Download debian package from [v0.2.0 release](https://github.com/i3drobotics/phase/releases/tag/v0.2.0).  
+Download debian package from [v0.2.1-0 release](https://github.com/i3drobotics/phase/releases/tag/v0.2.1-0).  
 Install debian package using apt package manager:
 ```
 sudo apt install -f ./phase_vx.x.x-amd64.deb
 ```
 This should install to `/opt/i3dr/phase`
 ### Windows
-Download Windows installer from the [v0.2.0 release](https://github.com/i3drobotics/phase/releases/tag/v0.2.0).  
+Download Windows installer from the [v0.2.1-0 release](https://github.com/i3drobotics/phase/releases/tag/v0.2.1-0).  
 Install using the installer GUI, this should install to `C:\Program Files\i3DR\Phase`
 
 The following libraries are used to build pyPhase:
@@ -94,13 +94,14 @@ python3 -m pytest ../../test/perf/
 ### Demos
 ```bash
 export PYTHONPATH=./build/lib
+python3 test/demo/demo_calibrate_from_images.py
+python3 test/demo/demo_generate_pointcloud.py
+python3 test/demo/demo_list_cameras.py
 python3 test/demo/demo_read.py
 python3 test/demo/demo_read_thread.py
 python3 test/demo/demo_match.py
 python3 test/demo/demo_match_thread.py
-python3 test/demo/demo_generate_pointcloud.py
 python3 test/demo/demo_titania_read.py
-python3 test/demo/demo_calibrate_from_images.py
 ```
 
 *Note: Make sure to run this from the repository root directory*
