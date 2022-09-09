@@ -9,6 +9,8 @@
  */
 
 #include "pybind11/pybind11.h"
+#include <pybind11/stl.h>
+#include <pybind11/numpy.h>
 #include "ndarray_converter.h"
 
 #include <phase/calib/cameracalibration.h>
@@ -56,7 +58,7 @@ void init_cameracalibration(py::module_ &m) {
             ----------
             calibration_filepath : str
                 Stereo calibration file path location
-            )")
+            )", py::arg("calibration_filepath"))
         .def(py::init<int, int, cv::Mat, cv::Mat, cv::Mat, cv::Mat>(), R"(
             Initalise camera calibration using the values provided.
             
@@ -74,7 +76,9 @@ void init_cameracalibration(py::module_ &m) {
                 Rectification matrix of camera
             projection_matrix : numpy.ndarray
                 Projection matrix of camera
-            )")
+            )", py::arg("width"), py::arg("height"),
+                py::arg("camera_matrix"), py::arg("distortion_coefficients"),
+                py::arg("rectification_matrix"), py::arg("projection_matrix"))
         .def_static("calibrationFromIdeal", &I3DR::Phase::CameraCalibration::calibrationFromIdeal, R"(
             Create ideal calibration from camera information
             
@@ -92,7 +96,9 @@ void init_cameracalibration(py::module_ &m) {
                 Translation of principle point in X
             translation_y : float
                 Translation of principle point in Y
-            )")
+            )", py::arg("width"), py::arg("height"),
+                py::arg("pixel_pitch"), py::arg("focal_length"),
+                py::arg("translation_x"), py::arg("translation_y"))
         .def("rectify", &I3DR::Phase::CameraCalibration::rectify, R"(
             Rectify image based on calibration
 
@@ -102,7 +108,7 @@ void init_cameracalibration(py::module_ &m) {
                 Image to rectify
             right_image : numpy.ndarray
                 Image to store rectified image
-            )")
+            )", py::arg("left_image"), py::arg("right_image"))
         .def("isValid", &I3DR::Phase::CameraCalibration::isValid, R"(
             Check if loaded calibration is valid 
 
@@ -117,7 +123,7 @@ void init_cameracalibration(py::module_ &m) {
             Parameters
             ----------
             value : float
-            )")
+            )", py::arg("value"))
         .def("getDownsampleFactor", &I3DR::Phase::CameraCalibration::getDownsampleFactor, R"(
             Get the downsample factor
 

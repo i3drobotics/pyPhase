@@ -9,6 +9,8 @@
  */
 
 #include "pybind11/pybind11.h"
+#include <pybind11/stl.h>
+#include <pybind11/numpy.h>
 #include "ndarray_converter.h"
 
 #include <phase/stereomatcher/stereomatcher.h>
@@ -21,9 +23,9 @@ void init_stereomatcher(py::module_ &m) {
     m.def("createStereoMatcher", static_cast<I3DR::Phase::AbstractStereoMatcher* (*)(I3DR::Phase::StereoMatcherType)>(&I3DR::Phase::createStereoMatcher), py::return_value_policy::reference, R"(
         Create stereo matching from stereo matcher type
 
-        )");
+        )", py::arg("matcher_type"));
     m.def("createStereoMatcher", static_cast<I3DR::Phase::AbstractStereoMatcher* (*)(I3DR::Phase::StereoParams)>(&I3DR::Phase::createStereoMatcher), py::return_value_policy::reference, R"(
         Create stereo matching from stereo matcher parameters
 
-        )");
+        )", py::arg("stereo_params"));
 }

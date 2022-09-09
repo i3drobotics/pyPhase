@@ -9,6 +9,8 @@
  */
 
 #include "pybind11/pybind11.h"
+#include <pybind11/stl.h>
+#include <pybind11/numpy.h>
 #include "ndarray_converter.h"
 
 #include <phase/stereomatcher/abstractstereomatcher.h>
@@ -21,7 +23,8 @@ void init_abstractstereomatcher(py::module_ &m) {
     py::class_<I3DR::Phase::StereoMatcherComputeResult>(m, "StereoMatcherComputeResult", R"(
         Struture to store the result from a stereo match. Used in the stereo matcher classes.
         )")
-        .def(py::init<bool,cv::Mat>())
+        .def(py::init<bool,cv::Mat>(), R"(StereoMatcherComputeResult constructor)",
+            py::arg("valid"), py::arg("disparity"))
         .def_readwrite("valid", &I3DR::Phase::StereoMatcherComputeResult::valid)
         .def_readwrite("disparity", &I3DR::Phase::StereoMatcherComputeResult::disparity);
 
@@ -40,7 +43,7 @@ void init_abstractstereomatcher(py::module_ &m) {
         )")
         .def(py::init<I3DR::Phase::StereoMatcherType,int,int,int,bool>(), R"(
             Stereo parameters contain matcherType, windowSize, minDisparity, numDisparities, interpolation
-        )")
+        )", py::arg("matcherType"), py::arg("windowSize"), py::arg("minDisparity"), py::arg("numDisparities"), py::arg("interpolation"))
         .def_readwrite("matcherType", &I3DR::Phase::StereoParams::matcherType)
         .def_readwrite("windowSize", &I3DR::Phase::StereoParams::windowSize)
         .def_readwrite("minDisparity", &I3DR::Phase::StereoParams::minDisparity)
@@ -65,7 +68,7 @@ void init_abstractstereomatcher(py::module_ &m) {
                 Left image of stereo pair
             right_image : numpy.ndarray
                 Right image of stereo pair
-            )")
+            )", py::arg("left_image"), py::arg("right_image"))
         .def("startComputeThread", &I3DR::Phase::AbstractStereoMatcher::startComputeThread, R"(
             Start compute thread
             Generates disparity from left and right images
@@ -77,7 +80,7 @@ void init_abstractstereomatcher(py::module_ &m) {
                 Left image of stereo pair
             right_image : numpy.ndarray
                 Right image of stereo pair
-            )")
+            )", py::arg("left_image"), py::arg("left_image"))
         .def("isComputeThreadRunning", &I3DR::Phase::AbstractStereoMatcher::isComputeThreadRunning, R"(
             Check if compute thread is running
 
@@ -105,6 +108,6 @@ void init_abstractstereomatcher(py::module_ &m) {
             Parameters
             ----------
             f : callback
-            )");
+            )", py::arg("callback"));
 
 }

@@ -10,21 +10,22 @@
 """
 import os
 import time
-from phase.pyphase.stereomatcher import StereoSGBM, StereoParams
-from phase.pyphase.stereomatcher import createStereoMatcher, StereoMatcherType
-from phase.pyphase import readImage
+import phase.pyphase as phase
 
 
 def test_StereoSGBM_get_set_params():
     # Test matcher parameters can be set and get functions return expected values
-    matcher = StereoSGBM()
-    matcher.setWindowSize(11)
-    matcher.setMinDisparity(0)
-    matcher.setNumDisparities(25)
+    window_size = 11
+    min_disparity = 0
+    num_disparities = 25
+    matcher = phase.stereomatcher.StereoSGBM()
+    matcher.setWindowSize(window_size)
+    matcher.setMinDisparity(min_disparity)
+    matcher.setNumDisparities(num_disparities)
 
-    assert matcher.getWindowSize() == 11
-    assert matcher.getMinDisparity() == 0
-    assert matcher.getNumDisparities() == 25
+    assert matcher.getWindowSize() == window_size
+    assert matcher.getMinDisparity() == min_disparity
+    assert matcher.getNumDisparities() == num_disparities
 
 
 def test_StereoSGBM_init_params():
@@ -32,13 +33,14 @@ def test_StereoSGBM_init_params():
     window_size = 11
     min_disparity = 0
     num_disparities = 25
-    stereo_params = StereoParams(
-        StereoMatcherType.STEREO_MATCHER_SGBM, window_size, min_disparity, num_disparities, True)
-    matcher = StereoSGBM(stereo_params)
+    stereo_params = phase.stereomatcher.StereoParams(
+        phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_SGBM,
+        window_size, min_disparity, num_disparities, True)
+    matcher = phase.stereomatcher.StereoSGBM(stereo_params)
 
-    assert matcher.getWindowSize() == 11
-    assert matcher.getMinDisparity() == 0
-    assert matcher.getNumDisparities() == 25
+    assert matcher.getWindowSize() == window_size
+    assert matcher.getMinDisparity() == min_disparity
+    assert matcher.getNumDisparities() == num_disparities
 
 
 def test_StereoSGBM_compute():
@@ -52,15 +54,16 @@ def test_StereoSGBM_compute():
     left_image_file = os.path.join(data_folder, "left.png")
     right_image_file = os.path.join(data_folder, "right.png")
 
-    left_image = readImage(left_image_file)
-    right_image = readImage(right_image_file)
+    left_image = phase.readImage(left_image_file)
+    right_image = phase.readImage(right_image_file)
 
     assert left_image.size > 0
     assert right_image.size > 0
 
-    stereo_params = StereoParams(StereoMatcherType.STEREO_MATCHER_SGBM,
+    stereo_params = phase.stereomatcher.StereoParams(
+        phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_SGBM,
         11, 0, 25, True)
-    matcher = createStereoMatcher(stereo_params)
+    matcher = phase.stereomatcher.createStereoMatcher(stereo_params)
 
     match_result = matcher.compute(left_image, right_image)
     assert match_result.valid
@@ -87,16 +90,17 @@ def test_StereoSGBM_threaded_compute():
     left_image_file = os.path.join(data_folder, "left.png")
     right_image_file = os.path.join(data_folder, "right.png")
 
-    left_image = readImage(left_image_file)
-    right_image = readImage(right_image_file)
+    left_image = phase.readImage(left_image_file)
+    right_image = phase.readImage(right_image_file)
 
     assert left_image.size > 0
     assert right_image.size > 0
 
-    stereo_params = StereoParams(StereoMatcherType.STEREO_MATCHER_SGBM,
+    stereo_params = phase.stereomatcher.StereoParams(
+        phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_SGBM,
         11, 0, 25, True)
 
-    matcher = createStereoMatcher(stereo_params)
+    matcher = phase.stereomatcher.createStereoMatcher(stereo_params)
     max_compute_duration = 30
     
     matcher.startComputeThread(left_image, right_image)

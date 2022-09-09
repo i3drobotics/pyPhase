@@ -2,202 +2,486 @@
 Examples
 ********
 
-Read stereo images from camera
-###################################
+Read stereo camera data
+#######################
 
 .. code-block:: python
    
     import cv2
-    from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
-    from phase.pyphase.types import CameraDeviceInfo
-    from phase.pyphase.stereocamera import createStereoCamera
-    from phase.pyphase import scaleImage
+    import phase.pyphase as phase
 
 
+    # Define information about the virtual camera
     left_serial = "0815-0000"
     right_serial = "0815-0001"
-    device_type = CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON  # DEVICE_TYPE_TITANIA / DEVICE_TYPE_PHOBOS
-    interface_type = CameraInterfaceType.INTERFACE_TYPE_VIRTUAL  # INTERFACE_TYPE_USB / INTERFACE_TYPE_GIGE
+    device_type = phase.stereocamera.CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON
+    interface_type = phase.stereocamera.CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
 
+    # Define parameters for read process
     downsample_factor = 1.0
     display_downsample = 0.25
     capture_count = 20
 
-    device_info = CameraDeviceInfo(
+    # Create stereo camera device information from parameters
+    device_info = phase.stereocamera.CameraDeviceInfo(
         left_serial, right_serial, "virtual-camera",
         device_type,
         interface_type
     )
 
-    cam = createStereoCamera(device_info)
+    # Create stereo camera
+    cam = phase.stereocamera.createStereoCamera(device_info)
 
+    # Connect camera and start data capture
     print("Connecting to camera...")
     ret = cam.connect()
     if (ret):
         cam.startCapture()
-        print("Running non-threaded camera capture...")
+        print("Running camera capture...")
         for i in range(0, capture_count):
+            # Read frame from camera
             read_result = cam.read()
             if (read_result.valid):
-                print("Stereo result received")
+                print("Stereo frame received")
                 print("Framerate: {}".format(cam.getFrameRate()))
-                if display_downsample != 1.0:
-                    img_left = scaleImage(
-                        read_result.left, display_downsample)
-                    img_right = scaleImage(
-                        read_result.right, display_downsample)
-                else:
-                    img_left = read_result.left
-                    img_right = read_result.right
+
+                # Display stereo images
+                img_left = phase.scaleImage(
+                    read_result.left, display_downsample)
+                img_right = phase.scaleImage(
+                    read_result.right, display_downsample)
                 cv2.imshow("left", img_left)
                 cv2.imshow("right", img_right)
-                cv2.waitKey(1)
+                c = cv2.waitKey(1)
+                # Quit data capture if 'q' is pressed
+                if c == ord('q'):
+                    break
             else:
                 cam.disconnect()
                 raise Exception("Failed to read stereo result")
 
 
-Stereo match images from camera
-######################################
+Compute disparity from stereo camera
+####################################
 
 .. code-block:: python
    
     import os
     import cv2
-    from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
-    from phase.pyphase.types import CameraDeviceInfo, StereoMatcherType
-    from phase.pyphase.stereocamera import createStereoCamera
-    from phase.pyphase.calib import StereoCameraCalibration
-    from phase.pyphase.stereomatcher import StereoParams, createStereoMatcher
-    from phase.pyphase.stereomatcher import StereoI3DRSGM
-    from phase.pyphase import scaleImage, normaliseDisparity, disparity2depth
+    import phase.pyphase as phase
 
 
+    # Define information about the virtual camera
     left_serial = "0815-0000"
     right_serial = "0815-0001"
-    device_type = CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON  # DEVICE_TYPE_TITANIA / DEVICE_TYPE_PHOBOS
-    interface_type = CameraInterfaceType.INTERFACE_TYPE_VIRTUAL  # INTERFACE_TYPE_USB / INTERFACE_TYPE_GIGE
+    device_type = phase.stereocamera.CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON
+    interface_type = phase.stereocamera.CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
 
+    # Define parameters for process
     downsample_factor = 1.0
     display_downsample = 0.25
     capture_count = 20
 
-    device_info = CameraDeviceInfo(
+    # Create stereo camera device information from parameters
+    device_info = phase.stereocamera.CameraDeviceInfo(
         left_serial, right_serial, "virtual-camera",
         device_type,
         interface_type
     )
 
+    # Create stereo camera
+    cam = phase.stereocamera.createStereoCamera(device_info)
+
+    # Define calibration files
     script_path = os.path.dirname(os.path.realpath(__file__))
     data_folder = os.path.join(script_path, "..", "data")
     left_yaml = os.path.join(data_folder, "left.yaml")
     right_yaml = os.path.join(data_folder, "right.yaml")
 
-    license_valid = StereoI3DRSGM().isLicenseValid()
+    # Check for I3DRSGM license
+    license_valid = phase.stereomatcher.StereoI3DRSGM().isLicenseValid()
     if license_valid:
         print("I3DRSGM license accepted")
-    else:
-        print("Missing or invalid I3DRSGM license")
-    # Check for I3DRSGM license
-    if license_valid:
-        stereo_params = StereoParams(
-            StereoMatcherType.STEREO_MATCHER_I3DRSGM,
+        stereo_params = phase.stereomatcher.StereoParams(
+            phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_I3DRSGM,
             9, 0, 49, False
         )
     else:
-        stereo_params = StereoParams(
-            StereoMatcherType.STEREO_MATCHER_BM,
+        print("Missing or invalid I3DRSGM license. Will use StereoBM")
+        stereo_params = phase.stereomatcher.StereoParams(
+            phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_BM,
             11, 0, 25, False
         )
 
-    cam = createStereoCamera(device_info)
-    calibration = StereoCameraCalibration.calibrationFromYAML(
+    # Load calibration
+    calibration = phase.calib.StereoCameraCalibration.calibrationFromYAML(
         left_yaml, right_yaml)
-    matcher = createStereoMatcher(stereo_params)
 
+    # Create stereo matcher
+    matcher = phase.stereomatcher.createStereoMatcher(stereo_params)
+
+    # Connect camera and start data capture
     print("Connecting to camera...")
     ret = cam.connect()
     if (ret):
         cam.startCapture()
-        print("Running non-threaded camera capture...")
+        print("Running camera capture...")
         for i in range(0, capture_count):
             read_result = cam.read()
             if (read_result.valid):
                 print("Stereo result received")
+                # Rectify stereo image pair
                 rect = calibration.rectify(read_result.left, read_result.right)
-                print("Framerate: {}".format(cam.getFrameRate()))
+                # Compute stereo match
                 match_result = matcher.compute(rect.left, rect.right)
-                depth = disparity2depth(match_result.disparity, calibration.getQ())
-                if depth.size == 0:
-                    print("Failed to convert disparity to depth")
-                if display_downsample != 1.0:
-                    img_left = scaleImage(
-                        rect.left, display_downsample)
-                    img_right = scaleImage(
-                        rect.right, display_downsample)
-                    img_disp = scaleImage(
-                        normaliseDisparity(
-                            match_result.disparity), display_downsample)
-                else:
-                    img_left = rect.left
-                    img_right = rect.right
-                    img_disp = normaliseDisparity(match_result.disparity)
+
+                # Check compute is valid
+                if not match_result.valid:
+                    print("Failed to compute match")
+                    continue
+
+                # Display stereo and disparity images
+                img_left = phase.scaleImage(
+                    rect.left, display_downsample)
+                img_right = phase.scaleImage(
+                    rect.right, display_downsample)
+                img_disp = phase.scaleImage(
+                    phase.normaliseDisparity(
+                        match_result.disparity), display_downsample)
                 cv2.imshow("left", img_left)
                 cv2.imshow("right", img_right)
                 cv2.imshow("disparity", img_disp)
-                cv2.waitKey(1)
+                c = cv2.waitKey(1)
+                if c == ord('q'):
+                    break
             else:
                 cam.disconnect()
                 raise Exception("Failed to read stereo result")
 
-Read stereo images from camera with callback
-############################################
+
+Read data from Titania camera and generate 3D
+#############################################
 
 .. code-block:: python
    
+    import cv2
+    import os
+    import phase.pyphase as phase
+
+
+    # Define information about the Titania camera
+    # Each camera has unique camera_name, left_serial, and right_serial
+    camera_name = "746974616e24317"
+    left_serial = "40098272"
+    right_serial = "40098282"
+    device_type = phase.stereocamera.CameraDeviceType.DEVICE_TYPE_TITANIA
+    interface_type = phase.stereocamera.CameraInterfaceType.INTERFACE_TYPE_USB
+
+    script_path = os.path.dirname(os.path.realpath(__file__))
+
+    # Define calibration files
+    test_folder = os.path.join(script_path, "..", ".phase_test")
+    data_folder = os.path.join(script_path, "..", "data")
+    left_yaml = os.path.join(data_folder, "titania_left.yaml")
+    right_yaml = os.path.join(data_folder, "titania_right.yaml")
+    out_ply = os.path.join(test_folder, "titania_out.ply")
+
+    # Define parameters for read process
+    downsample_factor = 1.0
+    display_downsample = 0.25
+    exposure_value = 10000
+
+    # Check for I3DRSGM license
+    license_valid = phase.stereomatcher.StereoI3DRSGM().isLicenseValid()
+    if license_valid:
+        print("I3DRSGM license accepted")
+        stereo_params = phase.stereomatcher.StereoParams(
+            phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_I3DRSGM,
+            9, 0, 49, False
+        )
+    else:
+        print("Missing or invalid I3DRSGM license. Will use StereoBM")
+        stereo_params = phase.stereomatcher.StereoParams(
+            phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_BM,
+            11, 0, 25, False
+        )
+
+    # Load calibration
+    calibration = phase.calib.StereoCameraCalibration.calibrationFromYAML(
+        left_yaml, right_yaml)
+
+    # Create stereo matcher
+    matcher = phase.stereomatcher.createStereoMatcher(stereo_params)
+
+    # Create stereo camera device information from parameters
+    device_info = phase.stereocamera.CameraDeviceInfo(
+        left_serial, right_serial, camera_name,
+        device_type,
+        interface_type)
+    # Create stereo camera
+    tinaniaCam = phase.stereocamera.TitaniaStereoCamera(device_info)
+
+    # Connect camera and start data capture
+    print("Connecting to camera...")
+    ret = tinaniaCam.connect()
+    if (ret):
+        tinaniaCam.startCapture()
+        # Set camera exposure value
+        tinaniaCam.setExposure(exposure_value)
+        print("Running camera capture...")
+        while not tinaniaCam.isConnected():
+            read_result = tinaniaCam.read()
+            if read_result.valid:
+                # Rectify stereo image pair
+                rect_image_pair = calibration.rectify(read_result.left, read_result.right)
+                rect_img_left = rect_image_pair.left
+                rect_img_right = rect_image_pair.right
+
+                match_result = matcher.compute(rect_img_left, rect_img_right)
+
+                # Check compute is valid
+                if not match_result.valid:
+                    print("Failed to compute match")
+                    continue
+
+                # Find the disparity from matcher
+                disparity = match_result.disparity
+
+                # Convert disparity into 3D pointcloud
+                xyz = phase.disparity2xyz(
+                    disparity, calibration.getQ())
+
+                # Display stereo and disparity images
+                img_left = phase.scaleImage(
+                        rect_img_left, display_downsample)
+                img_right = phase.scaleImage(
+                        rect_img_right, display_downsample)
+                img_disp = phase.scaleImage(
+                        phase.normaliseDisparity(
+                            disparity), display_downsample)
+                cv2.imshow("Left", img_left)
+                cv2.imshow("Right", img_right)
+                cv2.imshow("Disparity", img_disp)
+                c = cv2.waitKey(1)
+
+                # Save the pointcloud of current frame if 'p' is pressed
+                if c == ord('p'):
+                    save_success = phase.savePLY(out_ply, xyz, rect_img_left)
+                    if save_success:
+                        print("Pointcloud saved to " + out_ply)
+                    else:
+                        print("Failed to save pointcloud")
+                
+                # Quit data capture if 'q' is pressed
+                if c == ord('q'):
+                    break
+            else:
+                tinaniaCam.disconnect()
+                raise Exception("Failed to read stereo result")
+                
+    cv2.destroyAllWindows()
+
+
+Generate point cloud from stereo camera
+#######################################
+
+.. code-block:: python
+
+    import os
+    import cv2
+    import phase.pyphase as phase
+
+
+    # Define information about the virtual camera
+    left_serial = "0815-0000"
+    right_serial = "0815-0001"
+    device_type = phase.stereocamera.CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON
+    interface_type = phase.stereocamera.CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+
+    # Define parameters for process
+    downsample_factor = 1.0
+    display_downsample = 0.25
+
+    # Create stereo camera device information from parameters
+    device_info = phase.stereocamera.CameraDeviceInfo(
+        left_serial, right_serial, "virtual-camera",
+        device_type,
+        interface_type
+    )
+
+    # Create stereo camera
+    cam = phase.stereocamera.createStereoCamera(device_info)
+
+    # Define calibration files and save pointcloud path
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    test_folder = os.path.join(script_path, "..", ".phase_test")
+    data_folder = os.path.join(script_path, "..", "data")
+    left_yaml = os.path.join(data_folder, "left.yaml")
+    right_yaml = os.path.join(data_folder, "right.yaml")
+    out_ply = os.path.join(test_folder, "out.ply")
+
+    # Define calibration files
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(script_path, "..", "data")
+    left_yaml = os.path.join(data_folder, "left.yaml")
+    right_yaml = os.path.join(data_folder, "right.yaml")
+
+    # Check for I3DRSGM license
+    license_valid = phase.stereomatcher.StereoI3DRSGM().isLicenseValid()
+    if license_valid:
+        print("I3DRSGM license accepted")
+        stereo_params = phase.stereomatcher.StereoParams(
+            phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_I3DRSGM,
+            9, 0, 49, False
+        )
+    else:
+        print("Missing or invalid I3DRSGM license. Will use StereoBM")
+        stereo_params = phase.stereomatcher.StereoParams(
+            phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_BM,
+            11, 0, 25, False
+        )
+
+    # Load calibration
+    calibration = phase.calib.StereoCameraCalibration.calibrationFromYAML(
+        left_yaml, right_yaml)
+
+    # Create stereo matcher
+    matcher = phase.stereomatcher.createStereoMatcher(stereo_params)
+
+    # Connect camera and start data capture
+    print("Connecting to camera...")
+    ret = cam.connect()
+    if (ret):
+        cam.startCapture()
+        print("Running camera capture...")
+        read_result = cam.read()
+        if (read_result.valid):
+            print("Stereo result received")
+            rect = calibration.rectify(read_result.left, read_result.right)
+            match_result = matcher.compute(rect.left, rect.right)
+            # Convert disparity to 3D xyz pointcloud
+            xyz = phase.disparity2xyz(
+                match_result.disparity, calibration.getQ())
+
+            # Display stereo and disparity images
+            img_left = phase.scaleImage(
+                rect.left, display_downsample)
+            img_right = phase.scaleImage(
+                rect.right, display_downsample)
+            img_disp = phase.scaleImage(
+                phase.normaliseDisparity(
+                    match_result.disparity), display_downsample)
+            cv2.imshow("left", img_left)
+            cv2.imshow("right", img_right)
+            cv2.imshow("disparity", img_disp)
+            c = cv2.waitKey(1)
+
+            # Save the pointcloud
+            save_success = phase.savePLY(out_ply, xyz, rect.left)
+            if save_success:
+                print("Pointcloud saved to " + out_ply)
+            
+        else:
+            cam.disconnect()
+            raise Exception("Failed to read stereo result")
+
+
+Generate calibration from images
+################################
+
+.. code-block:: python
+
+    import os
+    import phase.pyphase as phase
+
+
+    # Define data paths
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    test_folder = os.path.join(script_path, "..", ".phase_test")
+    data_folder = os.path.join(
+        script_path, "..", "data", "checker_sample")
+    left_cal_folder = data_folder
+    right_cal_folder = data_folder
+    output_folder = os.path.join(test_folder, "cal")
+
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+
+    # Define calibration files
+    left_yaml = os.path.join(output_folder, "left.yaml")
+    right_yaml = os.path.join(output_folder, "right.yaml")
+    left_img_wildcard = "*_l.png"
+    right_img_wildcard = "*_r.png"
+    image_type = phase.calib.CalibrationBoardType.CHECKERBOARD
+
+    # Load calibration from images
+    cal = phase.calib.StereoCameraCalibration.calibrationFromImages(
+        left_cal_folder, right_cal_folder,
+        left_img_wildcard, right_img_wildcard,
+        image_type, 10, 6, 0.039)
+
+    if not cal.isValid():
+        print("Calibration is invalid")
+
+    # Save calibration to YAML
+    save_success = cal.saveToYAML(
+        left_yaml, right_yaml,
+        phase.calib.CalibrationFileType.ROS_YAML)
+    if not save_success:
+        print("Failed to save calibration to YAML")
+
+
+Read stereo camera data in thread
+#################################
+
+.. code-block:: python
+
     import time
     import datetime
     import cv2
-    from phase.pyphase.types import CameraDeviceType, CameraInterfaceType
-    from phase.pyphase.types import CameraDeviceInfo, CameraReadResult
-    from phase.pyphase.stereocamera import createStereoCamera
-    from phase.pyphase import scaleImage
+    import phase.pyphase as phase
 
 
+    # Define information about the virtual camera
     left_serial = "0815-0000"
     right_serial = "0815-0001"
-    device_type = CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON  # DEVICE_TYPE_TITANIA / DEVICE_TYPE_PHOBOS
-    interface_type = CameraInterfaceType.INTERFACE_TYPE_VIRTUAL  # INTERFACE_TYPE_USB / INTERFACE_TYPE_GIGE
+    device_type = phase.stereocamera.CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON
+    interface_type = phase.stereocamera.CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
 
+    # Define parameters for read process
     downsample_factor = 1.0
     display_downsample = 0.25
     frames = 20
     timeout = 30
     waitkey_delay = 1
 
-    device_info = CameraDeviceInfo(
+    # Create stereo camera device information from parameters
+    device_info = phase.stereocamera.CameraDeviceInfo(
         left_serial, right_serial, "virtual-camera",
         device_type,
         interface_type
     )
 
-    cam = createStereoCamera(device_info)
+    # Create stereo camera
+    cam = phase.stereocamera.createStereoCamera(device_info)
 
-
-    def read_callback(read_result: CameraReadResult):
+    # Callback funtion to run when a frame is read from the camera
+    def read_callback(read_result: phase.stereocamera.CameraReadResult):
+        # Display stereo and disparity images
         if read_result.valid:
             print("Stereo result received")
-            disp_image_left = scaleImage(read_result.left, 0.25)
-            disp_image_right = scaleImage(read_result.right, 0.25)
+            disp_image_left = phase.scaleImage(read_result.left, 0.25)
+            disp_image_right = phase.scaleImage(read_result.right, 0.25)
             cv2.imshow("left", disp_image_left)
             cv2.imshow("right", disp_image_right)
             cv2.waitKey(waitkey_delay)
         else:
             print("Failed to read stereo result")
 
-
+    # Set the callback function to call on new frame
     cam.setReadThreadCallback(read_callback)
 
+    # Connect camera and start data capture
     print("Connecting to camera...")
     ret = cam.connect()
     if (ret):
@@ -213,101 +497,120 @@ Read stereo images from camera with callback
             print("Internal framerate {}".format(frame_rate))
             end = datetime.datetime.now()
             duration = (end - start).total_seconds()
+            # Stop if thread reading is too long
             if duration > timeout:
                 break
             time.sleep(1)
         cam.stopContinousReadThread()
         cam.disconnect()
 
-Save / Load RGBD Video
-######################
+
+Compute disparity from stereo camera in thread
+##############################################
 
 .. code-block:: python
-   
+
     import os
+    import datetime
     import cv2
-    import numpy as np
-    from phase.pyphase.types import MatrixUInt8, StereoMatcherType
-    from phase.pyphase.calib import StereoCameraCalibration
-    from phase.pyphase import processStereo, disparity2depth
-    from phase.pyphase import RGBDVideoWriter, RGBDVideoStream
-    from phase.pyphase.stereomatcher import StereoParams
+    import phase.pyphase as phase
 
-    left_yaml = "left.yaml"
-    right_yaml = "right.yaml"
-    left_image_file = "left.png"
-    right_image_file = "right.png"
-    out_rgb_video = "rgb.mp4"
-    out_depth_video = "depth.avi"
-    num_of_frames = 1
 
-    if not os.path.exists(out_folder):
-        os.makedirs(out_folder)
+    # Define information about the virtual camera
+    left_serial = "0815-0000"
+    right_serial = "0815-0001"
+    device_type = phase.stereocamera.CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON
+    interface_type = phase.stereocamera.CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
 
-    np_left_image = cv2.imread(left_image_file, cv2.IMREAD_UNCHANGED)
-    np_right_image = cv2.imread(right_image_file, cv2.IMREAD_UNCHANGED)
+    # Define parameters for process
+    downsample_factor = 1.0
+    display_downsample = 0.25
+    capture_count = 20
 
-    calibration = StereoCameraCalibration.calibrationFromYAML(
+    # Create stereo camera device information from parameters
+    device_info = phase.stereocamera.CameraDeviceInfo(
+        left_serial, right_serial, "virtual-camera",
+        device_type,
+        interface_type
+    )
+
+    # Create stereo camera
+    cam = phase.stereocamera.createStereoCamera(device_info)
+
+    # Define calibration files
+    script_path = os.path.dirname(os.path.realpath(__file__))
+    data_folder = os.path.join(script_path, "..", "data")
+    left_yaml = os.path.join(data_folder, "left.yaml")
+    right_yaml = os.path.join(data_folder, "right.yaml")
+
+    # Check for I3DRSGM license
+    license_valid = phase.stereomatcher.StereoI3DRSGM().isLicenseValid()
+    if license_valid:
+        print("I3DRSGM license accepted")
+        stereo_params = phase.stereomatcher.StereoParams(
+            phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_I3DRSGM,
+            9, 0, 49, False
+        )
+    else:
+        print("Missing or invalid I3DRSGM license. Will use StereoBM")
+        stereo_params = phase.stereomatcher.StereoParams(
+            phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_BM,
+            11, 0, 25, False
+        )
+
+    # Load calibration
+    calibration = phase.calib.StereoCameraCalibration.calibrationFromYAML(
         left_yaml, right_yaml)
 
-    rect_image_pair = calibration.rectify(np_left_image, np_right_image)
+    # Create stereo matcher
+    matcher = phase.stereomatcher.createStereoMatcher(stereo_params)
 
-    ph_left_image = MatrixUInt8(rect_image_pair.left)
-    ph_right_image = MatrixUInt8(rect_image_pair.right)
+    # Connect camera and start data capture
+    print("Connecting to camera...")
+    ret = cam.connect()
+    if (ret):
+        cam.startCapture()
+        print("Running camera capture...")
+        for i in range(0, capture_count):
+            if (read_result.valid):
+                print("Stereo result received")
+                # Rectify stereo image pair
+                rect = calibration.rectify(read_result.left, read_result.right)
+                print("Running threaded stereo matcher...")
+                # Start compute threaded stereo matcher
+                matcher.startComputeThread(rect.left, rect.right)
+                start = datetime.datetime.now()
+                capture_count = cam.getCaptureCount()
+                frame_rate = cam.getFrameRate()
+                print("Count {}".format(capture_count))
+                print("Internal framerate {}".format(frame_rate))
+                while matcher.isComputeThreadRunning():
+                    # check stereo matching is not taking too long, else stop thread
+                    end = datetime.datetime.now()
+                    duration = (end - start).total_seconds()      
+                    
+                    if duration > timeout:
+                        break
+                    if capture_count > capture_count:
+                        break
+                
+                # Get the result of threaded stereo matcher
+                match_result = matcher.getComputeThreadResult()
 
-    stereo_params = StereoParams(
-        StereoMatcherType.STEREO_MATCHER_BM,
-        11, 0, 25, False
-    )
-    ph_disparity = processStereo(
-        stereo_params,
-        ph_left_image, ph_right_image, calibration, False
-    )
+                # Display stereo and disparity images
+                img_left = phase.scaleImage(
+                    rect.left, display_downsample)
+                img_right = phase.scaleImage(
+                    rect.right, display_downsample)
+                img_disp = phase.scaleImage(
+                    phase.normaliseDisparity(
+                        match_result.disparity), display_downsample)
+                cv2.imshow("left", img_left)
+                cv2.imshow("right", img_right)
+                cv2.imshow("disparity", img_disp)
+                c = cv2.waitKey(1)
+                if c == ord('q'):
+                    break
 
-    if ph_disparity.isEmpty():
-        raise Exception("Failed to process stereo")
-
-    np_disparity = np.array(ph_disparity)
-
-    np_depth = disparity2depth(np_disparity, calibration.getQ())
-
-    if np_depth.size == 0:
-        raise Exception("Failed to convert disparity to depth")
-
-    rgbdVideoWriter = RGBDVideoWriter(
-        out_rgb_video, out_depth_video,
-        ph_left_image.getColumns(), ph_left_image.getRows()
-    )
-
-    if not rgbdVideoWriter.isOpened():
-        raise Exception("Failed to open RGBD video for writing")
-
-    for i in range(0, num_of_frames):
-        rgbdVideoWriter.add(rect_image_pair.left, np_depth)
-
-    rgbdVideoWriter.saveThreaded()
-    while(rgbdVideoWriter.isSaveThreadRunning()):
-        pass
-
-    if not rgbdVideoWriter.getSaveThreadResult():
-        raise Exception("Error saving RGBD video")
-
-    rgbdVideoStream = RGBDVideoStream(
-        out_rgb_video, out_depth_video
-    )
-
-    if not rgbdVideoStream.isOpened():
-        raise Exception("Failed to open RGBD video stream")
-
-    rgbdVideoStream.loadThreaded()
-
-    while(rgbdVideoStream.isLoadThreadRunning()):
-        pass
-
-    if not rgbdVideoStream.getLoadThreadResult():
-        raise Exception("Failed to load RGBD video stream")
-
-    while (not rgbdVideoStream.isFinished()):
-        frame = rgbdVideoStream.read()
-
-    rgbdVideoStream.close()
+        # Once finished, stop to read thread
+        cam.disconnect()

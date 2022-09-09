@@ -13,21 +13,20 @@ import os
 import shutil
 import numpy as np
 import cv2
-from phase.pyphase.stereocamera import CameraDeviceInfo, createStereoCamera
-from phase.pyphase.stereocamera import CameraDeviceType, CameraInterfaceType
+import phase.pyphase as phase
 
 
 def test_PylonStereoCamera_virtual_perf_data_capture():
     # Test reading of frame from virtual camera
     # using ‘read’ function is completed in less than 0.1s
     timeout = 0.1 #second
-    device_info = CameraDeviceInfo(
+    device_info = phase.stereocamera.CameraDeviceInfo(
         "0815-0000", "0815-0001", "virtualpylon",
-        CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
-        CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
+        phase.stereocamera.CameraDeviceType.DEVICE_TYPE_GENERIC_PYLON,
+        phase.stereocamera.CameraInterfaceType.INTERFACE_TYPE_VIRTUAL
     )
 
-    cam = createStereoCamera(device_info)
+    cam = phase.stereocamera.createStereoCamera(device_info)
     connected = cam.connect()
     if connected:
         cam.startCapture()

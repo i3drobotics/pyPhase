@@ -9,6 +9,8 @@
  */
 
 #include "pybind11/pybind11.h"
+#include <pybind11/stl.h>
+#include <pybind11/numpy.h>
 #include <pybind11/functional.h>
 #include "ndarray_converter.h"
 
@@ -31,7 +33,7 @@ void init_pylonstereocamera(py::module_ &m) {
 
             device_info     : CameraDeviceInfo
                 Camera device information to use when initalising camera
-            )")
+            )", py::arg("device_info"))
         .def("availableDevices", &I3DR::Phase::PylonStereoCamera::availableDevices, R"(
             Get the list of connected Pylon cameras
 
@@ -74,7 +76,7 @@ void init_pylonstereocamera(py::module_ &m) {
 
             value : int
                 Value of exposure (us)
-            )")
+            )", py::arg("value"))
         .def("enableHardwareTrigger", &I3DR::Phase::PylonStereoCamera::enableHardwareTrigger, R"(
             Enable camera hardware trigger
 
@@ -83,7 +85,7 @@ void init_pylonstereocamera(py::module_ &m) {
 
             enable : bool
                 Set "True" to enable hardware trigger
-            )")
+            )", py::arg("enable"))
         .def("setFrameRate", &I3DR::Phase::PylonStereoCamera::setFrameRate, R"(
             Set frame rate of camera
             
@@ -91,7 +93,7 @@ void init_pylonstereocamera(py::module_ &m) {
             ----------
             value : float
                 Value of frame rate
-            )")
+            )", py::arg("value"))
         .def("setLeftAOI", &I3DR::Phase::PylonStereoCamera::setLeftAOI, R"(
             To set area of interest for left camera
             
@@ -105,7 +107,7 @@ void init_pylonstereocamera(py::module_ &m) {
                 x value of bottom right corner of targeted AOI
             y_max : int
                 y value of bottom right corner of targeted AOI
-            )")
+            )", py::arg("x_min"), py::arg("y_min"), py::arg("x_max"), py::arg("y_max"))
         .def("setRightAOI", &I3DR::Phase::PylonStereoCamera::setRightAOI, R"(
             To set area of interest for right camera
             
@@ -119,7 +121,7 @@ void init_pylonstereocamera(py::module_ &m) {
                 x value of bottom right corner of targeted AOI
             y_max : int
                 y value of bottom right corner of targeted AOI
-            )")
+            )", py::arg("x_min"), py::arg("y_min"), py::arg("x_max"), py::arg("y_max"))
         .def("read", &I3DR::Phase::PylonStereoCamera::read, py::arg("timeout") = 1000, R"(
             Read image frame from camera
 
@@ -139,7 +141,7 @@ void init_pylonstereocamera(py::module_ &m) {
             ----------
             left_test_image_path    : str
             right_test_image_path   : str
-            )")
+            )", py::arg("left_test_image_path"), py::arg("right_test_image_path"))
         .def("startReadThread", &I3DR::Phase::PylonStereoCamera::startReadThread, py::arg("timeout") = 1000, R"(
             Read camera thread
             
@@ -181,7 +183,7 @@ void init_pylonstereocamera(py::module_ &m) {
             ----------
             f : callback
 
-            )")
+            )", py::arg("callback"))
         .def("startContinousReadThread", &I3DR::Phase::PylonStereoCamera::startContinousReadThread, py::arg("timeout") = 1000, R"(
             Start threaded process to read stereo images from cameras
             Thread will run continously until stopped
@@ -242,13 +244,13 @@ void init_pylonstereocamera(py::module_ &m) {
             ----------
             enable : bool
                 Enable/disable saving images to file
-            )")
+            )", py::arg("enable"))
         .def("setDataCapturePath", &I3DR::Phase::PylonStereoCamera::setDataCapturePath, R"(
             Set path of saved directory for capture data
 
             path : str
                 Directory of desired capture data storage
-            )")
+            )", py::arg("path"))
         .def("getCaptureCount", &I3DR::Phase::PylonStereoCamera::getCaptureCount, R"(
             Get number of frames captured since
             initalisation of the camera or last count reset
@@ -271,7 +273,7 @@ void init_pylonstereocamera(py::module_ &m) {
             ----------
             enable : bool
                 Set "True" to flip image
-            )")
+            )", py::arg("enable"))
         .def("setLeftFlipY", &I3DR::Phase::PylonStereoCamera::setLeftFlipY, R"(
             Flip left image in y axis
 
@@ -279,7 +281,7 @@ void init_pylonstereocamera(py::module_ &m) {
             ----------
             enable : bool
                 Set "True" to flip image
-            )")
+            )", py::arg("enable"))
         .def("setRightFlipX", &I3DR::Phase::PylonStereoCamera::setRightFlipX, R"(
             Flip right image in x axis
 
@@ -287,7 +289,7 @@ void init_pylonstereocamera(py::module_ &m) {
             ----------
             enable : bool
                 Set "True" to flip image
-            )")
+            )", py::arg("enable"))
         .def("setRightFlipY", &I3DR::Phase::PylonStereoCamera::setRightFlipY, R"(
             Flip right image in y axis
 
@@ -295,15 +297,15 @@ void init_pylonstereocamera(py::module_ &m) {
             ----------
             enable : bool
                 Set "True" to flip image
-            )")
+            )", py::arg("enable"))
         .def("setDownsampleFactor", &I3DR::Phase::PylonStereoCamera::setDownsampleFactor, R"(
             Set downsample factor
 
             Parameters
             ----------
-            float : value
+            value : float
                 Downsample factor value
-            )")
+            )", py::arg("value"))
         .def("disconnect", &I3DR::Phase::PylonStereoCamera::disconnect, R"(
             Disconnect camera
     
