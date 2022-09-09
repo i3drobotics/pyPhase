@@ -10,6 +10,8 @@
 import phase.pyphase as phase
 
 device_infos = phase.stereocamera.availableDevices()
+if len(device_infos) <= 0:
+    print("No devices found")
 
 for device_info in device_infos:
     print("*****************************")
