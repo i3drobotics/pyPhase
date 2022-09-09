@@ -1,3 +1,13 @@
+#!/usr/bin/env python3
+
+"""!
+ @authors Ben Knight (bknight@i3drobotics.com)
+ @date 2022-05-05
+ @copyright Copyright (c) I3D Robotics Ltd, 2021
+ @file demo_match_thread.py
+ @brief Example application using pyPhase
+"""
+
 import cv2
 import os
 from phase.pyphase.stereocamera import CameraDeviceInfo, TitaniaStereoCamera
