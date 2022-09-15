@@ -51,7 +51,7 @@ def check_phase_version(phase_version):
 
 
 # Define phase version
-phase_version = "0.2.1"
+phase_version = "0.3.0"
 
 # Check valid phase import
 import_phase()
