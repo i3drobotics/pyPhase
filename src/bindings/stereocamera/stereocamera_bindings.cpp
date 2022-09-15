@@ -9,6 +9,8 @@
  */
 
 #include "pybind11/pybind11.h"
+#include <pybind11/stl.h>
+#include <pybind11/numpy.h>
 #include "ndarray_converter.h"
 
 #include <phase/stereocamera/stereocamera.h>
@@ -21,5 +23,14 @@ void init_stereocamera(py::module_ &m) {
     m.def("createStereoCamera", &I3DR::Phase::createStereoCamera, py::return_value_policy::reference, R"(
             Read device type and return in related camera variable
             
+    )");
+
+    m.def("availableDevices", &I3DR::Phase::availableDevices, R"(
+            Get the list of connected cameras
+
+            Returns
+            -------
+            numpy.array
+                List of connected camera in CameraDeviceInfo type
     )");
 }

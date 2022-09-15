@@ -10,9 +10,7 @@
 """
 import time
 import os
-from phase.pyphase import readImage
-from phase.pyphase.stereomatcher import StereoParams, StereoMatcherType
-from phase.pyphase.stereomatcher import createStereoMatcher
+import phase.pyphase as phase
 
 
 def test_StereoBM_perf_compute():
@@ -25,13 +23,14 @@ def test_StereoBM_perf_compute():
         script_path, "..", "..", "data")
     left_image_file = os.path.join(data_folder, "left.png")
     right_image_file = os.path.join(data_folder, "right.png")
-    stereo_params = StereoParams(StereoMatcherType.STEREO_MATCHER_BM,
+    stereo_params = phase.stereomatcher.StereoParams(
+        phase.stereomatcher.StereoMatcherType.STEREO_MATCHER_BM,
         11, 0, 25, False)
 
-    matcher = createStereoMatcher(stereo_params)
+    matcher = phase.stereomatcher.createStereoMatcher(stereo_params)
 
-    left_image = readImage(left_image_file)
-    right_image = readImage(right_image_file)
+    left_image = phase.readImage(left_image_file)
+    right_image = phase.readImage(right_image_file)
     
     start = time.time()
     match_result = matcher.compute(left_image, right_image)

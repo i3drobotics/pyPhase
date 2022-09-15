@@ -11,11 +11,7 @@
 import os
 import math
 import numpy as np
-from phase.pyphase import scaleImage, toMono, normaliseDisparity
-from phase.pyphase import bgra2rgba, bgr2bgra, bgr2rgba
-from phase.pyphase import readImage, cvMatIsEqual, flip
-from phase.pyphase import disparity2depth, disparity2xyz, depth2xyz
-from phase.pyphase import xyz2depth, savePLY
+import phase.pyphase as phase
 
 
 def test_utils_scaled_image_size():
@@ -23,7 +19,7 @@ def test_utils_scaled_image_size():
     # with a scaling factor of 2 has an output image size of 4896x4096
     img = np.ones((2048, 2448, 3), dtype=np.uint8)
     scaling_factor = 2.0
-    scaled_img = scaleImage(img, scaling_factor)
+    scaled_img = phase.scaleImage(img, scaling_factor)
 
     assert scaled_img.shape[0] == 4096
     assert scaled_img.shape[1] == 4896
@@ -34,7 +30,7 @@ def test_utils_convert_mono_to_mono():
     # has output image type of CV_8UC1
     img8UC1 = np.ones((2048, 2448, 1), dtype=np.uint8)
     imgMono = np.zeros((2048, 2448, 1), dtype=np.uint8)
-    assert toMono(img8UC1, imgMono)
+    assert phase.toMono(img8UC1, imgMono)
     assert imgMono.shape[2] == 1
     assert imgMono.dtype == np.uint8
     
@@ -43,7 +39,7 @@ def test_utils_valid_bgr2rgba():
     # has output image type of CV_8UC1
     img8UC3 = np.ones((2048, 2448, 3), dtype=np.uint8)
     imgMono = np.zeros((2048, 2448, 1), dtype=np.uint8)
-    assert toMono(img8UC3, imgMono)
+    assert phase.toMono(img8UC3, imgMono)
     assert imgMono.shape[2] == 1
     assert imgMono.dtype == np.uint8
 
@@ -52,7 +48,7 @@ def test_utils_convert_bgra_to_mono():
     # has output image type of CV_8UC1
     img8UC4 = np.ones((2048, 2448, 4), dtype=np.uint8)
     imgMono = np.zeros((2048, 2448, 1), dtype=np.uint8)
-    assert toMono(img8UC4, imgMono)
+    assert phase.toMono(img8UC4, imgMono)
     assert imgMono.shape[2] == 1
     assert imgMono.dtype == np.uint8
 
@@ -61,7 +57,7 @@ def test_utils_norm_disparity_output_type():
     # Test disparity image normalised by ‘normaliseDisparity’ function
     # has output image type of CV_8UC3
     img = np.ones((2048, 2448, 3), dtype=np.float32)
-    norm_disp = normaliseDisparity(img)
+    norm_disp = phase.normaliseDisparity(img)
     assert norm_disp.shape[2] == 3
     assert norm_disp.dtype == np.uint8
 
@@ -75,7 +71,7 @@ def test_utils_valid_bgra2rgba():
     img[:,:,2] = 2
     img[:,:,3] = 3
 
-    converted_img = bgra2rgba(img)
+    converted_img = phase.bgra2rgba(img)
 
     # Check if the data is converted to related channel
     assert (converted_img[0,0,0]==img[0,0,2]).all()
@@ -93,7 +89,7 @@ def test_utils_valid_bgr2rgba():
     img[:,:,1] = 1
     img[:,:,2] = 2
 
-    converted_img = bgr2rgba(img)
+    converted_img = phase.bgr2rgba(img)
 
     # Check if the data is converted to related channel
     assert (converted_img[0,0,0]==img[0,0,2]).all()
@@ -112,7 +108,7 @@ def test_utils_valid_bgr2bgra():
     img[:,:,1] = 1
     img[:,:,2] = 2
 
-    converted_img = bgr2bgra(img)
+    converted_img = phase.bgr2bgra(img)
 
     # Check if the data is converted to related channel
     assert (converted_img[0,0,0]==img[0,0,0]).all()
@@ -137,7 +133,7 @@ def test_utils_valid_disparity2depth():
     Q[3,2] = 10.0
     Q[3,3] = 0.0
 
-    depth = disparity2depth(disparity, Q)
+    depth = phase.disparity2depth(disparity, Q)
 
     valid_depth_threshold = 0.001
 
@@ -157,9 +153,9 @@ def test_utils_empty_disparity2depth():
     Q = np.zeros((4, 4), dtype=np.float32)
 
     # Convert an empty disparity/ empty Q matrix to depth
-    depth1 = disparity2depth(disparity, empty)
-    depth2 = disparity2depth(empty, Q)
-    depth3 = disparity2depth(empty, empty)
+    depth1 = phase.disparity2depth(disparity, empty)
+    depth2 = phase.disparity2depth(empty, Q)
+    depth3 = phase.disparity2depth(empty, empty)
     assert depth1 == None
     assert depth2 == None
     assert depth3 == None
@@ -180,7 +176,7 @@ def test_utils_valid_disparity2xyz():
     Q[3,2] = 10.0
     Q[3,3] = 0.0
 
-    xyz = disparity2xyz(disparity, Q)
+    xyz = phase.disparity2xyz(disparity, Q)
 
     valid_xyz_threshold = 0.001
 
@@ -210,9 +206,9 @@ def test_utils_empty_disparity2xyz():
     Q = np.zeros((4, 4), dtype=np.float32)
 
     # Convert an empty disparity/ empty Q matrix to 3D xyz points
-    xyz1 = disparity2xyz(disparity, empty)
-    xyz2 = disparity2xyz(empty, Q)
-    xyz3 = disparity2xyz(empty, empty)
+    xyz1 = phase.disparity2xyz(disparity, empty)
+    xyz2 = phase.disparity2xyz(empty, Q)
+    xyz3 = phase.disparity2xyz(empty, empty)
     assert xyz1 == None
     assert xyz2 == None
     assert xyz3 == None
@@ -228,7 +224,7 @@ def test_utils_valid_depth2xyz():
 
     hfov = 2*math.atan(1224/3478.26099)
 
-    xyz = depth2xyz(depth, hfov)
+    xyz = phase.depth2xyz(depth, hfov)
 
     valid_xyz_threshold = 0.001
 
@@ -255,7 +251,7 @@ def test_utils_empty_depth2xyz():
     empty = np.array([])
 
     # Convert an empty depth to 3D xyz points
-    xyz = depth2xyz(empty, 20)
+    xyz = phase.depth2xyz(empty, 20)
     assert xyz == None
 
 
@@ -270,7 +266,7 @@ def test_utils_valid_xyz2depth():
     valid_depth_threshold = 0.001
     
     # Convert 3D xyz points to depth
-    depth = xyz2depth(xyz)
+    depth = phase.xyz2depth(xyz)
     assert depth[0, 0] == 0
     assert depth[1024, 1224] >= 1.4523 - valid_depth_threshold
     assert depth[1024, 1224] <= 1.4523 + valid_depth_threshold
@@ -283,7 +279,7 @@ def test_utils_empty_xyz2depth():
     # will return an empty depth image
     empty = np.array([])
 
-    depth = xyz2depth(empty)
+    depth = phase.xyz2depth(empty)
     assert depth == None
 
 
@@ -295,7 +291,7 @@ def test_utils_valid_readImage():
         script_path, "..", "data")
 
     left_image_file = os.path.join(data_folder, "left.png")
-    image = readImage(left_image_file)
+    image = phase.readImage(left_image_file)
     
     # Check the img is not empty and load height and width
     assert image is not None
@@ -306,7 +302,7 @@ def test_utils_valid_readImage():
 def test_utils_empty_readImage():
     # Test trying to read image that does not exist
     # using ‘readImage’ function results in empty image
-    image = readImage("invalid/file/path")
+    image = phase.readImage("invalid/file/path")
 
     # Check empty image returns None
     assert image is None
@@ -319,7 +315,7 @@ def test_utils_flip_horizontal():
     img = np.random.random((10,10))
 
     # Check image is flipped
-    flipped_img = flip(img, 0)
+    flipped_img = phase.flip(img, 0)
     orig_top_left = img[0,0]
     flipped_top_right = flipped_img[flipped_img.shape[1]-1,0]
     assert orig_top_left == flipped_top_right
@@ -332,7 +328,7 @@ def test_utils_flip_vertical():
     img = np.random.random((10,10))
 
     # Check image is flipped
-    flipped_img = flip(img, 1)
+    flipped_img = phase.flip(img, 1)
     orig_top_left = img[0,0]
     flipped_bottom_left = flipped_img[0,flipped_img.shape[0]-1]
     assert orig_top_left == flipped_bottom_left
@@ -349,7 +345,7 @@ def test_utils_savePly():
     out_ply = os.path.join(test_folder, "out.ply")
 
     # Save the pointcloud
-    save_success = savePLY(out_ply, xyz, rgb)
+    save_success = phase.savePLY(out_ply, xyz, rgb)
     assert (save_success)
 
 
@@ -360,10 +356,10 @@ def test_utils_checkEqualMat():
     mat_b = np.ones((2048, 2448, 1), dtype=np.float32)
 
     # Check equal is equal check is correct
-    assert (cvMatIsEqual(mat_a, mat_b))
+    assert (phase.cvMatIsEqual(mat_a, mat_b))
 
     # Change one element to make it not equal
     mat_a[0, 0] = 0.0
 
     # Check is not equal check is correct
-    assert (not cvMatIsEqual(mat_a, mat_b))
+    assert (not phase.cvMatIsEqual(mat_a, mat_b))

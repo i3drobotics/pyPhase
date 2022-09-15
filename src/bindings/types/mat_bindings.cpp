@@ -63,11 +63,11 @@ void init_mat(py::module_ &m) {
         cols : int
         channels : int
 
-        )")
+        )", py::arg("rows"), py::arg("cols"), py::arg("channels"))
     .def(py::init<const I3DR::Phase::MatrixFloat&>(), R"(
         Matrix copy contructor
 
-        )")
+        )", py::arg("matrix"))
     .def("getRows", &I3DR::Phase::MatrixFloat::getRows, R"(
         Get number of rows in Matrix
         
@@ -102,7 +102,7 @@ void init_mat(py::module_ &m) {
         layer : int
         value : float
 
-    )")
+    )", py::arg("row"), py::arg("column"), py::arg("layer"), py::arg("value"))
     .def("getAt", &I3DR::Phase::MatrixFloat::getAt, R"(
         Get the value of an element in the Matrix
 
@@ -116,7 +116,7 @@ void init_mat(py::module_ &m) {
         -------
         data : float
             The value of data in float
-        )")
+        )", py::arg("row"), py::arg("column"), py::arg("layer"))
     .def("getLength", &I3DR::Phase::MatrixFloat::getLength, R"(
         Get length of Matrix
         (rows * columns * layers)
@@ -167,11 +167,11 @@ void init_mat(py::module_ &m) {
         rows : int
         cols : int
         channels : int
-        )")
+        )", py::arg("rows"), py::arg("cols"), py::arg("channels"))
     .def(py::init<const I3DR::Phase::MatrixUInt8&>(), R"(
         Matrix copy contructor
 
-        )")
+        )", py::arg("matrix"))
     .def("getRows", &I3DR::Phase::MatrixUInt8::getRows, R"(
         Get number of rows in Matrix
         
@@ -205,7 +205,7 @@ void init_mat(py::module_ &m) {
         column : int
         layer : int
         value : int
-        )")
+        )", py::arg("row"), py::arg("column"), py::arg("layer"), py::arg("value"))
     .def("getAt", &I3DR::Phase::MatrixUInt8::getAt, R"(
         Get the value of an element in the Matrix
 

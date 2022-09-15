@@ -13,7 +13,7 @@ on:
           - prerelease
 
 env:
-  PHASE_VERSION: v0.2.0
+  PHASE_VERSION: v0.2.1-0
   PHASE_REPO: i3drobotics/phase
 
 jobs:
@@ -380,6 +380,7 @@ jobs:
       - name: Upload Windows wheel release assets
         uses: softprops/action-gh-release@v1
         with:
+          draft: true
           tag_name: v${{ env.PROJ_VER }}
           files: |
             deployment/phase*win_amd64.whl
@@ -387,30 +388,35 @@ jobs:
       - name: Upload Linux wheel release assets
         uses: softprops/action-gh-release@v1
         with:
+          draft: true
           tag_name: v${{ env.PROJ_VER }}
           files: |
             deployment/phase-${{ env.PROJ_VER }}-cp36-cp36m-linux_x86_64.whl
       - name: Upload Linux wheel release assets
         uses: softprops/action-gh-release@v1
         with:
+          draft: true
           tag_name: v${{ env.PROJ_VER }}
           files: |
             deployment/phase-${{ env.PROJ_VER }}-cp37-cp37m-linux_x86_64.whl
       - name: Upload Linux wheel release assets
         uses: softprops/action-gh-release@v1
         with:
+          draft: true
           tag_name: v${{ env.PROJ_VER }}
           files: |
             deployment/phase-${{ env.PROJ_VER }}-cp38-cp38-linux_x86_64.whl
       - name: Upload Linux wheel release assets
         uses: softprops/action-gh-release@v1
         with:
+          draft: true
           tag_name: v${{ env.PROJ_VER }}
           files: |
             deployment/phase-${{ env.PROJ_VER }}-cp39-cp39-linux_x86_64.whl
       - name: Upload Linux wheel release assets
         uses: softprops/action-gh-release@v1
         with:
+          draft: true
           tag_name: v${{ env.PROJ_VER }}
           files: |
             deployment/phase-${{ env.PROJ_VER }}-cp310-cp310-linux_x86_64.whl

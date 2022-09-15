@@ -3,7 +3,7 @@
  * @date 2021-05-26
  * @copyright Copyright (c) I3D Robotics Ltd, 2021
  * 
- * @file bindings.cpp
+ * @file pyphase_bindings.cpp
  * @brief Python bindings module
  * @details Python bindings generated using pybind11.
  * Bindings for classes defined in other '_bindings' files
@@ -11,11 +11,14 @@
  */
 
 #include "pybind11/pybind11.h"
+#include <pybind11/stl.h>
+#include <pybind11/numpy.h>
 #include "ndarray_converter.h"
 
 namespace py = pybind11;
 
 // pyphase
+void init_pyphase_version(py::module &);
 void init_version(py::module &);
 void init_utils(py::module &);
 
@@ -52,6 +55,7 @@ PYBIND11_MODULE(pyphase, m) {
     )";
     
     // pyphase
+    init_pyphase_version(m);
     init_version(m);
     init_utils(m);
 

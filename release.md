@@ -26,22 +26,11 @@ Documentation is available [here](https://i3drobotics.github.io/pyphase/)
 
 ## Changelog
 ### Improvements
-- Added documentation for all classes [#31](https://github.com/i3drobotics/pyphase/pull/31)
-- Improved gitpod development speed [#32](https://github.com/i3drobotics/pyphase/pull/32)
-- Improved unit tests [#41](https://github.com/i3drobotics/pyphase/pull/41)
-- Upgrade to Phase v0.2.0 [#42](https://github.com/i3drobotics/pyphase/pull/42)
-    - Improved placement of types in modules
-- Added performance tests [#43](https://github.com/i3drobotics/pyphase/pull/43)
-- Added Titania demo script [#47](https://github.com/i3drobotics/pyphase/pull/47)
+ - Changed the suggested way to import pyPhase [#63](https://github.com/i3drobotics/pyphase/pull/63)
+ - Added ability to list available cameras using `phase.stereocamera.availableDevices` [#67](https://github.com/i3drobotics/pyphase/pull/67)
 
-### Breaking changes
-- Phase v0.2.0 upgrade has breaking changes [#42](https://github.com/i3drobotics/pyphase/pull/42)
-    - Removed StereoProcess and StereoVision
-    - Removed RGBDVideoStreamer and RGBDVideoWriter
-    - Moved CameraDeviceInfo from 'types' to 'stereocamera' folder
-    - Moved all contents in 'types/common.py' to other classes and removed 'types/common.py'
-    - Moved StereoMatcherType and StereoMatcherComputeResult to AbstractStereoMatcher
-    - Moved CameraReadResult to AbstractStereoCamera
-    - Created 'types/stereo.py'
-    - Moved StereoImagePair to 'types/stereo.py'
-    - Renamed phaseversion.py to version.py
+### Bug fixes
+ - Fix docstrings missing parameter names [#66](https://github.com/i3drobotics/pyphase/pull/66)
+
+### Known issues
+ - Cannot to add docstring parameters for callback functions [pybind11 #4173](https://github.com/pybind/pybind11/issues/4173)
