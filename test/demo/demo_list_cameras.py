@@ -18,3 +18,15 @@ for device_info in device_infos:
     print("Camera Name: " + device_info.getUniqueSerial())
     print("Left Serial: " + device_info.getLeftCameraSerial())
     print("Right Serial: " + device_info.getRightCameraSerial())
+
+tinaniaCam = phase.stereocamera.TitaniaStereoCamera(device_infos[0])
+
+device_infos = phase.stereocamera.availableDevices()
+if len(device_infos) <= 0:
+    print("No devices found")
+
+for device_info in device_infos:
+    print("*****************************")
+    print("Camera Name: " + device_info.getUniqueSerial())
+    print("Left Serial: " + device_info.getLeftCameraSerial())
+    print("Right Serial: " + device_info.getRightCameraSerial())
