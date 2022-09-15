@@ -391,35 +391,35 @@ jobs:
           draft: true
           tag_name: v${{ env.PROJ_VER }}
           files: |
-            deployment/phase-${{ env.PROJ_VER }}-cp36-cp36m-linux_x86_64.whl
+            deployment/phase-*-cp36-cp36m-linux_x86_64.whl
       - name: Upload Linux wheel release assets
         uses: softprops/action-gh-release@v1
         with:
           draft: true
           tag_name: v${{ env.PROJ_VER }}
           files: |
-            deployment/phase-${{ env.PROJ_VER }}-cp37-cp37m-linux_x86_64.whl
+            deployment/phase-*-cp37-cp37m-linux_x86_64.whl
       - name: Upload Linux wheel release assets
         uses: softprops/action-gh-release@v1
         with:
           draft: true
           tag_name: v${{ env.PROJ_VER }}
           files: |
-            deployment/phase-${{ env.PROJ_VER }}-cp38-cp38-linux_x86_64.whl
+            deployment/phase-*-cp38-cp38-linux_x86_64.whl
       - name: Upload Linux wheel release assets
         uses: softprops/action-gh-release@v1
         with:
           draft: true
           tag_name: v${{ env.PROJ_VER }}
           files: |
-            deployment/phase-${{ env.PROJ_VER }}-cp39-cp39-linux_x86_64.whl
+            deployment/phase-*-cp39-cp39-linux_x86_64.whl
       - name: Upload Linux wheel release assets
         uses: softprops/action-gh-release@v1
         with:
           draft: true
           tag_name: v${{ env.PROJ_VER }}
           files: |
-            deployment/phase-${{ env.PROJ_VER }}-cp310-cp310-linux_x86_64.whl
+            deployment/phase-*-cp310-cp310-linux_x86_64.whl
 
   cleanup-deployments:
       needs: [deploy]
