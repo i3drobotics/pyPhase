@@ -72,7 +72,7 @@ if (ret):
     # Set camera exposure value
     tinaniaCam.setExposure(exposure_value)
     print("Running camera capture...")
-    while not tinaniaCam.isConnected():
+    while tinaniaCam.isConnected():
         read_result = tinaniaCam.read()
         if read_result.valid:
             # Rectify stereo image pair
